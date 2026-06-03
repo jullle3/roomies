@@ -14,7 +14,6 @@ import {decodeJwt, displayErrorMessage, displaySuccessMessage, loadUser} from ".
 import {setupProfileView} from "../profile/profile.js";
 import {closeNavbarMenu, updateNavbar} from "../header/header.js";
 import {directApiUrl, google_auth_client_id, google_auth_redirect_url} from "../config/config.js";
-import {renderAgents} from "../agent/agent.js";
 import {ensureHousingDataLoaded} from "../housing_create/housing_create.js";
 import {startGlobalConversationUnreadPolling} from "../conversations/conversations.js";
 
@@ -404,10 +403,6 @@ export async function updateAfterLogin(jwt, modalToHideID) {
     try {
         setupProfileView();
     } catch (e) { console.error("Could not setup profile", e); }
-
-    try {
-        await renderAgents(true);
-    } catch (e) { console.error("Could not fetch agents", e); }
 
     if (modalToHideID != null) {
         const modalEl = document.getElementById(modalToHideID);

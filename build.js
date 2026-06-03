@@ -68,8 +68,6 @@ const cssFiles = [
     'housing_map/housing_map.css',
     'conversations/conversations.css',
     'seller_profile/seller_profile.css',
-    'agent/agent.css',
-    'agent_create/agent_create.css',
     'blog/blog.css',
     'landing/landing.css',
     'landing_sell/landing_sell.css',

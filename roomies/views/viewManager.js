@@ -1,4 +1,3 @@
-import {renderAgents} from "../agent/agent.js";
 import {
     displayErrorMessage, getHousingById,
     isLoggedIn,
@@ -13,9 +12,7 @@ import {attachSearchComponentToView, sendSearchData, persistListScrollState, ens
 import {initMap} from "../housing_map/housing_map.js";
 import {updateStripePaymentElements} from "../login/login.js";
 import {basePath} from "../config/config.js";
-import {loadAgentForEdit} from "../agent_edit/agent_edit.js";
 import {loadProfileView} from "../profile/profile.js";
-import {cancelAgentPromo, scheduleAgentPromo} from "../agent/agent_promo.js";
 import {ensureHousingDataLoaded} from "../housing_create/housing_create.js";
 import {renderConversations} from "../conversations/conversations.js";
 import {closeNavbarMenu} from "../header/header.js";
@@ -31,17 +28,12 @@ import {
 const views = {
     landing: document.getElementById('landing'),
     sell_landing: document.getElementById('sell_landing'),
-    // ai_analysis: document.getElementById('ai_analysis'),
-    // ai_result: document.getElementById('ai_result'),
     housing_list: document.getElementById('housing_list'),
     housing_map: document.getElementById('housing_map'),
     // Hack to redirect users to that page when completing login
     login: document.getElementById('housing_list'),  // popup
     detail: document.getElementById('detail'),
     create: document.getElementById('create'),
-    agent: document.getElementById('agent'),
-    agent_create: document.getElementById('agent_create'),
-    agent_edit: document.getElementById('agent_edit'),
     profile: document.getElementById('profile'),
     conversations: document.getElementById('conversations'),
     seller_profile: document.getElementById('seller_profile'),
@@ -63,14 +55,9 @@ const routeToView = {
     '/': 'landing',
     '/liste': 'housing_list',
     '/kort': 'housing_map',
-    // '/ai-analyse': 'ai_analysis',
-    // '/ai-resultat': 'ai_result',
     '/detaljer': 'detail',
     '/saelg-andelsbolig-selv-koncept': 'sell_landing',
     '/saelg-andelsbolig-selv': 'create',
-    '/boligovervaagning': 'agent',
-    '/boligerovervaagning-opret': 'agent_create',
-    '/boligerovervaagning-rediger': 'agent_edit',
     '/profil': 'profile',
     '/beskeder': 'conversations',
     '/saelger': 'seller_profile',
@@ -91,8 +78,7 @@ export function getCurrentView() {
 }
 
 // All views that require login
-// Updated: Removed 'agent', added 'agent_create' and 'agent_edit'
-const loginRequiredViews = ["agent_create", "agent_edit", "login", "seller_profile", "successful_redirect", "login", "conversations"];
+const loginRequiredViews = ["login", "seller_profile", "successful_redirect", "login", "conversations"];
 const payWalledViews = ["seller_profile", "successful_redirect", "login"];
 
 // Store requested view to remember redirects after login popup
@@ -325,14 +311,6 @@ export async function showView(view, viewParams = new URLSearchParams(), updateU
         updateViewStatus(view);
     }
 
-    // Only schedule the promo on "browsing" views (List & Map)
-    if (view === 'housing_list' || view === 'housing_map') {
-        scheduleAgentPromo();
-    } else {
-        // Cancel timer/hide popup if navigating to Detail, Login, Profile etc.
-        cancelAgentPromo();
-    }
-
     // Restore scroll position only for housing_list; all other views start at top
     if (view === 'housing_list') {
         await restoreViewScroll(view);
@@ -441,15 +419,6 @@ async function loadViewData(view, viewParams) {
         //         openInNewTab(redirect_url)
         //     }
         //     break;
-        case "agent":
-            renderAgents()
-            break;
-        case "agent_edit":
-            const id = viewParams.get('id');
-            if (id) {
-                await loadAgentForEdit(id);
-            }
-            break;
         case "housing_list":
             await ensureHousingListRendered();
             break;
@@ -812,14 +781,6 @@ function optimizeSEOMetadata(view) {
             'Andelsboliger til salg i København, Aarhus og hele Danmark',
             'Se alle aktuelle andelsboliger til salg her. Find din nye andelslejlighed i København (inkl. 2100 Østerbro), Amager, Frederiksberg, Aarhus. m.m.',
             `${baseUrl}/liste`
-        );
-    }
-    else if (view === 'agent') {
-        // Fokusord: Køb andelsbolig, andelsbolig til salg
-        updateMetaTags(
-            'Køb andelsbolig | Få besked når andelsboliger sættes til salg',
-            'Gå ikke glip af drømmeboligen. Opret et gratis BoligMatch og få besked så snart, drømmebolien sættes til salg til salg.',
-            `${baseUrl}/boligovervaagning`
         );
     }
     else if (view === 'housing_map') {

@@ -19,9 +19,6 @@ import {
     insertSearchComponents,
     setupHousingListView
 } from "./housing_list/housing_list.js";
-import {SetupAgentView, fetchAllAgents, fetchAllExchangeOnlyAgents} from "./agent/agent.js";
-import {SetupAgentEditView} from "./agent_edit/agent_edit.js";
-import {insertSharedAgentComponents, SetupAgentCreateView} from "./agent_create/agent_create.js";
 import {SetupFooter} from "./footer/footer.js";
 import {setupMapView} from "./housing_map/housing_map.js";
 import {
@@ -111,7 +108,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         await loadLottiePlayerWhenNeeded();
         updateStripeConfig();
         insertSearchComponents();
-        insertSharedAgentComponents();
 
         // 2. Setup Views & Event Listeners
         setupHousingListView();
@@ -121,9 +117,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         SetupFooter();
         setupLoginView();
         setupLogoutView();
-        SetupAgentView();
-        SetupAgentEditView();
-        SetupAgentCreateView();
         setupBootstrapTooltips();
         setupMapView();
         setupConversationsView();
@@ -229,19 +222,8 @@ function removeAppLoader() {
 function startBackgroundJobs() {
     // Initialize global state for housings to null (indicating 'loading')
     window.housings = null;
-    window.all_exchange_only_agents = null;
 
     // Start fetching advertisements in the BACKGROUND (Non-blocking).
     // FIXED: We now assign this to window.housingFetchPromise so getHousingById can await it!
     window.housingFetchPromise = fetchAllAdvertisements().catch(err => console.error("Failed to fetch ads in background", err));
-
-    // 2. Fetch exchange-only agents (Non-blocking, public/global context)
-    // FIXED: Assigned to window.exchangeAgentsFetchPromise
-    window.exchangeAgentsFetchPromise = fetchAllExchangeOnlyAgents().catch(err => console.error("Failed to fetch exchange agents", err));
-
-    // If logged in (has jwt), fetch agents in background
-    if (isLoggedIn()) {
-        // FIXED: Assigned to window.agentsFetchPromise
-        window.agentsFetchPromise = fetchAllAgents().catch(err => console.error("Failed to fetch agents in background", err));
-    }
 }

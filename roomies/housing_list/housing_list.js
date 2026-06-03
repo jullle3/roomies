@@ -5,7 +5,6 @@ import {
     parseFormattedInteger, displaySuccessMessage, currentUser, favoriteHousing, decodeJwt, getShortenedAddress,
     getHousingById
 } from "../utils.js";
-import {fetchAllAgents} from "../agent/agent.js";
 import {getCurrentView, showView} from "../views/viewManager.js";
 import {displayHousingsOnMap} from "../housing_map/housing_map.js";
 import {basePath, s3Url} from "../config/config.js";
@@ -425,26 +424,7 @@ function setListBoligMatchCtaVisible(visible) {
 }
 
 async function updateListBoligMatchCta(housingView = activeHousingView) {
-    const cta = document.getElementById('list-boligmatch-cta');
-    if (!cta) return;
-
-    const user = decodeJwt();
-    if (housingView !== 'list' || !user || isListBoligMatchCtaDismissed()) {
-        setListBoligMatchCtaVisible(false);
-        return;
-    }
-
-    if (!Array.isArray(window.agents)) {
-        await fetchAllAgents();
-    }
-
-    if (housingView !== activeHousingView || housingView !== 'list' || isListBoligMatchCtaDismissed()) {
-        setListBoligMatchCtaVisible(false);
-        return;
-    }
-
-    const shouldShow = Array.isArray(window.agents) && window.agents.length === 0;
-    setListBoligMatchCtaVisible(shouldShow);
+    setListBoligMatchCtaVisible(false);
 }
 
 function setupListBoligMatchCta() {
@@ -463,7 +443,7 @@ function setupListBoligMatchCta() {
 
     createBtn?.addEventListener('click', () => {
         setListBoligMatchCtaVisible(false);
-        showView('agent_create');
+        showView('housing_list');
     });
 }
 
@@ -1871,20 +1851,7 @@ function generateLooseBytteMatchExplanationCard() {
 }
 
 function shouldShowListBoligMatchFomoCard(response, append) {
-    if (append || activeHousingView !== 'list' || byteMatchMode || isListBoligMatchFomoDismissed()) {
-        return false;
-    }
-
-    if (!response?.objects || response.objects.length < LIST_BOLIGMATCH_FOMO_MIN_RESULTS) {
-        return false;
-    }
-
-    const user = decodeJwt();
-    if (!user) {
-        return true;
-    }
-
-    return Array.isArray(window.agents) && window.agents.length === 0;
+    return false;
 }
 
 function isCopenhagenRelevantResultSet(housings = []) {
@@ -1972,7 +1939,7 @@ function setupListBoligMatchFomoCard() {
 
     card.querySelector('.list-boligmatch-fomo-create')?.addEventListener('click', (event) => {
         event.preventDefault();
-        showView('agent_create');
+        showView('housing_list');
     });
 
     card.querySelector('.list-boligmatch-fomo-close')?.addEventListener('click', (event) => {

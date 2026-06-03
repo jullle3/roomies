@@ -40,8 +40,8 @@
     <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
     <link rel="stylesheet" href="icons/my-bootstrap-icons.css">
     <!--    Custom Merged css files -->
-    <link rel="stylesheet" href="roomies/mergedStyles.css?roomies_version=667">
-    <script defer type="module" src="roomies/mergedJS.js?roomies_version=667"></script>
+    <link rel="stylesheet" href="roomies/mergedStyles.css?roomies_version=671">
+    <script defer type="module" src="roomies/mergedJS.js?roomies_version=671"></script>
 
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18047412076"></script>
@@ -199,32 +199,6 @@
 </nav>
 
 
-<div id="global-email-warning" class="d-none w-100 shadow-sm" style="position: fixed; top: 74px; z-index: 1025; background-color: rgba(255, 193, 7, 0.08); border-bottom: 1px solid rgba(255, 193, 7, 0.2); backdrop-filter: blur(8px);">
-    <div class="container py-2 pt-3 d-flex flex-column flex-md-row align-items-center justify-content-between gap-3 text-center text-md-start">
-
-        <div class="d-flex align-items-center gap-3">
-            <div class="d-flex align-items-center justify-content-center bg-white text-warning rounded-circle shadow-sm flex-shrink-0" style="width: 36px; height: 36px;">
-                <i class="fa-solid fa-triangle-exclamation"></i>
-            </div>
-
-            <div class="text-start" style="line-height: 1.2;">
-                <strong style="color: var(--company-dark); font-size: 0.95rem;">Gå ikke glip af interesserede købere</strong>
-                <span class="d-none d-lg-inline text-muted small ms-1 opacity-75"> &ndash; Vi mangler din email, så du kan modtage henvendelser.</span>
-            </div>
-        </div>
-
-        <button type="button" id="btn-add-email-global" class="btn btn-warning text-white btn-sm rounded-pill px-4 fw-bold shadow-sm hover-lift text-nowrap mt-1 mt-md-0">
-            <i class="fa-solid fa-plus me-1"></i> Tilføj email
-        </button>
-
-    </div>
-</div>
-
-
-
-
-
-
 
 
 
@@ -237,9 +211,184 @@
 
 
 
-
-
     <div id="landing" class="view">
+        <!-- HERO SECTION -->
+        <section class="landing-hero position-relative pt-5 pb-6 overflow-hidden">
+            <div class="hero-bg-blob position-absolute rounded-circle" style="width: 700px; height: 700px; top: -150px; right: -150px;"></div>
+            <div class="hero-bg-blob position-absolute rounded-circle" style="width: 500px; height: 500px; bottom: -100px; left: -100px; background: rgba(79, 70, 229, 0.05);"></div>
+
+            <div class="container position-relative z-1 pt-4 pt-lg-5">
+                <div class="row justify-content-center text-center mb-5">
+                    <div class="col-lg-9 col-xl-8">
+                        <div class="d-inline-flex align-items-center gap-2 px-3 py-1 rounded-pill shadow-sm mb-4 bg-white border border-light">
+                            <span class="badge bg-success rounded-pill px-2 py-1">Nyhed</span>
+                            <span class="small fw-bold opacity-75">Danmarks nye community for bofællesskaber</span>
+                        </div>
+
+                        <h1 class="display-4 fw-bolder mb-4 view-title">
+                            Find din næste roomie uden at blive flået ✌️
+                        </h1>
+                        <p class="lead text-muted mx-auto mb-5" style="max-width: 600px;">
+                            Drop de dyre abonnementer. Søg blandt tusindvis af ledige værelser, eller find din nye roomie helt gratis.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- FLOATING ACTION HUB -->
+                <div class="row justify-content-center">
+                    <div class="col-lg-8">
+                        <div class="action-hub-card p-3 p-md-4">
+                            <ul class="nav nav-pills nav-fill mb-4 gap-2" id="heroTab" role="tablist">
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link active" id="search-tab" data-bs-toggle="tab" data-bs-target="#search" type="button" role="tab">
+                                        <i class="fa-solid fa-magnifying-glass me-2"></i>Søg værelse
+                                    </button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="sell-tab" data-bs-toggle="tab" data-bs-target="#sell" type="button" role="tab">
+                                        <i class="fa-solid fa-house-user me-2"></i>Udlej værelse
+                                    </button>
+                                </li>
+                            </ul>
+
+                            <div class="tab-content" id="heroTabContent">
+                                <!-- Seeker Tab -->
+                                <div class="tab-pane fade show active" id="search" role="tabpanel">
+                                    <div class="input-group input-group-lg search-input-group rounded-pill overflow-hidden p-1">
+                                    <span class="input-group-text bg-transparent border-0 ps-3 text-muted">
+                                        <i class="fa-solid fa-location-dot"></i>
+                                    </span>
+                                        <input type="text" class="form-control border-0 px-2" placeholder="Hvor vil du bo? (F.eks. Nørrebro eller Aarhus C)">
+                                        <button class="btn btn-primary-coral rounded-pill px-4 px-md-5 fw-bold" onclick="showView('housing_list')">
+                                            Søg
+                                        </button>
+                                    </div>
+                                </div>
+                                <!-- Provider Tab -->
+                                <div class="tab-pane fade" id="sell" role="tabpanel">
+                                    <div class="d-flex flex-column flex-md-row align-items-center justify-content-between bg-white rounded-pill p-2 border border-light">
+                                        <div class="text-start mb-3 mb-md-0 ps-3 py-2">
+                                            <h6 class="fw-bold mb-1">Mangler du en roomie?</h6>
+                                            <span class="small text-muted">Opret din annonce på 2 minutter. 100% gratis.</span>
+                                        </div>
+                                        <button class="btn btn-dark rounded-pill px-5 py-3 fw-bold shadow-sm w-100 w-md-auto" onclick="showView('create')">
+                                            Opret annonce
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TRUST INDICATORS -->
+                <div class="text-center mt-5 pt-3">
+                    <div class="d-flex justify-content-center align-items-center gap-4 flex-wrap text-muted small fw-semibold">
+                        <span><i class="fa-solid fa-shield-halved text-success me-2"></i>Verificerede brugere</span>
+                        <span><i class="fa-solid fa-check text-success me-2"></i>Ingen skjulte gebyrer</span>
+                        <span><i class="fa-solid fa-lock text-success me-2"></i>Sikker beskedplatform</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FEATURED ROOMS SECTION -->
+        <section class="py-5">
+            <div class="container py-4">
+                <div class="d-flex justify-content-between align-items-end mb-4 pb-2">
+                    <div>
+                        <h2 class="fw-bold mb-2">Nye værelser 🏠</h2>
+                        <p class="text-muted mb-0">Flyt ind i et fantastisk fællesskab.</p>
+                    </div>
+                    <button class="btn btn-outline-dark rounded-pill px-4 fw-bold d-none d-md-block" onclick="showView('housing_list')">
+                        Se alle
+                    </button>
+                </div>
+
+                <div class="row g-4">
+                    <!-- Room Card Example 1 -->
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <div class="card room-card h-100 cursor-pointer" onclick="showView('detail', new URLSearchParams({id: '123'}))">
+                            <div class="room-thumb-wrapper">
+                                <!-- Room Image -->
+                                <img src="/pics/sample_room1.webp" alt="Værelse på Nørrebro" loading="lazy">
+                                <!-- Premium Badge -->
+                                <div class="position-absolute top-0 start-0 m-3 z-3">
+                                <span class="badge bg-white text-dark rounded-pill shadow-sm px-3 py-2 fw-bold" style="font-size: 0.8rem;">
+                                    <i class="fa-solid fa-bolt text-warning me-1"></i> Hurtig indflytning
+                                </span>
+                                </div>
+                                <!-- Human Focus: Avatar -->
+                                <img src="/pics/sample_avatar1.webp" alt="Sofie" class="avatar-overlap">
+                            </div>
+
+                            <div class="card-body p-4 pt-4 mt-2">
+                                <div class="d-flex justify-content-between align-items-start mb-2">
+                                    <div>
+                                        <h3 class="h5 fw-bold mb-1">Stort værelse på Nørrebro</h3>
+                                        <p class="text-muted small mb-0"><i class="fa-solid fa-location-dot me-1"></i> 2200 København N</p>
+                                    </div>
+                                </div>
+
+                                <h4 class="fw-bolder mb-4" style="color: var(--color-primary);">4.500 <span class="fs-6 fw-semibold text-muted">kr./md</span></h4>
+
+                                <div class="d-flex flex-wrap gap-2 mb-3">
+                                    <span class="vibe-tag">🌱 Vegan</span>
+                                    <span class="vibe-tag">🍻 Socialt</span>
+                                    <span class="vibe-tag">🧹 Turnus</span>
+                                </div>
+
+                                <hr class="opacity-10 my-3">
+                                <div class="d-flex justify-content-between align-items-center small text-muted fw-medium">
+                                    <span><i class="fa-regular fa-user me-1"></i> Udlejes af Sofie</span>
+                                    <span>14 m²</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Room Card Example 2 -->
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <div class="card room-card h-100 cursor-pointer" onclick="showView('detail', new URLSearchParams({id: '124'}))">
+                            <div class="room-thumb-wrapper">
+                                <img src="/pics/sample_room2.webp" alt="Kollektiv i Aarhus" loading="lazy">
+                                <img src="/pics/sample_avatar2.webp" alt="Mads" class="avatar-overlap">
+                            </div>
+                            <div class="card-body p-4 pt-4 mt-2">
+                                <div class="d-flex justify-content-between align-items-start mb-2">
+                                    <div>
+                                        <h3 class="h5 fw-bold mb-1">Hyggeligt kollektiv i Midtbyen</h3>
+                                        <p class="text-muted small mb-0"><i class="fa-solid fa-location-dot me-1"></i> 8000 Aarhus C</p>
+                                    </div>
+                                </div>
+                                <h4 class="fw-bolder mb-4" style="color: var(--color-primary);">3.200 <span class="fs-6 fw-semibold text-muted">kr./md</span></h4>
+                                <div class="d-flex flex-wrap gap-2 mb-3">
+                                    <span class="vibe-tag">🎸 Fester</span>
+                                    <span class="vibe-tag">🐱 Dyr tilladt</span>
+                                </div>
+                                <hr class="opacity-10 my-3">
+                                <div class="d-flex justify-content-between align-items-center small text-muted fw-medium">
+                                    <span><i class="fa-regular fa-user me-1"></i> Udlejes af Mads</span>
+                                    <span>20 m²</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Additional cards... -->
+                </div>
+
+                <div class="text-center mt-4 pt-3 d-block d-md-none">
+                    <button class="btn btn-outline-dark rounded-pill px-5 py-2 fw-bold w-100" onclick="showView('housing_list')">
+                        Se alle værelser
+                    </button>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <div id="landing2" class="view">
 
         <section class="landing-hero text-center text-lg-start">
             <div class="container">
@@ -390,150 +539,6 @@
 
 
 
-        <!-- === LIVE SCANNER SECTION === -->
-        <section id="scanner-section" class="py-6 position-relative bg-white overflow-hidden">
-            <!-- Subtle background decoration -->
-            <div class="position-absolute top-50 start-100 translate-middle rounded-circle bg-primary opacity-10 blur-bg" style="width: 600px; height: 600px; filter: blur(80px); pointer-events: none;"></div>
-
-            <div class="container py-5 position-relative z-1">
-                <div class="row align-items-center g-5">
-
-                    <!-- Left Column: The Timeline & Copy -->
-                    <div class="col-lg-6 pe-lg-5">
-                        <div class="d-inline-flex align-items-center gap-2 px-3 py-1 rounded-pill shadow-sm mb-4" style="background-color: #f8faff; border: 1px solid rgba(45, 75, 242, 0.1);">
-                            <span class="live-indicator"></span>
-                            <span class="fw-bold small text-primary text-uppercase tracking-wide" style="letter-spacing: 0.5px;">Live Overvågning</span>
-                        </div>
-
-                        <h2 class="display-6 fw-bold mb-4" style="color: var(--company-dark); line-height: 1.2;">
-                            Vær den første. De bedste boliger forsvinder på få timer.
-                        </h2>
-                        <p class="text-secondary fs-5 mb-5" style="line-height: 1.6;">
-                            Mens andre manuelt opdaterer Facebook-grupper og mæglersider, gør vores live overvågning arbejdet for dig, døgnet rundt. <span class="wavy-underline scanner-copy-highlight">Få et forspring i boligjagten.</span>
-                        </p>
-
-                        <!-- The Reality Timeline -->
-                        <div class="reality-timeline position-relative ps-4 ms-2">
-                            <!-- Vertical Line -->
-                            <div class="position-absolute top-0 bottom-0 start-0 border-start border-2 border-light" style="transform: translateX(-50%);"></div>
-
-                            <div class="timeline-step mb-4 position-relative">
-                                <!-- bg-light er ændret til bg-secondary for tydelig kontrast -->
-                                <div class="timeline-dot position-absolute top-0 start-0 bg-secondary rounded-circle border border-4 border-white shadow-sm" style="width: 18px; height: 18px; transform: translate(-25px, 4px);"></div>
-                                <h5 class="fw-bold mb-1" style="color: var(--company-dark);">0 min: Boligen lægges op</h5>
-                                <p class="text-muted small mb-0">Et nyt opslag dukker op i en lukket Facebook-gruppe eller hos en mægler.</p>
-                            </div>
-
-                            <div class="timeline-step mb-4 position-relative">
-                                <div class="timeline-dot position-absolute top-0 start-0 bg-success rounded-circle border border-4 border-white shadow-sm" style="width: 18px; height: 18px; transform: translate(-25px, 4px); box-shadow: 0 0 0 4px rgba(25, 135, 84, 0.1) !important;"></div>
-                                <h5 class="fw-bold text-success mb-1">1 min: Du får besked</h5>
-                                <p class="text-muted small mb-0">Vores live overvågning fanger opslaget, og du modtager straks en mail med boligen, <strong>uden forsinkelse</strong>.</p>
-                            </div>
-
-                            <div class="timeline-step mb-4 position-relative">
-                                <div class="timeline-dot position-absolute top-0 start-0 bg-warning rounded-circle border border-4 border-white shadow-sm" style="width: 18px; height: 18px; transform: translate(-25px, 4px);"></div>
-                                <h5 class="fw-bold mb-1" style="color: var(--company-dark);">10 min: Første henvendelser</h5>
-                                <p class="text-muted small mb-0">De hurtigste har allerede kontaktet sælger. Indbakken begynder at koge.</p>
-                            </div>
-
-                            <div class="timeline-step position-relative">
-                                <div class="timeline-dot position-absolute top-0 start-0 bg-danger rounded-circle border border-4 border-white shadow-sm" style="width: 18px; height: 18px; transform: translate(-25px, 4px);"></div>
-                                <h5 class="fw-bold text-danger mb-1">1-2 timer: For sent for de fleste</h5>
-                                <p class="text-muted small mb-0">Boligen er reelt væk. Sælger er overvældet og svarer ikke længere.</p>
-                            </div>
-                        </div>
-
-                        <div class="mt-5">
-                            <a href="/boligovervaagning" data-view="agent_create" class="btn btn-primary btn-lg rounded-pill px-5 py-3 fw-bold shadow-sm hover-lift">
-                                Kom igang <i class="fa-solid fa-arrow-right ms-2"></i>
-                            </a>
-                            <div class="small text-muted mt-3 fw-medium">
-                                <i class="fa-solid fa-check text-success me-1"></i> Overvåger 100+ facebook grupper og mæglere
-                            </div>
-                            <div class="small text-muted mt-1 fw-medium">
-                                <i class="fa-solid fa-check text-success me-1"></i> Få besked så snart, boligen rammer markedet.
-                            </div>
-
-                        </div>
-                    </div>
-
-                    <!-- Right Column: Visual Tech Mockups -->
-                    <!-- Right Column: Visual Data Authority -->
-                    <div class="col-lg-6 mt-5 mt-lg-0">
-                        <div class="card border-0 rounded-4 shadow-lg overflow-hidden position-relative mx-auto" style="max-width: 480px; background-color: var(--company-dark); color: white;">
-
-                            <!-- Subtle radar/scanner background effect -->
-                            <div class="position-absolute top-0 start-0 w-100 h-100" style="background: radial-gradient(circle at top right, rgba(45, 75, 242, 0.4) 0%, transparent 70%); pointer-events: none;"></div>
-
-                            <!-- Scanning line animation -->
-                            <div class="scanner-line"></div>
-
-                            <div class="card-body p-4 p-md-5 position-relative z-1 text-center">
-
-                                <div class="d-inline-flex align-items-center justify-content-center bg-white bg-opacity-10 rounded-circle mb-4" style="width: 72px; height: 72px;">
-                                    <i class="fa-solid fa-satellite-dish fs-2" style="color: #4ade80;"></i>
-                                </div>
-
-                                <h3 class="display-4 fw-bold mb-2" style="color: white;">
-                <span id="scraped-count-wrapper" class="d-inline-block" style="min-width: 180px; will-change: content;">
-                    <!-- Placeholder tal - opdateres via JS -->
-                    <span id="scraped-count-number">-</span>
-                </span>
-                                </h3>
-
-                                <p class="text-white opacity-75 fs-5 mb-5" style="line-height: 1.5;">
-                                    Annoncer og opslag scannet på tværs af internettet.
-                                </p>
-
-                                <!-- The Funnel / Value Prop -->
-                                <div class="p-4 rounded-4 text-start" style="background-color: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1);">
-                                    <div class="d-flex align-items-center justify-content-between mb-3 pb-3 border-bottom border-secondary border-opacity-50">
-                                        <div class="d-flex align-items-center gap-3">
-                                            <i class="fa-solid fa-filter-circle-xmark text-danger opacity-75 fs-5"></i>
-                                            <span class="small text-uppercase tracking-wide opacity-75 fw-medium">Irrelevant støj sorteres fra</span>
-                                        </div>
-                                    </div>
-                                    <div class="d-flex align-items-center justify-content-between pt-1">
-                                        <div class="d-flex align-items-center gap-3">
-                                            <i class="fa-solid fa-envelope-circle-check text-success fs-4"></i>
-                                            <span class="small text-uppercase tracking-wide fw-bold text-white">Kun drømmeboligen lander i din indbakke</span>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </section>
-        <!-- === END LIVE SCANNER SECTION === -->
-
-        <section id="scanner-highlighted-section" class="scanner-highlighted-section py-5 bg-white d-none" aria-label="Nye boliger fundet af live overvågningen">
-            <div class="container mb-4">
-                <div class="d-flex flex-column flex-lg-row align-items-lg-end justify-content-between gap-3">
-                    <div>
-                        <div class="d-inline-flex align-items-center gap-2 px-3 py-1 rounded-pill shadow-sm mb-3 scanner-highlighted-eyebrow">
-                            <span class="live-indicator"></span>
-                            <span class="fw-bold small text-primary text-uppercase tracking-wide">Netop fundet</span>
-                        </div>
-                        <h2 class="h2 fw-bold text-dark mb-2">Boliger live overvågningen har fanget</h2>
-                        <p class="text-muted mb-0">Et løbende kig på de boliger, vores overvågning finder på tværs af markedet.</p>
-                    </div>
-                    <a href="/boligovervaagning" data-view="agent_create" class="btn btn-outline-primary rounded-pill px-4">
-                        Kom igang <i class="fa-solid fa-arrow-right ms-2"></i>
-                    </a>
-                </div>
-            </div>
-
-            <div class="scanner-highlighted-marquee-shell">
-                <div class="scanner-highlighted-marquee" aria-live="off">
-                    <div id="scanner-highlighted-track" class="scanner-highlighted-track"></div>
-                </div>
-            </div>
-        </section>
-
         <section id="featured-section" class="py-5 bg-white">
             <div class="container">
 
@@ -651,121 +656,6 @@
         </section>
 
 
-        <section id="pricing-section" class="py-6" style="background-color: #f8faff;">
-            <div class="container py-5">
-                <div class="text-center mb-5">
-                    <h2 class="h2 fw-bold mb-3" style="color: var(--company-dark);">Simpel og gennemsigtig pris</h2>
-                    <p class="text-muted" style="max-width: 600px; margin: 0 auto;">
-                        Ingen skjulte gebyrer og ingen bindingsperiode. Vi har gjort det billigt at finde dit næste hjem.
-                    </p>
-                </div>
-
-                <div class="row g-4 justify-content-center align-items-stretch">
-
-                    <!-- Card 1 -->
-                    <div class="col-12 col-md-6 col-lg-5 d-flex justify-content-center">
-                        <div class="card w-100 mx-auto h-100 border-0 shadow-sm rounded-4 bg-white position-relative hover-lift"
-                             style="max-width: 560px;">
-                            <div class="card-body p-5 d-flex flex-column">
-                                <div class="mb-4 text-center">
-                                    <div class="d-inline-flex align-items-center justify-content-center bg-light rounded-circle mb-3"
-                                         style="width: 60px; height: 60px;">
-                                        <i class="fa-solid fa-house-chimney text-secondary fs-3"></i>
-                                    </div>
-                                    <h3 class="h4 fw-bold text-secondary">Sælger &amp; Bytte</h3>
-                                    <div class="my-3">
-                                        <span class="display-4 fw-bold" style="color: var(--company-dark);">0 kr.</span>
-                                    </div>
-                                    <p class="text-muted">Det er altid 100% gratis at oprette en annonce til salg eller bytte.</p>
-                                </div>
-
-                                <hr class="opacity-10 my-0">
-
-                                <ul class="list-unstyled my-4 flex-grow-1 d-grid gap-3">
-                                    <li class="d-flex align-items-center">
-                                        <i class="fa-solid fa-check text-success me-3"></i>
-                                        <span>Opret din annonce gratis</span>
-                                    </li>
-                                    <li class="d-flex align-items-center">
-                                        <i class="fa-solid fa-check text-success me-3"></i>
-                                        <span>Opret <strong>BoligMatch</strong></span>
-                                    </li>
-                                    <li class="d-flex align-items-center">
-                                        <i class="fa-solid fa-check text-success me-3"></i>
-                                        <span>Få direkte besked fra købere</span>
-                                    </li>
-                                </ul>
-
-                                <a href="/saelg-andelsbolig-selv-koncept" data-view="create"
-                                   class="btn btn-outline-primary w-100 rounded-pill py-3 fw-bold border-2">
-                                    Opret gratis annonce
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Card 2 -->
-                    <div class="col-12 col-md-6 col-lg-5 d-flex justify-content-center">
-                        <div class="card w-100 mx-auto h-100 border-2 border-primary shadow-lg rounded-4 bg-white position-relative overflow-hidden hover-lift"
-                             style="max-width: 560px;">
-                            <div class="position-absolute top-0 end-0 bg-primary text-white px-3 py-1 fw-bold small"
-                                 style="border-bottom-left-radius: 1rem;">
-                                Fuld Adgang
-                            </div>
-
-                            <div class="card-body p-5 d-flex flex-column">
-                                <div class="mb-4 text-center">
-                                    <div class="d-inline-flex align-items-center justify-content-center bg-primary bg-opacity-10 rounded-circle mb-3"
-                                         style="width: 60px; height: 60px;">
-                                        <i class="fa-solid fa-magnifying-glass text-primary fs-3"></i>
-                                    </div>
-                                    <h3 class="h4 fw-bold text-primary">Køber</h3>
-                                    <div class="my-3">
-                                        <span class="display-4 fw-bold" style="color: var(--company-dark);">99 kr.</span>
-                                        <span class="text-muted fs-5">/ md.</span>
-                                    </div>
-                                    <p class="text-muted">Fuld adgang til alt vi overvåger. Opsig når som helst.</p>
-                                </div>
-
-                                <hr class="opacity-10 my-0">
-
-                                <ul class="list-unstyled my-4 flex-grow-1 d-grid gap-3">
-                                    <li class="d-flex align-items-center">
-                                        <div class="rounded-circle bg-primary bg-opacity-10 p-1 me-3 d-flex justify-content-center align-items-center"
-                                             style="width: 24px; height: 24px;">
-                                            <i class="fa-solid fa-check text-primary fa-xs"></i>
-                                        </div>
-                                        <span>Kontakt sælgere på tværs af 100+ kilder</span>
-                                    </li>
-                                    <li class="d-flex align-items-center">
-                                        <div class="rounded-circle bg-primary bg-opacity-10 p-1 me-3 d-flex justify-content-center align-items-center"
-                                             style="width: 24px; height: 24px;">
-                                            <i class="fa-solid fa-check text-primary fa-xs"></i>
-                                        </div>
-                                        <span>Se fuld adresse og detaljer</span>
-                                    </li>
-                                    <li class="d-flex align-items-center">
-                                        <div class="rounded-circle bg-primary bg-opacity-10 p-1 me-3 d-flex justify-content-center align-items-center"
-                                             style="width: 24px; height: 24px;">
-                                            <i class="fa-solid fa-check text-primary fa-xs"></i>
-                                        </div>
-                                        <span class="text-success fw-bold">Ingen binding</span>
-                                    </li>
-                                </ul>
-
-                                <a href="/login" class="btn btn-primary w-100 rounded-pill py-3 fw-bold shadow-sm">
-                                    Bliv medlem i dag
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </section>
-
-
-
 
         <section class="py-5 bg-light">
             <div class="container">
@@ -774,8 +664,6 @@
                         <div class="col-lg-8">
                             <h3 class="fw-bold mb-3">Klar til at finde dit næste hjem?</h3>
                             <p class="text-muted fs-5 mb-0">
-<!-- TODO: tilføj ved feature release                                -->
-<!--                                Gå på opdagelse i Danmarks nye platform til salg, køb og bytte af andelsboliger. Det er helt uforpligtende at kigge med.-->
                                 Gå på opdagelse i Danmarks nye platform til køb og salg af andelsboliger. Det er helt uforpligtende at kigge med.
                             </p>
                         </div>

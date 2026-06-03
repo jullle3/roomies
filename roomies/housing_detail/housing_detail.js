@@ -18,7 +18,6 @@ import {fetchAllAdvertisements, generateHousingCard, isHousingFavorite, updateLo
 import {basePath, environment, s3Url} from "../config/config.js";
 import {areaGroups, postalData} from "../config/hardcoded_data.js";
 import {updateStripePaymentElements} from "../login/login.js";
-import {fetchAllAgents} from "../agent/agent.js";
 
 const areaGroupIdToLabel = new Map(
     areaGroups.map(group => [String(group.id).trim(), group.label])
@@ -36,13 +35,7 @@ function isLiveScannerListing(housing) {
 }
 
 async function shouldShowLiveScannerAgentPrompt() {
-    if (!decodeJwt()) return true;
-
-    if (!Array.isArray(window.agents)) {
-        await fetchAllAgents();
-    }
-
-    return Array.isArray(window.agents) && window.agents.length === 0;
+    return false;
 }
 
 export async function loadHousingDetail(housing_id, detailParams = new URLSearchParams(window.location.search)) {

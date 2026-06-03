@@ -81,9 +81,11 @@ export let viewAfterLogin = null;
 export let viewParamsAfterLogin = new URLSearchParams();
 const POST_ONBOARDING_CONTEXT_KEY = 'postOnboardingContext';
 
-// Store scroll position for each view to preserve UX when navigating back
+// Store scroll position per SPA URL. New navigation starts at the top, while
+// browser back/forward restores the exact place the user left.
 const scrollPositions = {};
 const SCROLL_RESTORE_DELAYS_MS = [0, 80, 180];
+let currentScrollKey = getCurrentLocationScrollKey();
 
 if ('scrollRestoration' in history) {
     history.scrollRestoration = 'manual';
@@ -171,6 +173,7 @@ const landingAnchorTargets = new Set(['#scanner-section']);
 export async function showView(view, viewParams = new URLSearchParams(), updateUrl = true, options = {}) {
     viewParams = normalizeParams(viewParams);
     const requestedHash = normalizeLandingHash(view, options.hash);
+    const shouldRestoreScroll = options.restoreScroll === true;
 
     let popup = null;
     let scrapedUrl = null;
@@ -257,12 +260,14 @@ export async function showView(view, viewParams = new URLSearchParams(), updateU
     // NOW THAT WE KNOW WE ARE PROCEEDING, UPDATE THE DOM
     // --------------------------------------------------
     
-    // Save scroll position only for housing_list so we can restore it when
-    // the user navigates back (other views always start at the top).
+    const targetScrollKey = options.scrollKey || getScrollKeyForView(view, viewParams, requestedHash);
+
+    // Save the outgoing page before switching views. Fresh SPA navigation starts
+    // at top, but browser back/forward can restore this saved position.
+    saveScrollPosition(currentView, currentScrollKey);
     if (currentView === 'housing_list') {
-        saveScrollPosition(currentView);
-        // Also save the pagination depth when leaving the list view, so we can
-        // restore all loaded pages if the user navigates back.
+        // Also save the pagination depth when leaving the list view, so all
+        // loaded pages exist before we restore the old scroll position.
         persistListScrollState();
     }
 
@@ -306,9 +311,8 @@ export async function showView(view, viewParams = new URLSearchParams(), updateU
         updateViewStatus(view);
     }
 
-    // Restore scroll position only for housing_list; all other views start at top
-    if (view === 'housing_list') {
-        await restoreViewScroll(view);
+    if (shouldRestoreScroll && !requestedHash) {
+        await restoreViewScroll(view, targetScrollKey);
     } else {
         jumpToTopInstant();
     }
@@ -327,6 +331,7 @@ export async function showView(view, viewParams = new URLSearchParams(), updateU
         history.replaceState({ view, params: viewParams.toString() }, '', window.location.href);
     }
 
+    currentScrollKey = targetScrollKey;
     scrollToLandingHash(requestedHash);
 }
 
@@ -498,11 +503,12 @@ function jumpToTopInstant() {
  * Save scroll position for the current view.
  * Useful for preserving user's position when navigating away and back.
  */
-function saveScrollPosition(viewName) {
+function saveScrollPosition(viewName, scrollKey = currentScrollKey) {
     if (!viewName) return;
 
     const root = getScrollRoot();
-    scrollPositions[viewName] = {
+    scrollPositions[scrollKey] = {
+        view: viewName,
         top: root.scrollTop,
         anchor: captureVisibleScrollAnchor(viewName)
     };
@@ -511,15 +517,15 @@ function saveScrollPosition(viewName) {
 /**
  * Restore scroll position for a given view if it was previously saved.
  */
-function restoreScrollPosition(viewName) {
-    const state = getSavedScrollState(viewName);
+function restoreScrollPosition(viewName, scrollKey = currentScrollKey) {
+    const state = getSavedScrollState(viewName, scrollKey);
     if (!state) return false;
 
     return applySavedScrollPosition(viewName, state);
 }
 
-async function restoreViewScroll(viewName) {
-    const state = getSavedScrollState(viewName);
+async function restoreViewScroll(viewName, scrollKey = currentScrollKey) {
+    const state = getSavedScrollState(viewName, scrollKey);
 
     if (!state) {
         jumpToTopInstant();
@@ -532,20 +538,24 @@ async function restoreViewScroll(viewName) {
         }
 
         await waitForNextFrame();
-        restoreScrollPosition(viewName);
+        restoreScrollPosition(viewName, scrollKey);
     }
 
     return true;
 }
 
-function getSavedScrollState(viewName) {
-    const state = scrollPositions[viewName];
+function getSavedScrollState(viewName, scrollKey = currentScrollKey) {
+    const state = scrollPositions[scrollKey];
 
     if (typeof state === 'number') {
-        return {top: state, anchor: null};
+        return {view: viewName, top: state, anchor: null};
     }
 
     if (!state || typeof state.top !== 'number') {
+        return null;
+    }
+
+    if (state.view && state.view !== viewName) {
         return null;
     }
 
@@ -614,6 +624,18 @@ function clampScrollTop(value) {
 
 function getScrollRoot() {
     return document.scrollingElement || document.documentElement;
+}
+
+function getCurrentLocationScrollKey() {
+    return `${window.location.pathname}${window.location.search}${window.location.hash}`;
+}
+
+function getScrollKeyForView(view, params = new URLSearchParams(), hash = '') {
+    const viewUrl = buildViewUrl(view, params);
+    if (!viewUrl) return getCurrentLocationScrollKey();
+
+    const url = new URL(viewUrl);
+    return `${url.pathname}${url.search}${hash || ''}`;
 }
 
 function wait(ms) {
@@ -1035,14 +1057,29 @@ window.addEventListener('popstate', (event) => {
         const params = new URLSearchParams(event.state.params || '');
 
         // Pass updateUrl = false so we don't push a new history state while navigating back/forward
-        showView(event.state.view, params, false).then(() => {
+        showView(event.state.view, params, false, {
+            hash: window.location.hash,
+            restoreScroll: true,
+            scrollKey: getCurrentLocationScrollKey()
+        }).then(() => {
             document.dispatchEvent(new CustomEvent('view:changed', {
                 detail: { view: event.state.view, params }
             }));
         }).catch(err => {
             console.error("Error loading view on popstate:", err);
         });
+        return;
     }
+
+    const view = pathToView(window.location.pathname) || 'landing';
+    const params = new URLSearchParams(window.location.search);
+    showView(view, params, false, {
+        hash: window.location.hash,
+        restoreScroll: true,
+        scrollKey: getCurrentLocationScrollKey()
+    }).catch(err => {
+        console.error("Error loading view on popstate:", err);
+    });
 });
 
 window.showView = showView;

@@ -31,118 +31,86 @@ roomies is a Danish cooperative-housing platform for buying, selling, and swappi
 - SPA data architecture: prefer background preloading on init for commonly reused, heavily cached data, then let list/map/detail/create views reuse the same local cache or shared promise where possible. Treat preloaded data as a fast shared cache, not the final source of truth: route-specific views that require correctness should do a targeted fallback fetch when the shared cache misses or fails (for example detail can fall back to a single `/advertisement/{id}` fetch rather than refetching the full list).
 - Build: `build.js` bundles source JS to `roomies/mergedJS.js`, concatenates/minifies CSS to `roomies/mergedStyles.css`, and increments `roomies_version` in `index.html`.
 
-## Active Source Surface
-
-Main source code lives in `roomies/`.
-
-Important entrypoints:
-
-- `roomies/main.js`: startup, global background fetches, view setup, post-load landing stats.
-- `roomies/views/viewManager.js`: manual SPA routing, auth/paywall gating, PSEO bypass, view data loading, meta updates.
-- `roomies/auth/auth.js`: `authFetch(...)`, JWT attachment, Cloudflare-vs-direct API routing.
-- `roomies/utils.js`: global user state, messages, Stripe script/config, image shrinking, metadata helpers, global housing lookup.
-- `cloudflare_worker.js`: HTMLRewriter SEO metadata for dynamic detail pages and static SPA routes.
-- `index.html`: all SPA view containers, modals, script/style bundle references, and static root markup.
-
 ## AI Docs Index
 None exist yet
 
+---
+
 ## 🎨 Design System & Style Guide
 
-## 🎨 1. Color System
-Shift from "Institutional Royal Blue" to colors that communicate energy, warmth, and urgency.
+**Core Aesthetic:** "Scandinavian Community Tech" — vibrant, tactile, trustworthy, and highly accessible. The UI must feel like a modern, frictionless social app, not a bank or real estate agency.
 
-* **Primary Action (The "Robin Hood" Color):** * `--color-primary: #4F46E5;` (Electric Indigo) OR `--color-primary: #FF6B6B;` (Vibrant Coral).
-  * *Usage:* Apply to main CTAs ("Send besked", "Opret annonce").
-* **Secondary / Premium Accent (The "Superpower"):** * `--gradient-premium: linear-gradient(135deg, #4f46e5, #8b5cf6, #06b6d4);`
-  * *Usage:* Use strictly for Freemium indicators (BoligMatch Express, Profile Boosts).
-* **Backgrounds (Warm & Cozy):** * `--bg-main: #FDFBF7;` (Soft Cream / Warm Off-White).
+### 🎨 1. Color System
+The platform utilizes warm, energetic colors to appeal to students and young professionals.
+
+* **Primary Action (The "Robin Hood" Color):** `--color-primary: #FF6B6B;` (Vibrant Coral).
+  * *Hover State:* `--color-primary-hover: #fa5252;`
+  * *Usage:* Apply to main CTAs ("Send besked", "Opret annonce") and active UI states.
+* **Secondary / Premium Accent (The "Superpower"):** A gradient flowing from Indigo to Cyan (`linear-gradient(135deg, #4f46e5, #06b6d4)`).
+  * *Usage:* Use strictly for Freemium indicators (Boosted profiles, Premium unlocks).
+* **Backgrounds (Warm & Cozy):** `--bg-main: #FDFBF7;` (Soft Cream / Warm Off-White).
   * *Usage:* Global body background to replace clinical grays.
-* **Text & Typography:** * `--text-main: #1F2937;` (Deep Charcoal - softer than pure black).
-  * `--text-muted: #6B7280;` (Cool Gray for secondary information).
+* **Text & Typography:** `--text-main: #1F2937;` (Deep Charcoal) and `--text-muted: #6B7280;` (Cool Gray).
 
-## 🔤 2. Typography
-Moving away from rigid corporate fonts to friendly, highly legible mobile-first typefaces.
+### 🔤 2. Typography
+Friendly, highly legible mobile-first typefaces.
 
 * **Headings:** `'Poppins', sans-serif`
-  * Weight: `700` or `800` (Extra Bold).
-  * *Usage:* View titles, marketing headers, modal titles.
+  * Weight: `700` or `800` (Extra Bold). Letter-spacing slightly tight (`-0.5px`).
 * **Body & UI Elements:** `'Inter', sans-serif`
-  * Weight: `400` (Regular), `500` (Medium).
-  * *Usage:* Room descriptions, input fields, navigation. Ensure base size is `16px` to avoid iOS zoom on inputs, with `1.1rem` for main reading blocks.
+  * Weight: `400` (Regular), `500` (Medium), `600` (Semi-Bold for tags/nav). Ensure base size is `16px` to avoid iOS zoom on inputs.
 
-## 🧱 3. UI Components & "The Tactile Rule"
+### 🧱 3. UI Components & "The Tactile Rule"
 
-### Listing Cards (`.room-card`)
-* **Focus on the Human:** Unlike real estate, roommates care about *who* they live with. Ensure a prominent circular user avatar (`width: 48px; height: 48px; border-radius: 50%;`) overlaps the bottom edge of the room image.
-* **Styling:** Use `--bs-border-radius-xl` (approx 16px) for soft, modern corners.
-* **Interaction:** `transition: transform 0.2s ease;` on hover, translating Y by `-4px` with an increased shadow (`box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);`).
+* **Border Radii:** Use completely rounded pills for buttons/tags (`--radius-pill: 50px`) and large, soft corners for cards and hubs (`--radius-xl: 20px`).
+* **Shadows:** Avoid harsh borders. Use wide, soft shadows (`--shadow-soft`) that elevate dramatically on hover (`--shadow-hover`).
 
-### Lifestyle Vibe Tags (`.vibe-tag`)
-Replace generic facility tags (Elevator, Balcony) with human-centric behavior tags.
+#### Listing Cards (`.room-card`)
+* **Focus on the Human:** Roommates care about *who* they live with. Ensure a prominent circular user avatar (`width: 56px; height: 56px; border: 4px solid #fff; border-radius: 50%;`) overlaps the bottom-right edge of the room image (`bottom: -24px; right: 24px;`).
+* **Aspect Ratio:** Room thumbnails must use a 3:2 aspect ratio (`padding-bottom: 65%`).
+* **Interaction:** `transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);` translating Y by `-4px` with the expanded `--shadow-hover`.
+
+#### Floating Action Hubs & Glassmorphism
+* Key interface elements (like the search/sell tabbed hero hub) should use glassmorphism to feel lightweight: `background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.6);`.
+
+#### Lifestyle Vibe Tags (`.vibe-tag`)
+Replace generic facility tags with human-centric behavior tags.
 * **Examples:** 🌿 Vegan, 🤫 Stille, 🍻 Socialt, 🧹 Rengøringsplan.
 * **Constraint:** Enforce a maximum of **3-4 tags** per listing card to prevent visual clutter.
-* **Styling:** Pill-shaped (`border-radius: 50px`), muted background, solid text. Active state adopts the primary color background with white text.
+* **Styling:** Pill-shaped, light gray background (`#F3F4F6`), solid muted text, font-weight 600.
 
-## 🖼️ 4. Imagery & Iconography
+### 🖼️ 4. Imagery & Iconography
+* **Icons:** Use `FontAwesome 6`.
+* **Emojis:** Actively use native emojis in headings and tags to match Danish youth behavior on social media (e.g., "Ledigt værelse på Nørrebro 🚲💨").
+* **Empty States:** Replace static images with friendly, high-quality **Lottie Animations**.
 
-* **Icons:** Use `FontAwesome 6` (Solid for active, Regular for inactive).
-* **Emojis:** Actively use native emojis in headings and tags. Danish youth use emojis heavily in Facebook housing groups; mirroring this makes the platform feel native. (e.g., "Ledigt værelse på Nørrebro 🚲💨").
-* **Empty States:** Replace static images with friendly, high-quality **Lottie Animations** (e.g., when the inbox is empty or a search yields no results).
-
-## 🗣️ 5. Tone of Voice (Danish)
-The copy must reflect the brand's position as a disruptor of expensive legacy platforms.
-
+### 🗣️ 5. Tone of Voice (Danish)
 * **Keywords:** Use *Hjem* (Home) instead of *Bolig* (Housing). Use *Roomie* instead of *Lejer* (Tenant).
 * **Tone:** Friendly, transparent, anti-scam.
 * **Examples:**
-  * *Instead of:* "Opret bruger for at kontakte udlejer."
-  * *Use:* "Skriv til din nye roomie (helt gratis)."
-  * *Instead of:* "Abonnement påkrævet."
-  * *Use:* "Spring køen over med Premium."
+  * *Instead of:* "Opret bruger for at kontakte udlejer." -> *Use:* "Skriv til din nye roomie (helt gratis)."
+  * *Instead of:* "Abonnement påkrævet." -> *Use:* "Spring køen over med Premium."
 
-## 💎 6. Freemium UI Indicators
-Paid features must feel integrated but exclusive. They should not feel like roadblocks, but rather like optional upgrades.
+### 🛠️ 6. CSS Root Template
+When generating new styles or components, AI agents must adhere to these root variables:
 
-* **Boosted Profiles (`.badge-boosted`):** Apply a subtle glowing border using `--gradient-premium` and a glassmorphism badge (`backdrop-filter: blur(8px); background: rgba(255,255,255,0.8);`). Label: "🌟 Top-kandidat".
-* **Paywall / Feature Locks:** Use a subtle lock icon (`fa-lock`) next to premium toggles (e.g., Real-time Match Emails).
-* **Upsell Modals:** When clicking a premium feature, open a clean, centered modal that emphasizes the *competitive advantage* (e.g., "Vær den første der ansøger" - "Be the first to apply") rather than the cost.
-
-## 🛠️ 7. CSS Root Template
 ```css
 :root {
-  /* Colors */
-  --color-primary: #4F46E5;
-  --color-primary-hover: #4338CA;
-  --color-premium-start: #4f46e5;
-  --color-premium-mid: #8b5cf6;
-  --color-premium-end: #06b6d4;
-  --bg-main: #FDFBF7;
-  --bg-card: #FFFFFF;
-  --text-main: #1F2937;
-  --text-muted: #6B7280;
-  
-  /* Typography */
-  --font-heading: 'Poppins', sans-serif;
-  --font-body: 'Inter', sans-serif;
-  
-  /* Gradients & Effects */
-  --gradient-premium: linear-gradient(135deg, var(--color-premium-start), var(--color-premium-mid), var(--color-premium-end));
-  --shadow-card: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
-  --shadow-card-hover: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-  
-  /* Radii */
-  --radius-card: 16px;
-  --radius-pill: 50px;
+    --color-primary: #FF6B6B; /* Vibrant Coral */
+    --color-primary-hover: #fa5252;
+    --color-premium-start: #4f46e5;
+    --color-premium-end: #06b6d4;
+    --bg-main: #FDFBF7; /* Warm Off-White */
+    --text-main: #1F2937;
+    --text-muted: #6B7280;
+
+    --font-heading: 'Poppins', sans-serif;
+    --font-body: 'Inter', sans-serif;
+
+    --radius-xl: 20px;
+    --radius-pill: 50px;
+    
+    /* Soft, diffuse shadows for the tactile app feel */
+    --shadow-soft: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01);
+    --shadow-hover: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.01);
 }
-```
-
-## Self-Improving AI Documentation
-
-When working in this repository, improve AI-facing docs if you discover durable project knowledge that future agents could reasonably get wrong without explicit documentation.
-
-- Add short, broad rules to `AGENTS.md`.
-- Add detailed or domain-specific context to a focused file under `ai_docs/`, then reference it from `AGENTS.md`.
-- Do not document temporary debugging notes, one-off implementation details, obvious code facts, or speculation.
-- Only update AI docs when already editing repository files, or when the user explicitly asks for documentation updates.
-- Keep documentation updates small, factual, directly related to the work, and within the original task scope.

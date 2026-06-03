@@ -10,17 +10,10 @@ import {
 } from "./utils.js";
 import {handleRouting, setupViews, showView} from "./views/viewManager.js";
 import {setupProfileView} from "./profile/profile.js";
-import {preloadCreateHousingData, setupCreateHousingView} from "./housing_create/housing_create.js";
 import {setupLogoutView} from "./logout/logout.js";
 import {extractURLJWT, handleOTPLink, setupLoginView} from "./login/login.js";
 import {loadHousingStats, SetupHeader} from "./header/header.js";
-import {
-    fetchAllAdvertisements,
-    insertSearchComponents,
-    setupHousingListView
-} from "./housing_list/housing_list.js";
 import {SetupFooter} from "./footer/footer.js";
-import {setupMapView} from "./housing_map/housing_map.js";
 import {
     fetchAdvertisementData,
     initDynamicScrapedCount,

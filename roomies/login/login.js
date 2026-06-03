@@ -13,8 +13,7 @@ import {
 import {decodeJwt, displayErrorMessage, displaySuccessMessage, loadUser} from "../utils.js";
 import {setupProfileView} from "../profile/profile.js";
 import {closeNavbarMenu, updateNavbar} from "../header/header.js";
-import {directApiUrl, google_auth_client_id, google_auth_redirect_url} from "../config/config.js";
-import {ensureHousingDataLoaded} from "../housing_create/housing_create.js";
+import {google_auth_client_id, google_auth_redirect_url} from "../config/config.js";
 import {startGlobalConversationUnreadPolling} from "../conversations/conversations.js";
 
 function normalizeRegistrationPhoneNumber(rawPhoneNumber) {

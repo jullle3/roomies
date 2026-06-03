@@ -6,14 +6,10 @@ import {
     setupBootstrapTooltips,
     updateMetaTags
 } from "../utils.js";
-import {loadHousingDetail} from "../housing_detail/housing_detail.js";
 import {loadSellerProfile} from "../seller_profile/seller_profile.js";
-import {attachSearchComponentToView, sendSearchData, persistListScrollState, ensureHousingListRendered} from "../housing_list/housing_list.js";
-import {initMap} from "../housing_map/housing_map.js";
 import {updateStripePaymentElements} from "../login/login.js";
 import {basePath} from "../config/config.js";
 import {loadProfileView} from "../profile/profile.js";
-import {ensureHousingDataLoaded} from "../housing_create/housing_create.js";
 import {renderConversations} from "../conversations/conversations.js";
 import {closeNavbarMenu} from "../header/header.js";
 import {
@@ -53,9 +49,6 @@ const appRoot = document.getElementById('root');
 // Enables paths to load specific views.  "roomies.dk/kort" loads kort view etc.
 const routeToView = {
     '/': 'landing',
-    '/liste': 'housing_list',
-    '/kort': 'housing_map',
-    '/detaljer': 'detail',
     '/saelg-andelsbolig-selv-koncept': 'sell_landing',
     '/saelg-andelsbolig-selv': 'create',
     '/profil': 'profile',

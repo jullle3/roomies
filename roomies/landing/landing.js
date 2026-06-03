@@ -1,4 +1,3 @@
-import {generateHousingCard} from "../housing_list/housing_list.js";
 import {authFetch} from "../auth/auth.js";
 import {basePath, s3Url} from "../config/config.js";
 import {displayErrorMessage} from "../utils.js";

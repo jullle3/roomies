@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <!--Let browser know the website is optimized for mobile-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <meta name="description" content="Køb, salg og bytte af andelsboliger gjort simpelt. Det er 100% gratis at sælge. Opret et BoligMatch og få besked straks, når din drømmebolig kommer til salg.">
+    <meta name="description" content="Køb, salg og bytte af andelsboliger gjort simpelt. Det er 100% gratis at sælge. Opret en BoligAgent og få besked straks, når din drømmebolig kommer til salg.">
     <meta name="theme-color" content="#ffffff">
 
 
@@ -23,7 +23,7 @@
     <!-- Open Graph/Link preview -->
     <meta property="og:type"        content="website">
     <meta property="og:title"       content="roomies | Køb, Salg & Bytte af Andelsboliger i DK">
-    <meta property="og:description" content="Køb, salg og bytte af andelsboliger gjort simpelt. Det er 100% gratis at sælge. Opret et BoligMatch og få besked straks, når din drømmebolig kommer til salg.">
+    <meta property="og:description" content="Køb, salg og bytte af andelsboliger gjort simpelt. Det er 100% gratis at sælge. Opret en BoligAgent og få besked straks, når din drømmebolig kommer til salg.">
     <meta property="og:image"       content="https://roomies.dk/pics/opengraph.webp">
     <meta property="og:image:width" content="1421">
     <meta property="og:image:height" content="744">
@@ -32,7 +32,7 @@
     <!-- optional: Twitter card (falls back to OG if missing) -->
     <meta name="twitter:card"       content="summary_large_image">
     <meta name="twitter:title"      content="roomies | Køb, Salg & Bytte af Andelsboliger i DK">
-    <meta name="twitter:description" content="Køb, salg og bytte af andelsboliger gjort simpelt. Det er 100% gratis at sælge. Opret et BoligMatch og få besked straks, når din drømmebolig kommer til salg.">
+    <meta name="twitter:description" content="Køb, salg og bytte af andelsboliger gjort simpelt. Det er 100% gratis at sælge. Opret en BoligAgent og få besked straks, når din drømmebolig kommer til salg.">
     <meta name="twitter:image"      content="https://roomies.dk/pics/opengraph.webp">
 
     <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
@@ -40,7 +40,7 @@
     <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
     <link rel="stylesheet" href="icons/my-bootstrap-icons.css">
     <!--    Custom Merged css files -->
-    <link rel="stylesheet" href="roomies/mergedStyles.css?roomies_version=676">
+    <link rel="stylesheet" href="roomies/mergedStyles.css?roomies_version=682">
     <style>
         .nav-auth-btn:active,
         .nav-auth-btn:focus,
@@ -59,7 +59,7 @@
             color: #ffffff !important;
         }
     </style>
-    <script defer type="module" src="roomies/mergedJS.js?roomies_version=676"></script>
+    <script defer type="module" src="roomies/mergedJS.js?roomies_version=682"></script>
 
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18047412076"></script>
@@ -138,43 +138,18 @@
                     </a>
                 </li>
 
+
+                <!-- Sælg / Byt Dropdown -->
                 <li class="nav-item">
-                    <a class="nav-link custom-nav-link" href="/boligovervaagning" data-view="agent">
-                        <i class="fa-regular fa-bell nav-icon"></i> BoligMatch
+                    <a class="nav-link custom-nav-link" href="/udlej-vaerelse" data-view="udlej_vaerelse">
+                        <i class="fa-regular fa-square-plus nav-icon"></i> Udlej værelse
                     </a>
                 </li>
 
-                <!-- Sælg / Byt Dropdown -->
-                <li class="nav-item dropdown">
-                    <a class="nav-link custom-nav-link dropdown-toggle" href="#" id="sellDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="fa-regular fa-square-plus nav-icon"></i> Udlej / Sælg
+                <li class="nav-item">
+                    <a class="nav-link custom-nav-link" href="/boligovervaagning" data-view="agent">
+                        <i class="fa-regular fa-bell nav-icon"></i> BoligAgent
                     </a>
-
-                    <ul class="dropdown-menu custom-dropdown shadow-hover" aria-labelledby="sellDropdown">
-                        <li>
-                            <a class="dropdown-item d-flex align-items-center gap-3 p-2" href="/saelg-andelsbolig-selv-koncept" data-view="sell_landing">
-                                <div class="nav-icon-circle bg-light text-dark flex-shrink-0">
-                                    <i class="fa-solid fa-book-open"></i>
-                                </div>
-                                <div>
-                                    <div class="fw-bold text-dark lh-sm">Sådan fungerer det</div>
-                                    <div class="small text-muted mt-1" style="font-size: 0.8rem;">Læs om konceptet</div>
-                                </div>
-                            </a>
-                        </li>
-                        <li><hr class="dropdown-divider opacity-10 my-2"></li>
-                        <li>
-                            <a class="dropdown-item d-flex align-items-center gap-3 p-2" href="/saelg-andelsbolig-selv" data-view="create">
-                                <div class="nav-icon-circle bg-primary-coral-light text-primary-coral flex-shrink-0">
-                                    <i class="fa-solid fa-pen-to-square"></i>
-                                </div>
-                                <div>
-                                    <div class="fw-bold text-dark lh-sm">Opret annonce</div>
-                                    <div class="small text-muted mt-1" style="font-size: 0.8rem;">Det tager kun 2 minutter</div>
-                                </div>
-                            </a>
-                        </li>
-                    </ul>
                 </li>
             </ul>
 
@@ -243,7 +218,7 @@
                                 0 kr. i abonnement
                             </span>
                             <span class="small fw-semibold text-white ms-3 me-4 opacity-90">
-                                Danmarks nye community for bofællesskaber
+                                Danmarks nye community for roomies
                             </span>
                         </div>
 
@@ -251,9 +226,10 @@
                             Find din næste roomie uden at blive flået ✌️
                         </h1>
                         <p class="lead text-muted mx-auto mb-5" style="max-width: 600px;">
-                            Drop de dyre abonnementer. Vi er netop gået i luften med Danmarks 100% gratis alternativ. Vær med fra start, opret din profil, og hjælp os med at gøre boligsøgning gratis for alle.                        </p>
-<!-- TODO: Til når vi har boliger og kunder!                        -->
-<!--                        Drop de dyre abonnementer. Søg blandt tusindvis af ledige værelser, eller find din nye roomie helt gratis.-->
+                            Drop de dyre abonnementer. Vi er netop gået i luften med Danmarks 100% gratis alternativ. Vær med fra start, opret din profil, og hjælp os med at gøre boligsøgning gratis for alle.
+                            <!-- TODO: Til når vi har boliger og kunder!                        -->
+                            <!--                        Drop de dyre abonnementer. Søg blandt tusindvis af ledige værelser, eller find din nye roomie helt gratis.-->
+                        </p>
                     </div>
                 </div>
 
@@ -294,8 +270,8 @@
                                             <h6 class="fw-bold mb-1">Mangler du en roomie?</h6>
                                             <span class="small text-muted">Opret din annonce på 2 minutter. 100% gratis.</span>
                                         </div>
-                                        <button class="btn btn-primary-coral rounded-pill px-5 py-3 fw-bold shadow-sm w-100 w-md-auto" onclick="showView('create')">
-                                            Opret annonce
+                                        <button class="btn btn-primary-coral rounded-pill px-5 py-3 fw-bold shadow-sm w-100 w-md-auto" onclick="showView('udlej_vaerelse')">
+                                            Opret værelse
                                         </button>
                                     </div>
                                 </div>
@@ -307,8 +283,106 @@
             </div>
         </section>
 
+        <!-- HOW IT WORKS SECTION -->
+        <section class="py-5 py-md-6 bg-white">
+            <div class="container py-4">
+                <div class="text-center mb-5">
+                    <h2 class="fw-bold mb-2" style="color: var(--text-main);">Sådan fungerer det ✌️</h2>
+                    <p class="text-muted fs-5 mb-0">Tre simple trin til din nye roomie eller dit nye hjem.</p>
+                </div>
+                <div class="row g-4 position-relative">
+                    <!-- Dotted connector (desktop only) -->
+                    <div class="d-none d-md-block position-absolute top-50 start-50 translate-middle w-75" style="height: 2px; border-top: 2px dashed #D1D5DB; z-index: 0; margin-top: -1rem;"></div>
+
+                    <div class="col-md-4 position-relative z-1">
+                        <div class="card h-100 border-0 rounded-4 shadow-sm text-center p-4 p-md-5 hover-lift" style="background-color: var(--bg-main);">
+                            <div class="d-inline-flex align-items-center justify-content-center bg-white rounded-circle shadow-sm mb-4 mx-auto" style="width: 64px; height: 64px; color: var(--color-primary); font-size: 1.5rem;">
+                                🔍
+                            </div>
+                            <h3 class="h5 fw-bold mb-3">Find dit nye hjem</h3>
+                            <p class="text-muted small mb-0 lh-lg">Gå på opdagelse i vores store udvalg af værelser og andelsboliger, og find dit perfekte match.</p>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 position-relative z-1">
+                        <div class="card h-100 border-0 rounded-4 shadow-sm text-center p-4 p-md-5 hover-lift" style="background-color: var(--bg-main);">
+                            <div class="d-inline-flex align-items-center justify-content-center bg-white rounded-circle shadow-sm mb-4 mx-auto" style="width: 64px; height: 64px; color: var(--color-primary); font-size: 1.5rem;">
+                                💬
+                            </div>
+                            <h3 class="h5 fw-bold mb-3">Skriv gratis</h3>
+                            <p class="text-muted small mb-0 lh-lg">Skriv direkte til udlejer eller sælger – helt uden det koster noget.</p>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 position-relative z-1">
+                        <div class="card h-100 border-0 rounded-4 shadow-sm text-center p-4 p-md-5 hover-lift" style="background-color: var(--bg-main);">
+                            <div class="d-inline-flex align-items-center justify-content-center bg-white rounded-circle shadow-sm mb-4 mx-auto" style="width: 64px; height: 64px; color: var(--color-primary); font-size: 1.5rem;">
+                                📦
+                            </div>
+                            <h3 class="h5 fw-bold mb-3">Flyt ind</h3>
+                            <p class="text-muted small mb-0 lh-lg">Pak flyttekasserne!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FOR SEEKERS / LISTERS SPLIT -->
+        <section class="py-5 py-md-6" style="background-color: var(--bg-main);">
+            <div class="container py-4">
+                <div class="row g-4 justify-content-center">
+                    <!-- Seekers -->
+                    <div class="col-lg-6">
+                        <div class="card border-0 rounded-4 shadow-sm p-4 p-md-5 h-100 hover-lift" style="background-color: #ffffff;">
+                            <h3 class="fw-bold mb-4">Jeg søger værelse 🔍</h3>
+                            <ul class="list-unstyled mb-5">
+                                <li class="d-flex align-items-start gap-3 mb-3">
+                                    <i class="fa-solid fa-check text-success mt-1"></i>
+                                    <span class="text-muted fw-medium lh-base">100% gratis at kontakte alle udlejere.</span>
+                                </li>
+                                <li class="d-flex align-items-start gap-3 mb-3">
+                                    <i class="fa-solid fa-check text-success mt-1"></i>
+                                    <span class="text-muted fw-medium lh-base">Opret en BoligAgent og kom først i køen.</span>
+                                </li>
+                                <li class="d-flex align-items-start gap-3 mb-3">
+                                    <i class="fa-solid fa-check text-success mt-1"></i>
+                                    <span class="text-muted fw-medium lh-base">Trygt og sikkert community uden scam.</span>
+                                </li>
+                            </ul>
+                            <button class="btn btn-primary-coral rounded-pill px-4 py-3 fw-bold mt-auto shadow-sm w-100" onclick="showView('housing_list')">
+                                Find dit nye hjem
+                            </button>
+                        </div>
+                    </div>
+                    <!-- Listers -->
+                    <div class="col-lg-6">
+                        <div class="card border-0 rounded-4 shadow-sm p-4 p-md-5 h-100 hover-lift" style="background-color: #ffffff;">
+                            <h3 class="fw-bold mb-4">Jeg mangler en roomie 🛋️</h3>
+                            <ul class="list-unstyled mb-5">
+                                <li class="d-flex align-items-start gap-3 mb-3">
+                                    <i class="fa-solid fa-check text-success mt-1"></i>
+                                    <span class="text-muted fw-medium lh-base">Helt gratis at oprette din annonce.</span>
+                                </li>
+                                <li class="d-flex align-items-start gap-3 mb-3">
+                                    <i class="fa-solid fa-check text-success mt-1"></i>
+                                    <span class="text-muted fw-medium lh-base">Nå ud til tusindvis af aktive boligsøgende.</span>
+                                </li>
+                                <li class="d-flex align-items-start gap-3 mb-3">
+                                    <i class="fa-solid fa-check text-success mt-1"></i>
+                                    <span class="text-muted fw-medium lh-base">Indbygget beskedsystem holder din indbakke ren.</span>
+                                </li>
+                            </ul>
+                            <button class="btn btn-primary-coral rounded-pill px-4 py-3 fw-bold mt-auto shadow-sm w-100" onclick="showView('udlej_vaerelse')">
+                                Opret værelse gratis
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- FEATURED ROOMS SECTION -->
-        <section class="py-5">
+        <section class="py-5 bg-white">
             <div class="container py-4">
                 <div class="d-flex justify-content-between align-items-end mb-4 pb-2">
                     <div>
@@ -389,8 +463,6 @@
                             </div>
                         </div>
                     </div>
-
-                    <!-- Additional cards... -->
                 </div>
 
                 <div class="text-center mt-4 pt-3 d-block d-md-none">
@@ -401,8 +473,252 @@
             </div>
         </section>
 
+        <!-- WHY ROOMIES IS DIFFERENT -->
+        <section class="py-5 py-md-6" style="background-color: var(--bg-main);">
+            <div class="container py-4">
+                <div class="text-center mb-5">
+                    <h2 class="fw-bold mb-3">Hvorfor vi er anderledes ✨</h2>
+                    <p class="text-muted fs-5 mb-0 mx-auto" style="max-width: 600px;">Vi har bygget platformen til roomies, ikke til boligspekulanter. Det betyder fair vilkår for alle.</p>
+                </div>
+                <div class="row g-4 text-center">
+                    <div class="col-md-3 col-6">
+                        <div class="d-inline-flex align-items-center justify-content-center bg-white rounded-circle shadow-sm mb-3" style="width: 72px; height: 72px;">
+                            <i class="fa-solid fa-heart text-danger fs-3"></i>
+                        </div>
+                        <h4 class="h6 fw-bold mb-2">Bygget til roomies</h4>
+                        <p class="small text-muted mb-0">Fokus på mennesket bag profilen, ikke kun mursten.</p>
+                    </div>
+                    <div class="col-md-3 col-6">
+                        <div class="d-inline-flex align-items-center justify-content-center bg-white rounded-circle shadow-sm mb-3" style="width: 72px; height: 72px;">
+                            <i class="fa-solid fa-users text-warning fs-3"></i>
+                        </div>
+                        <h4 class="h6 fw-bold mb-2">Community-first</h4>
+                        <p class="small text-muted mb-0">Vi udvikler platformen baseret på jeres behov.</p>
+                    </div>
+
+                    <div class="col-md-3 col-6">
+                        <div class="d-inline-flex align-items-center justify-content-center bg-white rounded-circle shadow-sm mb-3" style="width: 72px; height: 72px;">
+                            <i class="fa-solid fa-piggy-bank text-primary fs-3"></i>
+                        </div>
+                        <h4 class="h6 fw-bold mb-2">Ingen dyre abonnementer</h4>
+                        <p class="small text-muted mb-0">Behold dine penge til indskuddet.</p>
+                    </div>
+                    <div class="col-md-3 col-6">
+                        <div class="d-inline-flex align-items-center justify-content-center bg-white rounded-circle shadow-sm mb-3" style="width: 72px; height: 72px;">
+                            <i class="fa-solid fa-unlock-keyhole text-success fs-3"></i>
+                        </div>
+                        <h4 class="h6 fw-bold mb-2">Ingen skjulte paywalls</h4>
+                        <p class="small text-muted mb-0">Skriv frit med udlejere fra dag ét.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FOUNDER / TRUST SECTION -->
+        <section class="py-5 py-md-6 bg-white">
+            <div class="container py-4">
+                <div class="row align-items-center g-5">
+                    <div class="col-lg-5 order-2 order-lg-1">
+                        <div class="position-relative mx-auto ms-lg-auto me-lg-0" style="max-width: 420px;">
+                            <div class="position-absolute rounded-4" style="inset: -18px 22px 22px -18px; z-index: 0; background: rgba(255, 107, 107, 0.12);"></div>
+
+                            <img src="/pics/julian3.webp"
+                                 alt="Julian Køster, stifter af roomies"
+                                 class="img-fluid rounded-4 shadow-lg position-relative z-1 hover-lift"
+                                 style="border: 6px solid #ffffff; transform: rotate(-1deg);"
+                                 loading="lazy"
+                                 decoding="async">
+
+                            <div class="position-absolute bg-white rounded-pill shadow-sm px-4 py-3 z-2 hover-lift d-none d-sm-block" style="bottom: -20px; right: -28px; border: 1px solid rgba(255, 107, 107, 0.18);">
+                                <div class="d-flex align-items-center gap-2">
+                                    <div class="d-flex align-items-center justify-content-center rounded-circle text-success" style="width: 28px; height: 28px; background: rgba(16, 185, 129, 0.12);">
+                                        <i class="fa-solid fa-check fa-sm"></i>
+                                    </div>
+                                    <span class="fw-bold small" style="color: var(--text-main);">Bygget til boligsøgende</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-7 order-1 order-lg-2">
+                        <div class="mx-auto ms-lg-0 pe-lg-4" style="max-width: 720px;">
+                            <div class="d-inline-flex align-items-center gap-2 px-3 py-2 rounded-pill mb-4" style="background: rgba(255, 107, 107, 0.12); border: 1px solid rgba(255, 107, 107, 0.18);">
+                                <i class="fa-solid fa-shield-heart" style="color: var(--color-primary);"></i>
+                                <span class="fw-bold small text-uppercase" style="color: var(--color-primary); letter-spacing: 0.5px;">Tryghed med et menneske bag</span>
+                            </div>
+
+                            <h2 class="display-5 fw-bold mb-4" style="color: var(--text-main); line-height: 1.15;">
+                                Tryg boligsøgning starter med gennemsigtighed.
+                            </h2>
+
+                            <p class="fs-5 text-muted mb-4 lh-base">
+                                Jeg hedder Julian, og jeg har bygget roomies for at gøre boligjagten mere fair, mere personlig og mere overskuelig. Du skal kunne se, hvem du skriver med, forstå hvad du siger ja til, og slippe for dyre betalingsmure.
+                            </p>
+
+                            <p class="fs-5 text-muted mb-5 lh-base">
+                                Derfor kombinerer vi gratis kontakt, klare annoncer og et beskedsystem, der hjælper med at holde dialogen samlet og tryg.
+                            </p>
+
+                            <div class="row g-3 mb-5">
+                                <div class="col-sm-6">
+                                    <div class="d-flex align-items-start gap-3 p-3 rounded-4 h-100" style="background-color: var(--bg-main);">
+                                        <div class="d-inline-flex align-items-center justify-content-center rounded-circle flex-shrink-0" style="width: 42px; height: 42px; background: #ffffff; color: var(--color-primary);">
+                                            <i class="fa-solid fa-user-check"></i>
+                                        </div>
+                                        <div>
+                                            <h5 class="h6 fw-bold mb-1">Mennesker før mursten</h5>
+                                            <p class="small text-muted mb-0 lh-base">Roomies handler om hvem du skal bo med, ikke kun adressen.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="d-flex align-items-start gap-3 p-3 rounded-4 h-100" style="background-color: var(--bg-main);">
+                                        <div class="d-inline-flex align-items-center justify-content-center rounded-circle flex-shrink-0" style="width: 42px; height: 42px; background: #ffffff; color: var(--color-primary);">
+                                            <i class="fa-solid fa-comments"></i>
+                                        </div>
+                                        <div>
+                                            <h5 class="h6 fw-bold mb-1">Skriv sikkert</h5>
+                                            <p class="small text-muted mb-0 lh-base">Hold dialogen samlet, indtil du selv vil dele mere.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="d-flex align-items-start gap-3 p-3 rounded-4 h-100" style="background-color: var(--bg-main);">
+                                        <div class="d-inline-flex align-items-center justify-content-center rounded-circle flex-shrink-0" style="width: 42px; height: 42px; background: #ffffff; color: var(--color-primary);">
+                                            <i class="fa-solid fa-eye"></i>
+                                        </div>
+                                        <div>
+                                            <h5 class="h6 fw-bold mb-1">Klare vilkår</h5>
+                                            <p class="small text-muted mb-0 lh-base">Ingen skjulte gebyrer eller overraskelser bag næste klik.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="d-flex align-items-start gap-3 p-3 rounded-4 h-100" style="background-color: var(--bg-main);">
+                                        <div class="d-inline-flex align-items-center justify-content-center rounded-circle flex-shrink-0" style="width: 42px; height: 42px; background: #ffffff; color: var(--color-primary);">
+                                            <i class="fa-solid fa-flag"></i>
+                                        </div>
+                                        <div>
+                                            <h5 class="h6 fw-bold mb-1">Nemt at sige til</h5>
+                                            <p class="small text-muted mb-0 lh-base">Mistænkelige annoncer skal være lette at rapportere.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="d-flex flex-column flex-sm-row align-items-start align-items-sm-center gap-4">
+                                <button class="btn btn-primary-coral rounded-pill px-5 py-3 fw-bold shadow-sm hover-lift" onclick="showView('housing_list')">
+                                    Se værelser
+                                </button>
+                                <div class="d-flex align-items-center gap-3">
+                                    <div class="d-none d-sm-block" style="width: 2px; height: 40px; background-color: #e9ecef;"></div>
+                                    <div>
+                                        <span class="d-block fw-bold fs-5" style="color: var(--text-main);">Julian Køster</span>
+                                        <span class="d-block text-muted small fw-medium text-uppercase" style="letter-spacing: 0.5px;">Stifter af roomies</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- COMMUNITY / SOCIAL PROOF -->
+        <section class="py-5 py-md-6" style="background-color: var(--color-primary); position: relative; overflow: hidden;">
+            <div class="container py-4 text-center position-relative z-1">
+                <h2 class="display-6 fw-bold mb-4 text-white">Vær med fra start 👋</h2>
+                <p class="fs-5 text-white opacity-90 mx-auto mb-5 lh-base" style="max-width: 650px;">
+                    roomies er bygget af og for unge på boligjagt. Vi bygger platformen sammen med vores brugere og tilføjer løbende de funktioner, som I har allermest brug for.
+                </p>
+                <div class="d-flex justify-content-center align-items-center gap-2 mb-4" aria-label="Unge roomies i fællesskabet">
+                    <img src="/pics/avatar10.png" alt="Ung boligsøgende i roomies fællesskabet" class="rounded-circle border border-3 border-white shadow-sm hover-lift" style="width: 56px; height: 56px; object-fit: cover;">
+                    <img src="/pics/community-young-man-1.png" alt="Ung roomie i roomies fællesskabet" class="rounded-circle border border-3 border-white shadow-sm hover-lift" style="width: 64px; height: 64px; object-fit: cover; z-index: 1; margin: 0 -10px;">
+                    <img src="/pics/avatar11.png" alt="Ung boligsøgende i roomies fællesskabet" class="rounded-circle border border-3 border-white shadow-sm hover-lift" style="width: 56px; height: 56px; object-fit: cover;">
+                </div>
+                <p class="text-white fw-medium tracking-wide text-uppercase small">Bliv en del af fællesskabet</p>
+            </div>
+        </section>
+
+        <!-- FAQ SECTION -->
+        <section class="py-5 py-md-6 bg-white">
+            <div class="container py-4" style="max-width: 800px;">
+                <div class="text-center mb-5">
+                    <h2 class="fw-bold mb-3">Ofte stillede spørgsmål 💡</h2>
+                    <p class="text-muted fs-5">Har du spørgsmål? Vi har (forhåbentlig) svarene her.</p>
+                </div>
+                <div class="accordion shadow-sm rounded-4 overflow-hidden border-0 bg-white" id="faqAccordionLanding">
+
+                    <div class="accordion-item border-0 border-bottom">
+                        <h2 class="accordion-header" id="headingOneLanding">
+                            <button class="accordion-button collapsed fw-bold py-4 px-4 bg-transparent" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOneLanding" style="color: var(--text-main); font-size: 1.1rem;">
+                                Er det gratis at bruge roomies?
+                            </button>
+                        </h2>
+                        <div id="collapseOneLanding" class="accordion-collapse collapse" data-bs-parent="#faqAccordionLanding">
+                            <div class="accordion-body px-4 pb-4 pt-0 text-muted lh-lg">
+                                Ja! Det er 100% gratis at oprette en annonce, og det er også fuldstændig gratis at kontakte udlejere og sælgere. Vi har ingen dyre abonnementer eller skjulte gebyrer.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item border-0 border-bottom">
+                        <h2 class="accordion-header" id="headingTwoLanding">
+                            <button class="accordion-button collapsed fw-bold py-4 px-4 bg-transparent" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwoLanding" style="color: var(--text-main); font-size: 1.1rem;">
+                                Hvordan kontakter jeg en roomie?
+                            </button>
+                        </h2>
+                        <div id="collapseTwoLanding" class="accordion-collapse collapse" data-bs-parent="#faqAccordionLanding">
+                            <div class="accordion-body px-4 pb-4 pt-0 text-muted lh-lg">
+                                Når du finder et værelse, du kan lide, skal du blot kontakte udlejer direkte via opslaget.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item border-0 border-bottom">
+                        <h2 class="accordion-header" id="headingThreeLanding">
+                            <button class="accordion-button collapsed fw-bold py-4 px-4 bg-transparent" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThreeLanding" style="color: var(--text-main); font-size: 1.1rem;">
+                                Kan jeg oprette en annonce gratis?
+                            </button>
+                        </h2>
+                        <div id="collapseThreeLanding" class="accordion-collapse collapse" data-bs-parent="#faqAccordionLanding">
+                            <div class="accordion-body px-4 pb-4 pt-0 text-muted lh-lg">
+<!--                                Ja, det tager kun få minutter at oprette en annonce. Du får straks adgang til et stort netværk af aktive boligsøgende – og det koster ingenting.-->
+                                Ja, det tager kun få minutter at oprette en annonce. Vi annoncerer gratis for dig på sociale medier – og det koster dig ingenting.
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- FINAL CTA SECTION -->
+        <section class="py-5 py-md-6" style="background-color: var(--bg-main);">
+            <div class="container py-4 text-center">
+                <div class="card border-0 rounded-4 shadow-sm p-4 p-md-5 mx-auto bg-white" style="max-width: 800px;">
+                    <div class="d-inline-flex align-items-center justify-content-center bg-light rounded-circle shadow-sm mb-4 mx-auto" style="width: 72px; height: 72px;">
+                        <i class="fa-solid fa-house-chimney-window text-primary fs-2"></i>
+                    </div>
+                    <h2 class="display-6 fw-bold mb-3">Klar til at finde dit næste hjem? 🏡</h2>
+                    <p class="text-muted fs-5 mb-5 lh-base mx-auto" style="max-width: 500px;">
+                        Gå på opdagelse i Danmarks nye community for roomies.
+                    </p>
+                    <div class="d-flex flex-column flex-sm-row justify-content-center gap-3">
+                        <button class="btn btn-primary-coral rounded-pill px-5 py-3 fw-bold shadow-sm hover-lift" onclick="showView('housing_list')">
+                            Søg værelser
+                        </button>
+                        <button class="btn btn-outline-dark rounded-pill px-5 py-3 fw-bold shadow-sm hover-lift" onclick="showView('udlej_vaerelse')">
+                            Opret værelse
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
     </div>
 
+    
     <div id="landing2" class="view">
 
         <section class="landing-hero text-center text-lg-start" style="background-image: url('/pics/landing2.png');">
@@ -537,9 +853,9 @@
                             <div class="feature-icon-wrapper">
                                 <i class="fa-regular fa-bell fs-2"></i>
                             </div>
-                            <h3 class="h4 fw-bold mb-3 text-dark">BoligMatch</h3>
+                            <h3 class="h4 fw-bold mb-3 text-dark">BoligAgent</h3>
                             <p class="text-muted mb-0">
-                                Overvåg markedet automatisk. Opret et BoligMatch og få besked så snart, din drømmebolig bliver sat til salg.
+                                Overvåg markedet automatisk. Opret en BoligAgent og få besked så snart, din drømmebolig bliver sat til salg.
                             </p>
                         </a>
                     </div>
@@ -1071,7 +1387,7 @@
                     </h2>
                     <div id="faqCollapseConcept" class="accordion-collapse collapse" aria-labelledby="faqHeadingConcept" data-bs-parent="#faqAccordion">
                         <div class="accordion-body ps-5 pe-4 pb-4 pt-0 text-secondary lh-lg">
-                            Andelsboligmarkedet er uoverskueligt og spredt over utallige Facebook-grupper og mæglersider. Det problem løser vi. <strong>Vores live overvågning holder øje med markedet</strong>, og via BoligMatch <strong>får du besked i sekundet</strong>, en bolig matcher dine ønsker.
+                            Andelsboligmarkedet er uoverskueligt og spredt over utallige Facebook-grupper og mæglersider. Det problem løser vi. <strong>Vores live overvågning holder øje med markedet</strong>, og via BoligAgent <strong>får du besked i sekundet</strong>, en bolig matcher dine ønsker.
                             <br><br>
                             Samtidig gør vi op med dyre mæglersalærer. Det er <strong>100% gratis at sælge eller bytte</strong> din andelsbolig hos os, og din annonce når øjeblikkeligt ud til tusindvis af købeklare danskere.
                         </div>
@@ -1127,12 +1443,12 @@
                     <h2 class="accordion-header" id="faqHeadingFour">
                         <button class="accordion-button collapsed fw-bold py-4 px-4 bg-transparent" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapseFour" aria-expanded="false" aria-controls="faqCollapseFour" style="color: var(--company-dark); font-size: 1.1rem;">
                             <i class="fa-solid fa-bell me-3 text-primary"></i>
-                            Hvordan fungerer BoligMatch?
+                            Hvordan fungerer BoligAgent?
                         </button>
                     </h2>
                     <div id="faqCollapseFour" class="accordion-collapse collapse" aria-labelledby="faqHeadingFour" data-bs-parent="#faqAccordion">
                         <div class="accordion-body ps-5 pe-4 pb-4 pt-0 text-secondary lh-lg">
-                            Med BoligMatch overvåger vi markedet for dig helt automatisk. Du opretter dine kriterier (f.eks. pris, størrelse og område), og vi sender dig en e-mail i samme sekund, som en andelsbolig, der matcher dine drømme, bliver sat til salg.
+                            Med BoligAgent overvåger vi markedet for dig helt automatisk. Du opretter dine kriterier (f.eks. pris, størrelse og område), og vi sender dig en e-mail i samme sekund, som en andelsbolig, der matcher dine drømme, bliver sat til salg.
                         </div>
                     </div>
                 </div>
@@ -1584,6 +1900,217 @@
 
 
 
+    <div id="udlej_vaerelse" class="view">
+        <section class="rent-room-hero">
+            <div class="container py-5">
+                <div class="row align-items-center g-5">
+                    <div class="col-lg-6">
+                        <div class="hero-intro-badge d-inline-flex align-items-center p-1 rounded-pill mb-4">
+                            <span class="rounded-pill fw-semibold text-white px-3 py-2 badge-highlight">
+                                100% gratis
+                            </span>
+                            <span class="small fw-semibold text-white ms-3 me-4 opacity-90">
+                                Udlej værelse til unge på boligjagt
+                            </span>
+                        </div>
+                        <h1 class="display-4 fw-bolder mb-4 text-white">
+                            Udlej dit værelse gratis
+                        </h1>
+                        <p class="lead text-white opacity-90 mb-4" style="max-width: 620px;">
+                            Opret en annonce på få minutter, fortæl hvem du gerne vil bo med, og find en tryg roomie uden skjulte gebyrer.
+                        </p>
+                        <div class="d-flex flex-wrap gap-3 text-white small fw-semibold">
+                            <span class="rent-room-hero-check"><i class="fa-solid fa-check"></i> Gratis annonce</span>
+                            <span class="rent-room-hero-check"><i class="fa-solid fa-check"></i> Roomie-vibes</span>
+                            <span class="rent-room-hero-check"><i class="fa-solid fa-check"></i> Direkte kontakt</span>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="rent-room-preview-card">
+                            <div class="rent-room-preview-image">
+                                <img src="/pics/landing2.png" alt="Lyst værelse klar til udlejning" loading="eager" decoding="async">
+                                <span class="rent-room-preview-badge">Ledigt værelse</span>
+                            </div>
+                            <div class="p-4">
+                                <div class="d-flex justify-content-between gap-3 mb-3">
+                                    <div>
+                                        <h2 class="h5 fw-bold mb-1">Roomie søges i København</h2>
+                                        <p class="text-muted small mb-0">15 m² · møbleret · socialt hjem</p>
+                                    </div>
+                                    <strong class="text-primary-coral text-nowrap">5.200 kr.</strong>
+                                </div>
+                                <div class="d-flex flex-wrap gap-2">
+                                    <span class="vibe-tag">🤫 Stille</span>
+                                    <span class="vibe-tag">🧹 Rengøringsplan</span>
+                                    <span class="vibe-tag">🍻 Socialt</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="rent-room-form-section py-5">
+            <div class="container py-4">
+                <div class="row justify-content-center">
+                    <div class="col-lg-9 col-xl-8">
+                        <div class="text-center mb-5">
+                            <h2 class="fw-bold mb-3">Opret dit værelse</h2>
+                            <p class="text-muted fs-5 mb-0">Jo mere menneskeligt du beskriver hjemmet, desto nemmere er det at finde den rigtige roomie.</p>
+                        </div>
+
+                        <form id="form-rent-room" class="rent-room-form-card" novalidate>
+                            <section class="rent-room-form-block">
+                                <h3><i class="fa-solid fa-pen-to-square text-primary-coral"></i> Grundoplysninger</h3>
+                                <div class="row g-3">
+                                    <div class="col-12">
+                                        <label for="rent_room_title" class="form-label">Overskrift</label>
+                                        <input class="form-control form-control-lg" id="rent_room_title" name="title" type="text" required placeholder="f.eks. Lyst værelse i socialt kollektiv på Nørrebro">
+                                    </div>
+                                    <div class="col-12">
+                                        <label for="rent_room_description" class="form-label">Beskrivelse</label>
+                                        <textarea class="form-control" id="rent_room_description" name="description" rows="6" required placeholder="Fortæl om værelset, hjemmet, hverdagen og hvem I håber at finde."></textarea>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="rent_room_available_from" class="form-label">Ledigt fra</label>
+                                        <input class="form-control" id="rent_room_available_from" name="available_from" type="date">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="rent_room_duration" class="form-label">Lejeperiode</label>
+                                        <select class="form-select" id="rent_room_duration" name="duration">
+                                            <option value="">Vælg periode</option>
+                                            <option value="unlimited">Ubegrænset</option>
+                                            <option value="temporary">Tidsbegrænset</option>
+                                            <option value="flexible">Fleksibel</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </section>
+
+                            <section class="rent-room-form-block">
+                                <h3><i class="fa-solid fa-location-dot text-primary-coral"></i> Beliggenhed</h3>
+                                <div class="row g-3">
+                                    <div class="col-md-8">
+                                        <label for="rent_room_address" class="form-label">Adresse</label>
+                                        <input class="form-control" id="rent_room_address" name="address" type="text" placeholder="Vejnavn og nummer">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="rent_room_postal" class="form-label">Postnr. og by</label>
+                                        <input class="form-control" id="rent_room_postal" name="postal" type="text" placeholder="2200 København N">
+                                    </div>
+                                </div>
+                            </section>
+
+                            <section class="rent-room-form-block">
+                                <h3><i class="fa-solid fa-wallet text-primary-coral"></i> Husleje og depositum</h3>
+                                <div class="row g-3">
+                                    <div class="col-md-4">
+                                        <label for="rent_room_monthly_rent" class="form-label">Husleje pr. måned</label>
+                                        <div class="input-group">
+                                            <input class="form-control" id="rent_room_monthly_rent" name="monthly_rent" type="number" inputmode="numeric" min="0" required placeholder="5200">
+                                            <span class="input-group-text">kr.</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="rent_room_deposit" class="form-label">Depositum</label>
+                                        <div class="input-group">
+                                            <input class="form-control" id="rent_room_deposit" name="deposit" type="number" inputmode="numeric" min="0" placeholder="10400">
+                                            <span class="input-group-text">kr.</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="rent_room_prepaid" class="form-label">Forudbetalt leje</label>
+                                        <div class="input-group">
+                                            <input class="form-control" id="rent_room_prepaid" name="prepaid_rent" type="number" inputmode="numeric" min="0" placeholder="0">
+                                            <span class="input-group-text">kr.</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <input class="facility-check-input" type="checkbox" id="rent_room_utilities_included" name="utilities_included">
+                                        <label class="facility-card rent-room-toggle-card" for="rent_room_utilities_included">
+                                            <i class="fa-solid fa-bolt"></i>
+                                            <span class="facility-text">Forbrug er inkluderet i huslejen</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </section>
+
+                            <section class="rent-room-form-block">
+                                <h3><i class="fa-solid fa-house-user text-primary-coral"></i> Værelsets detaljer</h3>
+                                <div class="row g-3">
+                                    <div class="col-md-4">
+                                        <label for="rent_room_size" class="form-label">Størrelse</label>
+                                        <div class="input-group">
+                                            <input class="form-control" id="rent_room_size" name="size" type="number" inputmode="numeric" min="1" required placeholder="15">
+                                            <span class="input-group-text">m²</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="rent_room_roommates" class="form-label">Antal roomies i hjemmet</label>
+                                        <input class="form-control" id="rent_room_roommates" name="roommates" type="number" inputmode="numeric" min="0" placeholder="2">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="rent_room_shared_spaces" class="form-label">Fællesområder</label>
+                                        <input class="form-control" id="rent_room_shared_spaces" name="shared_spaces" type="text" placeholder="Køkken, bad, altan">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input class="facility-check-input" type="checkbox" id="rent_room_furnished" name="furnished">
+                                        <label class="facility-card rent-room-toggle-card" for="rent_room_furnished">
+                                            <i class="fa-solid fa-couch"></i>
+                                            <span class="facility-text">Værelset er møbleret</span>
+                                        </label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input class="facility-check-input" type="checkbox" id="rent_room_registration" name="registration_allowed">
+                                        <label class="facility-card rent-room-toggle-card" for="rent_room_registration">
+                                            <i class="fa-solid fa-address-card"></i>
+                                            <span class="facility-text">CPR-adresse er mulig</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </section>
+
+                            <section class="rent-room-form-block">
+                                <h3><i class="fa-solid fa-face-smile text-primary-coral"></i> Roomie-vibes</h3>
+                                <p class="text-muted mb-3">Vælg de tags, der bedst beskriver hverdagen i hjemmet.</p>
+                                <div class="rent-room-vibe-grid">
+                                    <input type="checkbox" id="vibe_quiet" name="vibes" value="Stille">
+                                    <label for="vibe_quiet">🤫 Stille</label>
+                                    <input type="checkbox" id="vibe_social" name="vibes" value="Socialt">
+                                    <label for="vibe_social">🍻 Socialt</label>
+                                    <input type="checkbox" id="vibe_cleaning" name="vibes" value="Rengøringsplan">
+                                    <label for="vibe_cleaning">🧹 Rengøringsplan</label>
+                                    <input type="checkbox" id="vibe_student" name="vibes" value="Studievenligt">
+                                    <label for="vibe_student">🎓 Studievenligt</label>
+                                    <input type="checkbox" id="vibe_vegan" name="vibes" value="Vegan">
+                                    <label for="vibe_vegan">🌿 Vegan</label>
+                                    <input type="checkbox" id="vibe_pets" name="vibes" value="Kæledyr">
+                                    <label for="vibe_pets">🐾 Kæledyr</label>
+                                </div>
+                            </section>
+
+                            <section class="rent-room-form-block">
+                                <h3><i class="fa-solid fa-images text-primary-coral"></i> Billeder</h3>
+                                <label class="rent-room-upload-zone" for="rent_room_images">
+                                    <i class="fa-solid fa-cloud-arrow-up"></i>
+                                    <span class="fw-bold">Vælg billeder af værelset</span>
+                                    <small class="text-muted">JPG, PNG eller WebP</small>
+                                </label>
+                                <input type="file" id="rent_room_images" name="images" multiple accept=".jpg,.jpeg,.png,.webp" class="d-none">
+                            </section>
+
+                            <div class="d-grid">
+                                <button class="btn btn-primary-coral btn-lg rounded-pill py-3 fw-bold shadow-sm" type="submit">
+                                    <i class="fa-solid fa-check me-2"></i>Opret værelse
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
 
 
     <div id="create" class="view">
@@ -2372,7 +2899,7 @@ Venlig hilsen</textarea>
             <div class="row justify-content-center mb-5">
                 <div class="col-lg-8 text-center">
                     <h1 class="view-title">
-                        Dine <span class="view-title-highlight">BoligMatch</span>
+                        Dine <span class="view-title-highlight">BoligAgent</span>
                     </h1>
                     <p class="text-muted fs-5 opacity-75">
                         Vi scanner markedet og giver dig besked så snart, din drømmebolig sættes til salg.
@@ -2380,7 +2907,7 @@ Venlig hilsen</textarea>
 
                     <div id="agent-header-actions" class="mt-4 d-none">
                         <a href="/boligerovervaagning-opret" class="btn btn-primary btn-lg rounded-pill px-5 fw-bold shadow-sm transition-transform">
-                            <i class="fa-solid fa-plus me-2"></i>Opret nyt BoligMatch
+                            <i class="fa-solid fa-plus me-2"></i>Opret nyt BoligAgent
                         </a>
                     </div>
                 </div>
@@ -2390,7 +2917,7 @@ Venlig hilsen</textarea>
                 <div class="spinner-border text-primary" role="status" style="width: 3rem; height: 3rem;">
                     <span class="visually-hidden">Henter...</span>
                 </div>
-                <p class="text-muted mt-3">Henter dine BoligMatch...</p>
+                <p class="text-muted mt-3">Henter dine BoligAgent...</p>
             </div>
 
             <div id="agent-grid" class="row g-4"></div>
@@ -2404,15 +2931,15 @@ Venlig hilsen</textarea>
                                     <i class="fa-solid fa-bell fa-3x text-primary opacity-50"></i>
                                 </div>
                             </div>
-                            <h3 class="fw-bold text-dark mb-3">Du har ingen aktive BoligMatch</h3>
+                            <h3 class="fw-bold text-dark mb-3">Du har ingen aktive BoligAgent</h3>
                             <p class="text-muted mb-4 mx-auto" style="max-width: 500px;">
-                                Gå ikke glip af din drømmebolig. Opret et BoligMatch nu, og modtag en e-mail, så snart der kommer en andelsbolig til salg, der matcher dine krav.
+                                Gå ikke glip af din drømmebolig. Opret en BoligAgent nu, og modtag en e-mail, så snart der kommer en andelsbolig til salg, der matcher dine krav.
                             </p>
 
                             <div class="d-grid">
                                 <a href="/boligerovervaagning-opret" class="btn btn-primary btn-lg rounded-pill fw-bold d-flex align-items-center justify-content-center text-wrap">
                                     <i class="fa-solid fa-plus me-2"></i>
-                                    <span>Opret min første BoligMatch</span>
+                                    <span>Opret min første BoligAgent</span>
                                 </a>
                             </div>
                         </div>
@@ -3260,7 +3787,7 @@ Venlig hilsen</textarea>
                     <span class="fw-bold" style="color: var(--company-dark); font-size: 1.1rem;">Giv dit salg et gratis boost!</span>
                 </div>
                 <p class="small text-muted mb-0 lh-lg">
-                    Vi har allerede sendt besked til købere, som har et matchende BoligMatch på din bolig. Du kan øge dine chancer for et hurtigt salg endnu mere ved at dele annoncen med dit netværk.
+                    Vi har allerede sendt besked til købere, som har et matchende BoligAgent på din bolig. Du kan øge dine chancer for et hurtigt salg endnu mere ved at dele annoncen med dit netværk.
                 </p>
             </div>
 

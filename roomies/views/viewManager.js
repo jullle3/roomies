@@ -24,6 +24,7 @@ import {
 const views = {
     landing: document.getElementById('landing'),
     sell_landing: document.getElementById('sell_landing'),
+    udlej_vaerelse: document.getElementById('udlej_vaerelse'),
     housing_list: document.getElementById('housing_list'),
     housing_map: document.getElementById('housing_map'),
     // Hack to redirect users to that page when completing login
@@ -51,6 +52,7 @@ const routeToView = {
     '/': 'landing',
     '/saelg-andelsbolig-selv-koncept': 'sell_landing',
     '/saelg-andelsbolig-selv': 'create',
+    '/udlej-vaerelse': 'udlej_vaerelse',
     '/profil': 'profile',
     '/beskeder': 'conversations',
     '/saelger': 'seller_profile',

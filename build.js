@@ -67,6 +67,7 @@ const cssFiles = [
     'blog/blog.css',
     'landing/landing.css',
     'landing_sell/landing_sell.css',
+    'udlej_vaerelse/udlej_vaerelse.css',
     // 'ai_analysis/ai_analysis.css',
     // 'ai_result/ai_result.css',
     'toast/toast.css',

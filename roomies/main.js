@@ -23,6 +23,7 @@ import {
 } from "./landing/landing.js";
 import {environment} from "./config/config.js";
 import {setupConversationsView, startGlobalConversationUnreadPolling} from "./conversations/conversations.js";
+import {setupRentRoomView} from "./udlej_vaerelse/udlej_vaerelse.js";
 
 
 function logBuildVersionInDev() {
@@ -113,6 +114,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         setupBootstrapTooltips();
         setupMapView();
         setupConversationsView();
+        setupRentRoomView();
         SetupHeader();
         setupProfileView()
 

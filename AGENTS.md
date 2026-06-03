@@ -65,6 +65,17 @@ Friendly, highly legible mobile-first typefaces.
 * **Border Radii:** Use completely rounded pills for buttons/tags (`--radius-pill: 50px`) and large, soft corners for cards and hubs (`--radius-xl: 20px`).
 * **Shadows:** Avoid harsh borders. Use wide, soft shadows (`--shadow-soft`) that elevate dramatically on hover (`--shadow-hover`).
 
+#### General Visual Quality Bar
+Use the same polished, tactile language across the product, not only on the front page.
+
+* **Composition:** Interfaces should feel spacious, intentional, and social-app-like. Prefer one strong focal element per section over many small competing boxes.
+* **Surface Treatment:** Important UI surfaces should feel slightly elevated and touchable: soft shadows, warm white or glass backgrounds, rounded pills/cards, and subtle hover lift.
+* **Contrast:** Text must stay readable over photos, gradients, and glass surfaces. Use dark overlays behind image-backed sections and avoid `text-muted` directly on image or busy backgrounds.
+* **CTA Hierarchy:** Primary user actions use the coral primary color. Avoid black/dark buttons for main actions unless the surrounding design explicitly needs a dark neutral control.
+* **Typography Consistency:** Related text inside the same component should share the same font family, weight logic, casing, and letter spacing. Avoid accidental mixes of Bootstrap badge typography, uppercase labels, and normal body text.
+* **Bootstrap Restraint:** Use Bootstrap utilities as helpers, but the final result should not look like default Bootstrap. Add roomies-specific classes or styles when needed to keep the warm, tactile identity.
+* **Warmth Over Corporate:** Prefer friendly, rounded, human UI over clinical real-estate or banking aesthetics. The product should feel like a community tool, not an agency portal.
+
 #### Listing Cards (`.room-card`)
 * **Focus on the Human:** Roommates care about *who* they live with. Ensure a prominent circular user avatar (`width: 56px; height: 56px; border: 4px solid #fff; border-radius: 50%;`) overlaps the bottom-right edge of the room image (`bottom: -24px; right: 24px;`).
 * **Aspect Ratio:** Room thumbnails must use a 3:2 aspect ratio (`padding-bottom: 65%`).

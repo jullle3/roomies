@@ -1,0 +1,232 @@
+.agent-header-title {
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    color: var(--company-dark, #212529);
+}
+
+/* -------------------------------------------------------------------------- */
+/* Agent Cards                                                                */
+/* -------------------------------------------------------------------------- */
+
+.agent-card {
+    transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.25s ease;
+    border: 1px solid rgba(0,0,0,0.05) !important;
+    background: white;
+}
+
+.agent-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08) !important;
+}
+
+/* Icon Box inside card */
+.agent-icon-box {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(45, 75, 242, 0.08); /* Primary with low opacity */
+    color: var(--bs-primary, #0d6efd);
+    font-size: 1.25rem;
+    transition: all 0.2s ease;
+}
+
+.agent-card:hover .agent-icon-box {
+    background-color: var(--bs-primary, #0d6efd);
+    color: white;
+    transform: rotate(-10deg) scale(1.1);
+}
+
+/* Status Badges */
+.status-badge {
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 0.35em 0.8em;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Action Buttons within Card */
+.btn-edit-agent {
+    border-width: 2px;
+    font-weight: 600;
+}
+
+.btn-delete-icon {
+    width: 38px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #adb5bd;
+    transition: all 0.2s;
+    border: 1px solid transparent;
+}
+
+.btn-delete-icon:hover {
+    background-color: #fee2e2; /* Light red */
+    color: #dc3545;
+    transform: scale(1.1);
+}
+
+/* -------------------------------------------------------------------------- */
+/* Empty State                                                                */
+/* -------------------------------------------------------------------------- */
+
+.empty-state-icon {
+    font-size: 4rem;
+    color: #e9ecef;
+    margin-bottom: 1.5rem;
+}
+
+.empty-state-card {
+    background-color: white;
+    border: 2px dashed #dee2e6;
+}
+
+/* Floating Action Button (Mobile) or Sticky Header Button */
+.btn-create-floating {
+    box-shadow: 0 4px 12px rgba(45, 75, 242, 0.3);
+    transition: transform 0.2s;
+}
+
+.btn-create-floating:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(45, 75, 242, 0.4);
+}
+
+/* Delete Button Styling */
+.btn-delete-agent {
+    color: #adb5bd; /* Subtle Grey (Bootstrap gray-500) */
+    background-color: transparent;
+    border: 1px solid transparent;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn-delete-agent:hover {
+    color: #dc3545; /* Danger Red */
+    background-color: #fee2e2; /* Very light red background */
+    transform: scale(1.15); /* Slight pop effect */
+    box-shadow: 0 4px 8px rgba(220, 53, 69, 0.15);
+}
+
+.btn-delete-agent:active {
+    transform: scale(0.95);
+}
+
+/* --- Agent Promo Popup --- */
+.agent-promo-card {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 340px;
+    background: white;
+    z-index: 1060; /* Above Bootstrap modals/tooltips if needed */
+    border: 1px solid rgba(0,0,0,0.05);
+    font-family: inherit;
+    /* Animation start state */
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    pointer-events: none; /* Click-through when hidden */
+}
+
+.agent-promo-card.visible {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+.agent-promo-icon {
+    width: 40px;
+    height: 40px;
+    background-color: rgba(45, 75, 242, 0.1); /* Company Blue 10% */
+    color: rgb(45, 75, 242); /* Company Blue */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-size: 1.2rem;
+}
+
+.agent-promo-close {
+    opacity: 0.5;
+    transition: opacity 0.2s;
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    padding: 0;
+    line-height: 1;
+}
+
+.agent-promo-close:hover {
+    opacity: 1;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 576px) {
+    .agent-promo-card {
+        width: calc(100% - 40px);
+        bottom: 20px;
+        right: 20px;
+        left: 20px;
+    }
+}
+
+
+/* --- Badge System (Glassmorphism) --- */
+/* Base class for shape and physics */
+.badge-glass {
+    background: rgba(255, 255, 255, 0.96);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 1);
+    color: var(--company-dark, #061148);
+    font-weight: 700;
+    font-size: 0.75rem;
+    padding: 0.5em 1em;
+    border-radius: 50rem;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.08);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    text-decoration: none;
+    white-space: nowrap;
+    cursor: default; /* Unless it's a button */
+}
+
+/* 1. Exchange Badge (The one you liked) */
+.badge-exchange {
+    background: rgba(236, 253, 245, 0.96);
+    border: 1px solid rgba(16, 185, 129, 0.3);
+    color: rgb(5, 150, 105);
+}
+
+/* 2. Active Badge (Green - Same vibe as Exchange but distinct meaning) */
+.badge-active {
+    background: rgba(240, 253, 244, 0.96); /* Very soft green */
+    border: 1px solid rgba(22, 163, 74, 0.25);
+    color: rgb(22, 163, 74);
+}
+
+/* 3. Inactive Badge (Grey/Neutral) */
+.badge-inactive {
+    background: rgba(248, 250, 252, 0.96); /* Soft grey/blueish */
+    border: 1px solid rgba(148, 163, 184, 0.25);
+    color: rgb(100, 116, 139); /* Slate 500 */
+}
+
+/* Universal Hover "Lift" Effect for all glass badges */
+.badge-glass:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 15px rgba(0,0,0,0.12);
+    /* Intensify borders slightly on hover */
+    filter: brightness(0.98);
+}
+
+/* Ensure icons are sized correctly */
+.badge-glass i {
+    font-size: 0.85rem;
+}

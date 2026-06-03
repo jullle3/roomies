@@ -1,0 +1,8627 @@
+[
+  {
+    "path": "tilsalg/varde",
+    "title": "Varde",
+    "type": "By"
+  },
+  {
+    "path": "tilsalg/faxe",
+    "title": "Faxe",
+    "type": "By"
+  },
+  {
+    "path": "tilsalg/hjoerring",
+    "title": "Hjørring",
+    "type": "By"
+  },
+  {
+    "path": "tilsalg/aarhus",
+    "title": "Aarhus",
+    "type": "By"
+  },
+  {
+    "path": "tilsalg/skanderborg",
+    "title": "Skanderborg",
+    "type": "By"
+  },
+  {
+    "path": "tilsalg/holstebro",
+    "title": "Holstebro",
+    "type": "By"
+  },
+  {
+    "path": "tilsalg/vordingborg",
+    "title": "Vordingborg",
+    "type": "By"
+  },
+  {
+    "path": "tilsalg/haderslev",
+    "title": "Haderslev",
+    "type": "By"
+  },
+  {
+    "path": "tilsalg/aalborg",
+    "title": "Aalborg",
+    "type": "By"
+  },
+  {
+    "path": "tilsalg/kolding",
+    "title": "Kolding",
+    "type": "By"
+  },
+  {
+    "path": "tilsalg/gentofte",
+    "title": "Gentofte",
+    "type": "By"
+  },
+  {
+    "path": "tilsalg/assens",
+    "title": "Assens",
+    "type": "By"
+  },
+  {
+    "path": "tilsalg/esbjerg",
+    "title": "Esbjerg",
+    "type": "By"
+  },
+  {
+    "path": "tilsalg/herning",
+    "title": "Herning",
+    "type": "By"
+  },
+  {
+    "path": "tilsalg/halsnaes",
+    "title": "Halsnæs",
+    "type": "By"
+  },
+  {
+    "path": "tilsalg/vejle",
+    "title": "Vejle",
+    "type": "By"
+  },
+  {
+    "path": "tilsalg/koebenhavn",
+    "title": "København",
+    "type": "By"
+  },
+  {
+    "path": "tilsalg/viborg",
+    "title": "Viborg",
+    "type": "By"
+  },
+  {
+    "path": "tilsalg/naestved",
+    "title": "Næstved",
+    "type": "By"
+  },
+  {
+    "path": "tilsalg/favrskov",
+    "title": "Favrskov",
+    "type": "By"
+  },
+  {
+    "path": "tilsalg/randers",
+    "title": "Randers",
+    "type": "By"
+  },
+  {
+    "path": "tilsalg/ringkoebing-skjern",
+    "title": "Ringkøbing-Skjern",
+    "type": "By"
+  },
+  {
+    "path": "tilsalg/odense",
+    "title": "Odense",
+    "type": "By"
+  },
+  {
+    "path": "tilsalg/egedal",
+    "title": "Egedal",
+    "type": "By"
+  },
+  {
+    "path": "tilsalg/odsherred",
+    "title": "Odsherred",
+    "type": "By"
+  },
+  {
+    "path": "tilsalg/guldborgsund",
+    "title": "Guldborgsund",
+    "type": "By"
+  },
+  {
+    "path": "tilsalg/silkeborg",
+    "title": "Silkeborg",
+    "type": "By"
+  },
+  {
+    "path": "tilsalg/kalundborg",
+    "title": "Kalundborg",
+    "type": "By"
+  },
+  {
+    "path": "tilsalg/gladsaxe",
+    "title": "Gladsaxe",
+    "type": "By"
+  },
+  {
+    "path": "tilsalg/glostrup",
+    "title": "Glostrup",
+    "type": "By"
+  },
+  {
+    "path": "tilsalg/horsens",
+    "title": "Horsens",
+    "type": "By"
+  },
+  {
+    "path": "tilsalg/slagelse",
+    "title": "Slagelse",
+    "type": "By"
+  },
+  {
+    "path": "tilsalg/rebild",
+    "title": "Rebild",
+    "type": "By"
+  },
+  {
+    "path": "tilsalg/morsoe",
+    "title": "Morsø",
+    "type": "By"
+  },
+  {
+    "path": "tilsalg/aabenraa",
+    "title": "Aabenraa",
+    "type": "By"
+  },
+  {
+    "path": "tilsalg/hvidovre",
+    "title": "Hvidovre",
+    "type": "By"
+  },
+  {
+    "path": "tilsalg/ikast-brande",
+    "title": "Ikast-Brande",
+    "type": "By"
+  },
+  {
+    "path": "tilsalg/toender",
+    "title": "Tønder",
+    "type": "By"
+  },
+  {
+    "path": "tilsalg/lolland",
+    "title": "Lolland",
+    "type": "By"
+  },
+  {
+    "path": "tilsalg/mariagerfjord",
+    "title": "Mariagerfjord",
+    "type": "By"
+  },
+  {
+    "path": "tilsalg/lemvig",
+    "title": "Lemvig",
+    "type": "By"
+  },
+  {
+    "path": "tilsalg/greve",
+    "title": "Greve",
+    "type": "By"
+  },
+  {
+    "path": "tilsalg/bornholm",
+    "title": "Bornholm",
+    "type": "By"
+  },
+  {
+    "path": "tilsalg/syddjurs",
+    "title": "Syddjurs",
+    "type": "By"
+  },
+  {
+    "path": "tilsalg/thisted",
+    "title": "Thisted",
+    "type": "By"
+  },
+  {
+    "path": "tilsalg/vesthimmerlands",
+    "title": "Vesthimmerlands",
+    "type": "By"
+  },
+  {
+    "path": "tilsalg/helsingoer",
+    "title": "Helsingør",
+    "type": "By"
+  },
+  {
+    "path": "tilsalg/gribskov",
+    "title": "Gribskov",
+    "type": "By"
+  },
+  {
+    "path": "tilsalg/kerteminde",
+    "title": "Kerteminde",
+    "type": "By"
+  },
+  {
+    "path": "tilsalg/frederikshavn",
+    "title": "Frederikshavn",
+    "type": "By"
+  },
+  {
+    "path": "tilsalg/hedensted",
+    "title": "Hedensted",
+    "type": "By"
+  },
+  {
+    "path": "tilsalg/nordfyns",
+    "title": "Nordfyns",
+    "type": "By"
+  },
+  {
+    "path": "tilsalg/odder",
+    "title": "Odder",
+    "type": "By"
+  },
+  {
+    "path": "tilsalg/vejen",
+    "title": "Vejen",
+    "type": "By"
+  },
+  {
+    "path": "tilsalg/hoeje-taastrup",
+    "title": "Høje-Taastrup",
+    "type": "By"
+  },
+  {
+    "path": "tilsalg/soroe",
+    "title": "Sorø",
+    "type": "By"
+  },
+  {
+    "path": "tilsalg/jammerbugt",
+    "title": "Jammerbugt",
+    "type": "By"
+  },
+  {
+    "path": "tilsalg/norddjurs",
+    "title": "Norddjurs",
+    "type": "By"
+  },
+  {
+    "path": "tilsalg/middelfart",
+    "title": "Middelfart",
+    "type": "By"
+  },
+  {
+    "path": "tilsalg/holbaek",
+    "title": "Holbæk",
+    "type": "By"
+  },
+  {
+    "path": "tilsalg/billund",
+    "title": "Billund",
+    "type": "By"
+  },
+  {
+    "path": "tilsalg/stevns",
+    "title": "Stevns",
+    "type": "By"
+  },
+  {
+    "path": "tilsalg/soenderborg",
+    "title": "Sønderborg",
+    "type": "By"
+  },
+  {
+    "path": "tilsalg/rudersdal",
+    "title": "Rudersdal",
+    "type": "By"
+  },
+  {
+    "path": "tilsalg/ishoej",
+    "title": "Ishøj",
+    "type": "By"
+  },
+  {
+    "path": "tilsalg/roskilde",
+    "title": "Roskilde",
+    "type": "By"
+  },
+  {
+    "path": "tilsalg/koege",
+    "title": "Køge",
+    "type": "By"
+  },
+  {
+    "path": "tilsalg/hoersholm",
+    "title": "Hørsholm",
+    "type": "By"
+  },
+  {
+    "path": "tilsalg/ringsted",
+    "title": "Ringsted",
+    "type": "By"
+  },
+  {
+    "path": "tilsalg/fredericia",
+    "title": "Fredericia",
+    "type": "By"
+  },
+  {
+    "path": "tilsalg/broenderslev",
+    "title": "Brønderslev",
+    "type": "By"
+  },
+  {
+    "path": "tilsalg/lyngby-taarbaek",
+    "title": "Lyngby-Taarbæk",
+    "type": "By"
+  },
+  {
+    "path": "tilsalg/frederikssund",
+    "title": "Frederikssund",
+    "type": "By"
+  },
+  {
+    "path": "tilsalg/svendborg",
+    "title": "Svendborg",
+    "type": "By"
+  },
+  {
+    "path": "tilsalg/struer",
+    "title": "Struer",
+    "type": "By"
+  },
+  {
+    "path": "tilsalg/langeland",
+    "title": "Langeland",
+    "type": "By"
+  },
+  {
+    "path": "tilsalg/solroed",
+    "title": "Solrød",
+    "type": "By"
+  },
+  {
+    "path": "tilsalg/faaborg-midtfyn",
+    "title": "Faaborg-Midtfyn",
+    "type": "By"
+  },
+  {
+    "path": "tilsalg/hilleroed",
+    "title": "Hillerød",
+    "type": "By"
+  },
+  {
+    "path": "tilsalg/fredensborg",
+    "title": "Fredensborg",
+    "type": "By"
+  },
+  {
+    "path": "tilsalg/nyborg",
+    "title": "Nyborg",
+    "type": "By"
+  },
+  {
+    "path": "tilsalg/dragoer",
+    "title": "Dragør",
+    "type": "By"
+  },
+  {
+    "path": "tilsalg/aarhus-centrum",
+    "title": "Aarhus Centrum",
+    "type": "Bydel"
+  },
+  {
+    "path": "tilsalg/aalborg-oest",
+    "title": "Aalborg Øst",
+    "type": "Bydel"
+  },
+  {
+    "path": "tilsalg/randers-sydoest",
+    "title": "Randers Sydøst",
+    "type": "Bydel"
+  },
+  {
+    "path": "tilsalg/aarhus-nord",
+    "title": "Aarhus Nord",
+    "type": "Bydel"
+  },
+  {
+    "path": "tilsalg/odense-centrum",
+    "title": "Odense Centrum",
+    "type": "Bydel"
+  },
+  {
+    "path": "tilsalg/aalborg-sydoest",
+    "title": "Aalborg Sydøst",
+    "type": "Bydel"
+  },
+  {
+    "path": "tilsalg/indre-by",
+    "title": "Indre By",
+    "type": "Bydel"
+  },
+  {
+    "path": "tilsalg/odense-nordoest",
+    "title": "Odense Nordøst",
+    "type": "Bydel"
+  },
+  {
+    "path": "tilsalg/nordvest",
+    "title": "Nordvest",
+    "type": "Bydel"
+  },
+  {
+    "path": "tilsalg/aalborg-sydvest",
+    "title": "Aalborg Sydvest",
+    "type": "Bydel"
+  },
+  {
+    "path": "tilsalg/vesterbro",
+    "title": "Vesterbro",
+    "type": "Bydel"
+  },
+  {
+    "path": "tilsalg/randers-nordvest",
+    "title": "Randers Nordvest",
+    "type": "Bydel"
+  },
+  {
+    "path": "tilsalg/lyngby",
+    "title": "Lyngby",
+    "type": "Bydel"
+  },
+  {
+    "path": "tilsalg/odense-nord",
+    "title": "Odense Nord",
+    "type": "Bydel"
+  },
+  {
+    "path": "tilsalg/randers-nordoest",
+    "title": "Randers Nordøst",
+    "type": "Bydel"
+  },
+  {
+    "path": "tilsalg/frederiksberg",
+    "title": "Frederiksberg",
+    "type": "Bydel"
+  },
+  {
+    "path": "tilsalg/odense-nordvest",
+    "title": "Odense Nordvest",
+    "type": "Bydel"
+  },
+  {
+    "path": "tilsalg/odense-sydoest",
+    "title": "Odense Sydøst",
+    "type": "Bydel"
+  },
+  {
+    "path": "tilsalg/aarhus-vest",
+    "title": "Aarhus Vest",
+    "type": "Bydel"
+  },
+  {
+    "path": "tilsalg/amager",
+    "title": "Amager",
+    "type": "Bydel"
+  },
+  {
+    "path": "tilsalg/noerrebro",
+    "title": "Nørrebro",
+    "type": "Bydel"
+  },
+  {
+    "path": "tilsalg/oesterbro",
+    "title": "Østerbro",
+    "type": "Bydel"
+  },
+  {
+    "path": "tilsalg/odense-sydvest",
+    "title": "Odense Sydvest",
+    "type": "Bydel"
+  },
+  {
+    "path": "tilsalg/randers-sydvest",
+    "title": "Randers Sydvest",
+    "type": "Bydel"
+  },
+  {
+    "path": "tilsalg/6800-varde",
+    "title": "6800 Varde",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/4654-faxe-ladeplads",
+    "title": "4654 Faxe Ladeplads",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/9800-hjoerring",
+    "title": "9800 Hjørring",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/8000-aarhus-c",
+    "title": "8000 Aarhus C",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/8270-hoejbjerg",
+    "title": "8270 Højbjerg",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/8362-hoerning",
+    "title": "8362 Hørning",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/7500-holstebro",
+    "title": "7500 Holstebro",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/6560-sommersted",
+    "title": "6560 Sommersted",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/9220-aalborg-oest",
+    "title": "9220 Aalborg Øst",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/6000-kolding",
+    "title": "6000 Kolding",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/2820-gentofte",
+    "title": "2820 Gentofte",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/5620-glamsbjerg",
+    "title": "5620 Glamsbjerg",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/6705-esbjerg-oe",
+    "title": "6705 Esbjerg Ø",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/7400-herning",
+    "title": "7400 Herning",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/3300-frederiksvaerk",
+    "title": "3300 Frederiksværk",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/6040-egtved",
+    "title": "6040 Egtved",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/2500-valby",
+    "title": "2500 Valby",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/8850-bjerringbro",
+    "title": "8850 Bjerringbro",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/4700-naestved",
+    "title": "4700 Næstved",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/8382-hinnerup",
+    "title": "8382 Hinnerup",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/8960-randers-soe",
+    "title": "8960 Randers SØ",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/8200-aarhus-n",
+    "title": "8200 Aarhus N",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/4720-praestoe",
+    "title": "4720 Præstø",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/5000-odense-c",
+    "title": "5000 Odense C",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/6851-janderup-vestj",
+    "title": "6851 Janderup Vestj",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/8800-viborg",
+    "title": "8800 Viborg",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/9210-aalborg-soe",
+    "title": "9210 Aalborg SØ",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/9400-noerresundby",
+    "title": "9400 Nørresundby",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/8260-viby-j",
+    "title": "8260 Viby J",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/4573-hoejby",
+    "title": "4573 Højby",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/8381-tilst",
+    "title": "8381 Tilst",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/8600-silkeborg",
+    "title": "8600 Silkeborg",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/5492-vissenbjerg",
+    "title": "5492 Vissenbjerg",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/4591-foellenslev",
+    "title": "4591 Føllenslev",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/5240-odense-noe",
+    "title": "5240 Odense NØ",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/2400-koebenhavn-nv",
+    "title": "2400 København NV",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/9000-aalborg",
+    "title": "9000 Aalborg",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/2860-soeborg",
+    "title": "2860 Søborg",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/4780-stege",
+    "title": "4780 Stege",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/4684-holmegaard",
+    "title": "4684 Holmegaard",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/2600-glostrup",
+    "title": "2600 Glostrup",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/8700-horsens",
+    "title": "8700 Horsens",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/4200-slagelse",
+    "title": "4200 Slagelse",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/9541-suldrup",
+    "title": "9541 Suldrup",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/7900-nykoebing-m",
+    "title": "7900 Nykøbing M",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/4261-dalmose",
+    "title": "4261 Dalmose",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/6200-aabenraa",
+    "title": "6200 Aabenraa",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/2650-hvidovre",
+    "title": "2650 Hvidovre",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/7430-ikast",
+    "title": "7430 Ikast",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/6520-toftlund",
+    "title": "6520 Toftlund",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/6640-lunderskov",
+    "title": "6640 Lunderskov",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/4690-haslev",
+    "title": "4690 Haslev",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/4960-holeby",
+    "title": "4960 Holeby",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/9500-hobro",
+    "title": "9500 Hobro",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/8361-hasselager",
+    "title": "8361 Hasselager",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/8541-skoedstrup",
+    "title": "8541 Skødstrup",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/2670-greve",
+    "title": "2670 Greve",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/9200-aalborg-sv",
+    "title": "9200 Aalborg SV",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/3770-allinge",
+    "title": "3770 Allinge",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/8400-ebeltoft",
+    "title": "8400 Ebeltoft",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/4400-kalundborg",
+    "title": "4400 Kalundborg",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/7700-thisted",
+    "title": "7700 Thisted",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/6710-esbjerg-v",
+    "title": "6710 Esbjerg V",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/9620-aalestrup",
+    "title": "9620 Aalestrup",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/3000-helsingoer",
+    "title": "3000 Helsingør",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/6818-aarre",
+    "title": "6818 Årre",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/8900-randers-c",
+    "title": "8900 Randers C",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/8840-roedkaersbro",
+    "title": "8840 Rødkærsbro",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/8380-trige",
+    "title": "8380 Trige",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/5330-munkebo",
+    "title": "5330 Munkebo",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/7451-sunds",
+    "title": "7451 Sunds",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/6580-vamdrup",
+    "title": "6580 Vamdrup",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/9900-frederikshavn",
+    "title": "9900 Frederikshavn",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/8722-hedensted",
+    "title": "8722 Hedensted",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/5471-soendersoe",
+    "title": "5471 Søndersø",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/9310-vodskov",
+    "title": "9310 Vodskov",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/8300-odder",
+    "title": "8300 Odder",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/8654-bryrup",
+    "title": "8654 Bryrup",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/6600-vejen",
+    "title": "6600 Vejen",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/2640-hedehusene",
+    "title": "2640 Hedehusene",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/9490-pandrup",
+    "title": "9490 Pandrup",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/6270-toender",
+    "title": "6270 Tønder",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/8732-hovedgaard",
+    "title": "8732 Hovedgård",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/8220-brabrand",
+    "title": "8220 Brabrand",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/7442-engesvang",
+    "title": "7442 Engesvang",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/8950-oersted",
+    "title": "8950 Ørsted",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/5500-middelfart",
+    "title": "5500 Middelfart",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/8450-hammel",
+    "title": "8450 Hammel",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/8766-noerre-snede",
+    "title": "8766 Nørre Snede",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/4300-holbaek",
+    "title": "4300 Holbæk",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/4653-karise",
+    "title": "4653 Karise",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/7620-lemvig",
+    "title": "7620 Lemvig",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/4760-vordingborg",
+    "title": "4760 Vordingborg",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/6091-bjert",
+    "title": "6091 Bjert",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/6870-oelgod",
+    "title": "6870 Ølgod",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/8963-auning",
+    "title": "8963 Auning",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/8723-loesning",
+    "title": "8723 Løsning",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/6715-esbjerg-n",
+    "title": "6715 Esbjerg N",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/6230-roedekro",
+    "title": "6230 Rødekro",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/7760-hurup-thy",
+    "title": "7760 Hurup Thy",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/6440-augustenborg",
+    "title": "6440 Augustenborg",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/4800-nykoebing-f",
+    "title": "4800 Nykøbing F",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/9830-taars",
+    "title": "9830 Tårs",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/2635-ishoej",
+    "title": "2635 Ishøj",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/4840-noerre-alslev",
+    "title": "4840 Nørre Alslev",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/8981-spentrup",
+    "title": "8981 Spentrup",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/4000-roskilde",
+    "title": "4000 Roskilde",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/4930-maribo",
+    "title": "4930 Maribo",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/6700-esbjerg",
+    "title": "6700 Esbjerg",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/2942-skodsborg",
+    "title": "2942 Skodsborg",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/7190-billund",
+    "title": "7190 Billund",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/9440-aabybro",
+    "title": "9440 Aabybro",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/5592-ejby",
+    "title": "5592 Ejby",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/8783-hornsyld",
+    "title": "8783 Hornsyld",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/4140-borup",
+    "title": "4140 Borup",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/2960-rungsted-kyst",
+    "title": "2960 Rungsted Kyst",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/4100-ringsted",
+    "title": "4100 Ringsted",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/7000-fredericia",
+    "title": "7000 Fredericia",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/8410-roende",
+    "title": "8410 Rønde",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/4171-glumsoe",
+    "title": "4171 Glumsø",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/8464-galten",
+    "title": "8464 Galten",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/4220-korsoer",
+    "title": "4220 Korsør",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/8920-randers-nv",
+    "title": "8920 Randers NV",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/8310-tranbjerg-j",
+    "title": "8310 Tranbjerg J",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/9670-loegstoer",
+    "title": "9670 Løgstør",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/7100-vejle",
+    "title": "7100 Vejle",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/8961-allingaabro",
+    "title": "8961 Allingåbro",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/9230-svenstrup-j",
+    "title": "9230 Svenstrup J",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/7300-jelling",
+    "title": "7300 Jelling",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/8462-harlev-j",
+    "title": "8462 Harlev J",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/9530-stoevring",
+    "title": "9530 Støvring",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/2950-vedbaek",
+    "title": "2950 Vedbæk",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/6621-gesten",
+    "title": "6621 Gesten",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/6500-vojens",
+    "title": "6500 Vojens",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/4262-sandved",
+    "title": "4262 Sandved",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/6950-ringkoebing",
+    "title": "6950 Ringkøbing",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/2970-hoersholm",
+    "title": "2970 Hørsholm",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/3700-roenne",
+    "title": "3700 Rønne",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/6510-gram",
+    "title": "6510 Gram",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/9330-dronninglund",
+    "title": "9330 Dronninglund",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/9381-sulsted",
+    "title": "9381 Sulsted",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/5462-morud",
+    "title": "5462 Morud",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/9320-hjallerup",
+    "title": "9320 Hjallerup",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/9560-hadsund",
+    "title": "9560 Hadsund",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/2800-kongens-lyngby",
+    "title": "2800 Kongens Lyngby",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/9293-kongerslev",
+    "title": "9293 Kongerslev",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/5270-odense-n",
+    "title": "5270 Odense N",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/9600-aars",
+    "title": "9600 Aars",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/3600-frederikssund",
+    "title": "3600 Frederikssund",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/9460-brovst",
+    "title": "9460 Brovst",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/8930-randers-noe",
+    "title": "8930 Randers NØ",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/6990-ulfborg",
+    "title": "6990 Ulfborg",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/8870-langaa",
+    "title": "8870 Langå",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/6100-haderslev",
+    "title": "6100 Haderslev",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/8240-risskov",
+    "title": "8240 Risskov",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/5210-odense-nv",
+    "title": "5210 Odense NV",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/6900-skjern",
+    "title": "6900 Skjern",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/9260-gistrup",
+    "title": "9260 Gistrup",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/8882-faarvang",
+    "title": "8882 Fårvang",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/9870-sindal",
+    "title": "9870 Sindal",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/4990-sakskoebing",
+    "title": "4990 Sakskøbing",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/6650-broerup",
+    "title": "6650 Brørup",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/6740-bramming",
+    "title": "6740 Bramming",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/5464-brenderup-fyn",
+    "title": "5464 Brenderup Fyn",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/5874-hesselager",
+    "title": "5874 Hesselager",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/8883-gjern",
+    "title": "8883 Gjern",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/6430-nordborg",
+    "title": "6430 Nordborg",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/9550-mariager",
+    "title": "9550 Mariager",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/3740-svaneke",
+    "title": "3740 Svaneke",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/5700-svendborg",
+    "title": "5700 Svendborg",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/7600-struer",
+    "title": "7600 Struer",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/9610-noerager",
+    "title": "9610 Nørager",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/2630-taastrup",
+    "title": "2630 Taastrup",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/3460-birkeroed",
+    "title": "3460 Birkerød",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/9370-hals",
+    "title": "9370 Hals",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/5900-rudkoebing",
+    "title": "5900 Rudkøbing",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/7480-vildbjerg",
+    "title": "7480 Vildbjerg",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/7080-boerkop",
+    "title": "7080 Børkop",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/7323-give",
+    "title": "7323 Give",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/2680-solroed-strand",
+    "title": "2680 Solrød Strand",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/3730-nexoe",
+    "title": "3730 Nexø",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/7130-juelsminde",
+    "title": "7130 Juelsminde",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/7560-hjerm",
+    "title": "7560 Hjerm",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/6070-christiansfeld",
+    "title": "6070 Christiansfeld",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/4030-tune",
+    "title": "4030 Tune",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/6830-noerre-nebel",
+    "title": "6830 Nørre Nebel",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/5600-faaborg",
+    "title": "5600 Faaborg",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/6400-soenderborg",
+    "title": "6400 Sønderborg",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/2880-bagsvaerd",
+    "title": "2880 Bagsværd",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/9270-klarup",
+    "title": "9270 Klarup",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/6840-oksboel",
+    "title": "6840 Oksbøl",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/7470-karup-j",
+    "title": "7470 Karup J",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/4652-haarlev",
+    "title": "4652 Hårlev",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/9300-saeby",
+    "title": "9300 Sæby",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/6093-sjoelund",
+    "title": "6093 Sjølund",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/3550-slangerup",
+    "title": "3550 Slangerup",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/5220-odense-soe",
+    "title": "5220 Odense SØ",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/7361-ejstrupholm",
+    "title": "7361 Ejstrupholm",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/8660-skanderborg",
+    "title": "8660 Skanderborg",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/8210-aarhus-v",
+    "title": "8210 Aarhus V",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/3400-hilleroed",
+    "title": "3400 Hillerød",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/3720-aakirkeby",
+    "title": "3720 Aakirkeby",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/5400-bogense",
+    "title": "5400 Bogense",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/4683-roennede",
+    "title": "4683 Rønnede",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/8586-oerum-djurs",
+    "title": "8586 Ørum Djurs",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/4160-herlufmagle",
+    "title": "4160 Herlufmagle",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/6630-roedding",
+    "title": "6630 Rødding",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/4970-roedby",
+    "title": "4970 Rødby",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/2920-charlottenlund",
+    "title": "2920 Charlottenlund",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/6330-padborg",
+    "title": "6330 Padborg",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/9850-hirtshals",
+    "title": "9850 Hirtshals",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/8860-ulstrup",
+    "title": "8860 Ulstrup",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/4490-jerslev-sjaelland",
+    "title": "4490 Jerslev Sjælland",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/8500-grenaa",
+    "title": "8500 Grenaa",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/4560-vig",
+    "title": "4560 Vig",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/2300-koebenhavn-s",
+    "title": "2300 København S",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/3790-hasle",
+    "title": "3790 Hasle",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/3200-helsinge",
+    "title": "3200 Helsinge",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/2720-vanloese",
+    "title": "2720 Vanløse",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/7120-vejle-oest",
+    "title": "7120 Vejle Øst",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/4180-soroe",
+    "title": "4180 Sorø",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/3140-aalsgaarde",
+    "title": "3140 Ålsgårde",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/8544-moerke",
+    "title": "8544 Mørke",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/2200-koebenhavn-n",
+    "title": "2200 København N",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/4681-herfoelge",
+    "title": "4681 Herfølge",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/5800-nyborg",
+    "title": "5800 Nyborg",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/4640-faxe",
+    "title": "4640 Faxe",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/2100-koebenhavn-oe",
+    "title": "2100 København Ø",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/7171-uldum",
+    "title": "7171 Uldum",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/2791-dragoer",
+    "title": "2791 Dragør",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/4470-sveboelle",
+    "title": "4470 Svebølle",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/5750-ringe",
+    "title": "5750 Ringe",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/5683-haarby",
+    "title": "5683 Haarby",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/5250-odense-sv",
+    "title": "5250 Odense SV",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/8641-sorring",
+    "title": "8641 Sorring",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/4900-nakskov",
+    "title": "4900 Nakskov",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/8940-randers-sv",
+    "title": "8940 Randers SV",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/7490-aulum",
+    "title": "7490 Aulum",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/3760-gudhjem",
+    "title": "3760 Gudhjem",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/4174-jystrup-midtsj",
+    "title": "4174 Jystrup Midtsj",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/4672-klippinge",
+    "title": "4672 Klippinge",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/6933-kibaek",
+    "title": "6933 Kibæk",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/6731-tjaereborg",
+    "title": "6731 Tjæreborg",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/4291-ruds-vedby",
+    "title": "4291 Ruds Vedby",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/5580-noerre-aaby",
+    "title": "5580 Nørre Aaby",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/7752-snedsted",
+    "title": "7752 Snedsted",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/4600-koege",
+    "title": "4600 Køge",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/4230-skaelskoer",
+    "title": "4230 Skælskør",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/7540-haderup",
+    "title": "7540 Haderup",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/6310-broager",
+    "title": "6310 Broager",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/3310-oelsted",
+    "title": "3310 Ølsted",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/9700-broenderslev",
+    "title": "9700 Brønderslev",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/7160-toerring",
+    "title": "7160 Tørring",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/9990-skagen",
+    "title": "9990 Skagen",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/4250-fuglebjerg",
+    "title": "4250 Fuglebjerg",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/8620-kjellerup",
+    "title": "8620 Kjellerup",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/8970-havndal",
+    "title": "8970 Havndal",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/6760-ribe",
+    "title": "6760 Ribe",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/9632-moeldrup",
+    "title": "9632 Møldrup",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/4850-stubbekoebing",
+    "title": "4850 Stubbekøbing",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/8370-hadsten",
+    "title": "8370 Hadsten",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/8990-faarup",
+    "title": "8990 Fårup",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/8420-knebel",
+    "title": "8420 Knebel",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/2000-frederiksberg",
+    "title": "2000 Frederiksberg",
+    "type": "Postnummer"
+  },
+  {
+    "path": "tilsalg/6800-gellerupvej",
+    "title": "Gellerupvej, 6800 Varde",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4654-kirkevaenget",
+    "title": "Kirkevænget, 4654 Faxe Ladeplads",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9800-loenstrupvej",
+    "title": "Lønstrupvej, 9800 Hjørring",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8000-oestboulevarden",
+    "title": "Østboulevarden, 8000 Aarhus C",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8270-emiliehoej",
+    "title": "Emiliehøj, 8270 Højbjerg",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8362-doerupvej",
+    "title": "Dørupvej, 8362 Hørning",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/7500-thorshammer",
+    "title": "Thorshammer, 7500 Holstebro",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4792-fanefjordgade",
+    "title": "Fanefjordgade, 4792 Askeby",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6560-perlevej",
+    "title": "Perlevej, 6560 Sommersted",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9220-stenbjergvej",
+    "title": "Stenbjergvej, 9220 Aalborg Øst",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6000-groenningen",
+    "title": "Grønningen, 6000 Kolding",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/2820-vangedevej",
+    "title": "Vangedevej, 2820 Gentofte",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/5620-birkevej",
+    "title": "Birkevej, 5620 Glamsbjerg",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6705-amagervej",
+    "title": "Amagervej, 6705 Esbjerg Ø",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/7400-pedersgaardvej",
+    "title": "Pedersgårdvej, 7400 Herning",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/3300-taarnvej",
+    "title": "Tårnvej, 3300 Frederiksværk",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6040-solsikkehaven",
+    "title": "Solsikkehaven, 6040 Egtved",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6000-hc-petersens-vej",
+    "title": "H.C. Petersens Vej, 6000 Kolding",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/2500-horsekildevej",
+    "title": "Horsekildevej, 2500 Valby",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8850-brogade",
+    "title": "Brogade, 8850 Bjerringbro",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4700-cavilas-gaard",
+    "title": "Cavilas Gård, 4700 Næstved",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8382-hoejager",
+    "title": "Højager, 8382 Hinnerup",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8960-traneparken",
+    "title": "Traneparken, 8960 Randers SØ",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9220-herningvej",
+    "title": "Herningvej, 9220 Aalborg Øst",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8200-tordenskjoldsgade",
+    "title": "Tordenskjoldsgade, 8200 Aarhus N",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4720-roedegaards-alle",
+    "title": "Rødegårds Alle, 4720 Præstø",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6800-lundgade",
+    "title": "Lundgade, 6800 Varde",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9220-tornhoejparken",
+    "title": "Tornhøjparken, 9220 Aalborg Øst",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6880-torvegade",
+    "title": "Torvegade, 6880 Tarm",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/5000-adamsgade",
+    "title": "Adamsgade, 5000 Odense C",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8000-augustenborggade",
+    "title": "Augustenborggade, 8000 Aarhus C",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6851-sneppevej",
+    "title": "Sneppevej, 6851 Janderup Vestj",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8800-dalvikvej",
+    "title": "Dalvikvej, 8800 Viborg",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/2765-kong-eriks-have",
+    "title": "Kong Eriks Have, 2765 Smørum",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9210-roald-amundsens-vej",
+    "title": "Roald Amundsens Vej, 9210 Aalborg SØ",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9400-strubjerg",
+    "title": "Strubjerg, 9400 Nørresundby",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8260-skanderborgvej",
+    "title": "Skanderborgvej, 8260 Viby J",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8200-skejby-vaenge",
+    "title": "Skejby Vænge, 8200 Aarhus N",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4573-vinkelvej",
+    "title": "Vinkelvej, 4573 Højby",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4873-stovbyparken",
+    "title": "Stovbyparken, 4873 Væggerløse",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8381-langoervej",
+    "title": "Langørvej, 8381 Tilst",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8600-drewsensvej",
+    "title": "Drewsensvej, 8600 Silkeborg",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/5492-duedalen",
+    "title": "Duedalen, 5492 Vissenbjerg",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/1307-soelvgade",
+    "title": "Sølvgade, 1307 København K",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8382-aneskilde",
+    "title": "Aneskilde, 8382 Hinnerup",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4872-hoejstedgaardvaenget",
+    "title": "Højstedgårdvænget, 4872 Idestrup",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4591-lyngstraede",
+    "title": "Lyngstræde, 4591 Føllenslev",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/5240-kildegaardsvej",
+    "title": "Kildegårdsvej, 5240 Odense NØ",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8000-hoeegh-guldbergs-gade",
+    "title": "Høegh-Guldbergs Gade, 8000 Aarhus C",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/2400-frederikssundsvej",
+    "title": "Frederikssundsvej, 2400 København NV",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/7400-bjoedstrupvej",
+    "title": "Bjødstrupvej, 7400 Herning",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9000-louisegade",
+    "title": "Louisegade, 9000 Aalborg",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/7500-slotsgade",
+    "title": "Slotsgade, 7500 Holstebro",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/2860-tinghoejvej",
+    "title": "Tinghøjvej, 2860 Søborg",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4780-turkisvaenget",
+    "title": "Turkisvænget, 4780 Stege",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4684-akaciehaven",
+    "title": "Akaciehaven, 4684 Holmegaard",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/2600-broendbyvestervej",
+    "title": "Brøndbyvestervej, 2600 Glostrup",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8700-levysgade",
+    "title": "Levysgade, 8700 Horsens",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6800-bredgade",
+    "title": "Bredgade, 6800 Varde",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/5620-poul-mose-parken",
+    "title": "Poul Mose Parken, 5620 Glamsbjerg",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8700-teatergaarden",
+    "title": "Teatergården, 8700 Horsens",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6000-dalbygade",
+    "title": "Dalbygade, 6000 Kolding",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4700-ringstedgade",
+    "title": "Ringstedgade, 4700 Næstved",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4200-baldersvej",
+    "title": "Baldersvej, 4200 Slagelse",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9541-ved-hoejene",
+    "title": "Ved Højene, 9541 Suldrup",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/7900-froeslevlund",
+    "title": "Frøslevlund, 7900 Nykøbing M",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4200-bjergbygade",
+    "title": "Bjergbygade, 4200 Slagelse",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4261-laerkevej",
+    "title": "Lærkevej, 4261 Dalmose",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4200-svendsgade",
+    "title": "Svendsgade, 4200 Slagelse",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9220-pontoppidanstraede",
+    "title": "Pontoppidanstræde, 9220 Aalborg Øst",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6200-buen",
+    "title": "Buen, 6200 Aabenraa",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/2650-hvidovregade",
+    "title": "Hvidovregade, 2650 Hvidovre",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/7430-villavej",
+    "title": "Villavej, 7430 Ikast",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6520-pilehaven",
+    "title": "Pilehaven, 6520 Toftlund",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6640-noerregade",
+    "title": "Nørregade, 6640 Lunderskov",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4690-terslev-moellevej",
+    "title": "Terslev Møllevej, 4690 Haslev",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/7400-nr-lindvej",
+    "title": "Nr. Lindvej, 7400 Herning",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4960-noedebjerg",
+    "title": "Nødebjerg, 4960 Holeby",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9500-thorsvej",
+    "title": "Thorsvej, 9500 Hobro",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9000-kaervang",
+    "title": "Kærvang, 9000 Aalborg",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8361-pilegaardsvej",
+    "title": "Pilegårdsvej, 8361 Hasselager",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/7673-sandsgaardsvej",
+    "title": "Sandsgårdsvej, 7673 Harboøre",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8541-engskovvaenget",
+    "title": "Engskovvænget, 8541 Skødstrup",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4700-dania",
+    "title": "Dania, 4700 Næstved",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/2670-hegnsgaarden",
+    "title": "Hegnsgården, 2670 Greve",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9200-lyngholmsvej",
+    "title": "Lyngholmsvej, 9200 Aalborg SV",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/3770-foelfodvej",
+    "title": "Følfodvej, 3770 Allinge",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/2605-pileparken",
+    "title": "Pileparken, 2605 Brøndby",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8400-smuglerstien",
+    "title": "Smuglerstien, 8400 Ebeltoft",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4400-stigsager",
+    "title": "Stigsager, 4400 Kalundborg",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/7700-gammeltorp",
+    "title": "Gammeltorp, 7700 Thisted",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6710-kastanievej",
+    "title": "Kastanievej, 6710 Esbjerg V",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4684-soelunden",
+    "title": "Sølunden, 4684 Holmegaard",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9620-engdiget",
+    "title": "Engdiget, 9620 Aalestrup",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6000-omoevaenget",
+    "title": "Omøvænget, 6000 Kolding",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4200-thorvaldsens-have",
+    "title": "Thorvaldsens Have, 4200 Slagelse",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/3000-rolighedsvej",
+    "title": "Rolighedsvej, 3000 Helsingør",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8600-kejlstrupvej",
+    "title": "Kejlstrupvej, 8600 Silkeborg",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4700-orionvej",
+    "title": "Orionvej, 4700 Næstved",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6818-egebakken",
+    "title": "Egebakken, 6818 Årre",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4700-paerevaenget",
+    "title": "Pærevænget, 4700 Næstved",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8900-vester-altanvej",
+    "title": "Vester Altanvej, 8900 Randers C",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8840-oestervaenget",
+    "title": "Østervænget, 8840 Rødkærsbro",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/3230-centervejen",
+    "title": "Centervejen, 3230 Græsted",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8380-hjulby-hegn",
+    "title": "Hjulby Hegn, 8380 Trige",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/7400-munkgaardvaenget",
+    "title": "Munkgårdvænget, 7400 Herning",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9000-samsoegade",
+    "title": "Samsøgade, 9000 Aalborg",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/5330-violvaenget",
+    "title": "Violvænget, 5330 Munkebo",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/1364-noerre-farimagsgade",
+    "title": "Nørre Farimagsgade, 1364 København K",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/7451-roenne-alle",
+    "title": "Rønne Alle, 7451 Sunds",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6580-danmarksgade",
+    "title": "Danmarksgade, 6580 Vamdrup",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9900-praestehaven",
+    "title": "Præstehaven, 9900 Frederikshavn",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6000-bogensevej",
+    "title": "Bogensevej, 6000 Kolding",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8722-apotekerhaven",
+    "title": "Apotekerhaven, 8722 Hedensted",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/5471-sundruse",
+    "title": "Sundruse, 5471 Søndersø",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9310-ravndalen",
+    "title": "Ravndalen, 9310 Vodskov",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8400-boegebjerg",
+    "title": "Bøgebjerg, 8400 Ebeltoft",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8960-fortunavej",
+    "title": "Fortunavej, 8960 Randers SØ",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8300-banegaardsparken",
+    "title": "Banegårdsparken, 8300 Odder",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8654-kirsebaerdalen",
+    "title": "Kirsebærdalen, 8654 Bryrup",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6600-allegade",
+    "title": "Allegade, 6600 Vejen",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/2640-liselundager",
+    "title": "Liselundager, 2640 Hedehusene",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4295-blommehaven",
+    "title": "Blommehaven, 4295 Stenlille",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9500-adelgade",
+    "title": "Adelgade, 9500 Hobro",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9490-orkidevej",
+    "title": "Orkidevej, 9490 Pandrup",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6270-soendertoften",
+    "title": "Søndertoften, 6270 Tønder",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8732-skovparken",
+    "title": "Skovparken, 8732 Hovedgård",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4690-elmeparken",
+    "title": "Elmeparken, 4690 Haslev",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8220-jernaldervaenget",
+    "title": "Jernaldervænget, 8220 Brabrand",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/7442-peter-svinths-vej",
+    "title": "Peter Svinths Vej, 7442 Engesvang",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8400-faunavej",
+    "title": "Faunavej, 8400 Ebeltoft",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8950-peitergyde",
+    "title": "Peitergyde, 8950 Ørsted",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/5500-storebaeltsvaenget",
+    "title": "Storebæltsvænget, 5500 Middelfart",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8450-harevaenget",
+    "title": "Harevænget, 8450 Hammel",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8766-bredgade",
+    "title": "Bredgade, 8766 Nørre Snede",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4573-hoejby-rosenvej",
+    "title": "Højby Rosenvej, 4573 Højby",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4300-jernstoeberiet",
+    "title": "Jernstøberiet, 4300 Holbæk",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4653-rosengaarden",
+    "title": "Rosengården, 4653 Karise",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9000-peder-barkes-gade",
+    "title": "Peder Barkes Gade, 9000 Aalborg",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/7620-frejasvej",
+    "title": "Frejasvej, 7620 Lemvig",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8381-tilst-soendervej",
+    "title": "Tilst Søndervej, 8381 Tilst",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/7260-rahbaeksparken",
+    "title": "Rahbæksparken, 7260 Sønder Omme",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9210-fabriciusvej",
+    "title": "Fabriciusvej, 9210 Aalborg SØ",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4720-landsbyvaenget",
+    "title": "Landsbyvænget, 4720 Præstø",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4760-storstroemsparken",
+    "title": "Storstrømsparken, 4760 Vordingborg",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6091-agerland",
+    "title": "Agerland, 6091 Bjert",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6710-smakken",
+    "title": "Smakken, 6710 Esbjerg V",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6870-kirkevaenget",
+    "title": "Kirkevænget, 6870 Ølgod",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4500-bogoevej",
+    "title": "Bogøvej, 4500 Nykøbing Sj",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8260-holme-moellevej",
+    "title": "Holme Møllevej, 8260 Viby J",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8963-ndr-faelledvej",
+    "title": "Ndr Fælledvej, 8963 Auning",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9400-vesterbrogade",
+    "title": "Vesterbrogade, 9400 Nørresundby",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8723-ny-skolegade",
+    "title": "Ny Skolegade, 8723 Løsning",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6715-groenlandsparken",
+    "title": "Grønlandsparken, 6715 Esbjerg N",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8732-katrinelundsvej",
+    "title": "Katrinelundsvej, 8732 Hovedgård",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9210-klokkebo",
+    "title": "Klokkebo, 9210 Aalborg SØ",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6230-haervejen",
+    "title": "Hærvejen, 6230 Rødekro",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/7430-nygade",
+    "title": "Nygade, 7430 Ikast",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/7700-taarnvej",
+    "title": "Tårnvej, 7700 Thisted",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9210-dikevej",
+    "title": "Dikevej, 9210 Aalborg SØ",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4760-kastrupparken",
+    "title": "Kastrupparken, 4760 Vordingborg",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4700-kattebjerg",
+    "title": "Kattebjerg, 4700 Næstved",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8200-bodil-lindorffs-gade",
+    "title": "Bodil Lindorffs Gade, 8200 Aarhus N",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8700-fredrik-bajers-gade",
+    "title": "Fredrik Bajers Gade, 8700 Horsens",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4660-bryggervangen",
+    "title": "Bryggervangen, 4660 Store Heddinge",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8654-hegnsvej",
+    "title": "Hegnsvej, 8654 Bryrup",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/3000-mads-holms-vej",
+    "title": "Mads Holms Vej, 3000 Helsingør",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/7760-gormsvej",
+    "title": "Gormsvej, 7760 Hurup Thy",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6440-lilleskovvej",
+    "title": "Lilleskovvej, 6440 Augustenborg",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4800-fejoegade",
+    "title": "Fejøgade, 4800 Nykøbing F",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9830-klosterbakken",
+    "title": "Klosterbakken, 9830 Tårs",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4671-amtsskrivervej",
+    "title": "Amtsskrivervej, 4671 Strøby",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/2840-brillerne",
+    "title": "Brillerne, 2840 Holte",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/2635-ishoej-oestergade",
+    "title": "Ishøj Østergade, 2635 Ishøj",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9900-haanbaekvej",
+    "title": "Hånbækvej, 9900 Frederikshavn",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4840-guldstjernevej",
+    "title": "Guldstjernevej, 4840 Nørre Alslev",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8981-syrenparken",
+    "title": "Syrenparken, 8981 Spentrup",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6000-markdanersgade",
+    "title": "Markdanersgade, 6000 Kolding",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9800-dronningensgade",
+    "title": "Dronningensgade, 9800 Hjørring",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4000-bredgade",
+    "title": "Bredgade, 4000 Roskilde",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6000-teglgaardsvej",
+    "title": "Teglgårdsvej, 6000 Kolding",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4930-vesterbrogade",
+    "title": "Vesterbrogade, 4930 Maribo",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8850-stendalen",
+    "title": "Stendalen, 8850 Bjerringbro",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9000-soenderbro",
+    "title": "Sønderbro, 9000 Aalborg",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9500-frisdalsvej",
+    "title": "Frisdalsvej, 9500 Hobro",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/1557-ny-kongensgade",
+    "title": "Ny Kongensgade, 1557 København V",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6700-hoejvangshaven",
+    "title": "Højvangshaven, 6700 Esbjerg",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6000-middelfartvej",
+    "title": "Middelfartvej, 6000 Kolding",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/2942-skodsborg-strandvej",
+    "title": "Skodsborg Strandvej, 2942 Skodsborg",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8382-egevaenget",
+    "title": "Egevænget, 8382 Hinnerup",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8722-myntevej",
+    "title": "Myntevej, 8722 Hedensted",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/7190-hjoernegaarden",
+    "title": "Hjørnegården, 7190 Billund",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9440-lars-brorsvej",
+    "title": "Lars Brorsvej, 9440 Aabybro",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/5592-birkelunden",
+    "title": "Birkelunden, 5592 Ejby",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9280-klementsparken",
+    "title": "Klementsparken, 9280 Storvorde",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8783-soendergade",
+    "title": "Søndergade, 8783 Hornsyld",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4140-krohaven",
+    "title": "Krohaven, 4140 Borup",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/2960-rungstedhave",
+    "title": "Rungstedhave, 2960 Rungsted Kyst",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4100-fredensvej",
+    "title": "Fredensvej, 4100 Ringsted",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9500-hostrupvej",
+    "title": "Hostrupvej, 9500 Hobro",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6000-aeblevaenget",
+    "title": "Æblevænget, 6000 Kolding",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4591-smedevej",
+    "title": "Smedevej, 4591 Føllenslev",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/7000-koebmagergade",
+    "title": "Købmagergade, 7000 Fredericia",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8600-dalsvinget",
+    "title": "Dalsvinget, 8600 Silkeborg",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9000-blegkilde-alle",
+    "title": "Blegkilde Alle, 9000 Aalborg",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6000-brogaardshaven",
+    "title": "Brogårdshaven, 6000 Kolding",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8410-overgaardsparken",
+    "title": "Overgårdsparken, 8410 Rønde",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4171-bavelsevej",
+    "title": "Bavelsevej, 4171 Glumsø",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4450-holbaekvej",
+    "title": "Holbækvej, 4450 Jyderup",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8700-banevej",
+    "title": "Banevej, 8700 Horsens",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8464-skolebakken",
+    "title": "Skolebakken, 8464 Galten",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/7700-winthersvaenge",
+    "title": "Winthersvænge, 7700 Thisted",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4220-pakhusstraedet",
+    "title": "Pakhusstrædet, 4220 Korsør",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9800-kloevermarksvej",
+    "title": "Kløvermarksvej, 9800 Hjørring",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9490-skolevej",
+    "title": "Skolevej, 9490 Pandrup",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8920-skytten",
+    "title": "Skytten, 8920 Randers NV",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8310-trankaer-vaenge",
+    "title": "Trankær Vænge, 8310 Tranbjerg J",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8600-lysbroparken",
+    "title": "Lysbroparken, 8600 Silkeborg",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9670-hvedemarken",
+    "title": "Hvedemarken, 9670 Løgstør",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/7100-bygden",
+    "title": "Bygden, 7100 Vejle",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4400-kystvejen",
+    "title": "Kystvejen, 4400 Kalundborg",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9000-fredericiagade",
+    "title": "Fredericiagade, 9000 Aalborg",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8961-solsikkevej",
+    "title": "Solsikkevej, 8961 Allingåbro",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8200-brendstrupvej",
+    "title": "Brendstrupvej, 8200 Aarhus N",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9230-svenstruphoej",
+    "title": "Svenstruphøj, 9230 Svenstrup J",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6800-noerregade",
+    "title": "Nørregade, 6800 Varde",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4700-nellikevej",
+    "title": "Nellikevej, 4700 Næstved",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/7300-ringvejen",
+    "title": "Ringvejen, 7300 Jelling",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4200-hylleaasen",
+    "title": "Hylleåsen, 4200 Slagelse",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9000-schleppegrellsgade",
+    "title": "Schleppegrellsgade, 9000 Aalborg",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8462-naeshoejvej",
+    "title": "Næshøjvej, 8462 Harlev J",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9530-jernbanegade",
+    "title": "Jernbanegade, 9530 Støvring",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/2950-ellesvinget",
+    "title": "Ellesvinget, 2950 Vedbæk",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/7741-torvevej",
+    "title": "Torvevej, 7741 Frøstrup",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9530-haesumvej",
+    "title": "Hæsumvej, 9530 Støvring",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9900-aavej",
+    "title": "Åvej, 9900 Frederikshavn",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6600-soendergade",
+    "title": "Søndergade, 6600 Vejen",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6621-vestre-stationsvej",
+    "title": "Vestre Stationsvej, 6621 Gesten",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6500-pn-lagonis-vej",
+    "title": "P.N. Lagonis Vej, 6500 Vojens",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6715-tarp-byvej",
+    "title": "Tarp Byvej, 6715 Esbjerg N",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8700-kattesund",
+    "title": "Kattesund, 8700 Horsens",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4262-parkvej",
+    "title": "Parkvej, 4262 Sandved",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6950-stenaldervej",
+    "title": "Stenaldervej, 6950 Ringkøbing",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/2500-vigerslevvej",
+    "title": "Vigerslevvej, 2500 Valby",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4400-skibbrogade",
+    "title": "Skibbrogade, 4400 Kalundborg",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/2970-alsvej",
+    "title": "Alsvej, 2970 Hørsholm",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6700-oestergade",
+    "title": "Østergade, 6700 Esbjerg",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8200-trille-nielsens-gade",
+    "title": "Trille Nielsens Gade, 8200 Aarhus N",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/3700-borgmester-nielsens-vej",
+    "title": "Borgmester Nielsens Vej, 3700 Rønne",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6510-vaenget",
+    "title": "Vænget, 6510 Gram",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/7100-sandnaesvej",
+    "title": "Sandnæsvej, 7100 Vejle",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9900-danmarksgade",
+    "title": "Danmarksgade, 9900 Frederikshavn",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9330-klydevej",
+    "title": "Klydevej, 9330 Dronninglund",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6600-ludvig-schroeders-vej",
+    "title": "Ludvig Schrøders Vej, 6600 Vejen",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/7100-bakkelyparken",
+    "title": "Bakkelyparken, 7100 Vejle",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4840-energivaenget",
+    "title": "Energivænget, 4840 Nørre Alslev",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9381-sulstedparken",
+    "title": "Sulstedparken, 9381 Sulsted",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8382-birkevaenget",
+    "title": "Birkevænget, 8382 Hinnerup",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8361-jegstrupvej",
+    "title": "Jegstrupvej, 8361 Hasselager",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9400-lindholm-brygge",
+    "title": "Lindholm Brygge, 9400 Nørresundby",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6700-hjertingvej",
+    "title": "Hjertingvej, 6700 Esbjerg",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9000-kjellerupsgade",
+    "title": "Kjellerupsgade, 9000 Aalborg",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/5462-plantagevaenget",
+    "title": "Plantagevænget, 5462 Morud",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4700-groennegade",
+    "title": "Grønnegade, 4700 Næstved",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9320-oestergade",
+    "title": "Østergade, 9320 Hjallerup",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8600-vestergade",
+    "title": "Vestergade, 8600 Silkeborg",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9230-jaettestuen",
+    "title": "Jættestuen, 9230 Svenstrup J",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9220-kroghsgaardvej",
+    "title": "Kroghsgaardvej, 9220 Aalborg Øst",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9560-elmholt",
+    "title": "Elmholt, 9560 Hadsund",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/1365-schacksgade",
+    "title": "Schacksgade, 1365 København K",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/2400-tagensvej",
+    "title": "Tagensvej, 2400 København NV",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6580-oesterbaek",
+    "title": "Østerbæk, 6580 Vamdrup",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9400-brotorvet",
+    "title": "Brotorvet, 9400 Nørresundby",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/5690-vestervangen",
+    "title": "Vestervangen, 5690 Tommerup",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/2800-christian-x's-alle",
+    "title": "Christian X's Alle, 2800 Kongens Lyngby",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8700-hoejlund",
+    "title": "Højlund, 8700 Horsens",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6500-margretheparken",
+    "title": "Margretheparken, 6500 Vojens",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8200-willemoesgade",
+    "title": "Willemoesgade, 8200 Aarhus N",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8270-holmevej",
+    "title": "Holmevej, 8270 Højbjerg",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8462-roedlundvej",
+    "title": "Rødlundvej, 8462 Harlev J",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6710-barken",
+    "title": "Barken, 6710 Esbjerg V",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9500-brogade",
+    "title": "Brogade, 9500 Hobro",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8260-fredensvej",
+    "title": "Fredensvej, 8260 Viby J",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9293-boegelunden",
+    "title": "Bøgelunden, 9293 Kongerslev",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/7700-graakildevej",
+    "title": "Gråkildevej, 7700 Thisted",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/5270-soehustoften",
+    "title": "Søhustoften, 5270 Odense N",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9600-engtoften",
+    "title": "Engtoften, 9600 Aars",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8900-dronningensgade",
+    "title": "Dronningensgade, 8900 Randers C",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6640-moellegade",
+    "title": "Møllegade, 6640 Lunderskov",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/7400-dalgasgade",
+    "title": "Dalgasgade, 7400 Herning",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/3600-lundevej",
+    "title": "Lundevej, 3600 Frederikssund",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/5500-soendergade",
+    "title": "Søndergade, 5500 Middelfart",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6855-lykkesvej",
+    "title": "Lykkesvej, 6855 Outrup",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8000-strandvejen",
+    "title": "Strandvejen, 8000 Aarhus C",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/5000-klaregade",
+    "title": "Klaregade, 5000 Odense C",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8800-reberbanen",
+    "title": "Reberbanen, 8800 Viborg",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/7430-henry-heerups-vej",
+    "title": "Henry Heerups Vej, 7430 Ikast",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8800-hamarvej",
+    "title": "Hamarvej, 8800 Viborg",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4720-adelgade",
+    "title": "Adelgade, 4720 Præstø",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8000-fredensgade",
+    "title": "Fredensgade, 8000 Aarhus C",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9460-agertoften",
+    "title": "Agertoften, 9460 Brovst",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8930-hermann-stillings-vej",
+    "title": "Hermann Stillings Vej, 8930 Randers NØ",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6990-reberbanen",
+    "title": "Reberbanen, 6990 Ulfborg",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9000-sjaellandsgade",
+    "title": "Sjællandsgade, 9000 Aalborg",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/1812-kochsvej",
+    "title": "Kochsvej, 1812 Frederiksberg C",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8870-loevetandsvej",
+    "title": "Løvetandsvej, 8870 Langå",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6100-risager",
+    "title": "Risager, 6100 Haderslev",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8240-julsoevej",
+    "title": "Julsøvej, 8240 Risskov",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/5210-villestoftehaven",
+    "title": "Villestoftehaven, 5210 Odense NV",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/7620-mimersvej",
+    "title": "Mimersvej, 7620 Lemvig",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8800-fasanvej",
+    "title": "Fasanvej, 8800 Viborg",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6900-toemmergaarden",
+    "title": "Tømmergården, 6900 Skjern",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9260-knasten",
+    "title": "Knasten, 9260 Gistrup",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8882-meldgaardsparken",
+    "title": "Meldgårdsparken, 8882 Fårvang",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6000-augustvaenget",
+    "title": "Augustvænget, 6000 Kolding",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9870-nordvangen",
+    "title": "Nordvangen, 9870 Sindal",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6580-toemmervaenget",
+    "title": "Tømmervænget, 6580 Vamdrup",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/3000-gl-banegaardsvej",
+    "title": "Gl Banegårdsvej, 3000 Helsingør",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4990-brogade",
+    "title": "Brogade, 4990 Sakskøbing",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/7400-soelvgade",
+    "title": "Sølvgade, 7400 Herning",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9330-rypevej",
+    "title": "Rypevej, 9330 Dronninglund",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8900-sjaellandsgade",
+    "title": "Sjællandsgade, 8900 Randers C",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6000-nyborgvej",
+    "title": "Nyborgvej, 6000 Kolding",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6650-vandvaerksvej",
+    "title": "Vandværksvej, 6650 Brørup",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/7100-tingbakken",
+    "title": "Tingbakken, 7100 Vejle",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/7100-smaragdvej",
+    "title": "Smaragdvej, 7100 Vejle",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/5000-buchwaldsgade",
+    "title": "Buchwaldsgade, 5000 Odense C",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4200-smedegade",
+    "title": "Smedegade, 4200 Slagelse",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6740-skovtaegten",
+    "title": "Skovtægten, 6740 Bramming",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/5464-rugvaenget",
+    "title": "Rugvænget, 5464 Brenderup Fyn",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/2800-jaegersborgvej",
+    "title": "Jægersborgvej, 2800 Kongens Lyngby",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8260-holme-ringvej",
+    "title": "Holme Ringvej, 8260 Viby J",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6800-noerrevold",
+    "title": "Nørrevold, 6800 Varde",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/5874-gartnervaenget",
+    "title": "Gartnervænget, 5874 Hesselager",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/7100-bakkelyst",
+    "title": "Bakkelyst, 7100 Vejle",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6700-strandbygade",
+    "title": "Strandbygade, 6700 Esbjerg",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/3782-egevej",
+    "title": "Egevej, 3782 Klemensker",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/7330-nordlundvej",
+    "title": "Nordlundvej, 7330 Brande",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8000-horsensgade",
+    "title": "Horsensgade, 8000 Aarhus C",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8900-steen-blichers-gade",
+    "title": "Steen Blichers Gade, 8900 Randers C",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8380-holmkaervej",
+    "title": "Holmkærvej, 8380 Trige",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8450-gl-frijsenborgvej",
+    "title": "Gl Frijsenborgvej, 8450 Hammel",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/7900-stoeberivej",
+    "title": "Støberivej, 7900 Nykøbing M",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8961-pilevaenget",
+    "title": "Pilevænget, 8961 Allingåbro",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8883-fussingbjerg",
+    "title": "Fussingbjerg, 8883 Gjern",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6430-ellestokken",
+    "title": "Ellestokken, 6430 Nordborg",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9800-agerlund",
+    "title": "Agerlund, 9800 Hjørring",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6700-peder-skrams-gade",
+    "title": "Peder Skrams Gade, 6700 Esbjerg",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/7760-aabakkevej",
+    "title": "Åbakkevej, 7760 Hurup Thy",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9550-skovvej",
+    "title": "Skovvej, 9550 Mariager",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/3740-storegade",
+    "title": "Storegade, 3740 Svaneke",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/5700-vesterlund",
+    "title": "Vesterlund, 5700 Svendborg",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6715-gaerdet",
+    "title": "Gærdet, 6715 Esbjerg N",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8800-hedelyngen",
+    "title": "Hedelyngen, 8800 Viborg",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9000-carit-etlars-gade",
+    "title": "Carit Etlars Gade, 9000 Aalborg",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/2800-agerbovej",
+    "title": "Agerbovej, 2800 Kongens Lyngby",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/7400-kornblomstens-kvarter",
+    "title": "Kornblomstens Kvarter, 7400 Herning",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/1453-sankt-peders-straede",
+    "title": "Sankt Peders Stræde, 1453 København K",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9000-kastetvej",
+    "title": "Kastetvej, 9000 Aalborg",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9560-sindholtparken",
+    "title": "Sindholtparken, 9560 Hadsund",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9000-solvangsvej",
+    "title": "Solvangsvej, 9000 Aalborg",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/7600-stentofterne",
+    "title": "Stentofterne, 7600 Struer",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9500-vestparken",
+    "title": "Vestparken, 9500 Hobro",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4200-absalonsgade",
+    "title": "Absalonsgade, 4200 Slagelse",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9000-sofievej",
+    "title": "Sofievej, 9000 Aalborg",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9900-aaparken",
+    "title": "Åparken, 9900 Frederikshavn",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9260-roden",
+    "title": "Roden, 9260 Gistrup",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/2400-svanevej",
+    "title": "Svanevej, 2400 København NV",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9440-dyrlaegegaarden",
+    "title": "Dyrlægegaarden, 9440 Aabybro",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9870-torvegade",
+    "title": "Torvegade, 9870 Sindal",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8900-niels-ebbesens-gade",
+    "title": "Niels Ebbesens Gade, 8900 Randers C",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9610-tranevej",
+    "title": "Tranevej, 9610 Nørager",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8220-engdalsvej",
+    "title": "Engdalsvej, 8220 Brabrand",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9000-hjulmagervej",
+    "title": "Hjulmagervej, 9000 Aalborg",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8722-ranunkelvej",
+    "title": "Ranunkelvej, 8722 Hedensted",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8900-fredensgade",
+    "title": "Fredensgade, 8900 Randers C",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9640-thyrasvej",
+    "title": "Thyrasvej, 9640 Farsø",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/2630-berings-gade",
+    "title": "Berings Gade, 2630 Taastrup",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/3460-christianslund",
+    "title": "Christianslund, 3460 Birkerød",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9370-soehesten",
+    "title": "Søhesten, 9370 Hals",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8900-jernbanegade",
+    "title": "Jernbanegade, 8900 Randers C",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/7400-soender-lindbjerg",
+    "title": "Sønder Lindbjerg, 7400 Herning",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8450-kappelsdal",
+    "title": "Kappelsdal, 8450 Hammel",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6000-vaenget",
+    "title": "Vænget, 6000 Kolding",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6700-vesterhavsgade",
+    "title": "Vesterhavsgade, 6700 Esbjerg",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/7100-eskimovej",
+    "title": "Eskimovej, 7100 Vejle",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6900-moellebakken",
+    "title": "Møllebakken, 6900 Skjern",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9000-rosenlundsgade",
+    "title": "Rosenlundsgade, 9000 Aalborg",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/5900-noerregade",
+    "title": "Nørregade, 5900 Rudkøbing",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9000-hadsundvej",
+    "title": "Hadsundvej, 9000 Aalborg",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/7400-bethaniagade",
+    "title": "Bethaniagade, 7400 Herning",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9500-viborgvej",
+    "title": "Viborgvej, 9500 Hobro",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9500-marius-bruuns-vej",
+    "title": "Marius Bruuns Vej, 9500 Hobro",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4700-oestre-ringvej",
+    "title": "Østre Ringvej, 4700 Næstved",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8700-bygholm-parkvej",
+    "title": "Bygholm Parkvej, 8700 Horsens",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9400-teisensvej",
+    "title": "Teisensvej, 9400 Nørresundby",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6710-vandmandens-kvarter",
+    "title": "Vandmandens Kvarter, 6710 Esbjerg V",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8700-villavej",
+    "title": "Villavej, 8700 Horsens",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8300-rosensgade",
+    "title": "Rosensgade, 8300 Odder",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/2600-egeskoven",
+    "title": "Egeskoven, 2600 Glostrup",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/2630-taastrup-hovedgade",
+    "title": "Taastrup Hovedgade, 2630 Taastrup",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6700-darumvej",
+    "title": "Darumvej, 6700 Esbjerg",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9900-harald-lunds-gade",
+    "title": "Harald Lunds Gade, 9900 Frederikshavn",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6800-hyldehaven",
+    "title": "Hyldehaven, 6800 Varde",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9560-jernbanegade",
+    "title": "Jernbanegade, 9560 Hadsund",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9000-stormgade",
+    "title": "Stormgade, 9000 Aalborg",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/7480-jaettevej",
+    "title": "Jættevej, 7480 Vildbjerg",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8600-toldbodgade",
+    "title": "Toldbodgade, 8600 Silkeborg",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8200-lucernevej",
+    "title": "Lucernevej, 8200 Aarhus N",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8361-porsevaenget",
+    "title": "Porsevænget, 8361 Hasselager",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/7080-ladegaardstoften",
+    "title": "Ladegårdstoften, 7080 Børkop",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4350-hovedgaden",
+    "title": "Hovedgaden, 4350 Ugerløse",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8700-lindholm",
+    "title": "Lindholm, 8700 Horsens",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9310-kikkenborg",
+    "title": "Kikkenborg, 9310 Vodskov",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/7323-parkvej",
+    "title": "Parkvej, 7323 Give",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8850-banegaardspladsen",
+    "title": "Banegårdspladsen, 8850 Bjerringbro",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/2680-maglekaeret",
+    "title": "Maglekæret, 2680 Solrød Strand",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/3730-munkegade",
+    "title": "Munkegade, 3730 Nexø",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6900-stensbovej",
+    "title": "Stensbovej, 6900 Skjern",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/7130-odelsgade",
+    "title": "Odelsgade, 7130 Juelsminde",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/7560-stationsvej",
+    "title": "Stationsvej, 7560 Hjerm",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/7430-odinsgade",
+    "title": "Odinsgade, 7430 Ikast",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9870-vestergade",
+    "title": "Vestergade, 9870 Sindal",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6070-luneparken",
+    "title": "Luneparken, 6070 Christiansfeld",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9330-gadekaeret",
+    "title": "Gadekæret, 9330 Dronninglund",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4030-industrisvinget",
+    "title": "Industrisvinget, 4030 Tune",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4871-ryttermarken",
+    "title": "Ryttermarken, 4871 Horbelev",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6830-oestmoellevej",
+    "title": "Østmøllevej, 6830 Nørre Nebel",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/5300-fjordvaenget",
+    "title": "Fjordvænget, 5300 Kerteminde",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/5210-villestoftehegnet",
+    "title": "Villestoftehegnet, 5210 Odense NV",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8000-ankersgade",
+    "title": "Ankersgade, 8000 Aarhus C",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/5600-sundbrinken",
+    "title": "Sundbrinken, 5600 Faaborg",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4780-a-p-hansens-vej",
+    "title": "A P Hansens Vej, 4780 Stege",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4200-byskellet",
+    "title": "Byskellet, 4200 Slagelse",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/7870-museumstorvet",
+    "title": "Museumstorvet, 7870 Roslev",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6400-bosagergaarden",
+    "title": "Bosagergården, 6400 Sønderborg",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/7500-birkelunden",
+    "title": "Birkelunden, 7500 Holstebro",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8700-frederiksgade",
+    "title": "Frederiksgade, 8700 Horsens",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/2880-buddinge-hovedgade",
+    "title": "Buddinge Hovedgade, 2880 Bagsværd",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9270-kaerhavegaardvej",
+    "title": "Kærhavegårdvej, 9270 Klarup",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6840-thorsvej",
+    "title": "Thorsvej, 6840 Oksbøl",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4700-praestestraede",
+    "title": "Præstestræde, 4700 Næstved",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6100-faergevej",
+    "title": "Færgevej, 6100 Haderslev",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8305-dyrskuepladsen",
+    "title": "Dyrskuepladsen, 8305 Samsø",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/7470-stadionvej",
+    "title": "Stadionvej, 7470 Karup J",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9560-storegade",
+    "title": "Storegade, 9560 Hadsund",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6600-lynggaardshaven",
+    "title": "Lynggårdshaven, 6600 Vejen",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9000-hasselhoej",
+    "title": "Hasselhøj, 9000 Aalborg",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9000-langesgade",
+    "title": "Langesgade, 9000 Aalborg",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4652-nordmarken",
+    "title": "Nordmarken, 4652 Hårlev",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9300-nordens-alle",
+    "title": "Nordens Alle, 9300 Sæby",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4700-h-c-lumbyes-vej",
+    "title": "H C Lumbyes Vej, 4700 Næstved",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6430-elmbjergvej",
+    "title": "Elmbjergvej, 6430 Nordborg",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8000-montanagade",
+    "title": "Montanagade, 8000 Aarhus C",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4400-byporten",
+    "title": "Byporten, 4400 Kalundborg",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6840-hans-joergensvej",
+    "title": "Hans Jørgensvej, 6840 Oksbøl",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9260-beltoften",
+    "title": "Beltoften, 9260 Gistrup",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/7500-rendsborggade",
+    "title": "Rendsborggade, 7500 Holstebro",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/7500-baldersvej",
+    "title": "Baldersvej, 7500 Holstebro",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9400-lindholmsvej",
+    "title": "Lindholmsvej, 9400 Nørresundby",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6093-ja-petersens-park",
+    "title": "J.A. Petersens Park, 6093 Sjølund",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9750-hyacintvej",
+    "title": "Hyacintvej, 9750 Østervrå",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8900-soeren-moellers-gade",
+    "title": "Søren Møllers Gade, 8900 Randers C",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8900-sennelsgade",
+    "title": "Sennelsgade, 8900 Randers C",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/3550-vaenget",
+    "title": "Vænget, 3550 Slangerup",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/5220-blommegrenen",
+    "title": "Blommegrenen, 5220 Odense SØ",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9800-bjergparken",
+    "title": "Bjergparken, 9800 Hjørring",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/3000-gefionsvej",
+    "title": "Gefionsvej, 3000 Helsingør",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8600-skaerbaekvej",
+    "title": "Skærbækvej, 8600 Silkeborg",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9800-arsenalvej",
+    "title": "Arsenalvej, 9800 Hjørring",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/7480-kirkely",
+    "title": "Kirkely, 7480 Vildbjerg",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/7361-elmevaenget",
+    "title": "Elmevænget, 7361 Ejstrupholm",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6600-vester-alle",
+    "title": "Vester Alle, 6600 Vejen",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8660-kirstinelundsvej",
+    "title": "Kirstinelundsvej, 8660 Skanderborg",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6650-moelleparken",
+    "title": "Mølleparken, 6650 Brørup",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8210-bronzealdervej",
+    "title": "Bronzealdervej, 8210 Aarhus V",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8464-aeblehaven",
+    "title": "Æblehaven, 8464 Galten",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/3400-buen",
+    "title": "Buen, 3400 Hillerød",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4800-laur-larsensgade",
+    "title": "Laur Larsensgade, 4800 Nykøbing F",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/7700-engvej",
+    "title": "Engvej, 7700 Thisted",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6690-den-roede-plads",
+    "title": "Den Røde Plads, 6690 Gørding",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4690-valnoeddeparken",
+    "title": "Valnøddeparken, 4690 Haslev",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/2770-loejtegaardsvej",
+    "title": "Løjtegårdsvej, 2770 Kastrup",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4300-steenstrups-allé",
+    "title": "Steenstrups Allé, 4300 Holbæk",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/7100-rued-langgaards-vej",
+    "title": "Rued Langgaards Vej, 7100 Vejle",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/3000-groennehavevej",
+    "title": "Grønnehavevej, 3000 Helsingør",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8960-dybdalhegnet",
+    "title": "Dybdalhegnet, 8960 Randers SØ",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8763-hybenvej",
+    "title": "Hybenvej, 8763 Rask Mølle",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/3720-stokkekildevej",
+    "title": "Stokkekildevej, 3720 Aakirkeby",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/7400-ingridsvej",
+    "title": "Ingridsvej, 7400 Herning",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/7500-kildeparken",
+    "title": "Kildeparken, 7500 Holstebro",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8382-elgaardsminde",
+    "title": "Elgårdsminde, 8382 Hinnerup",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/7500-kongelyset",
+    "title": "Kongelyset, 7500 Holstebro",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/5400-kongsbergparken",
+    "title": "Kongsbergparken, 5400 Bogense",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/1854-dr-priemes-vej",
+    "title": "Dr. Priemes Vej, 1854 Frederiksberg C",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/3700-nordlyst",
+    "title": "Nordlyst, 3700 Rønne",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6230-vestergade",
+    "title": "Vestergade, 6230 Rødekro",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/3050-humlebaek-center",
+    "title": "Humlebæk Center, 3050 Humlebæk",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/2970-opnaesgaard",
+    "title": "Opnæsgård, 2970 Hørsholm",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9370-pastor-nielsens-vej",
+    "title": "Pastor Nielsens Vej, 9370 Hals",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4683-oesthegnet",
+    "title": "Østhegnet, 4683 Rønnede",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8600-lupinvej",
+    "title": "Lupinvej, 8600 Silkeborg",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4340-lidtgodtvej",
+    "title": "Lidtgodtvej, 4340 Tølløse",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8560-bygmarken",
+    "title": "Bygmarken, 8560 Kolind",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9800-primulavej",
+    "title": "Primulavej, 9800 Hjørring",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/2640-hedetoften",
+    "title": "Hedetoften, 2640 Hedehusene",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8660-kildeparken",
+    "title": "Kildeparken, 8660 Skanderborg",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/2700-frederikssundsvej",
+    "title": "Frederikssundsvej, 2700 Brønshøj",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/7442-kaervej",
+    "title": "Kærvej, 7442 Engesvang",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8586-vestermarken",
+    "title": "Vestermarken, 8586 Ørum Djurs",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9000-finlandsgade",
+    "title": "Finlandsgade, 9000 Aalborg",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/2800-kollegiebakken",
+    "title": "Kollegiebakken, 2800 Kongens Lyngby",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4160-slettevej",
+    "title": "Slettevej, 4160 Herlufmagle",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4700-kuhlaus-vej",
+    "title": "Kuhlaus Vej, 4700 Næstved",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6000-aeblehaven",
+    "title": "Æblehaven, 6000 Kolding",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6630-hoejskolelunden",
+    "title": "Højskolelunden, 6630 Rødding",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9000-vestre-fjordvej",
+    "title": "Vestre Fjordvej, 9000 Aalborg",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6971-boegevej",
+    "title": "Bøgevej, 6971 Spjald",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4683-oesterkrogen",
+    "title": "Østerkrogen, 4683 Rønnede",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8700-farvergade",
+    "title": "Farvergade, 8700 Horsens",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9300-leif-bak-alle",
+    "title": "Leif Bak Alle, 9300 Sæby",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4970-egeparken",
+    "title": "Egeparken, 4970 Rødby",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8362-valmuevaenget",
+    "title": "Valmuevænget, 8362 Hørning",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8700-svanes-torv",
+    "title": "Svanes Torv, 8700 Horsens",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8700-holmboes-alle",
+    "title": "Holmboes Alle, 8700 Horsens",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/3300-hoegesti",
+    "title": "Høgesti, 3300 Frederiksværk",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/2920-esperance-alle",
+    "title": "Esperance Alle, 2920 Charlottenlund",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9600-toftehaven",
+    "title": "Toftehaven, 9600 Aars",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/1362-roemersgade",
+    "title": "Rømersgade, 1362 København K",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/2650-vestre-kvartergade",
+    "title": "Vestre Kvartergade, 2650 Hvidovre",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6330-stagehoejvej",
+    "title": "Stagehøjvej, 6330 Padborg",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8300-kloevermarksvej",
+    "title": "Kløvermarksvej, 8300 Odder",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9850-kaerdalen",
+    "title": "Kærdalen, 9850 Hirtshals",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4720-jernbanevej",
+    "title": "Jernbanevej, 4720 Præstø",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/7200-dalgasparken",
+    "title": "Dalgasparken, 7200 Grindsted",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4000-vestervaenget",
+    "title": "Vestervænget, 4000 Roskilde",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6500-oestergade",
+    "title": "Østergade, 6500 Vojens",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9220-damstraede",
+    "title": "Damstræde, 9220 Aalborg Øst",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8860-groenhoejvej",
+    "title": "Grønhøjvej, 8860 Ulstrup",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/7400-nygade",
+    "title": "Nygade, 7400 Herning",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4490-parkvej",
+    "title": "Parkvej, 4490 Jerslev Sjælland",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6715-landlystvej",
+    "title": "Landlystvej, 6715 Esbjerg N",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6705-saltholmsvej",
+    "title": "Saltholmsvej, 6705 Esbjerg Ø",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9210-sohngaardsholmsvej",
+    "title": "Sohngårdsholmsvej, 9210 Aalborg SØ",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/7190-gravhoejen",
+    "title": "Gravhøjen, 7190 Billund",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8900-klostergade",
+    "title": "Klostergade, 8900 Randers C",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/2670-bakkevolden",
+    "title": "Bakkevolden, 2670 Greve",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9500-kirketorvet",
+    "title": "Kirketorvet, 9500 Hobro",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/3770-klippestien",
+    "title": "Klippestien, 3770 Allinge",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6700-willemoesgade",
+    "title": "Willemoesgade, 6700 Esbjerg",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8471-ranunkelvej",
+    "title": "Ranunkelvej, 8471 Sabro",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8200-praesteager",
+    "title": "Præsteager, 8200 Aarhus N",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8860-sofienlundparken",
+    "title": "Sofienlundparken, 8860 Ulstrup",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4700-lindevej",
+    "title": "Lindevej, 4700 Næstved",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/5240-hvenekildeloekken",
+    "title": "Hvenekildeløkken, 5240 Odense NØ",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8660-blegsoe-banke",
+    "title": "Blegsø Banke, 8660 Skanderborg",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8500-aakanden",
+    "title": "Åkanden, 8500 Grenaa",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4863-bryggerivaenget",
+    "title": "Bryggerivænget, 4863 Eskilstrup",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9550-digtervaenget",
+    "title": "Digtervænget, 9550 Mariager",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/2600-sydvestvej",
+    "title": "Sydvestvej, 2600 Glostrup",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9500-enghavevej",
+    "title": "Enghavevej, 9500 Hobro",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/3000-gl-hellebaekvej",
+    "title": "Gl Hellebækvej, 3000 Helsingør",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8361-skovhoej",
+    "title": "Skovhøj, 8361 Hasselager",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/3330-goerloeseparken",
+    "title": "Gørløseparken, 3330 Gørløse",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/2930-taarbaek-strandvej",
+    "title": "Taarbæk Strandvej, 2930 Klampenborg",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4560-baeshoejgaardsvej",
+    "title": "Baeshøjgårdsvej, 4560 Vig",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/2300-oerestads-boulevard",
+    "title": "Ørestads Boulevard, 2300 København S",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/3460-bregneroedvej",
+    "title": "Bregnerødvej, 3460 Birkerød",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8920-dalinsvej",
+    "title": "Dalinsvej, 8920 Randers NV",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/3790-byvangen",
+    "title": "Byvangen, 3790 Hasle",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9850-nejstgaardvej",
+    "title": "Nejstgårdvej, 9850 Hirtshals",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/3200-troldeholmen",
+    "title": "Troldeholmen, 3200 Helsinge",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6800-noerremarksvej",
+    "title": "Nørremarksvej, 6800 Varde",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/5000-aaloekke-allé",
+    "title": "Åløkke Allé, 5000 Odense C",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/2720-aalekistevej",
+    "title": "Ålekistevej, 2720 Vanløse",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8850-pilevej",
+    "title": "Pilevej, 8850 Bjerringbro",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/7120-majsvangen",
+    "title": "Majsvangen, 7120 Vejle Øst",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9300-chr-pedersensvej",
+    "title": "Chr. Pedersensvej, 9300 Sæby",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4180-frederiksberg-have",
+    "title": "Frederiksberg Have, 4180 Sorø",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8900-jyllandsgade",
+    "title": "Jyllandsgade, 8900 Randers C",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6700-norgesgade",
+    "title": "Norgesgade, 6700 Esbjerg",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6710-styrmandsvaenget",
+    "title": "Styrmandsvænget, 6710 Esbjerg V",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9000-enggaardsgade",
+    "title": "Enggårdsgade, 9000 Aalborg",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/2300-rued-langgaards-vej",
+    "title": "Rued Langgaards Vej, 2300 København S",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/3140-lille-odinshoej",
+    "title": "Lille Odinshøj, 3140 Ålsgårde",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6400-margretheparken",
+    "title": "Margretheparken, 6400 Sønderborg",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8700-bakkevaenget",
+    "title": "Bakkevænget, 8700 Horsens",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/5700-thorsvang",
+    "title": "Thorsvang, 5700 Svendborg",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8410-bjerg-thomsensvej",
+    "title": "Bjerg-Thomsensvej, 8410 Rønde",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8544-ternevaenget",
+    "title": "Ternevænget, 8544 Mørke",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4930-fuglekongevej",
+    "title": "Fuglekongevej, 4930 Maribo",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6510-skipperkobbel",
+    "title": "Skipperkobbel, 6510 Gram",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9300-vaevervej",
+    "title": "Vævervej, 9300 Sæby",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/2650-gammel-koege-landevej",
+    "title": "Gammel Køge Landevej, 2650 Hvidovre",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4800-toldbodgade",
+    "title": "Toldbodgade, 4800 Nykøbing F",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/3770-moellebaekvej",
+    "title": "Møllebækvej, 3770 Allinge",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/7400-vestergade",
+    "title": "Vestergade, 7400 Herning",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/2200-asminderoedgade",
+    "title": "Asminderødgade, 2200 København N",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6710-loevens-kvarter",
+    "title": "Løvens Kvarter, 6710 Esbjerg V",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9000-helgolandsgade",
+    "title": "Helgolandsgade, 9000 Aalborg",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8920-selandersvej",
+    "title": "Selandersvej, 8920 Randers NV",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4700-straedet",
+    "title": "Strædet, 4700 Næstved",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4681-tinggaardsvej",
+    "title": "Tinggårdsvej, 4681 Herfølge",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4180-storgade",
+    "title": "Storgade, 4180 Sorø",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/5800-svaneparken",
+    "title": "Svaneparken, 5800 Nyborg",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4640-smedegade",
+    "title": "Smedegade, 4640 Faxe",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/2640-hovedgaden",
+    "title": "Hovedgaden, 2640 Hedehusene",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/5210-raadyrloekken",
+    "title": "Rådyrløkken, 5210 Odense NV",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/2650-landlystvej",
+    "title": "Landlystvej, 2650 Hvidovre",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4200-arons-vej",
+    "title": "Arons Vej, 4200 Slagelse",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/3700-oestergade",
+    "title": "Østergade, 3700 Rønne",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/5874-thingsagervaenget",
+    "title": "Thingsagervænget, 5874 Hesselager",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/2630-hoeje-taastrup-boulevard",
+    "title": "Høje Taastrup Boulevard, 2630 Taastrup",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/2100-classensgade",
+    "title": "Classensgade, 2100 København Ø",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4720-bygvaenget",
+    "title": "Bygvænget, 4720 Præstø",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9500-brovej",
+    "title": "Brovej, 9500 Hobro",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/7100-stormgade",
+    "title": "Stormgade, 7100 Vejle",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6600-dalgaardsvej",
+    "title": "Dalgårdsvej, 6600 Vejen",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9210-heravej",
+    "title": "Heravej, 9210 Aalborg SØ",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4200-akacievej",
+    "title": "Akacievej, 4200 Slagelse",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8400-aeblelunden",
+    "title": "Æblelunden, 8400 Ebeltoft",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/2820-bregnevej",
+    "title": "Bregnevej, 2820 Gentofte",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4800-sundtoften",
+    "title": "Sundtoften, 4800 Nykøbing F",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/7171-fasanvej",
+    "title": "Fasanvej, 7171 Uldum",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8600-christiansfeldvej",
+    "title": "Christiansfeldvej, 8600 Silkeborg",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/2920-ordrup-jagtvej",
+    "title": "Ordrup Jagtvej, 2920 Charlottenlund",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9800-h-c-andersens-vej",
+    "title": "H C Andersens Vej, 9800 Hjørring",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8355-oestergaardsvej",
+    "title": "Østergårdsvej, 8355 Solbjerg",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8544-kloevervangen",
+    "title": "Kløvervangen, 8544 Mørke",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4800-engboulevarden",
+    "title": "Engboulevarden, 4800 Nykøbing F",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8930-bopladsen",
+    "title": "Bopladsen, 8930 Randers NØ",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6520-oestergade",
+    "title": "Østergade, 6520 Toftlund",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8600-moellegaardsvej",
+    "title": "Møllegårdsvej, 8600 Silkeborg",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8600-malmoevej",
+    "title": "Malmøvej, 8600 Silkeborg",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4760-stationsvej",
+    "title": "Stationsvej, 4760 Vordingborg",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/3070-parkvej",
+    "title": "Parkvej, 3070 Snekkersten",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/2791-akacievej",
+    "title": "Akacievej, 2791 Dragør",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6100-thomas-kingos-vej",
+    "title": "Thomas Kingos Vej, 6100 Haderslev",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/7000-kristtjoernevej",
+    "title": "Kristtjørnevej, 7000 Fredericia",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4470-lavendelvej",
+    "title": "Lavendelvej, 4470 Svebølle",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/5750-mejerivaenget",
+    "title": "Mejerivænget, 5750 Ringe",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9800-oestervaenget",
+    "title": "Østervænget, 9800 Hjørring",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4800-nybrogade",
+    "title": "Nybrogade, 4800 Nykøbing F",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/5683-landoe",
+    "title": "Landø, 5683 Haarby",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/5250-flintagerloekken",
+    "title": "Flintagerløkken, 5250 Odense SV",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6800-markedspladsen",
+    "title": "Markedspladsen, 6800 Varde",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/7700-oscar-andersens-vej",
+    "title": "Oscar Andersens Vej, 7700 Thisted",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8450-jagtvej",
+    "title": "Jagtvej, 8450 Hammel",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/5592-noerregade",
+    "title": "Nørregade, 5592 Ejby",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6300-bryggen",
+    "title": "Bryggen, 6300 Gråsten",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4180-rolighed",
+    "title": "Rolighed, 4180 Sorø",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9520-galgeparken",
+    "title": "Galgeparken, 9520 Skørping",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/3140-hathjulet",
+    "title": "Hathjulet, 3140 Ålsgårde",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8000-bülowsgade",
+    "title": "Bülowsgade, 8000 Aarhus C",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/7130-fiskeparken",
+    "title": "Fiskeparken, 7130 Juelsminde",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9000-oesterbro",
+    "title": "Østerbro, 9000 Aalborg",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8641-jordbaervej",
+    "title": "Jordbærvej, 8641 Sorring",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/5883-oestervangen",
+    "title": "Østervangen, 5883 Oure",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/7400-groennegade",
+    "title": "Grønnegade, 7400 Herning",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9800-elsagervej",
+    "title": "Elsagervej, 9800 Hjørring",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/5220-ridderhatten",
+    "title": "Ridderhatten, 5220 Odense SØ",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/3730-moelleby",
+    "title": "Mølleby, 3730 Nexø",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/7600-smedegade",
+    "title": "Smedegade, 7600 Struer",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6261-kongenstoft",
+    "title": "Kongenstoft, 6261 Bredebro",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6093-koebmandsgade",
+    "title": "Købmandsgade, 6093 Sjølund",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9270-sofieholm",
+    "title": "Sofieholm, 9270 Klarup",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4900-langoeparken",
+    "title": "Langøparken, 4900 Nakskov",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4540-faarevejle-kirkevej",
+    "title": "Fårevejle Kirkevej, 4540 Fårevejle",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8940-aarhusvej",
+    "title": "Århusvej, 8940 Randers SV",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8920-midtvejs",
+    "title": "Midtvejs, 8920 Randers NV",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8500-solsikkevej",
+    "title": "Solsikkevej, 8500 Grenaa",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/7400-baunetoften",
+    "title": "Baunetoften, 7400 Herning",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4895-praestevaenget",
+    "title": "Præstevænget, 4895 Errindlev",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9370-blomsterkrogen",
+    "title": "Blomsterkrogen, 9370 Hals",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/1352-roerholmsgade",
+    "title": "Rørholmsgade, 1352 København K",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4700-skyttemarksvej",
+    "title": "Skyttemarksvej, 4700 Næstved",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4200-hoejen",
+    "title": "Højen, 4200 Slagelse",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/7000-kirketoften",
+    "title": "Kirketoften, 7000 Fredericia",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/2860-gyngemose-parkvej",
+    "title": "Gyngemose Parkvej, 2860 Søborg",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/2800-sorgenfrigaardsvej",
+    "title": "Sorgenfrigårdsvej, 2800 Kongens Lyngby",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8800-skovbakkevej",
+    "title": "Skovbakkevej, 8800 Viborg",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4200-trekanten",
+    "title": "Trekanten, 4200 Slagelse",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8800-klokkelyngen",
+    "title": "Klokkelyngen, 8800 Viborg",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/5220-nytoften",
+    "title": "Nytoften, 5220 Odense SØ",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4200-ndrringgade",
+    "title": "Ndr.Ringgade, 4200 Slagelse",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/7490-oestertoft",
+    "title": "Østertoft, 7490 Aulum",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8000-regenburgs-plads",
+    "title": "Regenburgs Plads, 8000 Aarhus C",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9362-vesterparken",
+    "title": "Vesterparken, 9362 Gandrup",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/7100-lido-alle",
+    "title": "Lido Alle, 7100 Vejle",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6100-groenningen",
+    "title": "Grønningen, 6100 Haderslev",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/3760-rugmarken",
+    "title": "Rugmarken, 3760 Gudhjem",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/2970-ved-moellen",
+    "title": "Ved Møllen, 2970 Hørsholm",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8000-kaserneboulevarden",
+    "title": "Kaserneboulevarden, 8000 Aarhus C",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4690-nyparken",
+    "title": "Nyparken, 4690 Haslev",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6400-ridderloekke",
+    "title": "Ridderløkke, 6400 Sønderborg",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8800-borgaavej",
+    "title": "Borgåvej, 8800 Viborg",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/7730-irisvej",
+    "title": "Irisvej, 7730 Hanstholm",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9600-himmerlandsgade",
+    "title": "Himmerlandsgade, 9600 Aars",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/5620-savvaerksvej",
+    "title": "Savværksvej, 5620 Glamsbjerg",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6740-borgergade",
+    "title": "Borgergade, 6740 Bramming",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4200-oehlenschlaegersgade",
+    "title": "Oehlenschlægersgade, 4200 Slagelse",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4174-bymarken",
+    "title": "Bymarken, 4174 Jystrup Midtsj",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/7830-soenderparken",
+    "title": "Sønderparken, 7830 Vinderup",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/2800-buddingevej",
+    "title": "Buddingevej, 2800 Kongens Lyngby",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6600-thyrasvej",
+    "title": "Thyrasvej, 6600 Vejen",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4300-hesseloevej",
+    "title": "Hesseløvej, 4300 Holbæk",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4672-tofteleddet",
+    "title": "Tofteleddet, 4672 Klippinge",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6933-moellegaarden",
+    "title": "Møllegaarden, 6933 Kibæk",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4581-isoerevej",
+    "title": "Isørevej, 4581 Rørvig",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6040-majsvaenget",
+    "title": "Majsvænget, 6040 Egtved",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/5863-rolfvej",
+    "title": "Rolfvej, 5863 Ferritslev Fyn",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8881-tungelund-bakker",
+    "title": "Tungelund Bakker, 8881 Thorsø",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/1400-torvegade",
+    "title": "Torvegade, 1400 København K",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8766-elme-alle",
+    "title": "Elme Alle, 8766 Nørre Snede",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4653-rapsvaenget",
+    "title": "Rapsvænget, 4653 Karise",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6270-skibbroen",
+    "title": "Skibbroen, 6270 Tønder",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8340-nyloekkevej",
+    "title": "Nyløkkevej, 8340 Malling",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4690-toepkildevej",
+    "title": "Tøpkildevej, 4690 Haslev",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6731-sneumvej",
+    "title": "Sneumvej, 6731 Tjæreborg",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4291-parallelvej",
+    "title": "Parallelvej, 4291 Ruds Vedby",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6580-noerregade",
+    "title": "Nørregade, 6580 Vamdrup",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9400-stationsvej",
+    "title": "Stationsvej, 9400 Nørresundby",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4700-katholmvej",
+    "title": "Katholmvej, 4700 Næstved",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6700-spangsbjerghaven",
+    "title": "Spangsbjerghaven, 6700 Esbjerg",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8850-torvegade",
+    "title": "Torvegade, 8850 Bjerringbro",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/2400-bygmestervej",
+    "title": "Bygmestervej, 2400 København NV",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8800-sct-laurentii-vej",
+    "title": "Sct. Laurentii Vej, 8800 Viborg",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6950-blaabaerhaven",
+    "title": "Blåbærhaven, 6950 Ringkøbing",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6510-smedevaenget",
+    "title": "Smedevænget, 6510 Gram",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8700-stjernholmsgade",
+    "title": "Stjernholmsgade, 8700 Horsens",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6710-skyttens-kvarter",
+    "title": "Skyttens Kvarter, 6710 Esbjerg V",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/5700-dronningemaen",
+    "title": "Dronningemaen, 5700 Svendborg",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/1900-vodroffsvej",
+    "title": "Vodroffsvej, 1900 Frederiksberg C",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6000-baggesensvej",
+    "title": "Baggesensvej, 6000 Kolding",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/3200-nygade",
+    "title": "Nygade, 3200 Helsinge",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4000-allehelgensgade",
+    "title": "Allehelgensgade, 4000 Roskilde",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9320-mejeriparken",
+    "title": "Mejeriparken, 9320 Hjallerup",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6000-naesbyvej",
+    "title": "Næsbyvej, 6000 Kolding",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6731-skolevej",
+    "title": "Skolevej, 6731 Tjæreborg",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4800-guldnaeldevaenget",
+    "title": "Guldnældevænget, 4800 Nykøbing F",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/2600-springholm",
+    "title": "Springholm, 2600 Glostrup",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4920-praestevaenget",
+    "title": "Præstevænget, 4920 Søllested",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/7100-skovgade",
+    "title": "Skovgade, 7100 Vejle",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/5580-rs-andersensvej",
+    "title": "Rs Andersensvej, 5580 Nørre Aaby",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4760-olsbjergvej",
+    "title": "Olsbjergvej, 4760 Vordingborg",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/7752-vandhoejvej",
+    "title": "Vandhøjvej, 7752 Snedsted",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/2760-baekholmen",
+    "title": "Bækholmen, 2760 Måløv",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6600-noerregade",
+    "title": "Nørregade, 6600 Vejen",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/7752-soendermarken",
+    "title": "Søndermarken, 7752 Snedsted",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6710-fiskenes-kvarter",
+    "title": "Fiskenes Kvarter, 6710 Esbjerg V",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8200-jordbrovej",
+    "title": "Jordbrovej, 8200 Aarhus N",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8000-marselisborg-allé",
+    "title": "Marselisborg Allé, 8000 Aarhus C",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/7680-sprogoevej",
+    "title": "Sprogøvej, 7680 Thyborøn",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8000-laessoeesgade",
+    "title": "Læssøesgade, 8000 Aarhus C",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8930-gadekaeret",
+    "title": "Gadekæret, 8930 Randers NØ",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8230-silkeborgvej",
+    "title": "Silkeborgvej, 8230 Åbyhøj",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6710-neptunvej",
+    "title": "Neptunvej, 6710 Esbjerg V",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6710-pinassen",
+    "title": "Pinassen, 6710 Esbjerg V",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4400-moellehaven",
+    "title": "Møllehaven, 4400 Kalundborg",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9530-alstrupparken",
+    "title": "Alstrupparken, 9530 Støvring",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/7400-hoejbovej",
+    "title": "Højbovej, 7400 Herning",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4220-teilmanns-alle",
+    "title": "Teilmanns Alle, 4220 Korsør",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9550-syrenvej",
+    "title": "Syrenvej, 9550 Mariager",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6000-chr-winthers-vej",
+    "title": "Chr. Winthers Vej, 6000 Kolding",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4160-moellerstraede",
+    "title": "Møllerstræde, 4160 Herlufmagle",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9600-hans-egedes-vej",
+    "title": "Hans Egedes Vej, 9600 Aars",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/7100-mindegade",
+    "title": "Mindegade, 7100 Vejle",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4800-noerre-boulevard",
+    "title": "Nørre Boulevard, 4800 Nykøbing F",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8930-udbyhoejvej",
+    "title": "Udbyhøjvej, 8930 Randers NØ",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/7490-oestergaardsallé",
+    "title": "Østergaardsallé, 7490 Aulum",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/7400-gl-ringkoebingvej",
+    "title": "Gl. Ringkøbingvej, 7400 Herning",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/5600-kalekovaenget",
+    "title": "Kalekovænget, 5600 Faaborg",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9000-borgergade",
+    "title": "Borgergade, 9000 Aalborg",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8850-storegade",
+    "title": "Storegade, 8850 Bjerringbro",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4683-tranevej",
+    "title": "Tranevej, 4683 Rønnede",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9460-skoleparken",
+    "title": "Skoleparken, 9460 Brovst",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6270-gadekaeret",
+    "title": "Gadekæret, 6270 Tønder",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9230-halvej",
+    "title": "Halvej, 9230 Svenstrup J",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8250-skaering-parkvej",
+    "title": "Skæring Parkvej, 8250 Egå",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4291-teglvaerksparken",
+    "title": "Teglværksparken, 4291 Ruds Vedby",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6600-solbaervaenget",
+    "title": "Solbærvænget, 6600 Vejen",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8722-boegelunden",
+    "title": "Bøgelunden, 8722 Hedensted",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8240-skejbygaardsvej",
+    "title": "Skejbygårdsvej, 8240 Risskov",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8600-funder-kirkebytoften",
+    "title": "Funder Kirkebytoften, 8600 Silkeborg",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8660-noerre-alle",
+    "title": "Nørre Alle, 8660 Skanderborg",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9260-stammen",
+    "title": "Stammen, 9260 Gistrup",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9560-oestergade",
+    "title": "Østergade, 9560 Hadsund",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/2680-strandgaarden",
+    "title": "Strandgården, 2680 Solrød Strand",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4370-banevej",
+    "title": "Banevej, 4370 Store Merløse",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4600-langagerhuse",
+    "title": "Langagerhuse, 4600 Køge",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/1709-skydebanegade",
+    "title": "Skydebanegade, 1709 København V",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4700-teatergade",
+    "title": "Teatergade, 4700 Næstved",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4230-skytteengen",
+    "title": "Skytteengen, 4230 Skælskør",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6800-moellebakken",
+    "title": "Møllebakken, 6800 Varde",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8700-emil-bojsens-gade",
+    "title": "Emil Bojsens Gade, 8700 Horsens",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/5471-edelkaer",
+    "title": "Edelkær, 5471 Søndersø",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9500-frederiksberg",
+    "title": "Frederiksberg, 9500 Hobro",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/7470-ravnsbjergparken",
+    "title": "Ravnsbjergparken, 7470 Karup J",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/7100-blegbanken",
+    "title": "Blegbanken, 7100 Vejle",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/7540-skolevaenget",
+    "title": "Skolevænget, 7540 Haderup",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6700-storegade",
+    "title": "Storegade, 6700 Esbjerg",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/7400-engbjerg",
+    "title": "Engbjerg, 7400 Herning",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6100-aastrupvej",
+    "title": "Aastrupvej, 6100 Haderslev",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4550-bays-have",
+    "title": "Bays Have, 4550 Asnæs",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4683-oestparken",
+    "title": "Østparken, 4683 Rønnede",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/7400-snejbjerg-hovedgade",
+    "title": "Snejbjerg Hovedgade, 7400 Herning",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/7480-aavaenget",
+    "title": "Åvænget, 7480 Vildbjerg",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8800-gothersgade",
+    "title": "Gothersgade, 8800 Viborg",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8700-sundvej",
+    "title": "Sundvej, 8700 Horsens",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4220-bragesvej",
+    "title": "Bragesvej, 4220 Korsør",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4100-degnesvinget",
+    "title": "Degnesvinget, 4100 Ringsted",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8550-marienhoffvej",
+    "title": "Marienhoffvej, 8550 Ryomgård",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9270-augustvej",
+    "title": "Augustvej, 9270 Klarup",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4700-kildemarksvej",
+    "title": "Kildemarksvej, 4700 Næstved",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6200-noerreskovparken",
+    "title": "Nørreskovparken, 6200 Aabenraa",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8653-kastanieparken",
+    "title": "Kastanieparken, 8653 Them",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4400-asser-rigsvej",
+    "title": "Asser Rigsvej, 4400 Kalundborg",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6310-hoermarken",
+    "title": "Hørmarken, 6310 Broager",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/3310-bavnager",
+    "title": "Bavnager, 3310 Ølsted",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/7400-carit-etlars-gade",
+    "title": "Carit Etlars Gade, 7400 Herning",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/7451-linaaparken",
+    "title": "Linåparken, 7451 Sunds",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9700-aadalen",
+    "title": "Ådalen, 9700 Brønderslev",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/2300-axel-heides-gade",
+    "title": "Axel Heides Gade, 2300 København S",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/2990-klinken",
+    "title": "Klinken, 2990 Nivå",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/2300-englandsvej",
+    "title": "Englandsvej, 2300 København S",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4640-savvaerksvej",
+    "title": "Savværksvej, 4640 Faxe",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/2630-groennevej",
+    "title": "Grønnevej, 2630 Taastrup",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4262-moellegaardsparken",
+    "title": "Møllegårdsparken, 4262 Sandved",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/7130-skolegade",
+    "title": "Skolegade, 7130 Juelsminde",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/7160-mejerivaenget",
+    "title": "Mejerivænget, 7160 Tørring",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9200-follingsvej",
+    "title": "Follingsvej, 9200 Aalborg SV",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/3000-rosenkildevej",
+    "title": "Rosenkildevej, 3000 Helsingør",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/3400-holmevej",
+    "title": "Holmevej, 3400 Hillerød",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6933-kildevangen",
+    "title": "Kildevangen, 6933 Kibæk",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/5200-roedtjoernvej",
+    "title": "Rødtjørnvej, 5200 Odense V",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9800-skelbaekvej",
+    "title": "Skelbækvej, 9800 Hjørring",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/3700-nordre-kystvej",
+    "title": "Nordre Kystvej, 3700 Rønne",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/2640-stenbuen",
+    "title": "Stenbuen, 2640 Hedehusene",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/2600-hovedvejen",
+    "title": "Hovedvejen, 2600 Glostrup",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/7500-hdrachmanns-vej",
+    "title": "H.Drachmanns Vej, 7500 Holstebro",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/2400-utterslevvej",
+    "title": "Utterslevvej, 2400 København NV",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/5620-bryggermarken",
+    "title": "Bryggermarken, 5620 Glamsbjerg",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/5700-eskaervaenget",
+    "title": "Eskærvænget, 5700 Svendborg",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6430-baekgade",
+    "title": "Bækgade, 6430 Nordborg",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/5000-jens-benzons-gade",
+    "title": "Jens Benzons Gade, 5000 Odense C",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/2860-valdemarskrogen",
+    "title": "Valdemarskrogen, 2860 Søborg",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/1370-noerre-soegade",
+    "title": "Nørre Søgade, 1370 København K",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6862-noerrevang",
+    "title": "Nørrevang, 6862 Tistrup",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6710-skoletoften",
+    "title": "Skoletoften, 6710 Esbjerg V",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/7470-hedevej",
+    "title": "Hedevej, 7470 Karup J",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/7441-markvaenget",
+    "title": "Markvænget, 7441 Bording",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8462-araliavej",
+    "title": "Araliavej, 8462 Harlev J",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/7760-noerregade",
+    "title": "Nørregade, 7760 Hurup Thy",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/3550-soenderparken",
+    "title": "Sønderparken, 3550 Slangerup",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/5330-elmevaenget",
+    "title": "Elmevænget, 5330 Munkebo",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/5900-noerreport",
+    "title": "Nørreport, 5900 Rudkøbing",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/2820-vangede-bygade",
+    "title": "Vangede Bygade, 2820 Gentofte",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8783-skovalle",
+    "title": "Skovalle, 8783 Hornsyld",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9990-hebronvej",
+    "title": "Hebronvej, 9990 Skagen",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/7500-anna-anchers-vej",
+    "title": "Anna Anchers Vej, 7500 Holstebro",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9982-birkeparken",
+    "title": "Birkeparken, 9982 Ålbæk",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6715-ulvevej",
+    "title": "Ulvevej, 6715 Esbjerg N",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6710-matrosvaenget",
+    "title": "Matrosvænget, 6710 Esbjerg V",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/5772-tofteparken",
+    "title": "Tofteparken, 5772 Kværndrup",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4684-slibemestervej",
+    "title": "Slibemestervej, 4684 Holmegaard",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9000-groennegangen",
+    "title": "Grønnegangen, 9000 Aalborg",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4250-boegevaenget",
+    "title": "Bøgevænget, 4250 Fuglebjerg",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6700-ewalds-alle",
+    "title": "Ewalds Alle, 6700 Esbjerg",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/7900-raadhustorvet",
+    "title": "Raadhustorvet, 7900 Nykøbing M",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/7400-lupinens-kvarter",
+    "title": "Lupinens Kvarter, 7400 Herning",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/7300-runevej",
+    "title": "Runevej, 7300 Jelling",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9000-aagade",
+    "title": "Ågade, 9000 Aalborg",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4220-halsskovvej",
+    "title": "Halsskovvej, 4220 Korsør",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9900-nordre-skanse",
+    "title": "Nordre Skanse, 9900 Frederikshavn",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6740-vestparken",
+    "title": "Vestparken, 6740 Bramming",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/7600-hoejlundparken",
+    "title": "Højlundparken, 7600 Struer",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8620-nygade",
+    "title": "Nygade, 8620 Kjellerup",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4140-moellevej",
+    "title": "Møllevej, 4140 Borup",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4220-rylevej",
+    "title": "Rylevej, 4220 Korsør",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8970-jydestien",
+    "title": "Jydestien, 8970 Havndal",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/3000-marienlyst-alle",
+    "title": "Marienlyst Alle, 3000 Helsingør",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9200-bygaden",
+    "title": "Bygaden, 9200 Aalborg SV",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6630-oestervang",
+    "title": "Østervang, 6630 Rødding",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/3650-stationstorvet",
+    "title": "Stationstorvet, 3650 Ølstykke",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/2670-greve-bygade",
+    "title": "Greve Bygade, 2670 Greve",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/7700-thorstedvej",
+    "title": "Thorstedvej, 7700 Thisted",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9200-bykrogen",
+    "title": "Bykrogen, 9200 Aalborg SV",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/2300-graekenlandsvej",
+    "title": "Grækenlandsvej, 2300 København S",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/7540-egeskraenten",
+    "title": "Egeskrænten, 7540 Haderup",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/3320-kildetoften",
+    "title": "Kildetoften, 3320 Skævinge",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4760-kernevej",
+    "title": "Kernevej, 4760 Vordingborg",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6760-glentevaenget",
+    "title": "Glentevænget, 6760 Ribe",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9700-knolden",
+    "title": "Knolden, 9700 Brønderslev",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6400-kastanie-alle",
+    "title": "Kastanie Alle, 6400 Sønderborg",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/5856-ullemoseparken",
+    "title": "Ullemoseparken, 5856 Ryslinge",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8870-egebakken",
+    "title": "Egebakken, 8870 Langå",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6100-lyoeparken",
+    "title": "Lyøparken, 6100 Haderslev",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9000-neshoej",
+    "title": "Neshøj, 9000 Aalborg",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9632-kirketoften",
+    "title": "Kirketoften, 9632 Møldrup",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6100-lindoevej",
+    "title": "Lindøvej, 6100 Haderslev",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/2880-bagsvaerd-hovedgade",
+    "title": "Bagsværd Hovedgade, 2880 Bagsværd",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8520-majsmarken",
+    "title": "Majsmarken, 8520 Lystrup",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6400-gartnervaenget",
+    "title": "Gartnervænget, 6400 Sønderborg",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6000-hvedemarken",
+    "title": "Hvedemarken, 6000 Kolding",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/7700-engdraget",
+    "title": "Engdraget, 7700 Thisted",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/3700-store-torvegade",
+    "title": "Store Torvegade, 3700 Rønne",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4571-maglevaenget",
+    "title": "Maglevænget, 4571 Grevinge",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/5560-skovkrogen",
+    "title": "Skovkrogen, 5560 Aarup",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9500-forsythiavej",
+    "title": "Forsythiavej, 9500 Hobro",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/7430-karen-blixens-vej",
+    "title": "Karen Blixens Vej, 7430 Ikast",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/2665-gammelgaards-alle",
+    "title": "Gammelgårds Alle, 2665 Vallensbæk Strand",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6200-fjordvej",
+    "title": "Fjordvej, 6200 Aabenraa",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8600-gjessoeparken",
+    "title": "Gjessøparken, 8600 Silkeborg",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9700-aabredden",
+    "title": "Åbredden, 9700 Brønderslev",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6000-alpedalsvej",
+    "title": "Alpedalsvej, 6000 Kolding",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/3700-stettestraede",
+    "title": "Stettestræde, 3700 Rønne",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4241-borgergade",
+    "title": "Borgergade, 4241 Vemmelev",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6330-ryttergabsvej",
+    "title": "Ryttergabsvej, 6330 Padborg",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9370-tujaparken",
+    "title": "Tujaparken, 9370 Hals",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9990-frejasvej",
+    "title": "Frejasvej, 9990 Skagen",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/2640-kallerupvej",
+    "title": "Kallerupvej, 2640 Hedehusene",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/2610-engdiget",
+    "title": "Engdiget, 2610 Rødovre",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/2870-groentoften",
+    "title": "Grøntoften, 2870 Dyssegård",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9990-wiltonvej",
+    "title": "Wiltonvej, 9990 Skagen",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9800-museumsgade",
+    "title": "Museumsgade, 9800 Hjørring",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/7500-offenbachsvej",
+    "title": "Offenbachsvej, 7500 Holstebro",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8660-noerregade",
+    "title": "Nørregade, 8660 Skanderborg",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/2720-holsteinborgvej",
+    "title": "Holsteinborgvej, 2720 Vanløse",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/7400-bellisvej",
+    "title": "Bellisvej, 7400 Herning",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4200-skolegade",
+    "title": "Skolegade, 4200 Slagelse",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8000-skt-pauls-gade",
+    "title": "Skt. Pauls Gade, 8000 Aarhus C",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8600-bomholts-plads",
+    "title": "Bomholts Plads, 8600 Silkeborg",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8000-marstrandsgade",
+    "title": "Marstrandsgade, 8000 Aarhus C",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8700-violvej",
+    "title": "Violvej, 8700 Horsens",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6520-kastanievej",
+    "title": "Kastanievej, 6520 Toftlund",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/5250-tranehoejen",
+    "title": "Tranehøjen, 5250 Odense SV",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/2630-syrenhegnet",
+    "title": "Syrenhegnet, 2630 Taastrup",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/5750-lundsager",
+    "title": "Lundsager, 5750 Ringe",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4220-groenlandsvej",
+    "title": "Grønlandsvej, 4220 Korsør",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/5210-villestofteengen",
+    "title": "Villestofteengen, 5210 Odense NV",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8600-lundsgade",
+    "title": "Lundsgade, 8600 Silkeborg",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4180-bakkehaven",
+    "title": "Bakkehaven, 4180 Sorø",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/5000-oluf-bagers-gade",
+    "title": "Oluf Bagers Gade, 5000 Odense C",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8900-hobrovej",
+    "title": "Hobrovej, 8900 Randers C",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/3700-slippen",
+    "title": "Slippen, 3700 Rønne",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6091-abildvej",
+    "title": "Abildvej, 6091 Bjert",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8900-slyngborggade",
+    "title": "Slyngborggade, 8900 Randers C",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/7600-engtoften",
+    "title": "Engtoften, 7600 Struer",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/7430-joergen-kroghs-vej",
+    "title": "Jørgen Kroghs Vej, 7430 Ikast",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4220-skovklinten",
+    "title": "Skovklinten, 4220 Korsør",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/5683-oestergaardsvej",
+    "title": "Østergaardsvej, 5683 Haarby",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8850-ingemannsvej",
+    "title": "Ingemannsvej, 8850 Bjerringbro",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4700-sct-peders-kirkeplads",
+    "title": "Sct Peders Kirkeplads, 4700 Næstved",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9310-tusborgvej",
+    "title": "Tusborgvej, 9310 Vodskov",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/2500-molbechsvej",
+    "title": "Molbechsvej, 2500 Valby",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4171-soepark-alle",
+    "title": "Søpark Alle, 4171 Glumsø",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6851-vesterled",
+    "title": "Vesterled, 6851 Janderup Vestj",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/7171-kildebakken",
+    "title": "Kildebakken, 7171 Uldum",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4780-farverstraede",
+    "title": "Farverstræde, 4780 Stege",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/5450-hedemarken",
+    "title": "Hedemarken, 5450 Otterup",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/5800-tronnehaven",
+    "title": "Tronnehaven, 5800 Nyborg",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/2200-gormsgade",
+    "title": "Gormsgade, 2200 København N",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4850-hovmarken",
+    "title": "Hovmarken, 4850 Stubbekøbing",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6330-vestergade",
+    "title": "Vestergade, 6330 Padborg",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6710-rolighedsvej",
+    "title": "Rolighedsvej, 6710 Esbjerg V",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/7430-annalyst",
+    "title": "Annalyst, 7430 Ikast",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8370-futuravej",
+    "title": "Futuravej, 8370 Hadsten",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6710-borgervaenget",
+    "title": "Borgervænget, 6710 Esbjerg V",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9550-klosterstien",
+    "title": "Klosterstien, 9550 Mariager",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9220-foraarsvej",
+    "title": "Forårsvej, 9220 Aalborg Øst",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/5464-egelunden",
+    "title": "Egelunden, 5464 Brenderup Fyn",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4180-bakkevaenget",
+    "title": "Bakkevænget, 4180 Sorø",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6430-maihaven",
+    "title": "Maihaven, 6430 Nordborg",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4760-skaeppevej",
+    "title": "Skæppevej, 4760 Vordingborg",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8990-klokkevang",
+    "title": "Klokkevang, 8990 Fårup",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8900-splejservej",
+    "title": "Splejservej, 8900 Randers C",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/2100-taasingegade",
+    "title": "Tåsingegade, 2100 København Ø",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/2300-erik-eriksens-gade",
+    "title": "Erik Eriksens Gade, 2300 København S",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9990-loenningen",
+    "title": "Lønningen, 9990 Skagen",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9260-soender-tranders-bygade",
+    "title": "Sønder Tranders Bygade, 9260 Gistrup",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9210-mylius-erichsens-vej",
+    "title": "Mylius Erichsens Vej, 9210 Aalborg SØ",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/3390-fyrrehegnet",
+    "title": "Fyrrehegnet, 3390 Hundested",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8654-overdrevet",
+    "title": "Overdrevet, 8654 Bryrup",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/7700-noerrevaenge",
+    "title": "Nørrevænge, 7700 Thisted",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/2791-jaegergaarden",
+    "title": "Jægergården, 2791 Dragør",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4700-roarsvej",
+    "title": "Roarsvej, 4700 Næstved",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6100-sorgenfri",
+    "title": "Sorgenfri, 6100 Haderslev",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8800-koldingvej",
+    "title": "Koldingvej, 8800 Viborg",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9700-friggsvej",
+    "title": "Friggsvej, 9700 Brønderslev",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6800-storegade",
+    "title": "Storegade, 6800 Varde",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6000-glaenoevaenget",
+    "title": "Glænøvænget, 6000 Kolding",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9230-bautastenen",
+    "title": "Bautastenen, 9230 Svenstrup J",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8660-bavnevaenget",
+    "title": "Bavnevænget, 8660 Skanderborg",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6710-skorpionens-kvarter",
+    "title": "Skorpionens Kvarter, 6710 Esbjerg V",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4850-tiliavej",
+    "title": "Tiliavej, 4850 Stubbekøbing",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4700-skovbrynet",
+    "title": "Skovbrynet, 4700 Næstved",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8600-gunilshoejvej",
+    "title": "Gunilshøjvej, 8600 Silkeborg",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4652-askoevej",
+    "title": "Askøvej, 4652 Hårlev",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9370-kongensgade",
+    "title": "Kongensgade, 9370 Hals",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9670-valmuevej",
+    "title": "Valmuevej, 9670 Løgstør",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/2650-holmelundsvej",
+    "title": "Holmelundsvej, 2650 Hvidovre",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6731-oestre-strandvej",
+    "title": "Østre Strandvej, 6731 Tjæreborg",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8410-moesbakken",
+    "title": "Moesbakken, 8410 Rønde",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4000-gyvelvej",
+    "title": "Gyvelvej, 4000 Roskilde",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8870-tulipanvej",
+    "title": "Tulipanvej, 8870 Langå",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/2920-hyldegaardsvej",
+    "title": "Hyldegårdsvej, 2920 Charlottenlund",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/7280-vestergade",
+    "title": "Vestergade, 7280 Sønder Felding",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4220-sylowsvej",
+    "title": "Sylowsvej, 4220 Korsør",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4520-vestre-hovvej",
+    "title": "Vestre Hovvej, 4520 Svinninge",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6440-bryggerhaven",
+    "title": "Bryggerhaven, 6440 Augustenborg",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/3720-torvet",
+    "title": "Torvet, 3720 Aakirkeby",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9320-moellevangen",
+    "title": "Møllevangen, 9320 Hjallerup",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/7160-jernbanegade",
+    "title": "Jernbanegade, 7160 Tørring",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/5230-hjallesevej",
+    "title": "Hjallesevej, 5230 Odense M",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6705-moelhoejvej",
+    "title": "Mølhøjvej, 6705 Esbjerg Ø",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8800-soevang",
+    "title": "Søvang, 8800 Viborg",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6000-hjelmsvej",
+    "title": "Hjelmsvej, 6000 Kolding",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6900-engtoften",
+    "title": "Engtoften, 6900 Skjern",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6950-beddingen",
+    "title": "Beddingen, 6950 Ringkøbing",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/7000-niels-steensens-vej",
+    "title": "Niels Steensens Vej, 7000 Fredericia",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6710-aadalen",
+    "title": "Ådalen, 6710 Esbjerg V",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/5600-lagonis-minde",
+    "title": "Lagonis Minde, 5600 Faaborg",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8620-vestbovej",
+    "title": "Vestbovej, 8620 Kjellerup",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9900-fladbjergvej",
+    "title": "Fladbjergvej, 9900 Frederikshavn",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8000-langelandsgade",
+    "title": "Langelandsgade, 8000 Aarhus C",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/5471-rasmus-nielsensvej",
+    "title": "Rasmus Nielsensvej, 5471 Søndersø",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/7470-mejerigaarden",
+    "title": "Mejerigården, 7470 Karup J",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/3760-viggo-roennesvej",
+    "title": "Viggo Rønnesvej, 3760 Gudhjem",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6100-jomfrustien",
+    "title": "Jomfrustien, 6100 Haderslev",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4560-vig-bakke",
+    "title": "Vig Bakke, 4560 Vig",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6600-oe-skibelundvej",
+    "title": "Ø. Skibelundvej, 6600 Vejen",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8420-energivej",
+    "title": "Energivej, 8420 Knebel",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4600-vesterhegnet",
+    "title": "Vesterhegnet, 4600 Køge",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/7430-sandgaardsparken",
+    "title": "Sandgårdsparken, 7430 Ikast",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8990-kirketoften",
+    "title": "Kirketoften, 8990 Fårup",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6430-klynstoft",
+    "title": "Klynstoft, 6430 Nordborg",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6400-blomstergade",
+    "title": "Blomstergade, 6400 Sønderborg",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4200-loevegade",
+    "title": "Løvegade, 4200 Slagelse",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/2640-vesterkoeb",
+    "title": "Vesterkøb, 2640 Hedehusene",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/5672-spurvelunden",
+    "title": "Spurvelunden, 5672 Broby",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8410-engblommevej",
+    "title": "Engblommevej, 8410 Rønde",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8500-posthaven",
+    "title": "Posthaven, 8500 Grenaa",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/2000-helgesvej",
+    "title": "Helgesvej, 2000 Frederiksberg",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6000-odensevej",
+    "title": "Odensevej, 6000 Kolding",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8970-groenningen",
+    "title": "Grønningen, 8970 Havndal",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9632-soendergade",
+    "title": "Søndergade, 9632 Møldrup",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8765-moelletoften",
+    "title": "Mølletoften, 8765 Klovborg",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4840-doevnaeldevej",
+    "title": "Døvnældevej, 4840 Nørre Alslev",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/1674-enghavevej",
+    "title": "Enghavevej, 1674 København V",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/7120-snareager",
+    "title": "Snareager, 7120 Vejle Øst",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/2000-sindshvilevej",
+    "title": "Sindshvilevej, 2000 Frederiksberg",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6310-majkaer",
+    "title": "Majkær, 6310 Broager",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/7500-vester-kirkebakke",
+    "title": "Vester Kirkebakke, 7500 Holstebro",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6650-knudsmindevej",
+    "title": "Knudsmindevej, 6650 Brørup",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/3000-hestemoellestraede",
+    "title": "Hestemøllestræde, 3000 Helsingør",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6630-sdr-tingvej",
+    "title": "Sdr Tingvej, 6630 Rødding",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/3730-smutten",
+    "title": "Smutten, 3730 Nexø",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6720-hovedgaden",
+    "title": "Hovedgaden, 6720 Fanø",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/5610-stensledgaardsvaenget",
+    "title": "Stensledgaardsvænget, 5610 Assens",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6470-hoerup-bygade",
+    "title": "Hørup Bygade, 6470 Sydals",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9830-magnolievej",
+    "title": "Magnolievej, 9830 Tårs",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8362-spongbaekken",
+    "title": "Spongbækken, 8362 Hørning",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8240-tornebakken",
+    "title": "Tornebakken, 8240 Risskov",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/7361-tvaervej",
+    "title": "Tværvej, 7361 Ejstrupholm",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9240-noerbaeksgade",
+    "title": "Nørbæksgade, 9240 Nibe",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/5220-aftenstjernen",
+    "title": "Aftenstjernen, 5220 Odense SØ",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9000-skovparken",
+    "title": "Skovparken, 9000 Aalborg",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4100-kaerehave-skovvej",
+    "title": "Kærehave Skovvej, 4100 Ringsted",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/5700-tingmarken",
+    "title": "Tingmarken, 5700 Svendborg",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6400-trekanten",
+    "title": "Trekanten, 6400 Sønderborg",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8541-vosnaesparken",
+    "title": "Vosnæsparken, 8541 Skødstrup",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6800-kaersangervej",
+    "title": "Kærsangervej, 6800 Varde",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/5580-boegehaven",
+    "title": "Bøgehaven, 5580 Nørre Aaby",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8700-borgmesterbakken",
+    "title": "Borgmesterbakken, 8700 Horsens",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8000-helgenaesgade",
+    "title": "Helgenæsgade, 8000 Aarhus C",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4684-tofteengen",
+    "title": "Tofteengen, 4684 Holmegaard",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/2200-blegdamsvej",
+    "title": "Blegdamsvej, 2200 København N",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9460-moellevej",
+    "title": "Møllevej, 9460 Brovst",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4000-sengeloesevej",
+    "title": "Sengeløsevej, 4000 Roskilde",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6270-noerregade",
+    "title": "Nørregade, 6270 Tønder",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8370-solgaardsvaenget",
+    "title": "Solgårdsvænget, 8370 Hadsten",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6640-frederiksberggade",
+    "title": "Frederiksberggade, 6640 Lunderskov",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6621-stilundparken",
+    "title": "Stilundparken, 6621 Gesten",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8800-hedevaenget",
+    "title": "Hedevænget, 8800 Viborg",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/5270-vimmelsbaekloekken",
+    "title": "Vimmelsbækløkken, 5270 Odense N",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9800-henrik-tagesens-vej",
+    "title": "Henrik Tagesens Vej, 9800 Hjørring",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4573-moseklyngen",
+    "title": "Moseklyngen, 4573 Højby",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/5800-hylleager",
+    "title": "Hylleager, 5800 Nyborg",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8832-vinkelvej",
+    "title": "Vinkelvej, 8832 Skals",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4200-solvaenget",
+    "title": "Solvænget, 4200 Slagelse",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/7130-tofteparken",
+    "title": "Tofteparken, 7130 Juelsminde",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/7430-edith-rodes-vej",
+    "title": "Edith Rodes Vej, 7430 Ikast",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/7400-tvaergade",
+    "title": "Tværgade, 7400 Herning",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6920-tvaervej",
+    "title": "Tværvej, 6920 Videbæk",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8900-prins-christians-gade",
+    "title": "Prins Christians Gade, 8900 Randers C",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8420-havagervej",
+    "title": "Havagervej, 8420 Knebel",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4684-elverhoejvej",
+    "title": "Elverhøjvej, 4684 Holmegaard",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4400-klosterbakken",
+    "title": "Klosterbakken, 4400 Kalundborg",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8900-borgergade",
+    "title": "Borgergade, 8900 Randers C",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9990-doggerbanke",
+    "title": "Doggerbanke, 9990 Skagen",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8000-christen-koebkes-gade",
+    "title": "Christen Købkes Gade, 8000 Aarhus C",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4780-sundvej",
+    "title": "Sundvej, 4780 Stege",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8990-gyvelvaenget",
+    "title": "Gyvelvænget, 8990 Fårup",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8310-tranbjerg-hovedgade",
+    "title": "Tranbjerg Hovedgade, 8310 Tranbjerg J",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/5471-tofteparken",
+    "title": "Tofteparken, 5471 Søndersø",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/9000-enghaven",
+    "title": "Enghaven, 9000 Aalborg",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6710-nordre-fovrfeldvej",
+    "title": "Nordre Fovrfeldvej, 6710 Esbjerg V",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/8541-fruensbakke",
+    "title": "Fruensbakke, 8541 Skødstrup",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/5892-byvej",
+    "title": "Byvej, 5892 Gudbjerg Sydfyn",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/4654-teglhaven",
+    "title": "Teglhaven, 4654 Faxe Ladeplads",
+    "type": "Vej"
+  },
+  {
+    "path": "tilsalg/6000-frejasvej",
+    "title": "Frejasvej, 6000 Kolding",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/koebenhavn",
+    "title": "København",
+    "type": "By"
+  },
+  {
+    "path": "bytte/vanloese",
+    "title": "Vanløse",
+    "type": "By"
+  },
+  {
+    "path": "bytte/valby",
+    "title": "Valby",
+    "type": "By"
+  },
+  {
+    "path": "bytte/broenshoej",
+    "title": "Brønshøj",
+    "type": "By"
+  },
+  {
+    "path": "bytte/soeborg",
+    "title": "Søborg",
+    "type": "By"
+  },
+  {
+    "path": "bytte/gentofte",
+    "title": "Gentofte",
+    "type": "By"
+  },
+  {
+    "path": "bytte/kongens-lyngby",
+    "title": "Kongens Lyngby",
+    "type": "By"
+  },
+  {
+    "path": "bytte/hvidovre",
+    "title": "Hvidovre",
+    "type": "By"
+  },
+  {
+    "path": "bytte/hellerup",
+    "title": "Hellerup",
+    "type": "By"
+  },
+  {
+    "path": "bytte/oesterbro",
+    "title": "Østerbro",
+    "type": "Bydel"
+  },
+  {
+    "path": "bytte/noerrebro",
+    "title": "Nørrebro",
+    "type": "Bydel"
+  },
+  {
+    "path": "bytte/indre-by",
+    "title": "Indre By",
+    "type": "Bydel"
+  },
+  {
+    "path": "bytte/amager",
+    "title": "Amager",
+    "type": "Bydel"
+  },
+  {
+    "path": "bytte/vesterbro",
+    "title": "Vesterbro",
+    "type": "Bydel"
+  },
+  {
+    "path": "bytte/nordvest",
+    "title": "Nordvest",
+    "type": "Bydel"
+  },
+  {
+    "path": "bytte/frederiksberg",
+    "title": "Frederiksberg",
+    "type": "Bydel"
+  },
+  {
+    "path": "bytte/lyngby",
+    "title": "Lyngby",
+    "type": "Bydel"
+  },
+  {
+    "path": "bytte/sydhavnen",
+    "title": "Sydhavnen",
+    "type": "Bydel"
+  },
+  {
+    "path": "bytte/2100-koebenhavn-oe",
+    "title": "2100 København Ø",
+    "type": "Postnummer"
+  },
+  {
+    "path": "bytte/2200-koebenhavn-n",
+    "title": "2200 København N",
+    "type": "Postnummer"
+  },
+  {
+    "path": "bytte/2300-koebenhavn-s",
+    "title": "2300 København S",
+    "type": "Postnummer"
+  },
+  {
+    "path": "bytte/2000-frederiksberg",
+    "title": "2000 Frederiksberg",
+    "type": "Postnummer"
+  },
+  {
+    "path": "bytte/2720-vanloese",
+    "title": "2720 Vanløse",
+    "type": "Postnummer"
+  },
+  {
+    "path": "bytte/2400-koebenhavn-nv",
+    "title": "2400 København NV",
+    "type": "Postnummer"
+  },
+  {
+    "path": "bytte/2500-valby",
+    "title": "2500 Valby",
+    "type": "Postnummer"
+  },
+  {
+    "path": "bytte/2700-broenshoej",
+    "title": "2700 Brønshøj",
+    "type": "Postnummer"
+  },
+  {
+    "path": "bytte/2860-soeborg",
+    "title": "2860 Søborg",
+    "type": "Postnummer"
+  },
+  {
+    "path": "bytte/2820-gentofte",
+    "title": "2820 Gentofte",
+    "type": "Postnummer"
+  },
+  {
+    "path": "bytte/2800-kongens-lyngby",
+    "title": "2800 Kongens Lyngby",
+    "type": "Postnummer"
+  },
+  {
+    "path": "bytte/2650-hvidovre",
+    "title": "2650 Hvidovre",
+    "type": "Postnummer"
+  },
+  {
+    "path": "bytte/2900-hellerup",
+    "title": "2900 Hellerup",
+    "type": "Postnummer"
+  },
+  {
+    "path": "bytte/2450-koebenhavn-sv",
+    "title": "2450 København SV",
+    "type": "Postnummer"
+  },
+  {
+    "path": "bytte/2100-sortedam-dossering",
+    "title": "Sortedam Dossering, 2100 København Ø",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/2200-fensmarkgade",
+    "title": "Fensmarkgade, 2200 København N",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/2200-kronborggade",
+    "title": "Kronborggade, 2200 København N",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/1415-overgaden-oven-vandet",
+    "title": "Overgaden Oven Vandet, 1415 København K",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/1420-dronningensgade",
+    "title": "Dronningensgade, 1420 København K",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/1751-sundevedsgade",
+    "title": "Sundevedsgade, 1751 København V",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/2100-af-kriegers-vej",
+    "title": "A.F. Kriegers Vej, 2100 København Ø",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/1364-noerre-farimagsgade",
+    "title": "Nørre Farimagsgade, 1364 København K",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/2200-noerrebrogade",
+    "title": "Nørrebrogade, 2200 København N",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/2200-vedbaekgade",
+    "title": "Vedbækgade, 2200 København N",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/2720-stilledal",
+    "title": "Stilledal, 2720 Vanløse",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/2100-vennemindevej",
+    "title": "Vennemindevej, 2100 København Ø",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/2400-provstevej",
+    "title": "Provstevej, 2400 København NV",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/2000-lollandsvej",
+    "title": "Lollandsvej, 2000 Frederiksberg",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/2300-messinavej",
+    "title": "Messinavej, 2300 København S",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/2100-trepkasgade",
+    "title": "Trepkasgade, 2100 København Ø",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/2500-hansstedvej",
+    "title": "Hansstedvej, 2500 Valby",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/2300-strandlodsvej",
+    "title": "Strandlodsvej, 2300 København S",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/1726-arkonagade",
+    "title": "Arkonagade, 1726 København V",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/2200-raadmandsgade",
+    "title": "Rådmandsgade, 2200 København N",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/1720-soender-boulevard",
+    "title": "Sønder Boulevard, 1720 København V",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/2300-bremensgade",
+    "title": "Bremensgade, 2300 København S",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/2500-sylviavej",
+    "title": "Sylviavej, 2500 Valby",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/2200-korsgade",
+    "title": "Korsgade, 2200 København N",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/2100-haraldsgade",
+    "title": "Haraldsgade, 2100 København Ø",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/1668-mysundegade",
+    "title": "Mysundegade, 1668 København V",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/2400-frederikssundsvej",
+    "title": "Frederikssundsvej, 2400 København NV",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/8200-ah-winges-vej",
+    "title": "A.H. Winges Vej, 8200 Aarhus N",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/2100-strandboulevarden",
+    "title": "Strandboulevarden, 2100 København Ø",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/2300-brigadevej",
+    "title": "Brigadevej, 2300 København S",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/2100-nordre-frihavnsgade",
+    "title": "Nordre Frihavnsgade, 2100 København Ø",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/1362-roemersgade",
+    "title": "Rømersgade, 1362 København K",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/2100-silkeborg-plads",
+    "title": "Silkeborg Plads, 2100 København Ø",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/2200-blaagaards-plads",
+    "title": "Blågårds Plads, 2200 København N",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/2200-thorsgade",
+    "title": "Thorsgade, 2200 København N",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/3460-christianslund",
+    "title": "Christianslund, 3460 Birkerød",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/1760-ny-carlsberg-vej",
+    "title": "Ny Carlsberg Vej, 1760 København V",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/2100-thomas-laubs-gade",
+    "title": "Thomas Laubs Gade, 2100 København Ø",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/2100-jagtvej",
+    "title": "Jagtvej, 2100 København Ø",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/2100-bellmans-plads",
+    "title": "Bellmans Plads, 2100 København Ø",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/2100-ribegade",
+    "title": "Ribegade, 2100 København Ø",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/1660-dannebrogsgade",
+    "title": "Dannebrogsgade, 1660 København V",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/2000-staegers-alle",
+    "title": "Stægers Alle, 2000 Frederiksberg",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/1800-vesterbrogade",
+    "title": "Vesterbrogade, 1800 Frederiksberg C",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/2300-georginevej",
+    "title": "Georginevej, 2300 København S",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/1718-sommerstedgade",
+    "title": "Sommerstedgade, 1718 København V",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/2700-aagerupvej",
+    "title": "Ågerupvej, 2700 Brønshøj",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/1569-edvard-falcks-gade",
+    "title": "Edvard Falcks Gade, 1569 København V",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/2100-petersborgvej",
+    "title": "Petersborgvej, 2100 København Ø",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/2300-graekenlandsvej",
+    "title": "Grækenlandsvej, 2300 København S",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/2200-baggesensgade",
+    "title": "Baggesensgade, 2200 København N",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/2400-oernevej",
+    "title": "Ørnevej, 2400 København NV",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/2100-gammel-kalkbraenderi-vej",
+    "title": "Gammel Kalkbrænderi Vej, 2100 København Ø",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/2300-bulgariensgade",
+    "title": "Bulgariensgade, 2300 København S",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/2200-slangerupgade",
+    "title": "Slangerupgade, 2200 København N",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/1957-nj-fjords-alle",
+    "title": "N.J. Fjords Alle, 1957 Frederiksberg C",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/2720-bellahoejvej",
+    "title": "Bellahøjvej, 2720 Vanløse",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/2200-nordre-fasanvej",
+    "title": "Nordre Fasanvej, 2200 København N",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/2860-tinghoejvej",
+    "title": "Tinghøjvej, 2860 Søborg",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/2300-sognefjordsgade",
+    "title": "Sognefjordsgade, 2300 København S",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/1053-cort-adelers-gade",
+    "title": "Cort Adelers Gade, 1053 København K",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/2100-willemoesgade",
+    "title": "Willemoesgade, 2100 København Ø",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/2300-holmbladsgade",
+    "title": "Holmbladsgade, 2300 København S",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/2820-gentoftegade",
+    "title": "Gentoftegade, 2820 Gentofte",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/2300-bergthorasgade",
+    "title": "Bergthorasgade, 2300 København S",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/1428-andreas-bjoerns-gade",
+    "title": "Andreas Bjørns Gade, 1428 København K",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/2850-skyttebjerg",
+    "title": "Skyttebjerg, 2850 Nærum",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/2100-trianglen",
+    "title": "Trianglen, 2100 København Ø",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/2500-vilhelm-thomsens-allé",
+    "title": "Vilhelm Thomsens Allé, 2500 Valby",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/2000-godthaabsvej",
+    "title": "Godthåbsvej, 2000 Frederiksberg",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/1749-rahbeks-allé",
+    "title": "Rahbeks Allé, 1749 København V",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/1654-abel-cathrines-gade",
+    "title": "Abel Cathrines Gade, 1654 København V",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/2100-al-drewsens-vej",
+    "title": "A.L. Drewsens Vej, 2100 København Ø",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/1665-valdemarsgade",
+    "title": "Valdemarsgade, 1665 København V",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/2100-kildevaeldsgade",
+    "title": "Kildevældsgade, 2100 København Ø",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/2200-heinesgade",
+    "title": "Heinesgade, 2200 København N",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/1437-galionsvej",
+    "title": "Galionsvej, 1437 København K",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/1709-skydebanegade",
+    "title": "Skydebanegade, 1709 København V",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/2100-jens-munks-gade",
+    "title": "Jens Munks Gade, 2100 København Ø",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/2200-ravnsborggade",
+    "title": "Ravnsborggade, 2200 København N",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/2400-sadelmagervej",
+    "title": "Sadelmagervej, 2400 København NV",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/2300-amagerfaelledvej",
+    "title": "Amagerfælledvej, 2300 København S",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/1361-linnésgade",
+    "title": "Linnésgade, 1361 København K",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/2400-statholdervej",
+    "title": "Statholdervej, 2400 København NV",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/2000-dalgas-boulevard",
+    "title": "Dalgas Boulevard, 2000 Frederiksberg",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/1817-carl-bernhards-vej",
+    "title": "Carl Bernhards Vej, 1817 Frederiksberg C",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/1416-sankt-annae-gade",
+    "title": "Sankt Annæ Gade, 1416 København K",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/2200-hans-egedes-gade",
+    "title": "Hans Egedes Gade, 2200 København N",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/2800-lyacvej",
+    "title": "Lyacvej, 2800 Kongens Lyngby",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/2700-frederikssundsvej",
+    "title": "Frederikssundsvej, 2700 Brønshøj",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/2400-tomsgaardsvej",
+    "title": "Tomsgårdsvej, 2400 København NV",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/1763-dannevirkegade",
+    "title": "Dannevirkegade, 1763 København V",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/2000-hospitalsvej",
+    "title": "Hospitalsvej, 2000 Frederiksberg",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/2200-blaagaardsgade",
+    "title": "Blågårdsgade, 2200 København N",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/2200-hilleroedgade",
+    "title": "Hillerødgade, 2200 København N",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/2650-vigerslev-alle",
+    "title": "Vigerslev Alle, 2650 Hvidovre",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/2300-peder-lykkes-vej",
+    "title": "Peder Lykkes Vej, 2300 København S",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/2400-roersangervej",
+    "title": "Rørsangervej, 2400 København NV",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/2200-jagtvej",
+    "title": "Jagtvej, 2200 København N",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/2300-ungarnsgade",
+    "title": "Ungarnsgade, 2300 København S",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/3670-korshoej",
+    "title": "Korshøj, 3670 Veksø Sjælland",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/2200-sigynsgade",
+    "title": "Sigynsgade, 2200 København N",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/1354-ole-suhrs-gade",
+    "title": "Ole Suhrs Gade, 1354 København K",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/2100-ringkoebinggade",
+    "title": "Ringkøbinggade, 2100 København Ø",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/2100-reersoegade",
+    "title": "Reersøgade, 2100 København Ø",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/1123-gothersgade",
+    "title": "Gothersgade, 1123 København K",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/2900-lille-strandvej",
+    "title": "Lille Strandvej, 2900 Hellerup",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/1916-norsvej",
+    "title": "Norsvej, 1916 Frederiksberg C",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/2700-sandbygaardvej",
+    "title": "Sandbygårdvej, 2700 Brønshøj",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/2400-landsdommervej",
+    "title": "Landsdommervej, 2400 København NV",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/2100-marstalsgade",
+    "title": "Marstalsgade, 2100 København Ø",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/2100-oester-farimagsgade",
+    "title": "Øster Farimagsgade, 2100 København Ø",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/2300-bredegrund",
+    "title": "Bredegrund, 2300 København S",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/2100-sankt-jakobs-gade",
+    "title": "Sankt Jakobs Gade, 2100 København Ø",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/1703-lille-colbjoernsensgade",
+    "title": "Lille Colbjørnsensgade, 1703 København V",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/2200-slotsgade",
+    "title": "Slotsgade, 2200 København N",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/2100-oesterbrogade",
+    "title": "Østerbrogade, 2100 København Ø",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/2200-henrik-rungs-gade",
+    "title": "Henrik Rungs Gade, 2200 København N",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/2100-manoegade",
+    "title": "Manøgade, 2100 København Ø",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/1366-nansensgade",
+    "title": "Nansensgade, 1366 København K",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/2450-natalie-zahles-vej",
+    "title": "Natalie Zahles Vej, 2450 København SV",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/2800-toftevang",
+    "title": "Toftevang, 2800 Kongens Lyngby",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/1756-amerikavej",
+    "title": "Amerikavej, 1756 København V",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/2000-nordre-fasanvej",
+    "title": "Nordre Fasanvej, 2000 Frederiksberg",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/2000-kronprinsesse-sofies-vej",
+    "title": "Kronprinsesse Sofies Vej, 2000 Frederiksberg",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/2100-holsteinsgade",
+    "title": "Holsteinsgade, 2100 København Ø",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/2200-stevnsgade",
+    "title": "Stevnsgade, 2200 København N",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/2200-baldersgade",
+    "title": "Baldersgade, 2200 København N",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/2200-birkegade",
+    "title": "Birkegade, 2200 København N",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/4640-savvaerksvej",
+    "title": "Savværksvej, 4640 Faxe",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/2300-mjoesensgade",
+    "title": "Mjøsensgade, 2300 København S",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/2100-samsoegade",
+    "title": "Samsøgade, 2100 København Ø",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/2900-esthersvej",
+    "title": "Esthersvej, 2900 Hellerup",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/2100-strynoegade",
+    "title": "Strynøgade, 2100 København Ø",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/1822-boyesgade",
+    "title": "Boyesgade, 1822 Frederiksberg C",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/2730-herlev-ringvej",
+    "title": "Herlev Ringvej, 2730 Herlev",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/1765-angelgade",
+    "title": "Angelgade, 1765 København V",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/1550-raadhuspladsen",
+    "title": "Rådhuspladsen, 1550 København V",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/1311-olfert-fischers-gade",
+    "title": "Olfert Fischers Gade, 1311 København K",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/1700-halmtorvet",
+    "title": "Halmtorvet, 1700 København V",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/1663-oehlenschlaegersgade",
+    "title": "Oehlenschlægersgade, 1663 København V",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/1310-fredericiagade",
+    "title": "Fredericiagade, 1310 København K",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/2000-julius-valentiners-vej",
+    "title": "Julius Valentiners Vej, 2000 Frederiksberg",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/1904-forhaabningsholms-alle",
+    "title": "Forhåbningsholms Alle, 1904 Frederiksberg C",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/2200-haraldsgade",
+    "title": "Haraldsgade, 2200 København N",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/2300-kongedybet",
+    "title": "Kongedybet, 2300 København S",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/2900-sundvej",
+    "title": "Sundvej, 2900 Hellerup",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/2300-normandigade",
+    "title": "Normandigade, 2300 København S",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/1721-dybboelsgade",
+    "title": "Dybbølsgade, 1721 København V",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/2200-valhalsgade",
+    "title": "Valhalsgade, 2200 København N",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/2100-taasingegade",
+    "title": "Tåsingegade, 2100 København Ø",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/2300-telemarksgade",
+    "title": "Telemarksgade, 2300 København S",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/2400-nattergalevej",
+    "title": "Nattergalevej, 2400 København NV",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/1652-colbjoernsensgade",
+    "title": "Colbjørnsensgade, 1652 København V",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/2100-lyngbyvej",
+    "title": "Lyngbyvej, 2100 København Ø",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/2400-frederiksborgvej",
+    "title": "Frederiksborgvej, 2400 København NV",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/1657-eskildsgade",
+    "title": "Eskildsgade, 1657 København V",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/2610-krydderivej",
+    "title": "Krydderivej, 2610 Rødovre",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/2000-kong-georgs-vej",
+    "title": "Kong Georgs Vej, 2000 Frederiksberg",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/2450-glucksvej",
+    "title": "Glucksvej, 2450 København SV",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/2200-udbygade",
+    "title": "Udbygade, 2200 København N",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/1650-istedgade",
+    "title": "Istedgade, 1650 København V",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/2200-rantzausgade",
+    "title": "Rantzausgade, 2200 København N",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/1655-viktoriagade",
+    "title": "Viktoriagade, 1655 København V",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/2200-voelundsgade",
+    "title": "Vølundsgade, 2200 København N",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/2200-ahlmannsgade",
+    "title": "Ahlmannsgade, 2200 København N",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/1634-rosenoerns-allé",
+    "title": "Rosenørns Allé, 1634 København V",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/2300-egilsgade",
+    "title": "Egilsgade, 2300 København S",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/4600-marens-minde-vej",
+    "title": "Marens Minde Vej, 4600 Køge",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/2860-moerkhoejvej",
+    "title": "Mørkhøjvej, 2860 Søborg",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/2300-halfdansgade",
+    "title": "Halfdansgade, 2300 København S",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/2200-heimdalsgade",
+    "title": "Heimdalsgade, 2200 København N",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/1618-tullinsgade",
+    "title": "Tullinsgade, 1618 København V",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/2100-vordingborggade",
+    "title": "Vordingborggade, 2100 København Ø",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/2300-gunloegsgade",
+    "title": "Gunløgsgade, 2300 København S",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/2650-vestre-messegade",
+    "title": "Vestre Messegade, 2650 Hvidovre",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/2100-rosenvaengets-allé",
+    "title": "Rosenvængets Allé, 2100 København Ø",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/2100-edvard-griegs-gade",
+    "title": "Edvard Griegs Gade, 2100 København Ø",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/2100-praestoegade",
+    "title": "Præstøgade, 2100 København Ø",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/2450-ellebjergvej",
+    "title": "Ellebjergvej, 2450 København SV",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/2820-ribisvej",
+    "title": "Ribisvej, 2820 Gentofte",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/2300-amagerbrogade",
+    "title": "Amagerbrogade, 2300 København S",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/1656-gasvaerksvej",
+    "title": "Gasværksvej, 1656 København V",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/2000-helgesvej",
+    "title": "Helgesvej, 2000 Frederiksberg",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/2200-julius-bloms-gade",
+    "title": "Julius Bloms Gade, 2200 København N",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/2100-viborggade",
+    "title": "Viborggade, 2100 København Ø",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/2200-tagensvej",
+    "title": "Tagensvej, 2200 København N",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/1674-enghavevej",
+    "title": "Enghavevej, 1674 København V",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/1820-frederiksberg-alle",
+    "title": "Frederiksberg Alle, 1820 Frederiksberg C",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/2720-dybendalsvej",
+    "title": "Dybendalsvej, 2720 Vanløse",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/2400-filosofvaenget",
+    "title": "Filosofvænget, 2400 København NV",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/1754-hedebygade",
+    "title": "Hedebygade, 1754 København V",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/1063-laksegade",
+    "title": "Laksegade, 1063 København K",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/2500-valby-tingsted",
+    "title": "Valby Tingsted, 2500 Valby",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/2400-moentmestervej",
+    "title": "Møntmestervej, 2400 København NV",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/1427-brobergsgade",
+    "title": "Brobergsgade, 1427 København K",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/2500-nakskovvej",
+    "title": "Nakskovvej, 2500 Valby",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/1400-torvegade",
+    "title": "Torvegade, 1400 København K",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/2200-bregneroedgade",
+    "title": "Bregnerødgade, 2200 København N",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/2200-moellegade",
+    "title": "Møllegade, 2200 København N",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/2200-fyensgade",
+    "title": "Fyensgade, 2200 København N",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/2100-askoegade",
+    "title": "Askøgade, 2100 København Ø",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/2100-svendborggade",
+    "title": "Svendborggade, 2100 København Ø",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/2400-praestelaengen",
+    "title": "Præstelængen, 2400 København NV",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/2300-parmagade",
+    "title": "Parmagade, 2300 København S",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/2100-randersgade",
+    "title": "Randersgade, 2100 København Ø",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/2400-houmanns-allé",
+    "title": "Houmanns Allé, 2400 København NV",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/1673-ullerupgade",
+    "title": "Ullerupgade, 1673 København V",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/1735-roeddinggade",
+    "title": "Røddinggade, 1735 København V",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/2400-charlotte-muncks-vej",
+    "title": "Charlotte Muncks Vej, 2400 København NV",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/1675-kongshoejgade",
+    "title": "Kongshøjgade, 1675 København V",
+    "type": "Vej"
+  },
+  {
+    "path": "bytte/2000-mariendalsvej",
+    "title": "Mariendalsvej, 2000 Frederiksberg",
+    "type": "Vej"
+  }
+]

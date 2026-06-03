@@ -1,0 +1,37 @@
+{
+  "name": "roomies",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "/roomies/main.js",
+  "scripts": {
+    "dev": "live-server .",
+    "build": "node build.js",
+    "preview": "npx serve dist"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jullle3/roomies.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jullle3/roomies/issues"
+  },
+  "homepage": "https://github.com/jullle3/roomies#readme",
+  "description": "",
+  "devDependencies": {
+    "clean-css-cli": "^5.6.3",
+    "esbuild": "^0.25.4",
+    "purgecss": "^7.0.2"
+  },
+  "dependencies": {
+    "@googlemaps/markerclusterer": "^2.5.3",
+    "@lottiefiles/lottie-player": "^2.0.12",
+    "bootstrap": "^5.3.5",
+    "jquery": "^3.7.1",
+    "jquery-ui": "^1.14.1",
+    "nouislider": "^15.8.1",
+    "wnumb": "^1.2.0"
+  }
+}

@@ -1,0 +1,473 @@
+:root {
+    /* Inspiration drawn from Dabea */
+    --company-dark: rgb(6, 17, 72);
+    --company-blue: rgb(45, 75,242);
+    /* Set the actual color. A slightly darker variant of bs-primary */
+    /* Set the raw RGB values (needed for Bootstrap's internal opacity calculations) */
+    --bs-primary-rgb: 45, 75, 242;
+    --bs-primary: rgb(45, 75, 242);
+
+    /* Optional: Update links to match */
+    --bs-link-color: rgb(45, 75, 242);
+    --bs-link-hover-color: rgb(35, 60, 200); /* A bit darker for hover */
+    /* Tell Bootstrap to use your color for all headings */
+    --bs-heading-color: var(--company-dark);
+    --bs-card-title-color: var(--company-dark);
+    --bs-card-color: var(--company-dark);
+
+    /* Overwrite this to actually apply custom font-family*/
+    /*--bs-body-font-family: 'Lato', sans-serif;*/
+}
+
+/* Force .btn-primary to use your specific Company Blue shades */
+.btn-primary {
+    /* 1. Normal State */
+    --bs-btn-bg: rgb(45, 75, 242);
+    --bs-btn-border-color: rgb(45, 75, 242);
+
+    /* 2. Hover State (Much Darker Blue) */
+    /* Changed from (35, 65, 222) to (20, 50, 200) for better contrast */
+    --bs-btn-hover-bg: rgb(20, 50, 200);
+    --bs-btn-hover-border-color: rgb(20, 50, 200);
+
+    /* 3. Active/Click State (Deep Navy Blue) */
+    --bs-btn-active-bg: rgb(10, 35, 160);
+    --bs-btn-active-border-color: rgb(10, 35, 160);
+
+    /* 4. Disabled State */
+    --bs-btn-disabled-bg: rgb(45, 75, 242);
+    --bs-btn-disabled-border-color: rgb(45, 75, 242);
+
+    /* Optional: Add a smooth transition so the color doesn't just "snap" */
+    transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out, transform 0.1s;
+}
+
+/* Optional: Make it physically "press" or "lift" to make it super obvious */
+.btn-primary:hover {
+    /* Adds a subtle lift effect */
+    box-shadow: 0 4px 6px rgba(45, 75, 242, 0.25);
+}
+
+.btn-primary:active {
+    box-shadow: none;
+}
+
+/* Optional: Fix the Outline version too */
+.btn-outline-primary {
+    --bs-btn-color: rgb(45, 75, 242);
+    --bs-btn-border-color: rgb(45, 75, 242);
+
+    --bs-btn-hover-bg: rgb(45, 75, 242);
+    --bs-btn-hover-border-color: rgb(45, 75, 242);
+    --bs-btn-active-bg: rgb(45, 75, 242);
+    --bs-btn-active-border-color: rgb(45, 75, 242);
+}
+
+
+body {
+    /*TODO: overvej font. Synes den nederste gør frontpage pænere, men den øverste gør de andre views pænere? hmm*/
+    /*font-family: Arial, sans-serif;*/
+    /*--font-primary: 'Inter', sans-serif;*/
+    --font-primary: 'Lato', sans-serif;
+    margin: 0;
+
+    /* TODO vælg én */
+    /* Lidt blå */
+/*    background-color: rgb(242,243,249);*/
+    /* Meget blå */
+    background-color: rgb(235,239,247);
+    /*background-color: #f0f0f0; !* Light grey background *!*/
+    /*background-color: #f8f9fa; !* Light grey background *!*/
+
+    --brand-color: #2c3e50;
+    padding: 66px 0 0;
+    color: var(--company-dark);
+}
+
+/*background-color: #f0f0f0;*/
+/*background-color: rgb(242,243,249);*/
+/*background-color: #f8f9fa;*/
+
+.custom-shadow {
+    box-shadow: rgba(0, 0, 0, 0.07) 0 1px 15px, rgba(0, 0, 0, 0.07) 0 1px 6px;
+}
+
+#root {
+    background-color: transparent;
+    width: 100%;
+    min-height: 100vh;
+}
+
+
+.company-blue {
+   color: rgb(45, 75, 242);
+}
+
+.company-dark {
+    color: var(--company-dark);
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: var(--company-dark);
+}
+
+    .pointer-cursor:hover {
+        cursor: pointer;
+    }
+
+    .read-only-form .form-control {
+        background-color: #e9ecef; /* Light grey background */
+        cursor: not-allowed; /* Change cursor to indicate non-editable */
+        pointer-events: none; /* Disable all pointer events */
+    }
+
+    /* In your read-only forms, keep switches looking “active” even when disabled */
+    .read-only-form .form-check-input:disabled {
+        /* cancel Bootstrap’s dimming */
+        opacity: 1 !important;
+        /* still show the “not-allowed” cursor */
+        cursor: not-allowed;
+        /* disable any focus glow */
+        box-shadow: none;
+    }
+
+    /* When checked, keep the primary blue track and thumb */
+    .read-only-form .form-check-input:disabled:checked {
+        background-color: #0d6efd;       /* Bootstrap primary */
+        border-color:    #0d6efd;
+    }
+
+    /* If you want the little knob (thumb) to stay white at 100% opacity */
+    .read-only-form .form-check-input:disabled:checked::before {
+        background-color: #fff;
+        opacity: 1;
+    }
+
+    /* Optional: keep the label colour as you like */
+    .read-only-form .form-check-label {
+        color: #495057; /* e.g. default Bootstrap body-text colour */
+    }
+
+    /* force labels for disabled switches back to full opacity */
+    .read-only-form .form-check-input:disabled + .form-check-label {
+        opacity: 1 !important;
+        color: #212529;            /* or whatever text color you prefer */
+        cursor: not-allowed;       /* keeps the “no-click” cursor */
+    }
+
+
+    .modal.show {
+        animation: fadeIn 0.3s;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+
+    .btn.action-button {
+        background-color: #2c3e50;
+        color: white;
+        border: none;
+    }
+
+    .btn.action-button:hover {
+        background-color: #34495e;
+    }
+
+
+    /* single-line ellipsis */
+    .text-truncate-lines-1 {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+
+    .text-truncate-lines-2 {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        -webkit-line-clamp: 2;
+        line-clamp: 2;
+        text-overflow: ellipsis;
+    }
+
+
+
+    /* multi-line ellipsis (3 lines here, adjust as you like) */
+    .text-truncate-lines-3 {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        -webkit-line-clamp: 3;
+        line-clamp: 3;
+        text-overflow: ellipsis;
+    }
+
+    .payment-button {
+        background: linear-gradient(135deg, #f8cdda 0%, #1d2b64 100%);
+        border: none;
+        border-radius: 999px;
+        font-weight: 600;
+        font-size: 1rem;
+        padding: 0.50rem 1.50rem;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        cursor: pointer;
+        display: inline-block;
+        text-align: center;
+        text-decoration: none;
+    }
+
+    .payment-button:hover {
+        /* keep text white */
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    }
+
+    .payment-button:active {
+        /* keep text white */
+        transform: translateY(0);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+
+    button.payment-button,
+    button.payment-button:hover,
+    button.payment-button:active,
+    button.payment-button:focus {
+        color: white !important;
+    }
+
+    /* 1. Make all .container’s stop growing past 1500px */
+    .container {
+        width: 100%;
+        max-width: 1500px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    /* 2. If you want a little side-padding on small viewports */
+    @media (max-width: 576px) {
+        .container {
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
+    }
+
+    .nice-lead {
+        color: rgb(75, 85, 99);
+        font-size: 20px;
+        line-height: 32px
+    }
+
+    .nice-text {
+        color: rgb(75, 85, 99);
+        font-size: 18px;
+        line-height: 32px
+    }
+
+    .hover-shadow {
+        transition: box-shadow 0.3s ease;
+    }
+
+    .hover-shadow:hover {
+        box-shadow: 0 20px 30px rgba(0, 0, 0, 0.08);
+    }
+
+.hover-shadow-subtle {
+    transition: box-shadow 0.3s ease;
+}
+
+.hover-shadow-subtle:hover {
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+}
+
+.ai-icon {
+    background: linear-gradient(135deg, #4f46e5, #8b5cf6, #06b6d4);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: inline-block;
+}
+
+
+.hover-lift {
+    transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    display: inline-block; /* Required for transform to work on inline elements */
+    will-change: transform;
+}
+
+.hover-lift:hover {
+    transform: translateY(-2px);
+}
+
+/* --- Unified View Header Standard --- */
+
+/* Base H1 for all main views */
+.view-title {
+    color: var(--company-dark);     /* Deep Navy: Authority */
+    font-family: var(--font-primary);
+    font-weight: 800;               /* Extra Bold: Institutional Trust */
+    letter-spacing: -0.5px;         /* Tighter tracking: Modern Fintech feel */
+    line-height: 1.2;
+}
+
+/* The Highlight Span (The "Subject" of the page) */
+.view-title-highlight {
+    color: var(--bs-primary);       /* Royal Blue: Action/Brand */
+    position: relative;
+    display: inline-block;          /* Required for absolute positioning of decorations */
+}
+
+/* --- Global App Loader --- */
+#app-loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #f8faff;
+    z-index: 99999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    /* Start invisible and non-interactive */
+    opacity: 0;
+    pointer-events: none;
+
+    /* Ensure transitions happen for both fade-in and fade-out */
+    transition: opacity 0.4s ease-out;
+}
+
+/* The class that makes it visible */
+#app-loader.show-loader {
+    opacity: 1;
+    pointer-events: auto; /* Re-enable clicks if needed (though usually it just covers) */
+}
+
+/* --- Overwrite Bootstrap Accordion Focus & Active states --- */
+.accordion-button:focus {
+    box-shadow: none !important;
+    outline: none !important;
+}
+
+/* Fjerner også Bootstraps standard lyseblå baggrundsfarve på åbne faner, hvis I vil beholde det helt rent */
+.accordion-button:not(.collapsed) {
+    box-shadow: none !important;
+}
+
+/* =========================================
+   Smart Områdevælger (Area Tags & Pills)
+   ========================================= */
+
+/* Selve input containeren der ligner et form-felt */
+.area-tag-container {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+    min-height: 52px; /* Giver plads til tags */
+    padding: 0.375rem 0.75rem;
+    background-color: #fff;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    cursor: text;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+/* Genskab Bootstraps focus-glow når man klikker i containeren */
+.area-tag-container:focus-within {
+    border-color: #86b7fe;
+    outline: 0;
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
+
+/* Ryste-animation ved ugyldigt input (kaldes i din JS) */
+.area-tag-container.shake {
+    animation: shakeError 0.4s cubic-bezier(.36,.07,.19,.97) both;
+    border-color: #dc3545; /* Rød fejlfarve */
+}
+
+@keyframes shakeError {
+    10%, 90% { transform: translate3d(-1px, 0, 0); }
+    20%, 80% { transform: translate3d(2px, 0, 0); }
+    30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
+    40%, 60% { transform: translate3d(4px, 0, 0); }
+}
+
+/* Det usynlige tekstfelt indeni containeren */
+.area-tag-input {
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+    flex-grow: 1;
+    min-width: 150px;
+    background: transparent;
+    padding: 0.2rem 0;
+    color: var(--company-dark);
+}
+
+.area-tags-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+}
+
+/* De valgte runde Tags (Pills) */
+.area-tag {
+    background-color: var(--bs-primary);
+    color: #fff;
+    padding: 0.25rem 0.6rem;
+    border-radius: 50rem;
+    font-size: 0.875rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    animation: fadeIn 0.2s ease-in-out;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.area-tag .remove-tag {
+    background: transparent;
+    border: none;
+    color: #fff;
+    padding: 0;
+    cursor: pointer;
+    opacity: 0.7;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.2s;
+}
+
+.area-tag .remove-tag:hover {
+    opacity: 1;
+}
+
+/* =========================================
+   Quick-Select Knapper (Under inputtet)
+   ========================================= */
+.area-quick-btn {
+    background-color: #fff;
+    border: 1px solid #dee2e6;
+    color: var(--company-dark);
+    border-radius: 50rem;
+    padding: 0.35rem 0.8rem;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+}
+
+.area-quick-btn:hover {
+    background-color: #f8faff;
+    border-color: var(--bs-primary);
+    color: var(--bs-primary);
+}
+
+/* Når knappen er aktiv (valgt i din JS) */
+.area-quick-btn.active {
+    background-color: var(--bs-primary);
+    border-color: var(--bs-primary);
+    color: #fff;
+}

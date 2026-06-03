@@ -1,0 +1,32 @@
+.score-ring{
+    --pct: 0;               /* 0–100 */
+    --ring: #22c55e;        /* color */
+    width:120px;height:120px;border-radius:50%;
+    background: conic-gradient(var(--ring) calc(var(--pct)*1%), #e9ecef 0);
+    position:relative;display:flex;align-items:center;justify-content:center;
+}
+
+.score-ring::after {
+    content:"";
+    position:absolute;
+    inset:12px;
+    border-radius:50%;
+    background:#fff;
+    box-shadow:0 0 0 1px rgba(0,0,0,.03) inset;
+    z-index:0;  /* ensure it's below */
+}
+
+.score-ring > span {
+    position:relative;
+    font-weight:700;
+    font-size:2rem;
+    color:var(--ring);
+    z-index:1;  /* ensure it's above */
+}
+
+@media (max-width: 576px) {
+    #ny-analyse-btn {
+        padding: .25rem .5rem;
+        font-size: .875rem; /* same as btn-sm */
+    }
+}

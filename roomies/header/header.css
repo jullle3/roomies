@@ -1,0 +1,323 @@
+/* header/header.css */
+
+/* --- Navbar Container --- */
+.navbar {
+    background-color: #ffffff;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.04); /* Slightly more defined border */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02) !important;
+    transition: padding-top 0.3s ease, padding-bottom 0.3s ease, background-color 0.3s ease;
+}
+
+/* --- Brand / Logo --- */
+.navbar-brand {
+    color: var(--company-dark) !important;
+    font-family: var(--font-primary, 'Lato', sans-serif);
+    font-weight: 600; /* Extra bold for authority */
+    font-size: 1.4rem;
+    letter-spacing: -0.03em;
+    display: flex;
+    align-items: center;
+}
+
+.navbar-brand img {
+    margin-right: 12px;
+    transition: transform 0.3s ease;
+}
+
+.navbar-brand:hover img {
+    transform: rotate(-5deg) scale(1.05);
+}
+
+/* --- Navigation Links --- */
+.navbar-nav .nav-link {
+    font-family: var(--font-primary, 'Lato', sans-serif);
+    color: #4b5563;
+    font-weight: 600;
+    font-size: 0.95rem;
+    padding: 0.6rem 1.2rem !important;
+    border-radius: 50rem;
+    margin: 0 2px;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    align-items: center;
+    white-space: nowrap; /* FIX: Forces text to stay on one line */
+}
+
+.navbar-nav .nav-link:hover,
+.navbar-nav .nav-link.active {
+    color: var(--bs-primary) !important;
+    background-color: rgba(45, 75, 242, 0.04);
+    transform: translateY(-1px);
+}
+
+.navbar-nav .nav-link i {
+    color: var(--bs-primary);
+    margin-right: 8px;
+    font-size: 1.1em;
+    transition: transform 0.2s ease;
+}
+
+.navbar-nav .nav-link:hover i {
+    transform: scale(1.1);
+}
+
+@media (min-width: 992px) {
+    .navbar .container {
+        flex-wrap: nowrap;
+    }
+
+    .navbar-brand {
+        flex: 0 0 auto;
+    }
+
+    #navMenu {
+        flex: 1 1 auto;
+        min-width: 0;
+    }
+
+    #navMenu .navbar-nav {
+        flex: 1 1 auto;
+        justify-content: flex-end;
+        margin-left: 1rem !important;
+        min-width: 0;
+    }
+}
+
+/* --- Primary Action Button (Login) --- */
+.navbar-nav .nav-item.dropdown:has(#navbar-name) {
+    min-width: 0;
+    max-width: 100%;
+}
+
+#navbar-name {
+    font-weight: 600;
+    padding: 0.6rem 1.8rem;
+    border-radius: 50rem !important;
+    background-color: var(--bs-primary);
+    border: none;
+    box-shadow: 0 4px 6px rgba(45, 75, 242, 0.2);
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    color: white;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    max-width: min(100%, 15rem);
+    min-width: min(100%, 9.75rem);
+}
+
+#navbar-name-text {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+#navbar-name.dropdown-toggle::after {
+    flex-shrink: 0;
+}
+
+#navbar-name:hover, #navbar-name[aria-expanded="true"] {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 15px rgba(45, 75, 242, 0.3);
+    background-color: var(--bs-btn-hover-bg, rgb(20, 50, 200));
+}
+
+#navbar-name:active {
+    transform: translateY(0);
+    box-shadow: 0 4px 6px rgba(45, 75, 242, 0.2);
+}
+
+/* --- Dropdown Menu --- */
+.dropdown-menu {
+    border: none;
+    border-radius: 1rem;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+    padding: 0.5rem;
+    margin-top: 12px;
+    animation: fadeInDropdown 0.2s ease-out;
+}
+
+@keyframes fadeInDropdown {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.dropdown-item {
+    border-radius: 0.5rem;
+    padding: 0.7rem 1rem;
+    color: var(--company-dark);
+    font-weight: 500;
+    transition: background-color 0.2s;
+    display: flex;
+    align-items: center;
+}
+
+.dropdown-item i {
+    width: 20px;
+    text-align: center;
+    margin-right: 8px;
+    color: var(--bs-primary);
+}
+
+.dropdown-item:hover {
+    background-color: #f0f6ff;
+    color: var(--bs-primary);
+}
+
+/* --- Header Stats Ticker (Refined) --- */
+#header-stats {
+    /* More airy separator */
+    border-left: 1px solid #e5e7eb;
+    padding-left: 1rem;
+    margin-left: 1rem !important;
+    height: 44px; /* Slightly taller to prevent clipping */
+    display: flex;
+    align-items: center;
+    flex: 0 1 auto;
+    min-width: 0;
+}
+
+/* The animated container */
+#header-stats .position-relative {
+    height: 100%;
+    width: 9.5rem;
+    min-width: 8.75rem;
+    display: flex;
+    align-items: center;
+}
+
+#stat-line {
+    font-family: var(--font-primary, 'Lato', sans-serif);
+    font-size: 0.95rem; /* Slightly larger text */
+    color: #4b5563; /* Darker gray for better readability */
+    width: 100%;
+
+    /* Ensure flex alignment propagates */
+    display: flex;
+    align-items: center;
+}
+
+/* --- Mobile / Toggler --- */
+.navbar-toggler {
+    border: none;
+    padding: 0.5rem;
+    border-radius: 50%;
+    color: var(--company-dark);
+    transition: background-color 0.2s;
+}
+
+.navbar-toggler:focus, .navbar-toggler:hover {
+    box-shadow: none;
+    background-color: rgba(0, 0, 0, 0.05);
+    outline: none;
+}
+
+/* Mobile Viewport Adjustments */
+@media (max-width: 991.98px) {
+    .navbar-collapse {
+        background: white;
+        padding: 1.5rem;
+        border-radius: 1rem;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        margin-top: 1rem;
+        border: 1px solid rgba(0,0,0,0.03);
+    }
+
+    #header-stats {
+        display: none !important;
+    }
+
+    .navbar-nav .nav-link {
+        margin: 5px 0;
+        border-radius: 0.75rem;
+        padding: 1rem !important;
+    }
+
+    .dropdown-menu {
+        box-shadow: none;
+        border: 1px solid #f0f0f0;
+        margin-top: 0;
+    }
+
+    #navbar-name {
+        max-width: 100%;
+    }
+}
+
+/* --- Desktop Navbar Compression --- */
+@media (min-width: 992px) {
+    #navbar-name {
+        width: auto !important;
+    }
+
+    .navbar-nav .nav-item.dropdown:has(#navbar-name) {
+        flex: 0 1 auto;
+        max-width: 15rem;
+    }
+}
+
+/* --- Tablets & Small Laptops (992px - 1199.98px) --- */
+@media (min-width: 992px) and (max-width: 1199.98px) {
+    /* Hide the stats ticker where the navbar cannot reliably fit all controls. */
+    #header-stats {
+        display: none !important;
+    }
+}
+
+/* --- Tablets & Small Laptops (992px - 1199.98px) --- */
+@media (min-width: 992px) and (max-width: 1199.98px) {
+
+    /* Slightly scale down the brand logo text */
+    .navbar-brand {
+        font-size: 1.25rem;
+    }
+
+    /* Reduce link paddings and font size to ensure they fit */
+    .navbar-nav .nav-link {
+        padding-left: 0.5rem !important;
+        padding-right: 0.5rem !important;
+        font-size: 0.9rem;
+    }
+
+    /* Reduce the gap before the login button */
+    .navbar-nav .nav-item.dropdown.ms-lg-4 {
+        margin-left: 0.5rem !important;
+    }
+}
+
+/* --- Medium Laptops (1200px - 1400px) --- */
+@media (min-width: 1200px) and (max-width: 1399.98px) {
+    #header-stats {
+        display: flex !important;
+    }
+
+    .navbar-nav .nav-link {
+        padding-left: 0.6rem !important;
+        padding-right: 0.6rem !important;
+        font-size: 0.9rem;
+    }
+
+    /* Slightly reduce the gap before the login button */
+    .navbar-nav .nav-item.dropdown.ms-lg-4 {
+        margin-left: 0.75rem !important;
+    }
+
+    .navbar-nav .nav-item.dropdown:has(#navbar-name) {
+        max-width: 14.25rem;
+    }
+
+    #navbar-name {
+        max-width: min(100%, 14.25rem);
+    }
+}
+
+/* --- Wide Desktops (1400px+) --- */
+@media (min-width: 1400px) {
+    .navbar-nav .nav-item.dropdown:has(#navbar-name) {
+        max-width: 16rem;
+    }
+
+    #navbar-name {
+        max-width: min(100%, 16rem);
+    }
+}

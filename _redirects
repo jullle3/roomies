@@ -1,0 +1,5 @@
+/robots.txt     /robots.txt      200
+/llms.txt       /llms.txt        200
+
+# SPA fallback — keep hash/query string intact
+/* /index.html      200

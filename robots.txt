@@ -1,0 +1,14 @@
+User-agent: *
+Allow: /
+
+# Disallow paywalled and user-specific routes
+Disallow: /saelger
+Disallow: /boligerovervaagning-opret
+Disallow: /boligerovervaagning-rediger
+Disallow: /ai-analyse
+Disallow: /ai-resultat
+Disallow: /redirect-success
+Disallow: /profil
+Disallow: /login
+
+Sitemap: https://roomies.dk/sitemap.xml

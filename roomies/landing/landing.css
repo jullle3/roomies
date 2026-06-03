@@ -1,0 +1,715 @@
+/* --- Hero Section --- */
+.landing-hero {
+    background-color: var(--company-dark);
+    color: #ffffff;
+    padding: 6rem 0;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Background Effect - pushed to back */
+.landing-hero::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -10%;
+    width: 60%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0) 70%);
+    transform: rotate(-15deg);
+    pointer-events: none;
+    z-index: 0; /* IMPORTANT: Behind the text */
+}
+
+/* Content Container - brought to front */
+.landing-hero .container {
+    position: relative;
+    z-index: 2; /* IMPORTANT: Above the ::after element */
+}
+
+.landing-hero h1 {
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    line-height: 1.2;
+    color: #ffffff; /* Explicitly force white */
+}
+
+.landing-hero .lead {
+    color: rgba(255, 255, 255, 0.85);
+    font-weight: 400;
+    font-size: 1.25rem;
+}
+
+/* High contrast text for the dark background */
+.text-landing-highlight {
+    color: #6ea8fe !important; /* Light blue that pops on Navy */
+}
+
+.landing-use-case-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.45rem 0.85rem;
+    border-radius: 50rem;
+    color: rgba(255, 255, 255, 0.92);
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    font-size: 0.92rem;
+    font-weight: 800;
+    line-height: 1;
+    text-decoration: none;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.landing-use-case-chip:hover,
+.landing-use-case-chip:focus {
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.16);
+    border-color: rgba(255, 255, 255, 0.28);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 26px rgba(0, 0, 0, 0.12);
+}
+
+.landing-use-case-chip i {
+    color: #6ea8fe;
+    font-size: 0.88rem;
+}
+
+/* --- Buttons --- */
+.btn-hero-primary {
+    background-color: var(--company-blue);
+    border: 2px solid var(--company-blue);
+    color: white;
+    font-weight: 600;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+}
+
+.btn-hero-primary:hover {
+    background-color: white;
+    color: var(--company-blue);
+    border-color: white;
+}
+
+.btn-hero-outline {
+    background-color: transparent;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    color: white;
+    font-weight: 600;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+}
+
+.btn-hero-outline:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-color: white;
+    color: white;
+}
+
+/* --- Feature Cards --- */
+.feature-card {
+    background: #ffffff;
+    border: 1px solid #edf2f7;
+    border-radius: 12px;
+    padding: 2.5rem 2rem;
+    height: 100%;
+    transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.3s ease;
+}
+
+.feature-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.05);
+    border-color: var(--company-blue);
+}
+
+.feature-icon-wrapper {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 64px;
+    height: 64px;
+    border-radius: 16px;
+    background-color: #f0f6ff;
+    color: var(--company-blue);
+    margin-bottom: 1.5rem;
+}
+
+.landing-founder-section {
+    position: relative;
+    overflow: hidden;
+    border-top: 1px solid rgba(6, 17, 72, 0.06);
+    border-bottom: 1px solid rgba(6, 17, 72, 0.06);
+}
+
+.landing-founder-portrait-frame {
+    width: min(100%, 360px);
+    aspect-ratio: 4 / 5;
+    border-radius: 1.5rem;
+    overflow: hidden;
+    background: #f8faff;
+    border: 1px solid rgba(6, 17, 72, 0.08);
+    box-shadow: 0 24px 56px rgba(6, 17, 72, 0.12);
+}
+
+.landing-founder-portrait {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 24%;
+}
+
+.landing-founder-copy {
+    max-width: 720px;
+}
+
+.landing-founder-copy h2 {
+    color: var(--company-dark);
+    line-height: 1.15;
+}
+
+.landing-founder-copy p {
+    line-height: 1.8;
+}
+
+.landing-founder-eyebrow {
+    color: var(--bs-primary);
+    background: rgba(45, 75, 242, 0.08);
+    border: 1px solid rgba(45, 75, 242, 0.12);
+    font-weight: 800;
+    font-size: 0.86rem;
+}
+
+.pricing-alert-box {
+    background-color: #ffffff;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+.check-list-item i {
+    color: var(--company-blue);
+}
+
+/* Highlight for the "Exchange" feature (kun farven) */
+.text-new-feature {
+    color: #4ade80; /* Vibrant Green that pops on the Navy background */
+}
+/* Highlight for the "Exchange" feature */
+/*
+.text-new-feature {
+    color: #4ade80;
+    position: relative;
+    display: inline-block;
+}
+
+.text-new-feature::after {
+    content: "POPULÆRT";
+    position: absolute;
+    top: -8px;
+    right: -18px;
+    background-color: #4ade80;
+    color: var(--company-dark);
+    font-size: 0.3em;
+    padding: 2px 6px;
+    border-radius: 50rem;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+    transform: rotate(15deg);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    pointer-events: none;
+}
+ */
+
+.featured-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    position: relative; /* Essential for the absolute button on desktop */
+}
+
+@media (min-width: 768px) {
+    .featured-header {
+        display: block;     /* Switch to block to allow true centering */
+        text-align: center; /* Centers the text */
+    }
+
+    .featured-header .btn-see-all {
+        position: absolute; /* Take button out of flow */
+        right: 0;           /* Stick to right */
+        bottom: 0;          /* Align with bottom text line */
+    }
+}
+
+/* --- Avatar Group Styling --- */
+.landing-trust-row {
+    color: rgba(255, 255, 255, 0.78);
+}
+
+.trust-avatar-group {
+    padding-left: 0;
+}
+
+.trust-avatar {
+    width: 34px;
+    height: 34px;
+    object-fit: cover;
+    margin-left: -10px;
+    position: relative;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    background-color: #f8faff;
+}
+
+/* Ensure the first avatar doesn't pull out of the container */
+.trust-avatar-group .trust-avatar:first-child {
+    margin-left: 0;
+}
+
+/* The final plus icon circle */
+.trust-avatar-more {
+    background-color: var(--bs-primary); /* Uses your defined royal blue */
+    color: white;
+    z-index: 1;
+}
+
+/* Hover effect so the user can see the hidden parts of the faces */
+.trust-avatar:hover {
+    transform: translateY(-3px);
+    z-index: 10;
+}
+
+.landing-trust-copy {
+    color: rgba(255, 255, 255, 0.78);
+    font-size: 0.95rem;
+    line-height: 1.3;
+}
+
+.landing-trust-copy strong {
+    color: #ffffff;
+    font-weight: 800;
+}
+
+/* Container fade-in */
+.trust-indicator-container {
+    animation: fadeUpIn 0.8s ease forwards 0.3s;
+    opacity: 0;
+}
+
+@keyframes fadeUpIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* --- structural fixes to prevent jitter in indexing counting animation --- */
+
+/* * The wrapper box around the dynamic number.
+ * Reserve enough inline space for Danish-formatted 4+ digit counts
+ * without clipping or forcing "boligsogende" too close on mobile.
+ */
+#user-count-wrapper {
+    min-width: 4.8ch;
+
+    display: inline-block;
+
+    /* Keep the animated number stable while leaving consistent room to the right */
+    text-align: right;
+
+    /* Modern optimization for animations changing content frequently */
+    will-change: content;
+}
+
+/* * Apply browser-level fixes to make numbers behave as monospaced
+ * as possible within their fixed-width wrapper, just in case.
+ */
+#user-count-number {
+    font-variant-numeric: tabular-nums;
+    -moz-font-variant-numeric: tabular-nums;
+    -webkit-font-variant-numeric: tabular-nums;
+}
+
+/* --- Live Scanner Section --- */
+#scanner-section {
+    scroll-margin-top: 5.5rem;
+}
+
+.live-indicator {
+    width: 8px;
+    height: 8px;
+    background-color: #4ade80; /* Success green */
+    border-radius: 50%;
+    display: inline-block;
+    box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.7);
+    animation: pulse-green 2s infinite cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes pulse-green {
+    0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.7); }
+    70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(74, 222, 128, 0); }
+    100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(74, 222, 128, 0); }
+}
+
+.reality-timeline {
+    margin-top: 2rem;
+}
+
+.timeline-step {
+    padding-bottom: 0.5rem;
+}
+
+.timeline-dot {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.timeline-step:hover .timeline-dot {
+    transform: translate(-25px, 4px) scale(1.2) !important;
+}
+
+/* --- Data Radar Card --- */
+#scraped-count-wrapper {
+    text-align: center;
+}
+
+#scraped-count-number {
+    font-variant-numeric: tabular-nums;
+    -moz-font-variant-numeric: tabular-nums;
+    -webkit-font-variant-numeric: tabular-nums;
+}
+
+.scanner-line {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, rgba(74, 222, 128, 0.8), transparent);
+    box-shadow: 0 0 10px rgba(74, 222, 128, 0.5);
+    animation: scan-down 3s infinite linear;
+    z-index: 0;
+    opacity: 0.5;
+}
+
+@keyframes scan-down {
+    0% { top: -10%; opacity: 0; }
+    10% { opacity: 0.5; }
+    90% { opacity: 0.5; }
+    100% { top: 110%; opacity: 0; }
+}
+
+/* --- Tilted "NYT" Badge for Scanner Pill --- */
+.scanner-badge-wrapper {
+    position: relative;
+    /* overflow må ikke være hidden, ellers bliver badget klippet over! */
+}
+
+.scanner-badge-wrapper:hover .scanner-badge-action,
+.scanner-badge-wrapper:focus .scanner-badge-action {
+    background: rgba(255, 255, 255, 0.22);
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+.scanner-badge-wrapper {
+    max-width: 100%;
+    white-space: nowrap;
+}
+
+.scanner-badge-label {
+    min-width: 0;
+}
+
+.scanner-badge-action {
+    display: inline-flex;
+    align-items: center;
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.16);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 50rem;
+    padding: 0.2rem 0.55rem;
+    line-height: 1;
+    white-space: nowrap;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.scanner-badge-action i {
+    transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@media (max-width: 420px) {
+    .scanner-badge-wrapper {
+        gap: 0.35rem !important;
+        padding-left: 0.65rem !important;
+        padding-right: 0.65rem !important;
+    }
+
+    .scanner-badge-label,
+    .scanner-badge-action {
+        font-size: 0.72rem !important;
+    }
+
+    .scanner-badge-action {
+        padding: 0.18rem 0.42rem;
+    }
+}
+
+.scanner-badge-wrapper:hover .scanner-badge-action i,
+.scanner-badge-wrapper:focus .scanner-badge-action i {
+    transform: translateY(2px);
+}
+
+.scanner-copy-highlight {
+    color: var(--bs-primary);
+    font-weight: 800;
+    white-space: normal;
+    display: inline;
+    text-decoration-line: underline;
+    text-decoration-style: wavy;
+    text-decoration-color: var(--bs-primary);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 8px;
+}
+
+.scanner-copy-highlight::after {
+    content: none;
+}
+
+.scanner-highlighted-section {
+    border-top: 1px solid rgba(6, 17, 72, 0.06);
+}
+
+.scanner-highlighted-eyebrow {
+    background-color: #f8faff;
+    border: 1px solid rgba(45, 75, 242, 0.1);
+}
+
+.scanner-highlighted-marquee-shell {
+    position: relative;
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 0.5rem 0 1rem;
+    scrollbar-width: none;
+    overscroll-behavior-inline: contain;
+    -webkit-overflow-scrolling: touch;
+    -webkit-mask-image: linear-gradient(to right, transparent, #000 5%, #000 95%, transparent);
+    mask-image: linear-gradient(to right, transparent, #000 5%, #000 95%, transparent);
+}
+
+.scanner-highlighted-marquee-shell::-webkit-scrollbar {
+    display: none;
+}
+
+.scanner-highlighted-marquee {
+    overflow: visible;
+    width: max-content;
+    min-width: 100%;
+}
+
+.scanner-highlighted-track {
+    display: flex;
+    width: max-content;
+    backface-visibility: hidden;
+    animation: scanner-highlighted-marquee-scroll 64s linear infinite;
+    will-change: transform;
+}
+
+.scanner-highlighted-marquee-shell:hover .scanner-highlighted-track,
+.scanner-highlighted-marquee-shell:active .scanner-highlighted-track,
+.scanner-highlighted-marquee-shell:focus-within .scanner-highlighted-track {
+    animation-play-state: paused;
+}
+
+.scanner-highlighted-group {
+    display: flex;
+    flex: 0 0 auto;
+    gap: 1.25rem;
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+    width: max-content;
+}
+
+.scanner-highlighted-card {
+    flex: 0 0 min(78vw, 340px);
+    backface-visibility: hidden;
+    transform: translate3d(0, 0, 0);
+}
+
+.scanner-highlighted-card-inner {
+    display: block;
+    height: 100%;
+    color: inherit;
+    background: #ffffff;
+    border: 1px solid rgba(6, 17, 72, 0.08);
+    border-radius: 1rem;
+    overflow: hidden;
+    box-shadow: 0 10px 26px rgba(6, 17, 72, 0.08);
+}
+
+.scanner-highlighted-card-inner-unavailable {
+    cursor: pointer;
+}
+
+.scanner-highlighted-card-inner-unavailable:focus-visible {
+    outline: 3px solid rgba(45, 75, 242, 0.28);
+    outline-offset: 3px;
+}
+
+.scanner-highlighted-thumb {
+    position: relative;
+    aspect-ratio: 16 / 10;
+    background: #f8faff;
+    overflow: hidden;
+}
+
+.scanner-highlighted-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.scanner-highlighted-badges {
+    position: absolute;
+    top: 0.85rem;
+    left: 0.85rem;
+    right: 0.85rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+}
+
+.scanner-highlighted-live,
+.scanner-highlighted-type {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.4rem 0.65rem;
+    border-radius: 50rem;
+    color: #ffffff;
+    font-size: 0.76rem;
+    font-weight: 800;
+    line-height: 1;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 6px 18px rgba(6, 17, 72, 0.16);
+}
+
+.scanner-highlighted-live {
+    background: rgba(6, 17, 72, 0.76);
+}
+
+.scanner-highlighted-type {
+    background: rgba(45, 75, 242, 0.86);
+}
+
+.scanner-highlighted-badges .badge-glass:hover {
+    transform: none;
+    filter: none;
+}
+
+.scanner-highlighted-body {
+    padding: 1rem;
+    min-height: 136px;
+    transform: translate3d(0, 0, 0);
+}
+
+.scanner-highlighted-title {
+    color: var(--company-dark);
+    font-size: 1rem;
+    font-weight: 800;
+    line-height: 1.2;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.scanner-highlighted-price {
+    color: var(--bs-primary);
+    font-weight: 900;
+    font-size: 1rem;
+    white-space: nowrap;
+}
+
+.scanner-highlighted-address {
+    color: #6c757d;
+    font-size: 0.88rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.scanner-highlighted-meta {
+    display: flex;
+    justify-content: space-between;
+    gap: 0.75rem;
+    color: var(--company-dark);
+    font-size: 0.82rem;
+    font-weight: 700;
+}
+
+.scanner-highlighted-meta span {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    min-width: 0;
+}
+
+.scanner-highlighted-meta i {
+    color: var(--bs-primary);
+}
+
+@keyframes scanner-highlighted-marquee-scroll {
+    0% {
+        transform: translate3d(0, 0, 0);
+    }
+
+    100% {
+        transform: translate3d(-50%, 0, 0);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .scanner-highlighted-marquee-shell {
+        -webkit-mask-image: none;
+        mask-image: none;
+    }
+
+    .scanner-highlighted-track {
+        animation: none;
+    }
+}
+
+@media (min-width: 768px) {
+    .scanner-highlighted-card {
+        flex-basis: 360px;
+    }
+
+    .scanner-highlighted-track {
+        padding-inline: 0;
+        animation-duration: 56s;
+    }
+
+    .scanner-highlighted-group {
+        gap: 1.5rem;
+        padding-right: 1.5rem;
+        padding-left: 1.5rem;
+    }
+}
+
+.scanner-badge-wrapper::after {
+    content: "NYT";
+    position: absolute;
+    top: -12px;
+    right: -15px;
+    background-color: #4ade80; /* Vibrant Green */
+    color: var(--company-dark); /* Navy text */
+    font-size: 0.75rem;
+    padding: 2px 8px;
+    border-radius: 50rem;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+    transform: rotate(15deg); /* Playful tilt */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    pointer-events: none;
+    z-index: 10;
+}

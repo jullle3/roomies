@@ -1,0 +1,38 @@
+/* dashed border + subtle hover */
+.ai-dropzone {
+    border: 2px dashed var(--bs-border-color, #dee2e6);
+    background-color: var(--bs-body-bg);
+    transition: border-color 0.2s ease-in-out;
+}
+
+.enable-hover .ai-dropzone:hover {
+    border-color: #b4bfc1; /* darker grey (Bootstrap secondary) */
+}
+
+.ai-dropzone.is-dragover { background-color: #f8f9fa; border-color: #0d6efd; }
+
+
+#ai-start {
+    background: linear-gradient(135deg, #4f46e5, #8b5cf6, #06b6d4);
+    border: none;
+    color: #fff;
+    font-weight: 600;
+    box-shadow: 0 0 20px rgba(139, 92, 246, 0.6);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+#ai-start:hover:enabled {
+    transform: translateY(-2px);
+    box-shadow: 0 0 25px rgba(6, 182, 212, 0.8);
+}
+#ai-start:disabled {
+    background: #cbd5e1;
+    box-shadow: none;
+}
+
+/* Hero section */
+#ai-hero {
+    /*background-image: url('../pics/gradient_1000x450.webp');*/
+    /* TODO: skift prod*/
+    background-image: url('https://dev.roomies.dk/pics/gradient_1000x450.webp');
+}
+

@@ -1,0 +1,95 @@
+/* =========================================
+   Modern Notification Toasts (Success/Error)
+   ========================================= */
+
+#success-container,
+#error-container {
+    /* Positioning: Floating centered capsule instead of full-width bar */
+    position: fixed !important;
+    top: 30px !important;
+    left: 50% !important;
+    transform: translateX(-50%);
+    z-index: 9999 !important;
+
+    /* Sizing & Shape */
+    width: auto !important;
+    min-width: 380px;
+    max-width: 90vw;
+    border-radius: 16px !important; /* rounded-4 */
+    border: none !important;
+    padding: 0 !important; /* Let inner content handle padding */
+
+    /* Glassmorphism & Depth */
+    background-color: rgba(255, 255, 255, 0.98) !important;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow:
+            0 10px 40px -10px rgba(0,0,0,0.08),
+            0 0 0 1px rgba(0,0,0,0.03) !important;
+
+    /* Animation Entry */
+    animation: toastSlideDown 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Specific Styling for Success */
+#success-container {
+    border-left: 6px solid #10b981 !important; /* Green Accent */
+}
+
+/* Specific Styling for Error */
+#error-container {
+    border-left: 6px solid #ef4444 !important; /* Red Accent */
+}
+
+/* Inner Layout */
+#success-container .d-flex,
+#error-container .d-flex {
+    padding: 1rem 1.5rem;
+    align-items: center;
+}
+
+/* Text Styling */
+#success-message,
+#error-message {
+    color: var(--company-dark);
+    font-weight: 500;
+    font-size: 1.05rem;
+    line-height: 1.5;
+    letter-spacing: 0.01em;
+}
+
+/* Close Button Styling */
+#success-message-remove,
+#error-message-remove {
+    background: transparent;
+    opacity: 0.3;
+    transition: opacity 0.2s, transform 0.2s;
+    padding: 0.5rem;
+    margin-left: 1rem;
+    box-shadow: none !important;
+}
+
+#success-message-remove:hover,
+#error-message-remove:hover {
+    opacity: 1;
+    transform: scale(1.1);
+}
+
+/* Animation Keyframes */
+@keyframes toastSlideDown {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -40px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translate(-50%, 0) scale(1);
+    }
+}
+
+/* Override the utility.js 'fade-out' class with a matching exit animation */
+.fade-out {
+    opacity: 0 !important;
+    transform: translate(-50%, -40px) scale(0.95) !important;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}

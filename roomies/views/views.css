@@ -1,0 +1,19 @@
+/* View transition animations */
+.view {
+    margin: 0 auto;
+    /*padding: 20px;*/
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    display: none; /* Default state: Hide all views to prevent "stacking" flash on load */
+}
+
+.view.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Exception: Always show the landing page immediately */
+#landing {
+    display: block;
+}

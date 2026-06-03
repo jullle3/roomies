@@ -1,3 +1,4 @@
+- Skal oprettelsen være en stor oprettelse side, eller kan jeg splite det op så det er mere brugervenligt?
 - Få reklamer på roomies siden 
 ‘andelsbolig basen, den nemmeste vej til en andelsbolig’
 

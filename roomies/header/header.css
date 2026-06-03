@@ -1,323 +1,208 @@
-/* header/header.css */
+/* =========================================
+   Floating Glass Navbar (Roomies Style)
+========================================= */
 
-/* --- Navbar Container --- */
-.navbar {
-    background-color: #ffffff;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.04); /* Slightly more defined border */
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02) !important;
-    transition: padding-top 0.3s ease, padding-bottom 0.3s ease, background-color 0.3s ease;
+/* Skab lidt ekstra plads i toppen, da navbaren nu "svæver" lavere nede */
+body {
+    padding-top: 110px !important;
 }
 
-/* --- Brand / Logo --- */
-.navbar-brand {
-    color: var(--company-dark) !important;
-    font-family: var(--font-primary, 'Lato', sans-serif);
-    font-weight: 600; /* Extra bold for authority */
-    font-size: 1.4rem;
-    letter-spacing: -0.03em;
-    display: flex;
-    align-items: center;
+.floating-nav {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0,0,0,0.03);
+    padding: 0.6rem 1rem;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 1030;
 }
 
-.navbar-brand img {
-    margin-right: 12px;
-    transition: transform 0.3s ease;
+/* Desktop: Svævende "Pill" */
+@media (min-width: 992px) {
+    .floating-nav {
+        top: 20px;
+        border-radius: 100px;
+        max-width: 1100px;
+        margin: 0 auto;
+        left: 20px;
+        right: 20px;
+    }
 }
 
-.navbar-brand:hover img {
-    transform: rotate(-5deg) scale(1.05);
+/* Mobile: Kant-til-kant med afrundet bund */
+@media (max-width: 991.98px) {
+    .floating-nav {
+        top: 0;
+        border-radius: 0 0 24px 24px;
+        border-top: none;
+        left: 0;
+        right: 0;
+    }
 }
 
-/* --- Navigation Links --- */
-.navbar-nav .nav-link {
-    font-family: var(--font-primary, 'Lato', sans-serif);
-    color: #4b5563;
+/* Custom Nav Links */
+.custom-nav-link {
+    color: var(--text-muted);
     font-weight: 600;
     font-size: 0.95rem;
     padding: 0.6rem 1.2rem !important;
-    border-radius: 50rem;
-    margin: 0 2px;
+    border-radius: var(--radius-pill);
     transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-    display: flex;
-    align-items: center;
-    white-space: nowrap; /* FIX: Forces text to stay on one line */
 }
 
-.navbar-nav .nav-link:hover,
-.navbar-nav .nav-link.active {
-    color: var(--bs-primary) !important;
-    background-color: rgba(45, 75, 242, 0.04);
-    transform: translateY(-1px);
+.custom-nav-link:hover,
+.custom-nav-link.active,
+.custom-nav-link[aria-expanded="true"] {
+    color: var(--text-main);
+    background-color: rgba(31, 41, 55, 0.05);
 }
 
-.navbar-nav .nav-link i {
-    color: var(--bs-primary);
-    margin-right: 8px;
-    font-size: 1.1em;
-    transition: transform 0.2s ease;
+.custom-nav-link .nav-icon {
+    opacity: 0.6;
+    margin-right: 6px;
+    transition: opacity 0.2s ease, color 0.2s ease;
 }
 
-.navbar-nav .nav-link:hover i {
-    transform: scale(1.1);
+.custom-nav-link:hover .nav-icon,
+.custom-nav-link.active .nav-icon {
+    opacity: 1;
+    color: var(--color-primary); /* Vibrant Coral */
 }
 
+/* Call-To-Action (Log ind / Bruger) */
+.nav-auth-btn {
+    background-color: var(--text-main);
+    color: #ffffff !important;
+    border: none;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    box-shadow: 0 4px 10px rgba(31, 41, 55, 0.12);
+}
+
+.nav-auth-btn:hover {
+    background-color: #000000;
+    box-shadow: 0 6px 15px rgba(31, 41, 55, 0.18);
+}
+
+.nav-auth-btn:active,
+.nav-auth-btn:focus,
+.nav-auth-btn.show,
+.nav-auth-btn[aria-expanded="true"] {
+    background-color: var(--text-main) !important;
+    color: #ffffff !important;
+    border-color: transparent !important;
+    box-shadow: 0 4px 10px rgba(31, 41, 55, 0.18) !important;
+}
+
+.nav-auth-btn:active *,
+.nav-auth-btn:focus *,
+.nav-auth-btn.show *,
+.nav-auth-btn[aria-expanded="true"] * {
+    color: #ffffff !important;
+}
+
+/* Custom Dropdown Menus */
+.custom-dropdown {
+    border: 1px solid rgba(0,0,0,0.05);
+    border-radius: var(--radius-xl);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
+    padding: 0.75rem;
+    background: #ffffff;
+    min-width: 260px;
+    animation: dropdownFadeIn 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Lille pil i toppen af dropdowns på desktop */
 @media (min-width: 992px) {
-    .navbar .container {
-        flex-wrap: nowrap;
+    .custom-dropdown {
+        margin-top: 15px; /* Skubber den lidt væk fra pille-formen */
     }
-
-    .navbar-brand {
-        flex: 0 0 auto;
-    }
-
-    #navMenu {
-        flex: 1 1 auto;
-        min-width: 0;
-    }
-
-    #navMenu .navbar-nav {
-        flex: 1 1 auto;
-        justify-content: flex-end;
-        margin-left: 1rem !important;
-        min-width: 0;
+    .custom-dropdown::before {
+        content: '';
+        position: absolute;
+        top: -6px;
+        right: 24px; /* Justeres alt efter hvor den sidder */
+        width: 12px;
+        height: 12px;
+        background: #ffffff;
+        transform: rotate(45deg);
+        border-top: 1px solid rgba(0,0,0,0.05);
+        border-left: 1px solid rgba(0,0,0,0.05);
+        z-index: 0;
     }
 }
 
-/* --- Primary Action Button (Login) --- */
-.navbar-nav .nav-item.dropdown:has(#navbar-name) {
-    min-width: 0;
-    max-width: 100%;
-}
-
-#navbar-name {
-    font-weight: 600;
-    padding: 0.6rem 1.8rem;
-    border-radius: 50rem !important;
-    background-color: var(--bs-primary);
-    border: none;
-    box-shadow: 0 4px 6px rgba(45, 75, 242, 0.2);
-    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-    color: white;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    max-width: min(100%, 15rem);
-    min-width: min(100%, 9.75rem);
-}
-
-#navbar-name-text {
-    min-width: 0;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-
-#navbar-name.dropdown-toggle::after {
-    flex-shrink: 0;
-}
-
-#navbar-name:hover, #navbar-name[aria-expanded="true"] {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 15px rgba(45, 75, 242, 0.3);
-    background-color: var(--bs-btn-hover-bg, rgb(20, 50, 200));
-}
-
-#navbar-name:active {
-    transform: translateY(0);
-    box-shadow: 0 4px 6px rgba(45, 75, 242, 0.2);
-}
-
-/* --- Dropdown Menu --- */
-.dropdown-menu {
-    border: none;
-    border-radius: 1rem;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
-    padding: 0.5rem;
-    margin-top: 12px;
-    animation: fadeInDropdown 0.2s ease-out;
-}
-
-@keyframes fadeInDropdown {
-    from { opacity: 0; transform: translateY(-10px); }
+@keyframes dropdownFadeIn {
+    from { opacity: 0; transform: translateY(10px); }
     to { opacity: 1; transform: translateY(0); }
 }
 
-.dropdown-item {
-    border-radius: 0.5rem;
-    padding: 0.7rem 1rem;
-    color: var(--company-dark);
-    font-weight: 500;
-    transition: background-color 0.2s;
-    display: flex;
-    align-items: center;
+.custom-dropdown .dropdown-item {
+    border-radius: 12px;
+    color: var(--text-muted);
+    transition: all 0.2s ease;
+    position: relative;
+    z-index: 1;
 }
 
-.dropdown-item i {
-    width: 20px;
-    text-align: center;
-    margin-right: 8px;
-    color: var(--bs-primary);
+.custom-dropdown .dropdown-item:hover {
+    background-color: #F3F4F6;
+    color: var(--text-main);
+    transform: translateX(4px); /* Giver en blød, fysisk interaktion */
 }
 
-.dropdown-item:hover {
-    background-color: #f0f6ff;
-    color: var(--bs-primary);
-}
-
-/* --- Header Stats Ticker (Refined) --- */
-#header-stats {
-    /* More airy separator */
-    border-left: 1px solid #e5e7eb;
-    padding-left: 1rem;
-    margin-left: 1rem !important;
-    height: 44px; /* Slightly taller to prevent clipping */
-    display: flex;
-    align-items: center;
-    flex: 0 1 auto;
-    min-width: 0;
-}
-
-/* The animated container */
-#header-stats .position-relative {
-    height: 100%;
-    width: 9.5rem;
-    min-width: 8.75rem;
-    display: flex;
-    align-items: center;
-}
-
-#stat-line {
-    font-family: var(--font-primary, 'Lato', sans-serif);
-    font-size: 0.95rem; /* Slightly larger text */
-    color: #4b5563; /* Darker gray for better readability */
-    width: 100%;
-
-    /* Ensure flex alignment propagates */
-    display: flex;
-    align-items: center;
-}
-
-/* --- Mobile / Toggler --- */
-.navbar-toggler {
-    border: none;
-    padding: 0.5rem;
+/* Icons i Dropdowns */
+.nav-icon-circle {
+    width: 38px;
+    height: 38px;
     border-radius: 50%;
-    color: var(--company-dark);
-    transition: background-color 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.navbar-toggler:focus, .navbar-toggler:hover {
-    box-shadow: none;
-    background-color: rgba(0, 0, 0, 0.05);
-    outline: none;
+.bg-primary-coral-light {
+    background-color: rgba(255, 107, 107, 0.1);
 }
 
-/* Mobile Viewport Adjustments */
-@media (max-width: 991.98px) {
-    .navbar-collapse {
-        background: white;
-        padding: 1.5rem;
-        border-radius: 1rem;
-        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-        margin-top: 1rem;
-        border: 1px solid rgba(0,0,0,0.03);
-    }
-
-    #header-stats {
-        display: none !important;
-    }
-
-    .navbar-nav .nav-link {
-        margin: 5px 0;
-        border-radius: 0.75rem;
-        padding: 1rem !important;
-    }
-
-    .dropdown-menu {
-        box-shadow: none;
-        border: 1px solid #f0f0f0;
-        margin-top: 0;
-    }
-
-    #navbar-name {
-        max-width: 100%;
-    }
+.text-primary-coral {
+    color: var(--color-primary) !important;
 }
 
-/* --- Desktop Navbar Compression --- */
-@media (min-width: 992px) {
-    #navbar-name {
-        width: auto !important;
-    }
-
-    .navbar-nav .nav-item.dropdown:has(#navbar-name) {
-        flex: 0 1 auto;
-        max-width: 15rem;
-    }
+/* =========================================
+   Custom Animated Hamburger Menu
+========================================= */
+.custom-toggler {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 32px;
+    height: 24px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    z-index: 10;
 }
 
-/* --- Tablets & Small Laptops (992px - 1199.98px) --- */
-@media (min-width: 992px) and (max-width: 1199.98px) {
-    /* Hide the stats ticker where the navbar cannot reliably fit all controls. */
-    #header-stats {
-        display: none !important;
-    }
+.custom-toggler .toggler-line {
+    height: 3px;
+    width: 100%;
+    background-color: var(--text-main);
+    border-radius: 10px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* --- Tablets & Small Laptops (992px - 1199.98px) --- */
-@media (min-width: 992px) and (max-width: 1199.98px) {
-
-    /* Slightly scale down the brand logo text */
-    .navbar-brand {
-        font-size: 1.25rem;
-    }
-
-    /* Reduce link paddings and font size to ensure they fit */
-    .navbar-nav .nav-link {
-        padding-left: 0.5rem !important;
-        padding-right: 0.5rem !important;
-        font-size: 0.9rem;
-    }
-
-    /* Reduce the gap before the login button */
-    .navbar-nav .nav-item.dropdown.ms-lg-4 {
-        margin-left: 0.5rem !important;
-    }
+/* Kryds-animation når menuen er åben (ikke-collapsed) */
+.custom-toggler:not(.collapsed) .toggler-line:nth-child(1) {
+    transform: translateY(10.5px) rotate(45deg);
 }
 
-/* --- Medium Laptops (1200px - 1400px) --- */
-@media (min-width: 1200px) and (max-width: 1399.98px) {
-    #header-stats {
-        display: flex !important;
-    }
-
-    .navbar-nav .nav-link {
-        padding-left: 0.6rem !important;
-        padding-right: 0.6rem !important;
-        font-size: 0.9rem;
-    }
-
-    /* Slightly reduce the gap before the login button */
-    .navbar-nav .nav-item.dropdown.ms-lg-4 {
-        margin-left: 0.75rem !important;
-    }
-
-    .navbar-nav .nav-item.dropdown:has(#navbar-name) {
-        max-width: 14.25rem;
-    }
-
-    #navbar-name {
-        max-width: min(100%, 14.25rem);
-    }
+.custom-toggler:not(.collapsed) .toggler-line:nth-child(2) {
+    opacity: 0;
 }
 
-/* --- Wide Desktops (1400px+) --- */
-@media (min-width: 1400px) {
-    .navbar-nav .nav-item.dropdown:has(#navbar-name) {
-        max-width: 16rem;
-    }
-
-    #navbar-name {
-        max-width: min(100%, 16rem);
-    }
+.custom-toggler:not(.collapsed) .toggler-line:nth-child(3) {
+    transform: translateY(-10.5px) rotate(-45deg);
 }

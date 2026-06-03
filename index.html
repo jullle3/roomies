@@ -40,8 +40,26 @@
     <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
     <link rel="stylesheet" href="icons/my-bootstrap-icons.css">
     <!--    Custom Merged css files -->
-    <link rel="stylesheet" href="roomies/mergedStyles.css?roomies_version=672">
-    <script defer type="module" src="roomies/mergedJS.js?roomies_version=672"></script>
+    <link rel="stylesheet" href="roomies/mergedStyles.css?roomies_version=675">
+    <style>
+        .nav-auth-btn:active,
+        .nav-auth-btn:focus,
+        .nav-auth-btn.show,
+        .nav-auth-btn[aria-expanded="true"] {
+            background-color: var(--text-main) !important;
+            color: #ffffff !important;
+            border-color: transparent !important;
+            box-shadow: 0 4px 10px rgba(31, 41, 55, 0.18) !important;
+        }
+
+        .nav-auth-btn:active *,
+        .nav-auth-btn:focus *,
+        .nav-auth-btn.show *,
+        .nav-auth-btn[aria-expanded="true"] * {
+            color: #ffffff !important;
+        }
+    </style>
+    <script defer type="module" src="roomies/mergedJS.js?roomies_version=675"></script>
 
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18047412076"></script>
@@ -91,113 +109,113 @@
 
 
 
-<nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top py-3">
-    <div class="container">
-        <a class="navbar-brand" href="/" data-view="landing">
-            <img src="/favicon/android-chrome-192x192.webp" alt="Logo" style="height: 40px;">
-            roomies
+
+<nav class="navbar navbar-expand-lg floating-nav fixed-top">
+    <div class="container-fluid px-2 px-lg-3">
+        <!-- Brand / Logo -->
+        <a class="navbar-brand d-flex align-items-center gap-2 hover-lift" href="/" data-view="landing">
+            <img src="/favicon/android-chrome-192x192.png" alt="Logo" class="navbar-logo" style="height: 36px; width: 36px; object-fit: contain;">
+            <span class="fw-bolder tracking-tight brand-text" style="font-size: 1.4rem;">roomies<span class="text-primary-coral">.</span></span>
         </a>
 
-        <div id="header-stats" class="d-none d-lg-flex align-items-center">
-            <div class="position-relative overflow-hidden" style="height:1.8rem;">
-                <div id="stat-line" class="position-absolute w-100 start-0 translate-middle-y" style="top:50%; will-change: transform;"></div>
-            </div>
-        </div>
-
-        <button class="navbar-toggler position-relative" type="button" data-bs-toggle="collapse"
+        <!-- Custom Mobile Toggle (Animated Hamburger) -->
+        <button class="navbar-toggler custom-toggler shadow-none collapsed" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navMenu" aria-controls="navMenu" aria-expanded="false"
                 aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
+            <div class="toggler-line"></div>
+            <div class="toggler-line"></div>
+            <div class="toggler-line"></div>
             <span class="conversation-unread-badge conversation-navbar-visible-badge conversation-mobile-menu-badge d-none"></span>
         </button>
 
+        <!-- Menu Links -->
         <div class="collapse navbar-collapse" id="navMenu">
-
-            <ul class="navbar-nav ms-auto align-items-lg-center">
+            <!-- Centered Links -->
+            <ul class="navbar-nav mx-auto align-items-lg-center gap-1 gap-lg-2 mt-3 mt-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link" href="/liste" data-view="housing_list">
-                        <i class="fa-solid fa-magnifying-glass fa-fw"></i> Søg bolig
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/kort" data-view="housing_map">
-                        <i class="fa-regular fa-map fa-fw"></i> Kort
+                    <a class="nav-link custom-nav-link" href="/liste" data-view="housing_list">
+                        <i class="fa-solid fa-magnifying-glass nav-icon"></i> Søg værelse
                     </a>
                 </li>
 
+                <li class="nav-item">
+                    <a class="nav-link custom-nav-link" href="/boligovervaagning" data-view="agent">
+                        <i class="fa-regular fa-bell nav-icon"></i> BoligMatch
+                    </a>
+                </li>
+
+                <!-- Sælg / Byt Dropdown -->
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="sellDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="fa-regular fa-square-plus fa-fw"></i> Sælg / Byt bolig
+                    <a class="nav-link custom-nav-link dropdown-toggle" href="#" id="sellDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fa-regular fa-square-plus nav-icon"></i> Udlej / Sælg
                     </a>
 
-                    <ul class="dropdown-menu dropdown-menu-end border-0 shadow-sm rounded-4 mt-2 p-2" aria-labelledby="sellDropdown">
+                    <ul class="dropdown-menu custom-dropdown shadow-hover" aria-labelledby="sellDropdown">
                         <li>
-                            <a class="dropdown-item py-2 px-3 d-flex align-items-center hover-lift rounded-3" href="/saelg-andelsbolig-selv-koncept" data-view="sell_landing">
-                                <div class="d-flex align-items-center justify-content-center bg-primary bg-opacity-10 text-primary rounded-circle me-3 flex-shrink-0" style="width: 38px; height: 38px; min-width: 38px;">
-                                    <i class="fa-solid fa-book-open fa-fw" style="line-height: 1; margin: 0; padding: 0;"></i>
+                            <a class="dropdown-item d-flex align-items-center gap-3 p-2" href="/saelg-andelsbolig-selv-koncept" data-view="sell_landing">
+                                <div class="nav-icon-circle bg-light text-dark flex-shrink-0">
+                                    <i class="fa-solid fa-book-open"></i>
                                 </div>
                                 <div>
-                                    <div class="fw-bold text-dark" style="line-height: 1.2;">Læs om konceptet</div>
-                                    <div class="small text-muted" style="font-size: 0.8rem;">Hvordan fungerer salg & bytte?</div>
+                                    <div class="fw-bold text-dark lh-sm">Sådan fungerer det</div>
+                                    <div class="small text-muted mt-1" style="font-size: 0.8rem;">Læs om konceptet</div>
                                 </div>
                             </a>
                         </li>
-                        <li><hr class="dropdown-divider opacity-10 my-1"></li>
+                        <li><hr class="dropdown-divider opacity-10 my-2"></li>
                         <li>
-                            <a class="dropdown-item py-2 px-3 d-flex align-items-center hover-lift rounded-3" href="/saelg-andelsbolig-selv" data-view="create">
-                                <div class="d-flex align-items-center justify-content-center bg-primary bg-opacity-10 text-primary rounded-circle me-3 flex-shrink-0" style="width: 38px; height: 38px; min-width: 38px;">
-                                    <i class="fa-solid fa-pen-to-square fa-fw" style="line-height: 1; margin: 0; padding: 0;"></i>
+                            <a class="dropdown-item d-flex align-items-center gap-3 p-2" href="/saelg-andelsbolig-selv" data-view="create">
+                                <div class="nav-icon-circle bg-primary-coral-light text-primary-coral flex-shrink-0">
+                                    <i class="fa-solid fa-pen-to-square"></i>
                                 </div>
                                 <div>
-                                    <div class="fw-bold text-dark" style="line-height: 1.2;">Opret annonce nu</div>
-                                    <div class="small text-muted" style="font-size: 0.8rem;">Det tager kun 5 minutter</div>
+                                    <div class="fw-bold text-dark lh-sm">Opret annonce</div>
+                                    <div class="small text-muted mt-1" style="font-size: 0.8rem;">Det tager kun 2 minutter</div>
                                 </div>
                             </a>
-                        </li>
-                    </ul>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link" href="/boligovervaagning" data-view="agent">
-                        <i class="fa-regular fa-bell fa-fw"></i> BoligMatch
-                    </a>
-                </li>
-
-                <li class="nav-item dropdown ms-lg-4 mt-3 mt-lg-0">
-                    <button class="btn btn-primary dropdown-toggle w-100 rounded-pill" id="navbar-name" data-bs-toggle="dropdown" aria-expanded="false">
-                        <span id="navbar-name-text">Log ind her</span>
-                        <span class="conversation-unread-badge conversation-navbar-visible-badge conversation-user-button-badge d-none"></span>
-                    </button>
-                    <ul class="dropdown-menu dropdown-menu-end dropdown-content border-0 shadow-sm rounded-4 mt-2 p-2" aria-labelledby="navbar-name">
-                        <li>
-                            <a class="dropdown-item rounded-3 py-2" href="/profil" data-view="profile">
-                                <i class="fa-regular fa-user fa-fw me-2 opacity-75"></i> Profil
-                            </a>
-                        </li>
-                        <li>
-                            <a class="dropdown-item rounded-3 py-2" href="/beskeder" data-view="conversations">
-                                <i class="fa-regular fa-comments fa-fw me-2 opacity-75"></i> Beskeder
-                                <span id="conversation-unread-badge" class="conversation-unread-badge conversation-nav-unread-badge d-none ms-2"></span>
-                            </a>
-                        </li>
-                        <li>
-                            <button type="button" class="dropdown-item rounded-3 py-2" id="logout">
-                                <i class="fa-solid fa-right-from-bracket fa-fw me-2 opacity-75"></i> Log ud
-                            </button>
-                        </li>
-                        <li>
-                            <button type="button" class="dropdown-item rounded-3 py-2" id="login">
-                                <i class="fa-solid fa-right-to-bracket fa-fw me-2 opacity-75"></i> Log ind / Opret
-                            </button>
                         </li>
                     </ul>
                 </li>
             </ul>
 
+            <!-- Auth / Bruger Menu (Right aligned) -->
+            <ul class="navbar-nav ms-auto align-items-lg-center mt-3 mt-lg-0 pb-2 pb-lg-0">
+                <li class="nav-item dropdown w-100">
+                    <button class="btn nav-auth-btn rounded-pill px-4 py-2 w-100 d-flex align-items-center justify-content-center gap-2 transition-lift" id="navbar-name" data-bs-toggle="dropdown" aria-expanded="false">
+                        <span id="navbar-name-text" class="fw-bold">Log ind</span>
+                        <i class="fa-solid fa-chevron-down ms-1 opacity-75" style="font-size: 0.7em;"></i>
+                        <span class="conversation-unread-badge conversation-navbar-visible-badge conversation-user-button-badge d-none"></span>
+                    </button>
+
+                    <ul class="dropdown-menu dropdown-menu-end custom-dropdown shadow-hover" aria-labelledby="navbar-name">
+                        <li>
+                            <a class="dropdown-item fw-medium d-flex align-items-center py-2" href="/profil" data-view="profile">
+                                <i class="fa-regular fa-user fa-fw me-3 text-muted"></i> Min Profil
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item fw-medium d-flex align-items-center justify-content-between py-2" href="/beskeder" data-view="conversations">
+                                <div><i class="fa-regular fa-comments fa-fw me-3 text-muted"></i> Beskeder</div>
+                                <span id="conversation-unread-badge" class="badge bg-danger rounded-pill d-none ms-2"></span>
+                            </a>
+                        </li>
+                        <li><hr class="dropdown-divider opacity-10 my-2"></li>
+                        <li>
+                            <button type="button" class="dropdown-item fw-medium text-danger py-2" id="logout">
+                                <i class="fa-solid fa-right-from-bracket fa-fw me-3 opacity-75"></i> Log ud
+                            </button>
+                        </li>
+                        <li>
+                            <button type="button" class="dropdown-item fw-bold text-primary-coral py-2" id="login">
+                                <i class="fa-solid fa-right-to-bracket fa-fw me-3"></i> Log ind / Opret
+                            </button>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
         </div>
     </div>
 </nav>
-
 
 
 
@@ -220,18 +238,22 @@
             <div class="container position-relative z-1 pt-4 pt-lg-5">
                 <div class="row justify-content-center text-center mb-5">
                     <div class="col-lg-9 col-xl-8">
-                        <div class="d-inline-flex align-items-center gap-2 px-3 py-1 rounded-pill shadow-sm mb-4 border"
-                             style="background: rgba(31, 41, 55, 0.82); border-color: rgba(255, 255, 255, 0.28) !important; color: #fff; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);">
-                            <span class="badge bg-success rounded-pill px-2 py-1">Nyhed</span>
-                            <span class="small fw-bold">Danmarks nye community for bofællesskaber</span>
+                        <div class="hero-intro-badge d-inline-flex align-items-center p-1 rounded-pill mb-4">
+                            <span class="rounded-pill fw-semibold text-white px-3 py-2 badge-highlight">
+                                0 kr. i abonnement
+                            </span>
+                            <span class="small fw-semibold text-white ms-3 me-4 opacity-90">
+                                Danmarks nye community for bofællesskaber
+                            </span>
                         </div>
 
                         <h1 class="display-4 fw-bolder mb-4 view-title">
                             Find din næste roomie uden at blive flået ✌️
                         </h1>
                         <p class="lead text-muted mx-auto mb-5" style="max-width: 600px;">
-                            Drop de dyre abonnementer. Søg blandt tusindvis af ledige værelser, eller find din nye roomie helt gratis.
-                        </p>
+                            Drop de dyre abonnementer. Vi er netop gået i luften med Danmarks 100% gratis alternativ. Vær med fra start, opret din profil, og hjælp os med at gøre boligsøgning gratis for alle.                        </p>
+<!-- TODO: Til når vi har boliger og kunder!                        -->
+<!--                        Drop de dyre abonnementer. Søg blandt tusindvis af ledige værelser, eller find din nye roomie helt gratis.-->
                     </div>
                 </div>
 
@@ -272,7 +294,7 @@
                                             <h6 class="fw-bold mb-1">Mangler du en roomie?</h6>
                                             <span class="small text-muted">Opret din annonce på 2 minutter. 100% gratis.</span>
                                         </div>
-                                        <button class="btn btn-dark rounded-pill px-5 py-3 fw-bold shadow-sm w-100 w-md-auto" onclick="showView('create')">
+                                        <button class="btn btn-primary-coral rounded-pill px-5 py-3 fw-bold shadow-sm w-100 w-md-auto" onclick="showView('create')">
                                             Opret annonce
                                         </button>
                                     </div>
@@ -2930,192 +2952,6 @@ Venlig hilsen</textarea>
 </main>
 
 
-<!--Modals / Popup-->
-<div class="modal fade" id="externalRedirectModal" tabindex="-1" aria-labelledby="externalRedirectModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content border-0 shadow-lg">
-            <div class="modal-header bg-light border-bottom-0">
-                <h5 class="modal-title fw-bold" id="externalRedirectModalLabel" style="color: var(--company-dark);">
-                    <i class="fa-solid fa-circle-info me-2" style="color: var(--bs-primary);"></i>Vigtig information
-                </h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body p-4 text-center">
-                <p class="mb-3 fs-5">Du viderestilles nu til en <strong>ekstern platform</strong> for at kontakte sælgeren.</p>
-                <p class="text-muted small mb-0">
-                    Bemærk venligst, at den eksterne side kan kræve, at du opretter en bruger – og i visse tilfælde også din egen boligannonce – før du kan se sælgers kontaktoplysninger. Vi beklager ulejligheden på forhånd.
-                </p>
-            </div>
-            <div class="modal-footer border-top-0 justify-content-center pb-4">
-                <button type="button" class="btn btn-primary rounded-pill px-5 py-2 fw-bold w-100" id="btn-continue-external">
-                    Forstået, tag mig dertil
-                </button>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-<div class="modal fade" id="facebookExternalRedirectModal" tabindex="-1" aria-labelledby="facebookExternalRedirectModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content border-0 rounded-4 shadow-lg overflow-hidden facebook-scraper-modal-content">
-            <div class="modal-header border-0 pb-0 justify-content-end">
-                <button type="button" class="btn-close opacity-50" data-bs-dismiss="modal" aria-label="Luk"></button>
-            </div>
-            <div class="modal-body px-4 px-md-5 pb-5 pt-0 text-center">
-                <div class="facebook-scraper-modal-icon d-inline-flex align-items-center justify-content-center rounded-circle mb-3">
-                    <i class="fa-brands fa-facebook-f fs-1"></i>
-                </div>
-                <h4 class="modal-title fw-bold company-dark mb-3" id="facebookExternalRedirectModalLabel">
-                    Du åbner opslaget ved kilden
-                </h4>
-                <p class="text-muted mb-4" style="font-size: 1.02rem; line-height: 1.6;">
-                    Denne bolig er fundet af live overvågningen fra en ekstern Facebook-kilde. Populære boliger får mange henvendelser hurtigt, og opslaget kan allerede være ændret, reserveret eller fjernet.
-                </p>
-                <div class="facebook-scraper-modal-steps rounded-4 p-3 p-md-4 mb-4 border text-start">
-                    <div class="d-flex align-items-start gap-3 mb-3">
-                        <div class="d-flex align-items-center justify-content-center bg-primary bg-opacity-10 text-primary rounded-circle flex-shrink-0" style="width: 42px; height: 42px;">
-                            <i class="fa-solid fa-unlock-keyhole fs-5"></i>
-                        </div>
-                        <div>
-                            <h6 class="fw-bold mb-1 company-dark">Adgang handler ikke kun om denne ene bolig</h6>
-                            <p class="mb-0 small text-muted" style="line-height: 1.5;">
-                                Med BoligMatch kan du reagere hurtigere næste gang live overvågningen finder en lignende bolig.
-                            </p>
-                        </div>
-                    </div>
-                    <div class="d-flex align-items-start gap-3">
-                        <div class="d-flex align-items-center justify-content-center bg-primary bg-opacity-10 text-primary rounded-circle flex-shrink-0" style="width: 42px; height: 42px;">
-                            <i class="fa-solid fa-shield-heart fs-5"></i>
-                        </div>
-                        <div>
-                            <h6 class="fw-bold mb-1 company-dark">Bekræft altid med sælger</h6>
-                            <p class="mb-0 small text-muted" style="line-height: 1.5;">
-                                Tjek at boligen stadig er til salg, før du deler personlige oplysninger eller går videre i processen.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <button type="button" class="btn btn-primary rounded-pill px-5 py-3 fw-bold w-100 hover-lift" id="btn-continue-facebook-external">
-                    Forstået, åbn opslaget
-                </button>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-<div class="modal fade" id="upsellModal" tabindex="-1" aria-labelledby="upsellModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl modal-dialog-centered">
-        <div class="modal-content rounded-4 border-0 shadow-lg">
-
-            <button type="button" class="btn-close position-absolute top-0 end-0 m-4 shadow-none z-3" data-bs-dismiss="modal" aria-label="Luk"></button>
-
-            <div class="modal-body p-4 p-md-5">
-                <div class="text-center mb-5">
-                    <div class="d-inline-flex align-items-center justify-content-center bg-white text-primary rounded-circle shadow-sm mb-3" style="width: 64px; height: 64px; color: var(--bs-primary) !important;">
-                        <i class="fa-solid fa-rocket fs-3"></i>
-                    </div>
-                    <h2 class="fw-bold mb-2" style="color: var(--company-dark);">Få din bolig solgt endnu hurtigere</h2>
-                    <p class="text-secondary fs-5 mb-0">Vælg den markedsføringspakke, der passer til dit behov.</p>
-                </div>
-
-                <div class="row g-4 align-items-stretch mb-5">
-
-                    <div class="col-lg-4">
-                        <label class="card h-100 upsell-modal-card rounded-4 p-4 position-relative border-opacity-50" for="modal_package_free">
-                            <input type="radio" name="modal_marketing_package" id="modal_package_free" value="free" class="d-none" checked>
-                            <div class="card-body p-0 d-flex flex-column text-center">
-                                <h5 class="fw-bold mb-1 text-secondary">Basis</h5>
-                                <h2 class="fw-bold mb-4" style="color: var(--company-dark);">0 kr.</h2>
-
-                                <ul class="list-unstyled text-start small text-secondary mb-4 flex-grow-1 d-flex flex-column gap-2">
-                                    <li><i class="fa-solid fa-check text-secondary text-opacity-75 me-2"></i>Standard placering i søgning</li>
-                                    <li><i class="fa-solid fa-check text-secondary text-opacity-75 me-2"></i>Søgbar for alle købere</li>
-                                    <li><i class="fa-solid fa-check text-secondary text-opacity-75 me-2"></i>Modtag henvendelser direkte</li>
-                                </ul>
-
-                                <div class="upsell-btn mt-auto border rounded-pill py-2 fw-bold text-secondary bg-light transition-all" data-default-label="Vælg Basis">
-                                    Vælg Basis
-                                </div>
-                            </div>
-                        </label>
-                    </div>
-
-                    <div class="col-lg-4">
-                        <label class="card h-100 upsell-modal-card rounded-4 p-4 position-relative border-primary" for="modal_package_highlighted" style="box-shadow: 0 0.5rem 1.5rem rgba(45, 75, 242, 0.15);">
-                            <span class="position-absolute top-0 start-50 translate-middle badge rounded-pill px-3 py-2 text-uppercase fw-bold text-white z-2" style="background-color: var(--bs-primary); letter-spacing: 0.5px;">
-                                Anbefalet
-                            </span>
-                            <input type="radio" name="modal_marketing_package" id="modal_package_highlighted" value="highlighted" class="d-none">
-
-                            <div class="card-body p-0 d-flex flex-column text-center mt-2">
-                                <h5 class="fw-bold mb-1" style="color: var(--bs-primary);">Fremhævet</h5>
-                                <h2 class="fw-bold mb-1" style="color: var(--company-dark);">199 kr.</h2>
-
-                                <div class="mb-4 d-flex flex-column gap-2 align-items-center">
-                                    <span class="small text-secondary">Engangsbeløb</span>
-                                    <span class="badge bg-success bg-opacity-10 text-success rounded-pill px-3 py-2 border border-success border-opacity-25 shadow-sm fw-semibold">
-                                        <i class="fa-solid fa-infinity me-1"></i> Gælder indtil boligen er solgt
-                                    </span>
-                                </div>
-
-                                <ul class="list-unstyled text-start small text-secondary mb-4 flex-grow-1 d-flex flex-column gap-2">
-                                    <li><i class="fa-solid fa-check text-primary me-2"></i>Alt i Basis</li>
-                                    <li><i class="fa-solid fa-star text-warning me-2"></i>Fremhævet visuelt badge</li>
-                                    <li><i class="fa-solid fa-arrow-up text-primary me-2"></i>Ligger øverst i søgninger</li>
-                                    <li><i class="fa-solid fa-eye text-primary me-2"></i>Op til 10x flere visninger</li>
-                                </ul>
-
-                                <div class="upsell-btn mt-auto border border-primary text-white rounded-pill py-2 fw-bold transition-all" style="background-color: var(--bs-primary);" data-default-label="Vælg Fremhævet">
-                                    Vælg Fremhævet
-                                </div>
-                            </div>
-                        </label>
-                    </div>
-
-                    <div class="col-lg-4">
-                        <label class="card h-100 upsell-modal-card rounded-4 p-4 position-relative" for="modal_package_premium">
-                            <input type="radio" name="modal_marketing_package" id="modal_package_premium" value="premium" class="d-none">
-
-                            <div class="card-body p-0 d-flex flex-column text-center">
-                                <h5 class="fw-bold mb-1" style="color: var(--company-dark);">Premium</h5>
-                                <h2 class="fw-bold mb-1" style="color: var(--company-dark);">699 kr.</h2>
-
-                                <div class="mb-4 d-flex flex-column gap-2 align-items-center">
-                                    <span class="small text-secondary">Engangsbeløb</span>
-                                    <span class="badge bg-success bg-opacity-10 text-success rounded-pill px-3 py-2 border border-success border-opacity-25 shadow-sm fw-semibold">
-                                        <i class="fa-solid fa-infinity me-1"></i> Gælder indtil boligen er solgt
-                                    </span>
-                                </div>
-
-                                <ul class="list-unstyled text-start small text-secondary mb-4 flex-grow-1 d-flex flex-column gap-2">
-                                    <li><i class="fa-solid fa-check me-2" style="color: var(--company-dark);"></i>Alt i Fremhævet</li>
-                                    <li><i class="fa-brands fa-facebook text-primary me-2"></i>Sponsoreret på Facebook</li>
-                                    <li><i class="fa-solid fa-envelope-open-text text-primary me-2"></i>Fremhævet i nyhedsbrev</li>
-                                    <li><i class="fa-solid fa-gift text-success me-2"></i>1 års gratis køber-adgang</li>
-                                </ul>
-
-                                <div class="upsell-btn mt-auto border rounded-pill py-2 fw-bold transition-all" style="border-color: var(--company-dark); color: var(--company-dark);" data-default-label="Vælg Premium">
-                                    Vælg Premium
-                                </div>
-                            </div>
-                        </label>
-                    </div>
-
-                </div>
-
-                <div class="text-center">
-                    <button type="button" id="btn-confirm-and-create" class="btn btn-lg rounded-pill px-5 py-3 fw-bold shadow-sm text-white" style="background-color: var(--bs-primary); transition: transform 0.2s ease, box-shadow 0.2s ease;">
-                        <i class="fa-solid fa-check me-2"></i>Opret Annonce
-                    </button>
-                    <p class="small text-secondary mt-3 mb-0"><i class="fa-solid fa-lock me-1"></i> Sikker betaling via Stripe</p>
-                </div>
-
-            </div>
-        </div>
-    </div>
-</div>
 
 <!-- Login Modal -->
 <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
@@ -3191,135 +3027,6 @@ Venlig hilsen</textarea>
 </div>
 
 
-<!-- Facebook Scraper Alert & Upsell Modal -->
-<div class="modal fade" id="facebookScraperModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content border-0 rounded-4 shadow-lg overflow-hidden facebook-scraper-modal-content">
-            <div class="modal-header border-0 pb-0 justify-content-end">
-                <button type="button" class="btn-close opacity-50" data-bs-dismiss="modal" aria-label="Luk"></button>
-            </div>
-
-            <div class="modal-body px-4 px-md-5 pb-5 pt-0">
-                <div class="text-center mb-4">
-                    <div class="facebook-scraper-modal-icon d-inline-flex align-items-center justify-content-center rounded-circle mb-3">
-                        <i class="fa-solid fa-satellite-dish fs-1"></i>
-                    </div>
-
-                    <h3 class="fw-bold company-dark mb-3">Vær klar til den næste attraktive andelsbolig</h3>
-                    <p class="text-muted mb-0 mx-auto" style="font-size: 1.05rem; line-height: 1.6; max-width: 440px;">
-                        Populære boliger får mange henvendelser på få timer. Derfor handler det ikke kun om held, <strong>men om at være klar, når den næste dukker op.</strong>
-                    </p>
-                </div>
-
-                <div class="facebook-scraper-modal-steps rounded-4 p-3 p-md-4 mb-4 border">
-                    <div class="d-flex align-items-start gap-3 mb-3">
-                        <div class="d-flex align-items-center justify-content-center bg-primary bg-opacity-10 text-primary rounded-circle flex-shrink-0" style="width: 42px; height: 42px;">
-                            <i class="fa-regular fa-bell fs-5"></i>
-                        </div>
-                        <div>
-                            <h6 class="fw-bold mb-1 company-dark">1. Hav et aktivt BoligMatch</h6>
-                            <p class="mb-0 small text-muted" style="line-height: 1.5;">Så får du besked med det samme, når live overvågningen finder en bolig, der matcher dine ønsker.</p>
-                        </div>
-                    </div>
-
-                    <div class="d-flex align-items-start gap-3 mb-3">
-                        <div class="d-flex align-items-center justify-content-center bg-primary bg-opacity-10 text-primary rounded-circle flex-shrink-0" style="width: 42px; height: 42px;">
-                            <i class="fa-solid fa-unlock-keyhole fs-5"></i>
-                        </div>
-                        <div>
-                            <h6 class="fw-bold mb-1 company-dark">2. Hav adgang klar på forhånd</h6>
-                            <p class="mb-0 small text-muted" style="line-height: 1.5;">Når mailen lander, skal du kunne kontakte sælger med det samme.</p>
-                        </div>
-                    </div>
-
-                    <div class="d-flex align-items-start gap-3">
-                        <div class="d-flex align-items-center justify-content-center bg-primary bg-opacity-10 text-primary rounded-circle flex-shrink-0" style="width: 42px; height: 42px;">
-                            <i class="fa-solid fa-hourglass-half fs-5"></i>
-                        </div>
-                        <div>
-                            <h6 class="fw-bold mb-1 company-dark">3. Reagér før andre</h6>
-                            <p class="mb-0 small text-muted" style="line-height: 1.5;">Denne bolig kan allerede være under salg. Men der kommer flere, <strong>og næste gang kan du nå at skrive først</strong></p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="facebook-scraper-proof-note d-flex align-items-start gap-3 rounded-4 p-3 mb-4">
-                    <div class="d-flex align-items-center justify-content-center bg-white text-primary rounded-circle flex-shrink-0 shadow-sm" style="width: 38px; height: 38px;">
-                        <i class="fa-solid fa-chart-line"></i>
-                    </div>
-                    <p class="mb-0 small text-muted" style="line-height: 1.5;">
-                        Der kommer løbende lignende andelsboliger på markedet.. Med et BoligMatch er du med fra start.
-                    </p>
-                </div>
-
-                <div class="d-grid gap-3">
-                    <button type="button" id="facebook-scraper-ready-btn" class="btn btn-primary btn-lg rounded-pill fw-bold py-3 shadow-sm hover-lift">
-                        <i class="fa-regular fa-bell me-2"></i>Opret BoligMatch gratis
-                    </button>
-                    <button type="button" id="facebook-scraper-payment-btn" class="btn btn-outline-primary rounded-pill fw-bold py-3 hover-lift" style="border-width: 2px;">
-                        <i class="fa-solid fa-unlock-keyhole me-2"></i>Gør adgang klar nu
-                    </button>
-                    <button type="button" class="facebook-scraper-wait-btn btn btn-light rounded-pill fw-bold py-3 hover-lift text-muted" data-bs-dismiss="modal">
-                        Jeg tager chancen og venter
-                    </button>
-                </div>
-
-                <div class="text-center mt-3">
-                    <small class="text-muted opacity-75"><i class="fa-solid fa-shield-heart me-1"></i>Ingen garanti for salg, bare bedre timing.</small>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Post-BoligMatch Upsell Modal -->
-<div class="modal fade" id="agentSuccessUpsellModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content border-0 rounded-4 shadow-lg overflow-hidden">
-
-            <!-- Confetti/Fejrings header baggrund -->
-            <div class="bg-success bg-opacity-10 text-center pt-4 pb-3">
-                <div class="d-inline-flex align-items-center justify-content-center bg-white text-success rounded-circle shadow-sm mb-2" style="width: 64px; height: 64px;">
-                    <i class="fa-solid fa-check fs-2"></i>
-                </div>
-                <h4 class="fw-bold company-dark mb-0">Dit BoligMatch er aktivt! 🎉</h4>
-            </div>
-
-            <div class="modal-body px-4 px-md-5 pb-5 pt-4 text-center">
-                <p class="text-muted mb-4" style="font-size: 1.05rem; line-height: 1.6;">
-                    Vi holder nu skarpt øje med markedet for dig og sender en mail, så snart der er et match.
-                </p>
-
-                <!-- Beredskabs-boksen -->
-                <div class="bg-light rounded-4 p-3 p-md-4 mb-4 text-start border hover-shadow-subtle transition-lift" style="border-color: rgba(45, 75, 242, 0.1) !important;">
-                    <div class="d-flex align-items-start gap-3">
-                        <div class="d-flex align-items-center justify-content-center bg-primary bg-opacity-10 text-primary rounded-circle flex-shrink-0" style="width: 40px; height: 40px;">
-                            <i class="fa-solid fa-stopwatch fs-5"></i>
-                        </div>
-                        <div>
-                            <h6 class="fw-bold mb-1 company-dark">Et lille, men vigtigt tip...</h6>
-                            <p class="mb-0 small text-muted" style="line-height: 1.5;">
-                                Når mailen tikker ind, tæller hvert sekund. Undgå at skulle finde kreditkortet frem, når drømmeboligen endelig er der. Lås op for fuld adgang nu, så du kan kontakte sælger med et enkelt klik.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="d-grid gap-2">
-                    <button type="button" id="agent-success-payment-btn" class="btn btn-primary btn-lg rounded-pill fw-bold py-3 shadow-sm hover-lift">
-                        Gør mig 100% klar (99 kr./md.)
-                    </button>
-                    <button type="button" class="btn btn-light rounded-pill fw-bold py-3 hover-lift text-muted" data-bs-dismiss="modal">
-                        Nej tak, jeg venter til boligen er der
-                    </button>
-                </div>
-                <div class="text-center mt-3">
-                    <small class="text-muted opacity-75"><i class="fa-solid fa-unlock-keyhole me-1"></i>Ingen binding. Opsig når som helst.</small>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 
 <div class="modal fade" id="reportModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
@@ -3450,33 +3157,6 @@ Venlig hilsen</textarea>
 
 
 
-<!-- Reset-password modal -->
-<div class="modal fade" id="resetPasswordModal" tabindex="-1"
-     aria-labelledby="resetPasswordModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="resetPasswordModalLabel">
-                    Nulstil adgangskode
-                </h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                        aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form id="resetPasswordForm">
-                    <label class="text-secondary" for="reset-email">Email</label>
-                    <input class="form-control" type="email" id="reset-email" required>
-                    <button class="mt-4 btn action-button w-100 text-white p-2"
-                            type="submit" id="resetPasswordSubmit">
-                        Send nulstillings-link
-                    </button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-
-
 
 
 
@@ -3560,122 +3240,6 @@ Venlig hilsen</textarea>
     </div>
 </div>
 
-
-<div class="modal fade" id="directContactModal" tabindex="-1" aria-labelledby="directContactModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content border-0 shadow-lg rounded-4">
-
-            <div class="modal-header border-0 p-4 pb-0">
-                <h5 class="modal-title fw-bold" id="directContactModalLabel" style="color: var(--company-dark);">
-                    <i class="fa-solid fa-address-card me-2" style="color: var(--bs-primary);"></i>Kontakt Sælger
-                </h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Luk"></button>
-            </div>
-
-            <div class="modal-body p-4 pt-3 text-center">
-                <p class="mb-4 text-secondary">Du kan kontakte sælgeren direkte via e-mail for at høre mere om andelsboligen.</p>
-
-                <div class="bg-light-subtle rounded-3 p-4 mb-4 border text-start">
-                    <div class="mb-3">
-                        <small class="text-uppercase fw-bold text-secondary" style="letter-spacing: 0.5px;">Sælgers navn</small>
-                        <div class="fs-5 fw-bold" style="color: var(--company-dark);" id="direct-seller-name">Sælger</div>
-                    </div>
-                    <div>
-                        <small class="text-uppercase fw-bold text-secondary" style="letter-spacing: 0.5px;">E-mailadresse</small>
-                        <div class="fs-5 fw-bold text-break" style="color: var(--bs-primary);" id="direct-seller-email">email@example.com</div>
-                    </div>
-                </div>
-
-                <div class="d-grid gap-3">
-                    <a href="#" id="btn-mailto-seller" class="btn btn-primary rounded-pill px-5 py-3 fw-bold w-100 shadow-sm hover-lift">
-                        <i class="fa-solid fa-envelope me-2"></i>Send e-mail nu
-                    </a>
-                    <button type="button" class="btn btn-light border shadow-sm rounded-pill px-5 py-3 fw-bold w-100 hover-lift text-secondary" id="btn-copy-email">
-                        <i class="fa-regular fa-copy me-2"></i>Kopier e-mailadresse
-                    </button>
-                </div>
-            </div>
-
-        </div>
-    </div>
-</div>
-
-<div class="modal fade" id="paymentModal" tabindex="-1" aria-labelledby="paymentModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" style="max-width: 450px;">
-        <div class="modal-content border-0 shadow-lg rounded-4 overflow-hidden">
-
-            <div style="height: 5px; background: linear-gradient(90deg, var(--bs-primary, #2d4bf2), #6b82ff);"></div>
-
-            <div class="position-absolute top-0 end-0 p-3 z-3">
-                <button type="button" class="btn-close small" data-bs-dismiss="modal" aria-label="Luk"></button>
-            </div>
-
-            <div class="modal-body p-0">
-                <div class="bg-white p-4">
-
-                    <div class="text-center mb-4">
-                        <div class="d-inline-flex align-items-center justify-content-center bg-primary bg-opacity-10 text-primary rounded-circle mb-3" style="width: 60px; height: 60px;">
-                            <i class="fa-solid fa-unlock-keyhole fs-3"></i>
-                        </div>
-                        <h4 class="fw-bold mb-2" style="color: var(--company-dark);">Fuld adgang til hele siden</h4>
-
-                        <div class="d-inline-flex align-items-center bg-success bg-opacity-10 text-success border border-success border-opacity-50 rounded-pill px-3 py-2 mb-3 mt-1 shadow-sm">
-                            <i class="fa-solid fa-tag me-2"></i>
-                            <span class="fw-bold" style="font-size: 0.9rem;">Spar 75% i forhold til andre platforme</span>
-                        </div>
-
-                        <div class="mb-2 d-flex justify-content-center align-items-center">
-                            <span class="text-decoration-line-through text-danger fw-medium" style="font-size: 0.95rem;">399 kr.</span>
-                            <i class="fa-solid fa-arrow-right mx-2 text-muted" style="font-size: 0.8rem;"></i>
-                            <span class="fw-bold text-success fs-4">99 kr.</span>
-                            <span class="text-muted small ms-1 align-self-end mb-1"> / md</span>
-                        </div>
-
-                        <p class="text-muted small mb-0 mt-1 px-2">
-                            Kom et skridt tættere på drømmeboligen.
-                        </p>
-                    </div>
-
-                    <div class="row g-2 mb-4">
-                        <div class="col-4">
-                            <div class="p-2 rounded-3 border bg-light bg-opacity-25 text-center h-100 d-flex flex-column justify-content-center">
-                                <i class="fa-solid fa-location-dot text-primary mb-2 fs-5"></i>
-                                <div class="fw-bold" style="color: var(--company-dark); font-size: 0.75rem;">Se fuld adresse</div>
-                            </div>
-                        </div>
-                        <div class="col-4">
-                            <div class="p-2 rounded-3 border bg-light bg-opacity-25 text-center h-100 d-flex flex-column justify-content-center">
-                                <i class="fa-regular fa-comments text-primary mb-2 fs-5"></i>
-                                <div class="fw-bold" style="color: var(--company-dark); font-size: 0.75rem;">Kontakt alle sælgere</div>
-                            </div>
-                        </div>
-                        <div class="col-4">
-                            <div class="p-2 rounded-3 border bg-light bg-opacity-25 text-center h-100 d-flex flex-column justify-content-center">
-                                <i class="fa-regular fa-circle-check text-primary mb-2 fs-5"></i>
-                                <div class="fw-bold" style="color: var(--company-dark); font-size: 0.75rem;">Ingen binding</div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="text-center bg-light bg-opacity-50 border rounded-4 p-3 pt-4 pb-3">
-                        <div id="stripe-payment-button-mount" class="d-flex justify-content-center mb-3"></div>
-
-                        <div class="d-inline-flex align-items-center justify-content-center bg-success bg-opacity-10 text-success rounded-pill px-3 py-2 mb-2">
-                            <i class="fa-solid fa-circle-check me-2" style="font-size: 0.78rem;"></i>
-                            <span class="fw-bold" style="font-size: 0.78rem;">Ingen binding. Opsig når som helst.</span>
-                        </div>
-
-                        <div class="d-flex align-items-center justify-content-center opacity-75 mt-2">
-                            <i class="fa-solid fa-lock text-muted me-2" style="font-size: 0.75rem;"></i>
-                            <span class="text-muted fw-medium" style="font-size: 0.75rem;">Sikker betaling via Stripe</span>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 
 <div class="modal fade" id="listingSuccessModal" tabindex="-1" aria-labelledby="listingSuccessModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
@@ -3846,53 +3410,6 @@ Venlig hilsen</textarea>
     </div>
 </div>
 
-
-
-<div class="modal fade" id="missingContactInfoModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content border-0 rounded-4 shadow-lg">
-            <div class="modal-header border-0 pb-0">
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Luk"></button>
-            </div>
-            <div class="modal-body px-4 px-md-5 pb-5 pt-0">
-                <div class="text-center mb-4">
-                    <div class="d-inline-flex align-items-center justify-content-center bg-warning bg-opacity-10 text-warning rounded-circle mb-3" style="width: 60px; height: 60px;">
-                        <i class="fa-solid fa-address-card fs-3"></i>
-                    </div>
-                    <h4 class="fw-bold company-dark mb-2">Vi mangler dine kontaktoplysninger</h4>
-                    <p class="text-muted small">For at købere kan kontakte dig, skal vi bruge din email og evt. telefonnummer.</p>
-                </div>
-
-                <form id="contactInfoForm">
-                    <div class="form-floating mb-3">
-                        <input type="email"
-                               class="form-control rounded-3 border-light bg-light"
-                               id="contact-email"
-                               placeholder="Email"
-                               required
-                               autocomplete="email">
-                        <label for="contact-email" class="text-secondary">Email <span class="text-danger">*</span></label>
-                    </div>
-
-                    <div class="form-floating mb-4">
-                        <input type="tel"
-                               class="form-control rounded-3 border-light bg-light"
-                               id="contact-phone"
-                               placeholder="Telefon"
-                               autocomplete="tel">
-                        <label for="contact-phone" class="text-secondary">Telefon (valgfrit)</label>
-                    </div>
-
-                    <div class="d-grid">
-                        <button type="submit" id="missingContactSubmit" class="btn btn-primary btn-lg rounded-pill fw-bold py-3 shadow-sm">
-                            Gem oplysninger'
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
 
 
 

@@ -1,0 +1,238 @@
+.rent-room-hero {
+    position: relative;
+    overflow: hidden;
+    padding-top: 120px;
+    padding-bottom: 80px;
+    background:
+        linear-gradient(135deg, rgba(31, 41, 55, 0.9), rgba(31, 41, 55, 0.66)),
+        url('/pics/landing2.png') center/cover no-repeat;
+}
+
+.rent-room-hero-check {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.55rem 0.9rem;
+    border-radius: var(--radius-pill);
+    background: rgba(255, 255, 255, 0.14);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    backdrop-filter: blur(10px);
+}
+
+.rent-room-hero-check i {
+    color: var(--color-primary);
+}
+
+.rent-room-preview-card,
+.rent-room-form-card {
+    background: rgba(255, 255, 255, 0.96);
+    border: 1px solid rgba(255, 255, 255, 0.65);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-hover);
+    overflow: hidden;
+}
+
+.rent-room-preview-card {
+    max-width: 460px;
+    margin-left: auto;
+}
+
+.rent-room-preview-image {
+    position: relative;
+    aspect-ratio: 4 / 3;
+    background: #f3f4f6;
+    overflow: hidden;
+}
+
+.rent-room-preview-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.rent-room-preview-badge {
+    position: absolute;
+    left: 1rem;
+    top: 1rem;
+    display: inline-flex;
+    align-items: center;
+    padding: 0.45rem 0.9rem;
+    border-radius: var(--radius-pill);
+    background: rgba(255, 255, 255, 0.92);
+    color: var(--text-main);
+    font-size: 0.8rem;
+    font-weight: 800;
+    box-shadow: var(--shadow-soft);
+}
+
+.rent-room-preview-eyebrow {
+    color: var(--color-primary);
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+}
+
+.rent-room-form-section {
+    background:
+        radial-gradient(circle at 8% 6%, rgba(255, 107, 107, 0.08), transparent 28%),
+        var(--bg-main);
+}
+
+.rent-room-form-card {
+    padding: clamp(1.25rem, 4vw, 2.5rem);
+}
+
+.rent-room-form-block {
+    padding-bottom: 2rem;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid rgba(107, 114, 128, 0.16);
+}
+
+.rent-room-form-block h3 {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    margin-bottom: 1.25rem;
+    font-size: 1.15rem;
+    font-weight: 800;
+}
+
+.rent-room-form-block:last-of-type {
+    border-bottom: 0;
+}
+
+.rent-room-form-card .form-label {
+    color: var(--text-main);
+    font-size: 0.86rem;
+    font-weight: 800;
+}
+
+.rent-room-form-card .form-control,
+.rent-room-form-card .form-select,
+.rent-room-form-card .input-group-text {
+    min-height: 52px;
+    border-color: #e5e7eb;
+    border-radius: 16px;
+}
+
+.rent-room-form-card .input-group .form-control {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.rent-room-form-card .input-group .input-group-text {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    background: #fff;
+    font-weight: 700;
+}
+
+.rent-room-toggle-card {
+    min-height: 64px;
+}
+
+.rent-room-vibe-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.75rem;
+}
+
+.rent-room-vibe-grid input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.rent-room-vibe-grid label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 52px;
+    padding: 0.75rem 1rem;
+    border: 2px solid #f3f4f6;
+    border-radius: var(--radius-pill);
+    background: #fff;
+    color: var(--text-muted);
+    font-weight: 800;
+    cursor: pointer;
+    transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease, transform 0.2s ease;
+}
+
+.rent-room-vibe-grid label:hover {
+    transform: translateY(-2px);
+    border-color: rgba(255, 107, 107, 0.35);
+}
+
+.rent-room-vibe-grid input:checked + label {
+    border-color: var(--color-primary);
+    background: rgba(255, 107, 107, 0.1);
+    color: var(--text-main);
+}
+
+.rent-room-upload-zone {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 180px;
+    gap: 0.45rem;
+    border: 2px dashed rgba(255, 107, 107, 0.35);
+    border-radius: var(--radius-xl);
+    background: rgba(255, 107, 107, 0.05);
+    color: var(--text-main);
+    cursor: pointer;
+    transition: border-color 0.2s ease, background 0.2s ease, transform 0.2s ease;
+}
+
+.rent-room-upload-zone:hover {
+    transform: translateY(-2px);
+    border-color: var(--color-primary);
+    background: rgba(255, 107, 107, 0.09);
+}
+
+.rent-room-upload-zone i {
+    color: var(--color-primary);
+    font-size: 2.4rem;
+}
+
+@media (max-width: 991.98px) {
+    .rent-room-hero {
+        text-align: center;
+    }
+
+    .rent-room-hero .hero-intro-badge {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .rent-room-hero p {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .rent-room-hero .d-flex.flex-wrap.gap-3 {
+        justify-content: center;
+    }
+
+    .rent-room-preview-card {
+        margin-right: auto;
+    }
+}
+
+@media (max-width: 767.98px) {
+    .rent-room-hero {
+        padding-top: 96px;
+        padding-bottom: 56px;
+    }
+
+    .rent-room-vibe-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 420px) {
+    .rent-room-vibe-grid {
+        grid-template-columns: 1fr;
+    }
+}

@@ -40,7 +40,7 @@
     <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
     <link rel="stylesheet" href="icons/my-bootstrap-icons.css">
     <!--    Custom Merged css files -->
-    <link rel="stylesheet" href="roomies/mergedStyles.css?roomies_version=689">
+    <link rel="stylesheet" href="roomies/mergedStyles.css?roomies_version=696">
     <style>
         .nav-auth-btn:active,
         .nav-auth-btn:focus,
@@ -59,7 +59,7 @@
             color: #ffffff !important;
         }
     </style>
-    <script defer type="module" src="roomies/mergedJS.js?roomies_version=689"></script>
+    <script defer type="module" src="roomies/mergedJS.js?roomies_version=696"></script>
 
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18047412076"></script>
@@ -133,7 +133,7 @@
             <!-- Centered Links -->
             <ul class="navbar-nav mx-auto align-items-lg-center gap-1 gap-lg-2 mt-3 mt-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link custom-nav-link" href="/liste" data-view="housing_list">
+                    <a class="nav-link custom-nav-link" href="/soeg-vaerelse" data-view="soeg_vaerelse">
                         <i class="fa-solid fa-magnifying-glass nav-icon"></i> Søg værelse
                     </a>
                 </li>
@@ -215,7 +215,7 @@
                     <div class="col-lg-9 col-xl-8">
                         <div class="hero-intro-badge d-inline-flex align-items-center p-1 rounded-pill mb-4">
                             <span class="rounded-pill fw-semibold text-white px-3 py-2 badge-highlight">
-                                0 kr. i abonnement
+                                100% gratis
                             </span>
                             <span class="small fw-semibold text-white ms-3 me-4 opacity-90">
                                 Danmarks nye community for roomies
@@ -257,8 +257,8 @@
                                     <span class="input-group-text bg-transparent border-0 ps-3 text-muted">
                                         <i class="fa-solid fa-location-dot"></i>
                                     </span>
-                                        <input type="text" class="form-control border-0 px-2" placeholder="Hvor vil du bo? (F.eks. Nørrebro eller Aarhus C)">
-                                        <button class="btn btn-primary-coral rounded-pill px-4 px-md-5 fw-bold" onclick="showView('housing_list')">
+                                        <input id="landing-room-search-location" type="text" class="form-control border-0 px-2" placeholder="Hvor vil du bo? (F.eks. Nørrebro eller Aarhus C)">
+                                        <button class="btn btn-primary-coral rounded-pill px-4 px-md-5 fw-bold" onclick="openRoomSearch()">
                                             Søg
                                         </button>
                                     </div>
@@ -349,7 +349,7 @@
                                     <span class="text-muted fw-medium lh-base">Trygt og sikkert community uden scam.</span>
                                 </li>
                             </ul>
-                            <button class="btn btn-primary-coral rounded-pill px-4 py-3 fw-bold mt-auto shadow-sm w-100" onclick="showView('housing_list')">
+                            <button class="btn btn-primary-coral rounded-pill px-4 py-3 fw-bold mt-auto shadow-sm w-100" onclick="showView('soeg_vaerelse')">
                                 Find dit nye hjem
                             </button>
                         </div>
@@ -389,7 +389,7 @@
                         <h2 class="fw-bold mb-2">Nye værelser 🏠</h2>
                         <p class="text-muted mb-0">Flyt ind i et fantastisk fællesskab.</p>
                     </div>
-                    <button class="btn btn-outline-dark rounded-pill px-4 fw-bold d-none d-md-block" onclick="showView('housing_list')">
+                    <button class="btn btn-outline-dark rounded-pill px-4 fw-bold d-none d-md-block" onclick="showView('soeg_vaerelse')">
                         Se alle
                     </button>
                 </div>
@@ -466,7 +466,7 @@
                 </div>
 
                 <div class="text-center mt-4 pt-3 d-block d-md-none">
-                    <button class="btn btn-outline-dark rounded-pill px-5 py-2 fw-bold w-100" onclick="showView('housing_list')">
+                    <button class="btn btn-outline-dark rounded-pill px-5 py-2 fw-bold w-100" onclick="showView('soeg_vaerelse')">
                         Se alle værelser
                     </button>
                 </div>
@@ -607,7 +607,7 @@
                             </div>
 
                             <div class="d-flex flex-column flex-sm-row align-items-start align-items-sm-center gap-4">
-                                <button class="btn btn-primary-coral rounded-pill px-5 py-3 fw-bold shadow-sm hover-lift" onclick="showView('housing_list')">
+                                <button class="btn btn-primary-coral rounded-pill px-5 py-3 fw-bold shadow-sm hover-lift" onclick="showView('soeg_vaerelse')">
                                     Se værelser
                                 </button>
                                 <div class="d-flex align-items-center gap-3">
@@ -705,7 +705,7 @@
                         Gå på opdagelse i Danmarks nye community for roomies.
                     </p>
                     <div class="d-flex flex-column flex-sm-row justify-content-center gap-3">
-                        <button class="btn btn-primary-coral rounded-pill px-5 py-3 fw-bold shadow-sm hover-lift" onclick="showView('housing_list')">
+                        <button class="btn btn-primary-coral rounded-pill px-5 py-3 fw-bold shadow-sm hover-lift" onclick="showView('soeg_vaerelse')">
                             Søg værelser
                         </button>
                         <button class="btn btn-outline-dark rounded-pill px-5 py-3 fw-bold shadow-sm hover-lift" onclick="showView('udlej_vaerelse')">
@@ -1313,6 +1313,122 @@
 <!--    </div>-->
 
 
+    <div id="soeg_vaerelse" class="view">
+        <section class="room-search-header">
+            <div class="container">
+                <div class="row align-items-end g-4">
+                    <div class="col-lg-7">
+                        <span class="room-search-eyebrow"><i class="fa-solid fa-house-user"></i> Ledige værelser</span>
+                        <h1 class="display-5 fw-bolder mb-3">Find et hjem, du har lyst til at være en del af</h1>
+                        <p class="text-muted fs-5 mb-0">Søg efter både værelset og den hverdag, der passer til dig.</p>
+                        <div class="room-search-trust-row d-flex flex-wrap gap-3 mt-4">
+                            <span><i class="fa-solid fa-check"></i> Gratis at kontakte</span>
+                            <span><i class="fa-solid fa-shield-halved"></i> Trygt community</span>
+                            <span><i class="fa-solid fa-heart"></i> Fokus på mennesker</span>
+                        </div>
+                    </div>
+                    <div class="col-lg-5 text-lg-end">
+                        <a href="/udlej-vaerelse" data-view="udlej_vaerelse" class="room-search-provider-cta btn rounded-pill px-4 py-3 fw-bold">
+                            <i class="fa-regular fa-square-plus me-2"></i>Udlej et værelse
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="room-search-content">
+            <div class="container">
+                <form id="room-search-form" class="room-search-toolbar" role="search">
+                    <div class="room-search-toolbar-heading d-flex align-items-center gap-3 mb-4">
+                        <span><i class="fa-solid fa-sliders"></i></span>
+                        <div>
+                            <h2 class="h5 fw-bold mb-1">Find dit match</h2>
+                            <p class="small text-muted mb-0">Juster filtrene, indtil det føles rigtigt.</p>
+                        </div>
+                    </div>
+                    <div class="row g-3 align-items-end">
+                        <div class="col-lg-4">
+                            <label class="form-label" for="room-search-location">Område</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fa-solid fa-location-dot"></i></span>
+                                <input id="room-search-location" class="form-control" name="location" type="search" placeholder="F.eks. Nørrebro eller Aarhus">
+                            </div>
+                        </div>
+                        <div class="col-6 col-lg-2">
+                            <label class="form-label" for="room-search-max-rent">Maks. husleje</label>
+                            <select id="room-search-max-rent" class="form-select" name="max_rent">
+                                <option value="">Alle priser</option>
+                                <option value="3500">3.500 kr.</option>
+                                <option value="4500">4.500 kr.</option>
+                                <option value="5500">5.500 kr.</option>
+                                <option value="7000">7.000 kr.</option>
+                            </select>
+                        </div>
+                        <div class="col-6 col-lg-2">
+                            <label class="form-label" for="room-search-min-size">Min. størrelse</label>
+                            <select id="room-search-min-size" class="form-select" name="min_size">
+                                <option value="">Alle størrelser</option>
+                                <option value="10">10 m²</option>
+                                <option value="15">15 m²</option>
+                                <option value="20">20 m²</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-2">
+                            <label class="form-label" for="room-search-sort">Sortér</label>
+                            <select id="room-search-sort" class="form-select" name="sort">
+                                <option value="newest">Nyeste først</option>
+                                <option value="rent_asc">Laveste pris</option>
+                                <option value="size_desc">Største først</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-2 d-grid">
+                            <button class="btn btn-primary-coral rounded-pill py-3 fw-bold" type="submit">
+                                <i class="fa-solid fa-magnifying-glass me-2"></i>Søg
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="d-flex flex-wrap gap-2 mt-3">
+                        <input class="btn-check" id="room-filter-furnished" name="furnished" type="checkbox" autocomplete="off">
+                        <label class="btn btn-outline-secondary rounded-pill px-3" for="room-filter-furnished">
+                            <i class="fa-solid fa-couch me-2"></i>Møbleret
+                        </label>
+                        <input class="btn-check" id="room-filter-registration" name="registration_allowed" type="checkbox" autocomplete="off">
+                        <label class="btn btn-outline-secondary rounded-pill px-3" for="room-filter-registration">
+                            <i class="fa-solid fa-address-card me-2"></i>CPR muligt
+                        </label>
+                        <input class="btn-check" id="room-filter-utilities" name="utilities_included" type="checkbox" autocomplete="off">
+                        <label class="btn btn-outline-secondary rounded-pill px-3" for="room-filter-utilities">
+                            <i class="fa-solid fa-bolt me-2"></i>Forbrug inkluderet
+                        </label>
+                    </div>
+                </form>
+
+                <div class="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-4">
+                    <div>
+                        <h2 class="h4 fw-bold mb-1">Værelser, der matcher dig <span aria-hidden="true">✨</span></h2>
+                        <p id="room-search-count" class="text-muted mb-0" aria-live="polite"></p>
+                    </div>
+                    <button id="room-search-reset" class="btn btn-link text-decoration-none fw-bold p-0" type="button">
+                        Nulstil filtre
+                    </button>
+                </div>
+
+                <div id="room-search-results" class="row g-4"></div>
+
+                <div id="room-search-empty" class="room-search-empty text-center d-none">
+                    <i class="fa-solid fa-magnifying-glass mb-3"></i>
+                    <h2 class="h4 fw-bold">Ingen værelser matcher endnu</h2>
+                    <p class="text-muted mb-4">Prøv at udvide dit område eller justere dine filtre.</p>
+                    <button class="btn btn-outline-primary rounded-pill px-4 py-2 fw-bold" type="button" data-reset-room-search>
+                        Nulstil filtre
+                    </button>
+                </div>
+            </div>
+        </section>
+    </div>
+
+
     <div id="housing_list" class="view py-4 p-md-3" data-housing-view="list">
         <div class="search-components-container">
             <!--Search bar will be inserted here-->
@@ -1910,7 +2026,7 @@
                                 100% gratis
                             </span>
                             <span class="small fw-semibold text-white ms-3 me-4 opacity-90">
-                                Udlej værelse til unge på boligjagt
+                                Udlej værelse til folk på boligjagt
                             </span>
                         </div>
                         <h1 class="display-4 fw-bolder mb-4 text-white">
@@ -1965,31 +2081,15 @@
                         </div>
 
                         <form id="form-rent-room" class="rent-room-form-card" novalidate>
-                            <!-- Grundoplysninger -->
+                            <!-- Værelser -->
                             <section class="rent-room-form-block">
-                                <h3><i class="fa-solid fa-pen-to-square text-primary-coral"></i> Grundoplysninger</h3>
-                                <div class="row g-3">
-                                    <div class="col-12">
-                                        <label for="rent_room_title" class="form-label">Overskrift</label>
-                                        <input class="form-control form-control-lg" id="rent_room_title" name="title" type="text" required placeholder="f.eks. Lyst værelse i socialt kollektiv på Nørrebro">
-                                    </div>
-                                    <div class="col-12">
-                                        <label for="rent_room_description" class="form-label">Beskrivelse</label>
-                                        <textarea class="form-control" id="rent_room_description" name="description" rows="6" required placeholder="Fortæl om værelset, hjemmet, hverdagen og hvem I håber at finde."></textarea>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label for="rent_room_available_from" class="form-label">Ledigt fra</label>
-                                        <input class="form-control" id="rent_room_available_from" name="available_from" type="date">
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label for="rent_room_duration" class="form-label">Lejeperiode</label>
-                                        <select class="form-select" id="rent_room_duration" name="duration">
-                                            <option value="">Vælg periode</option>
-                                            <option value="unlimited">Ubegrænset</option>
-                                            <option value="temporary">Tidsbegrænset</option>
-                                            <option value="flexible">Fleksibel</option>
-                                        </select>
-                                    </div>
+                                <h3><i class="fa-solid fa-door-open text-primary-coral"></i> Værelser</h3>
+                                <p class="text-muted mb-4">Hvert værelse bliver oprettet som sin egen annonce.</p>
+                                <div id="rent-room-list"></div>
+                                <div class="d-grid">
+                                    <button id="rent-room-add-button" class="btn btn-outline-primary rounded-pill py-3 fw-bold" type="button">
+                                        <i class="fa-solid fa-plus me-2"></i>Tilføj værelse
+                                    </button>
                                 </div>
                             </section>
 
@@ -2011,52 +2111,10 @@
                                 </div>
                             </section>
 
-                            <!-- Husleje og depositum -->
+                            <!-- Hjemmet -->
                             <section class="rent-room-form-block">
-                                <h3><i class="fa-solid fa-wallet text-primary-coral"></i> Husleje og depositum</h3>
+                                <h3><i class="fa-solid fa-house-user text-primary-coral"></i> Hjemmet</h3>
                                 <div class="row g-3">
-                                    <div class="col-md-4">
-                                        <label for="rent_room_monthly_rent" class="form-label">Husleje pr. måned</label>
-                                        <div class="input-group">
-                                            <input class="form-control" id="rent_room_monthly_rent" name="monthly_rent" type="number" inputmode="numeric" min="0" required placeholder="5200">
-                                            <span class="input-group-text">kr.</span>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <label for="rent_room_deposit" class="form-label">Depositum</label>
-                                        <div class="input-group">
-                                            <input class="form-control" id="rent_room_deposit" name="deposit" type="number" inputmode="numeric" min="0" placeholder="10400">
-                                            <span class="input-group-text">kr.</span>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <label for="rent_room_prepaid" class="form-label">Forudbetalt leje</label>
-                                        <div class="input-group">
-                                            <input class="form-control" id="rent_room_prepaid" name="prepaid_rent" type="number" inputmode="numeric" min="0" placeholder="0">
-                                            <span class="input-group-text">kr.</span>
-                                        </div>
-                                    </div>
-                                    <div class="col-12">
-                                        <input class="facility-check-input" type="checkbox" id="rent_room_utilities_included" name="utilities_included">
-                                        <label class="facility-card rent-room-toggle-card" for="rent_room_utilities_included">
-                                            <i class="fa-solid fa-bolt"></i>
-                                            <span class="facility-text">Forbrug er inkluderet i huslejen</span>
-                                        </label>
-                                    </div>
-                                </div>
-                            </section>
-
-                            <!-- Værelsets detaljer -->
-                            <section class="rent-room-form-block">
-                                <h3><i class="fa-solid fa-house-user text-primary-coral"></i> Værelsets detaljer</h3>
-                                <div class="row g-3">
-                                    <div class="col-md-4">
-                                        <label for="rent_room_size" class="form-label">Størrelse</label>
-                                        <div class="input-group">
-                                            <input class="form-control" id="rent_room_size" name="size" type="number" inputmode="numeric" min="1" required placeholder="15">
-                                            <span class="input-group-text">m²</span>
-                                        </div>
-                                    </div>
                                     <div class="col-md-4">
                                         <label for="rent_room_roommates" class="form-label">Antal roomies i hjemmet</label>
                                         <input class="form-control" id="rent_room_roommates" name="roommates" type="number" inputmode="numeric" min="0" placeholder="2">
@@ -2066,10 +2124,10 @@
                                         <input class="form-control" id="rent_room_shared_spaces" name="shared_spaces" type="text" placeholder="Køkken, bad, altan">
                                     </div>
                                     <div class="col-md-6">
-                                        <input class="facility-check-input" type="checkbox" id="rent_room_furnished" name="furnished">
-                                        <label class="facility-card rent-room-toggle-card" for="rent_room_furnished">
-                                            <i class="fa-solid fa-couch"></i>
-                                            <span class="facility-text">Værelset er møbleret</span>
+                                        <input class="facility-check-input" type="checkbox" id="rent_room_utilities_included" name="utilities_included">
+                                        <label class="facility-card rent-room-toggle-card" for="rent_room_utilities_included">
+                                            <i class="fa-solid fa-bolt"></i>
+                                            <span class="facility-text">Forbrug er inkluderet i huslejen</span>
                                         </label>
                                     </div>
                                     <div class="col-md-6">
@@ -2107,22 +2165,89 @@
                                 </div>
                             </section>
 
-                            <!-- Billeder -->
-                            <section class="rent-room-form-block">
-                                <h3><i class="fa-solid fa-images text-primary-coral"></i> Billeder</h3>
-                                <label class="rent-room-upload-zone" for="rent_room_images">
-                                    <i class="fa-solid fa-cloud-arrow-up"></i>
-                                    <span class="fw-bold">Vælg billeder af værelset</span>
-                                    <small class="text-muted">JPG, PNG eller WebP</small>
-                                </label>
-                                <input type="file" id="rent_room_images" name="images" multiple accept=".jpg,.jpeg,.png,.webp" class="d-none">
-                            </section>
-
                             <div class="d-grid">
                                 <button class="btn btn-primary-coral btn-lg rounded-pill py-3 fw-bold shadow-sm" type="submit">
-                                    <i class="fa-solid fa-check me-2"></i>Opret værelse
+                                    <i class="fa-solid fa-check me-2"></i>Opret værelser
                                 </button>
                             </div>
+
+                            <template id="rent-room-item-template">
+                                <div class="rent-room-item mb-4 pb-4 border-bottom" data-room-id="">
+                                    <div class="d-flex align-items-center justify-content-between gap-3 mb-4">
+                                        <h4 class="fw-bold mb-0" data-room-heading>Værelse</h4>
+                                        <button class="btn btn-outline-danger rounded-pill px-3" type="button" data-remove-room>
+                                            <i class="fa-solid fa-trash-can me-2"></i>Fjern
+                                        </button>
+                                    </div>
+                                    <div class="row g-3">
+                                        <div class="col-12">
+                                            <label class="form-label" data-label-for="title">Overskrift</label>
+                                            <input class="form-control form-control-lg" data-room-field="title" type="text" required placeholder="f.eks. Lyst værelse i socialt kollektiv på Nørrebro">
+                                        </div>
+                                        <div class="col-12">
+                                            <label class="form-label" data-label-for="description">Beskrivelse</label>
+                                            <textarea class="form-control" data-room-field="description" rows="5" required placeholder="Fortæl om værelset og hvem I håber at finde."></textarea>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="form-label" data-label-for="available_from">Ledigt fra</label>
+                                            <input class="form-control" data-room-field="available_from" type="date">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="form-label" data-label-for="duration">Lejeperiode</label>
+                                            <select class="form-select" data-room-field="duration">
+                                                <option value="">Vælg periode</option>
+                                                <option value="unlimited">Ubegrænset</option>
+                                                <option value="temporary">Tidsbegrænset</option>
+                                                <option value="flexible">Fleksibel</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="form-label" data-label-for="monthly_rent">Husleje pr. måned</label>
+                                            <div class="input-group">
+                                                <input class="form-control" data-room-field="monthly_rent" type="number" inputmode="numeric" min="0" required placeholder="5200">
+                                                <span class="input-group-text">kr.</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="form-label" data-label-for="deposit">Depositum</label>
+                                            <div class="input-group">
+                                                <input class="form-control" data-room-field="deposit" type="number" inputmode="numeric" min="0" placeholder="10400">
+                                                <span class="input-group-text">kr.</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="form-label" data-label-for="prepaid_rent">Forudbetalt leje</label>
+                                            <div class="input-group">
+                                                <input class="form-control" data-room-field="prepaid_rent" type="number" inputmode="numeric" min="0" placeholder="0">
+                                                <span class="input-group-text">kr.</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="form-label" data-label-for="size">Størrelse</label>
+                                            <div class="input-group">
+                                                <input class="form-control" data-room-field="size" type="number" inputmode="numeric" min="1" required placeholder="15">
+                                                <span class="input-group-text">m²</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <input class="facility-check-input" data-room-field="furnished" type="checkbox">
+                                            <label class="facility-card rent-room-toggle-card" data-label-for="furnished">
+                                                <i class="fa-solid fa-couch"></i>
+                                                <span class="facility-text">Værelset er møbleret</span>
+                                            </label>
+                                        </div>
+                                        <div class="col-12">
+                                            <label class="rent-room-upload-zone" data-upload-zone>
+                                                <i class="fa-solid fa-cloud-arrow-up"></i>
+                                                <span class="fw-bold">Vælg billeder af værelset</span>
+                                                <small class="text-muted">JPG, PNG eller WebP</small>
+                                            </label>
+                                            <input type="file" data-room-images multiple accept=".jpg,.jpeg,.png,.webp" class="d-none">
+                                            <div class="row g-3 mt-2" data-image-previews></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </template>
                         </form>
 
                     </div>

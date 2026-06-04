@@ -24,6 +24,7 @@ import {
 import {environment} from "./config/config.js";
 import {setupConversationsView, startGlobalConversationUnreadPolling} from "./conversations/conversations.js";
 import {setupRentRoomView} from "./udlej_vaerelse/udlej_vaerelse.js";
+import {setupRoomSearchView} from "./soeg_vaerelse/soeg_vaerelse.js";
 
 
 function logBuildVersionInDev() {
@@ -115,6 +116,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         setupMapView();
         setupConversationsView();
         setupRentRoomView();
+        setupRoomSearchView();
         SetupHeader();
         setupProfileView()
 

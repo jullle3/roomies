@@ -24,6 +24,7 @@ import {
 const views = {
     landing: document.getElementById('landing'),
     sell_landing: document.getElementById('sell_landing'),
+    soeg_vaerelse: document.getElementById('soeg_vaerelse'),
     udlej_vaerelse: document.getElementById('udlej_vaerelse'),
     housing_list: document.getElementById('housing_list'),
     housing_map: document.getElementById('housing_map'),
@@ -52,6 +53,7 @@ const routeToView = {
     '/': 'landing',
     '/saelg-andelsbolig-selv-koncept': 'sell_landing',
     '/saelg-andelsbolig-selv': 'create',
+    '/soeg-vaerelse': 'soeg_vaerelse',
     '/udlej-vaerelse': 'udlej_vaerelse',
     '/profil': 'profile',
     '/beskeder': 'conversations',
@@ -791,6 +793,13 @@ function optimizeSEOMetadata(view) {
                 }
             ]
         });
+    }
+    else if (view === 'soeg_vaerelse') {
+        updateMetaTags(
+            'Søg værelse og find din næste roomie | roomies',
+            'Find ledige værelser i København, Aarhus og resten af Danmark. Filtrér efter pris, størrelse og den hverdag, du gerne vil være en del af.',
+            `${baseUrl}/soeg-vaerelse`
+        );
     }
     else if (view === 'housing_list') {
         // Fokusord: Andelsboliger til salg, andelslejlighed, køb andelsbolig

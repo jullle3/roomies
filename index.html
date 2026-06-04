@@ -40,7 +40,7 @@
     <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
     <link rel="stylesheet" href="icons/my-bootstrap-icons.css">
     <!--    Custom Merged css files -->
-    <link rel="stylesheet" href="roomies/mergedStyles.css?roomies_version=687">
+    <link rel="stylesheet" href="roomies/mergedStyles.css?roomies_version=688">
     <style>
         .nav-auth-btn:active,
         .nav-auth-btn:focus,
@@ -59,7 +59,7 @@
             color: #ffffff !important;
         }
     </style>
-    <script defer type="module" src="roomies/mergedJS.js?roomies_version=687"></script>
+    <script defer type="module" src="roomies/mergedJS.js?roomies_version=688"></script>
 
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18047412076"></script>
@@ -1958,12 +1958,14 @@
             <div class="container py-4">
                 <div class="row justify-content-center">
                     <div class="col-lg-9 col-xl-8">
+
                         <div class="text-center mb-5">
                             <h2 class="fw-bold mb-3">Opret dit værelse</h2>
                             <p class="text-muted fs-5 mb-0">Jo mere menneskeligt du beskriver hjemmet, desto nemmere er det at finde den rigtige roomie.</p>
                         </div>
 
                         <form id="form-rent-room" class="rent-room-form-card" novalidate>
+                            <!-- Grundoplysninger -->
                             <section class="rent-room-form-block">
                                 <h3><i class="fa-solid fa-pen-to-square text-primary-coral"></i> Grundoplysninger</h3>
                                 <div class="row g-3">
@@ -1991,12 +1993,16 @@
                                 </div>
                             </section>
 
+                            <!-- Beliggenhed -->
                             <section class="rent-room-form-block">
                                 <h3><i class="fa-solid fa-location-dot text-primary-coral"></i> Beliggenhed</h3>
                                 <div class="row g-3">
                                     <div class="col-md-8">
                                         <label for="rent_room_address" class="form-label">Adresse</label>
-                                        <input class="form-control" id="rent_room_address" name="address" type="text" placeholder="Vejnavn og nummer">
+                                        <input class="form-control" id="rent_room_address" name="address" type="text" placeholder="Vejnavn">
+                                        <div class="form-text mt-2 text-success fw-medium">
+                                            <i class="fa-solid fa-shield-halved me-1"></i> Af hensyn til privatlivet beder vi udelukkende om vejnavnet, og der vil ikke blive vist husnummer på annoncen.
+                                        </div>
                                     </div>
                                     <div class="col-md-4">
                                         <label for="rent_room_postal" class="form-label">Postnr. og by</label>
@@ -2005,6 +2011,7 @@
                                 </div>
                             </section>
 
+                            <!-- Husleje og depositum -->
                             <section class="rent-room-form-block">
                                 <h3><i class="fa-solid fa-wallet text-primary-coral"></i> Husleje og depositum</h3>
                                 <div class="row g-3">
@@ -2039,6 +2046,7 @@
                                 </div>
                             </section>
 
+                            <!-- Værelsets detaljer -->
                             <section class="rent-room-form-block">
                                 <h3><i class="fa-solid fa-house-user text-primary-coral"></i> Værelsets detaljer</h3>
                                 <div class="row g-3">
@@ -2074,25 +2082,32 @@
                                 </div>
                             </section>
 
+                            <!-- Roomie-vibes -->
                             <section class="rent-room-form-block">
                                 <h3><i class="fa-solid fa-face-smile text-primary-coral"></i> Roomie-vibes</h3>
                                 <p class="text-muted mb-3">Vælg de tags, der bedst beskriver hverdagen i hjemmet.</p>
                                 <div class="rent-room-vibe-grid">
                                     <input type="checkbox" id="vibe_quiet" name="vibes" value="Stille">
                                     <label for="vibe_quiet">🤫 Stille</label>
+
                                     <input type="checkbox" id="vibe_social" name="vibes" value="Socialt">
                                     <label for="vibe_social">🍻 Socialt</label>
+
                                     <input type="checkbox" id="vibe_cleaning" name="vibes" value="Rengøringsplan">
                                     <label for="vibe_cleaning">🧹 Rengøringsplan</label>
+
                                     <input type="checkbox" id="vibe_student" name="vibes" value="Studievenligt">
                                     <label for="vibe_student">🎓 Studievenligt</label>
+
                                     <input type="checkbox" id="vibe_vegan" name="vibes" value="Vegan">
                                     <label for="vibe_vegan">🌿 Vegan</label>
+
                                     <input type="checkbox" id="vibe_pets" name="vibes" value="Kæledyr">
                                     <label for="vibe_pets">🐾 Kæledyr</label>
                                 </div>
                             </section>
 
+                            <!-- Billeder -->
                             <section class="rent-room-form-block">
                                 <h3><i class="fa-solid fa-images text-primary-coral"></i> Billeder</h3>
                                 <label class="rent-room-upload-zone" for="rent_room_images">
@@ -2103,12 +2118,8 @@
                                 <input type="file" id="rent_room_images" name="images" multiple accept=".jpg,.jpeg,.png,.webp" class="d-none">
                             </section>
 
-                            <div class="d-grid">
-                                <button class="btn btn-primary-coral btn-lg rounded-pill py-3 fw-bold shadow-sm" type="submit">
-                                    <i class="fa-solid fa-check me-2"></i>Opret værelse
-                                </button>
-                            </div>
                         </form>
+
                     </div>
                 </div>
             </div>

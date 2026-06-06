@@ -39,7 +39,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
     <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
     <!--    Custom Merged css files -->
-    <link rel="stylesheet" href="roomies/mergedStyles.css?roomies_version=705">
+    <link rel="stylesheet" href="roomies/mergedStyles.css?roomies_version=712">
     <style>
         .nav-auth-btn:active,
         .nav-auth-btn:focus,
@@ -58,7 +58,7 @@
             color: #ffffff !important;
         }
     </style>
-    <script defer type="module" src="roomies/mergedJS.js?roomies_version=705"></script>
+    <script defer type="module" src="roomies/mergedJS.js?roomies_version=712"></script>
 
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18047412076"></script>
@@ -269,9 +269,9 @@
                                             <h6 class="fw-bold mb-1">Mangler du en roomie?</h6>
                                             <span class="small text-muted">Opret din annonce på 2 minutter. 100% gratis.</span>
                                         </div>
-                                        <button class="btn btn-primary-coral rounded-pill px-5 py-3 fw-bold shadow-sm w-100 w-md-auto" onclick="showView('udlej_vaerelse')">
+                                        <a href="/udlej-vaerelse" data-view="udlej_vaerelse" class="btn btn-primary-coral rounded-pill px-5 py-3 fw-bold shadow-sm w-100 w-md-auto">
                                             Udlej værelse
-                                        </button>
+                                        </a>
                                     </div>
                                 </div>
                             </div>
@@ -348,9 +348,9 @@
                                     <span class="text-muted fw-medium lh-base">Trygt og sikkert community uden scam.</span>
                                 </li>
                             </ul>
-                            <button class="btn btn-primary-coral rounded-pill px-4 py-3 fw-bold mt-auto shadow-sm w-100" onclick="showView('soeg_vaerelse')">
+                            <a href="/soeg-vaerelse" data-view="soeg_vaerelse" class="btn btn-primary-coral rounded-pill px-4 py-3 fw-bold mt-auto shadow-sm w-100">
                                 Find dit nye hjem
-                            </button>
+                            </a>
                         </div>
                     </div>
                     <!-- Listers -->
@@ -371,9 +371,9 @@
                                     <span class="text-muted fw-medium lh-base">Indbygget beskedsystem holder din indbakke ren.</span>
                                 </li>
                             </ul>
-                            <button class="btn btn-primary-coral rounded-pill px-4 py-3 fw-bold mt-auto shadow-sm w-100" onclick="showView('udlej_vaerelse')">
+                            <a href="/udlej-vaerelse" data-view="udlej_vaerelse" class="btn btn-primary-coral rounded-pill px-4 py-3 fw-bold mt-auto shadow-sm w-100">
                                 Udlej værelse gratis
-                            </button>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -388,15 +388,15 @@
                         <h2 class="fw-bold mb-2">Nye værelser 🏠</h2>
                         <p class="text-muted mb-0">Flyt ind i et fantastisk fællesskab.</p>
                     </div>
-                    <button class="btn btn-outline-dark rounded-pill px-4 fw-bold d-none d-md-block" onclick="showView('soeg_vaerelse')">
+                    <a href="/soeg-vaerelse" data-view="soeg_vaerelse" class="btn btn-outline-dark rounded-pill px-4 fw-bold d-none d-md-block">
                         Se alle
-                    </button>
+                    </a>
                 </div>
 
                 <div class="row g-4">
                     <!-- Room Card Example 1 -->
                     <div class="col-12 col-md-6 col-lg-4">
-                        <div class="card room-card h-100 cursor-pointer" onclick="showView('detail', new URLSearchParams({id: '123'}))">
+                        <a href="/soeg-vaerelse" data-view="soeg_vaerelse" class="card room-card h-100 cursor-pointer text-decoration-none text-dark">
                             <div class="room-thumb-wrapper">
                                 <!-- Room Image -->
                                 <img src="/pics/sample_room1.webp" alt="Værelse på Nørrebro" loading="lazy">
@@ -432,12 +432,12 @@
                                     <span>14 m²</span>
                                 </div>
                             </div>
-                        </div>
+                        </a>
                     </div>
 
                     <!-- Room Card Example 2 -->
                     <div class="col-12 col-md-6 col-lg-4">
-                        <div class="card room-card h-100 cursor-pointer" onclick="showView('detail', new URLSearchParams({id: '124'}))">
+                        <a href="/soeg-vaerelse" data-view="soeg_vaerelse" class="card room-card h-100 cursor-pointer text-decoration-none text-dark">
                             <div class="room-thumb-wrapper">
                                 <img src="/pics/sample_room2.webp" alt="Kollektiv i Aarhus" loading="lazy">
                                 <img src="/pics/sample_avatar2.webp" alt="Mads" class="avatar-overlap">
@@ -460,14 +460,14 @@
                                     <span>20 m²</span>
                                 </div>
                             </div>
-                        </div>
+                        </a>
                     </div>
                 </div>
 
                 <div class="text-center mt-4 pt-3 d-block d-md-none">
-                    <button class="btn btn-outline-dark rounded-pill px-5 py-2 fw-bold w-100" onclick="showView('soeg_vaerelse')">
+                    <a href="/soeg-vaerelse" data-view="soeg_vaerelse" class="btn btn-outline-dark rounded-pill px-5 py-2 fw-bold w-100">
                         Se alle værelser
-                    </button>
+                    </a>
                 </div>
             </div>
         </section>
@@ -606,9 +606,9 @@
                             </div>
 
                             <div class="d-flex flex-column flex-sm-row align-items-start align-items-sm-center gap-4">
-                                <button class="btn btn-primary-coral rounded-pill px-5 py-3 fw-bold shadow-sm hover-lift" onclick="showView('soeg_vaerelse')">
+                                <a href="/soeg-vaerelse" data-view="soeg_vaerelse" class="btn btn-primary-coral rounded-pill px-5 py-3 fw-bold shadow-sm hover-lift">
                                     Se værelser
-                                </button>
+                                </a>
                                 <div class="d-flex align-items-center gap-3">
                                     <div class="d-none d-sm-block" style="width: 2px; height: 40px; background-color: #e9ecef;"></div>
                                     <div>
@@ -704,12 +704,12 @@
                         Gå på opdagelse i Danmarks nye community for roomies.
                     </p>
                     <div class="d-flex flex-column flex-sm-row justify-content-center gap-3">
-                        <button class="btn btn-primary-coral rounded-pill px-5 py-3 fw-bold shadow-sm hover-lift" onclick="showView('soeg_vaerelse')">
+                        <a href="/soeg-vaerelse" data-view="soeg_vaerelse" class="btn btn-primary-coral rounded-pill px-5 py-3 fw-bold shadow-sm hover-lift">
                             Søg værelser
-                        </button>
-                        <button class="btn btn-outline-dark rounded-pill px-5 py-3 fw-bold shadow-sm hover-lift" onclick="showView('udlej_vaerelse')">
+                        </a>
+                        <a href="/udlej-vaerelse" data-view="udlej_vaerelse" class="btn btn-outline-dark rounded-pill px-5 py-3 fw-bold shadow-sm hover-lift">
                             Udlej værelse
-                        </button>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -2020,6 +2020,11 @@
 
 
 
+
+
+    <div id="room_detail" class="view">
+        <div id="room-detail-content"></div>
+    </div>
 
 
     <div id="udlej_vaerelse" class="view">

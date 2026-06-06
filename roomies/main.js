@@ -25,6 +25,7 @@ import {environment} from "./config/config.js";
 import {setupConversationsView, startGlobalConversationUnreadPolling} from "./conversations/conversations.js";
 import {setupRentRoomView} from "./udlej_vaerelse/udlej_vaerelse.js";
 import {setupRoomSearchView} from "./soeg_vaerelse/soeg_vaerelse.js";
+import {preloadRooms} from "./rooms/room_cache.js";
 
 // Legacy andelsbolig source modules were removed while their startup hooks still
 // exist in this cloned frontend. Keep init alive so the roomie views can bind.
@@ -224,6 +225,8 @@ function removeAppLoader() {
 
 
 function startBackgroundJobs() {
+    preloadRooms();
+
     // Initialize global state for housings to null (indicating 'loading')
     window.housings = null;
 

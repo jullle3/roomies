@@ -68,6 +68,7 @@ const cssFiles = [
     'landing/landing.css',
     'landing_sell/landing_sell.css',
     'soeg_vaerelse/soeg_vaerelse.css',
+    'room_detail/room_detail.css',
     'udlej_vaerelse/udlej_vaerelse.css',
     // 'ai_analysis/ai_analysis.css',
     // 'ai_result/ai_result.css',

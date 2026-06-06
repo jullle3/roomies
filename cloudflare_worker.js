@@ -119,6 +119,10 @@ const STATIC_SEO_ROUTES = {
         title: 'Søg værelse og find din næste roomie | roomies',
         desc: 'Find ledige værelser i København, Aarhus og resten af Danmark. Filtrér efter pris, størrelse og den hverdag, du gerne vil være en del af.',
     },
+    '/vaerelse': {
+        title: 'Ledigt vÃ¦relse | roomies',
+        desc: 'Se detaljer om et ledigt vÃ¦relse pÃ¥ roomies, herunder husleje, stÃ¸rrelse, beliggenhed og hverdagen i hjemmet.',
+    },
     '/boligovervaagning': {
         title: 'Køb andelsbolig | Få besked når andelsboliger sættes til salg',
         desc: 'Gå ikke glip af drømmeboligen. Opret et gratis BoligMatch og få besked så snart, drømmebolien sættes til salg til salg.',

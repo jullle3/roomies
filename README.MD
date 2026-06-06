@@ -6,6 +6,7 @@ Remove this, not needed in this project
 - Få reklamer på roomies siden 
 ‘andelsbolig basen, den nemmeste vej til en andelsbolig’
 - Freemium, se freemium_ideas.txt
+- Slug på roomies fremfor bare ID. Det giver bedre SEO
 
 - Scrape værelser fra facebook til at starte med
 - Under "Bliv en del af fælleskabet", CTA der opretter konto

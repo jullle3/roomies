@@ -12,6 +12,7 @@ import {basePath} from "../config/config.js";
 import {loadProfileView} from "../profile/profile.js";
 import {renderConversations} from "../conversations/conversations.js";
 import {closeNavbarMenu} from "../header/header.js";
+import {renderRoomDetail} from "../room_detail/room_detail.js";
 import {
     getBlogPostBySlug,
     getBlogPostStructuredData,
@@ -25,6 +26,7 @@ const views = {
     landing: document.getElementById('landing'),
     sell_landing: document.getElementById('sell_landing'),
     soeg_vaerelse: document.getElementById('soeg_vaerelse'),
+    room_detail: document.getElementById('room_detail'),
     udlej_vaerelse: document.getElementById('udlej_vaerelse'),
     housing_list: document.getElementById('housing_list'),
     housing_map: document.getElementById('housing_map'),
@@ -54,6 +56,7 @@ const routeToView = {
     '/saelg-andelsbolig-selv-koncept': 'sell_landing',
     '/saelg-andelsbolig-selv': 'create',
     '/soeg-vaerelse': 'soeg_vaerelse',
+    '/vaerelse': 'room_detail',
     '/udlej-vaerelse': 'udlej_vaerelse',
     '/profil': 'profile',
     '/beskeder': 'conversations',
@@ -411,6 +414,9 @@ async function loadViewData(view, viewParams) {
             break;
         case "detail":
             await loadHousingDetail(viewParams.get("id"), viewParams)
+            break;
+        case "room_detail":
+            await renderRoomDetail(viewParams.get("id"));
             break;
         case "seller_profile":
             await loadSellerProfile(viewParams.get("id"))
@@ -800,6 +806,9 @@ function optimizeSEOMetadata(view) {
             'Find ledige værelser i København, Aarhus og resten af Danmark. Filtrér efter pris, størrelse og den hverdag, du gerne vil være en del af.',
             `${baseUrl}/soeg-vaerelse`
         );
+    }
+    else if (view === 'room_detail') {
+        // The room detail renderer updates metadata once the cached room is loaded.
     }
     else if (view === 'housing_list') {
         // Fokusord: Andelsboliger til salg, andelslejlighed, køb andelsbolig

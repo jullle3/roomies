@@ -105,7 +105,7 @@ export function renderLandingCarousel(slides) {
     ).join('');
 
     const el = document.getElementById('priceChangeCarousel');
-    if (typeof bootstrap !== 'undefined') {
+    if (el && typeof bootstrap !== 'undefined') {
         const inst = bootstrap.Carousel.getOrCreateInstance(el, {
             interval: 5000,
             pause: false,
@@ -130,6 +130,7 @@ export function loadHousingStats(advertisementData) {
     // Header Ticker (Navbar)
     const header = document.getElementById('header-stats');
     const line   = document.getElementById('stat-line');
+    if (!header || !line) return;
 
     if (window.innerWidth < 992) {
         header.classList.add('d-none');

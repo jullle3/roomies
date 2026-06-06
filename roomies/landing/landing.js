@@ -7,6 +7,10 @@ let scannerHighlightedUnavailableClickHandlerReady = false;
 export function loadFeaturedHousings(advertisementData) {
     const container = document.getElementById("featured-housings-container");
     if(!container) return;
+    if (typeof generateHousingCard !== "function") {
+        document.getElementById('featured-section')?.classList.add('d-none');
+        return;
+    }
 
     // We can use the specific metrics provided by backend
     // TODO: These are actually very misleading names.

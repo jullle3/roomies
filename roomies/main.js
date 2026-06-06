@@ -26,6 +26,13 @@ import {setupConversationsView, startGlobalConversationUnreadPolling} from "./co
 import {setupRentRoomView} from "./udlej_vaerelse/udlej_vaerelse.js";
 import {setupRoomSearchView} from "./soeg_vaerelse/soeg_vaerelse.js";
 
+// Legacy andelsbolig source modules were removed while their startup hooks still
+// exist in this cloned frontend. Keep init alive so the roomie views can bind.
+function insertSearchComponents() {}
+function setupHousingListView() {}
+function setupCreateHousingView() {}
+function setupMapView() {}
+async function preloadCreateHousingData() {}
 
 function logBuildVersionInDev() {
     if (environment !== 'dev') return;
@@ -219,6 +226,11 @@ function removeAppLoader() {
 function startBackgroundJobs() {
     // Initialize global state for housings to null (indicating 'loading')
     window.housings = null;
+
+    if (typeof fetchAllAdvertisements !== 'function') {
+        window.housingFetchPromise = Promise.resolve([]);
+        return;
+    }
 
     // Start fetching advertisements in the BACKGROUND (Non-blocking).
     // FIXED: We now assign this to window.housingFetchPromise so getHousingById can await it!

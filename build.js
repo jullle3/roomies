@@ -48,7 +48,7 @@ await build({
     target: 'es2018',                      // modern browsers; adjust if needed
     loader: { '.js': 'js' },
     // exclude external remote libs we load via <script> tags
-    external: ['nouislider', 'jquery', 'jquery-ui', 'wnumb', 'bootstrap']
+    external: ['jquery', 'jquery-ui', 'bootstrap']
 });
 
 console.log('🎨  Concatenating & minifying CSS…');

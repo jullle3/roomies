@@ -1,0 +1,41 @@
+Starting fully free is the absolute best move. In two-sided marketplaces like a housing portal, liquidity is king. You need a massive supply of rooms to attract seekers, and a massive pool of seekers to convince people to list their rooms. Charging too early kills that flywheel.
+
+Since your brand promise is "Find din næste roomie uden at blive flået" (no expensive paywalls just to send a message), your monetization must rely on convenience, visibility, and trust, rather than gating basic access.
+
+Here are the best ways to monetize a free-to-use roomie platform without betraying your brand:
+
+1. Seeker Upgrades (Monetizing Urgency)
+The Danish student housing market in July and August is pure chaos. Seekers are desperate to stand out. You can monetize this desperation ethically by offering one-off microtransactions or a cheap "Supporter" tier.
+
+Priority Inbox: For 29 kr., a seeker's message is pinned to the top of the landlord's inbox with a highlighted color. (Basic messaging remains free, but paying users skip the line).
+
+Read Receipts: A classic freemium feature. Let seekers see if the landlord has actually read their message so they can move on if ghosted.
+
+"Super Like" / Vibe Match: Give users 1 free "Super Like" a month, and charge for more. It signals to the landlord: "I am extremely serious about this specific room."
+
+2. Provider Upgrades (Monetizing Convenience & Visibility)
+When a landlord posts a decent room in Copenhagen or Aarhus, they might get 150 messages in three hours. They don't have a lack of leads; they have a lack of time.
+
+The "Boost" (Top Annonce): A classic marketplace feature. For 49 kr., the landlord can bump their listing back to the top of the search results for 24 hours.
+
+Advanced Filtering: Free users get all messages. Premium landlords can set hard filters (e.g., "Only allow messages from females, age 22-26, who are MitID verified"). This saves the landlord hours of reading irrelevant applications.
+
+3. Trust & Security (Monetizing Peace of Mind)
+This is where the real money is, as it solves the biggest fear in the market: scams and bad roommates.
+
+MitID Verification Badge: Integrating MitID costs you money per API call. You can charge a one-time fee of 15-25 kr. for a user to get a "MitID Verified" badge on their profile. Users will gladly pay this because it massively increases their chances of getting a room (for seekers) or getting serious applicants (for providers).
+
+The Legal Package (Fremlejekontrakt): When two people agree to move in together, they need a legally binding Danish sublease contract. You can build a tool that auto-generates a flawless, legally sound PDF contract based on the chat history and listing details for 99 kr.
+
+Safe Deposit (Escrow): Partner with a payment gateway to hold the deposit in escrow until the tenant actually moves in and gets the keys. You take a 1-2% service fee. This completely eliminates the fear of fake landlords stealing deposits, which is a massive selling point for international students.
+
+4. B2B Partnerships (The Affiliate Route)
+When people move, they spend money. You have a highly targeted audience at the exact moment they are making purchasing decisions.
+
+Insurance (Indboforsikring): It is critical for roommates to have their own insurance. Partner with companies like Undo, Hedvig, or Tryg. If a user signs up through your platform after finding a room, you get a kickback.
+
+Internet & Utilities: Offer a "move-in checklist" that includes affiliate links to cheap internet providers or green energy companies.
+
+The Golden Rule for your brand: As long as a broke 19-year-old student can still create an account, search for a room, and send a message for 0 kr., you keep your brand promise intact. Everything else is an optional premium.
+
+Which of these paths feels most aligned with the technical setup you have right now? We could dive into how to structure the MitID integration, or how to design the "Priority Inbox" UI.

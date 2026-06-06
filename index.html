@@ -38,9 +38,8 @@
     <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
     <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
-    <link rel="stylesheet" href="icons/my-bootstrap-icons.css">
     <!--    Custom Merged css files -->
-    <link rel="stylesheet" href="roomies/mergedStyles.css?roomies_version=698">
+    <link rel="stylesheet" href="roomies/mergedStyles.css?roomies_version=705">
     <style>
         .nav-auth-btn:active,
         .nav-auth-btn:focus,
@@ -59,7 +58,7 @@
             color: #ffffff !important;
         }
     </style>
-    <script defer type="module" src="roomies/mergedJS.js?roomies_version=698"></script>
+    <script defer type="module" src="roomies/mergedJS.js?roomies_version=705"></script>
 
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18047412076"></script>
@@ -1357,31 +1356,28 @@
                         </div>
                     </div>
                     <div class="row g-3 align-items-end">
-                        <div class="col-lg-4">
+                        <div class="col-lg-3">
                             <label class="form-label" for="room-search-location">Område</label>
                             <div class="input-group">
                                 <span class="input-group-text"><i class="fa-solid fa-location-dot"></i></span>
                                 <input id="room-search-location" class="form-control" name="location" type="search" placeholder="F.eks. Nørrebro eller Aarhus">
                             </div>
                         </div>
-                        <div class="col-6 col-lg-2">
-                            <label class="form-label" for="room-search-max-rent">Maks. husleje</label>
-                            <select id="room-search-max-rent" class="form-select" name="max_rent">
-                                <option value="">Alle priser</option>
-                                <option value="3500">3.500 kr.</option>
-                                <option value="4500">4.500 kr.</option>
-                                <option value="5500">5.500 kr.</option>
-                                <option value="7000">7.000 kr.</option>
-                            </select>
+                        <div class="col-md-6 col-lg-3">
+                            <div class="room-search-slider-label d-flex align-items-center justify-content-between gap-2">
+                                <label class="form-label mb-0" for="room-search-rent-slider">Maks. husleje</label>
+                                <output id="room-search-rent-value" for="room-search-rent-slider">Alle priser</output>
+                            </div>
+                            <div id="room-search-rent-slider" class="room-search-slider" aria-label="Maksimal månedlig husleje"></div>
+                            <input id="room-search-max-rent" name="max_rent" type="hidden" value="">
                         </div>
-                        <div class="col-6 col-lg-2">
-                            <label class="form-label" for="room-search-min-size">Min. størrelse</label>
-                            <select id="room-search-min-size" class="form-select" name="min_size">
-                                <option value="">Alle størrelser</option>
-                                <option value="10">10 m²</option>
-                                <option value="15">15 m²</option>
-                                <option value="20">20 m²</option>
-                            </select>
+                        <div class="col-md-6 col-lg-3">
+                            <div class="room-search-slider-label d-flex align-items-center justify-content-between gap-2">
+                                <label class="form-label mb-0" for="room-search-size-slider">Min. størrelse</label>
+                                <output id="room-search-size-value" for="room-search-size-slider">Alle størrelser</output>
+                            </div>
+                            <div id="room-search-size-slider" class="room-search-slider" aria-label="Minimum størrelse på værelset"></div>
+                            <input id="room-search-min-size" name="min_size" type="hidden" value="">
                         </div>
                         <div class="col-lg-2">
                             <label class="form-label" for="room-search-sort">Sortér</label>
@@ -1391,9 +1387,9 @@
                                 <option value="size_desc">Største først</option>
                             </select>
                         </div>
-                        <div class="col-lg-2 d-grid">
-                            <button class="btn btn-primary-coral rounded-pill py-3 fw-bold" type="submit">
-                                <i class="fa-solid fa-magnifying-glass me-2"></i>Søg
+                        <div class="col-lg-1 d-grid">
+                            <button class="btn btn-primary-coral rounded-pill py-3 fw-bold" type="submit" aria-label="Søg">
+                                <i class="fa-solid fa-magnifying-glass"></i><span class="d-lg-none ms-2">Søg</span>
                             </button>
                         </div>
                     </div>
@@ -2107,16 +2103,21 @@
                             <section class="rent-room-form-block">
                                 <h3><i class="fa-solid fa-location-dot text-primary-coral"></i> Beliggenhed</h3>
                                 <div class="row g-3">
-                                    <div class="col-md-8">
+                                    <div class="col-12">
                                         <label for="rent_room_address" class="form-label">Adresse</label>
-                                        <input class="form-control" id="rent_room_address" name="address" type="text" placeholder="Vejnavn">
-                                        <div class="form-text mt-2 text-success fw-medium">
-                                            <i class="fa-solid fa-shield-halved me-1"></i> Af hensyn til privatlivet beder vi udelukkende om vejnavnet, og der vil ikke blive vist husnummer på annoncen.
-                                        </div>
+                                        <input class="form-control" id="rent_room_address" name="address" type="text" placeholder="Indtast adresse" autocomplete="off">
                                     </div>
-                                    <div class="col-md-4">
+                                    <div class="col-md-6">
                                         <label for="rent_room_postal" class="form-label">Postnr. og by</label>
-                                        <input class="form-control" id="rent_room_postal" name="postal" type="text" placeholder="2200 København N">
+                                        <input class="form-control rent-room-autofill-field" id="rent_room_postal" name="postal" type="text" placeholder="Udfyldes automatisk" readonly aria-readonly="true">
+                                    </div>
+                                    <div class="col-6 col-md-3">
+                                        <label for="rent_room_floor" class="form-label">Etage</label>
+                                        <input class="form-control rent-room-autofill-field" id="rent_room_floor" name="floor" type="text" placeholder="Udfyldes automatisk" readonly aria-readonly="true">
+                                    </div>
+                                    <div class="col-6 col-md-3">
+                                        <label for="rent_room_side" class="form-label">Side</label>
+                                        <input class="form-control rent-room-autofill-field" id="rent_room_side" name="side" type="text" placeholder="th/tv" readonly aria-readonly="true">
                                     </div>
                                 </div>
                             </section>
@@ -4175,10 +4176,6 @@ Venlig hilsen</textarea>
 <!--<script async defer src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>-->
 <!--<script async src="https://use.fontawesome.com/releases/v6.2.0/js/solid.js"></script>-->
 
-<!-- Slider lib. Must be imported here since they break when bundled -->
-<script defer src="https://cdn.jsdelivr.net/npm/nouislider@14.7.0/distribute/nouislider.min.js"></script>
-<!--<script defer src="https://cdn.jsdelivr.net/npm/nouislider@15.7.0/dist/nouislider.min.js"></script>-->
-<script defer src="https://cdn.jsdelivr.net/npm/wnumb@1.2.0/wNumb.min.js"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/pica@8.0.0/dist/pica.min.js"></script>
 <!--Lottie animations-->
 <!--<script async src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>-->

@@ -5,8 +5,13 @@ Remove this, not needed in this project
 - Implementer også denne smarte router løsning i andelsboligbasen? og academy
 - Få reklamer på roomies siden 
 ‘andelsbolig basen, den nemmeste vej til en andelsbolig’
-
+- Freemium, se freemium_ideas.txt
 
 - Scrape værelser fra facebook til at starte med
 - Under "Bliv en del af fælleskabet", CTA der opretter konto
 - Alle billeder skal være webp
+
+# Marketing strategy / GoLive
+- Reklamer via good guy metoden på FB grupper via privat profil
+Jeg har lavet det her til jer, det er 100% gratis og finansieret af mig til at starte med. Håber på at kunne indhente lidt fortjenste via målrettede
+reklamer der reelt gavner målgruppen

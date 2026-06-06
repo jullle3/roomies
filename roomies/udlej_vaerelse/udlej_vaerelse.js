@@ -150,7 +150,9 @@ function setupDraftSaving(form) {
 function setupAddressAutocomplete(form) {
     const addressInput = document.getElementById("rent_room_address");
     const postalInput = document.getElementById("rent_room_postal");
-    if (!addressInput || !postalInput) return;
+    const floorInput = document.getElementById("rent_room_floor");
+    const sideInput = document.getElementById("rent_room_side");
+    if (!addressInput || !postalInput || !floorInput || !sideInput) return;
 
     const dropdown = ensureAddressDropdown(addressInput);
     let debounceTimer = null;
@@ -162,7 +164,7 @@ function setupAddressAutocomplete(form) {
 
     addressInput.addEventListener("input", () => {
         selectedAddress = null;
-        postalInput.value = "";
+        clearAddressDerivedFields();
         clearTimeout(debounceTimer);
         activeRequest?.abort();
 
@@ -250,10 +252,11 @@ function selectAddress(item, addressInput, postalInput, dropdown) {
 
     selectedAddress = {
         dataforsyningen_id: address.id || null,
+        full_address: item.tekst || buildFullAddress(address),
         street_name: address.vejnavn || "",
         house_number: address.husnr || "",
-        floor: address.etage || null,
-        door: address.dør || null,
+        floor: getAddressFloor(address, item.tekst),
+        door: getAddressDoor(address, item.tekst),
         postal_number: address.postnr || null,
         postal_name: address.postnrnavn || null,
         municipality_code: address.kommunekode || null,
@@ -263,8 +266,8 @@ function selectAddress(item, addressInput, postalInput, dropdown) {
             : null
     };
 
-    addressInput.value = selectedAddress.street_name;
-    postalInput.value = getSelectedPostalLabel();
+    addressInput.value = getSelectedStreetAddressLabel();
+    fillAddressDerivedFields();
     hideAddressDropdown(dropdown);
 }
 
@@ -444,6 +447,8 @@ function restoreSharedDraft(form, draft) {
     const sharedFields = [
         "address",
         "postal",
+        "floor",
+        "side",
         "roommates",
         "shared_spaces",
         "utilities_included",
@@ -465,6 +470,12 @@ function restoreSharedDraft(form, draft) {
     form.querySelectorAll('input[name="vibes"]').forEach(input => {
         input.checked = vibes.includes(input.value);
     });
+
+    if (selectedAddress?.dataforsyningen_id) {
+        const addressInput = document.getElementById("rent_room_address");
+        if (addressInput) addressInput.value = getSelectedStreetAddressLabel();
+        fillAddressDerivedFields();
+    }
 }
 
 function normalizeDraftRooms(draft) {
@@ -498,6 +509,8 @@ function buildRentRoomDraft(form) {
         listing_type: "room_rental_collection",
         address: getString(formData, "address"),
         postal: getString(formData, "postal"),
+        floor: getString(formData, "floor"),
+        side: getString(formData, "side"),
         address_data: selectedAddress,
         roommates: getNumber(formData, "roommates"),
         shared_spaces: getString(formData, "shared_spaces"),
@@ -535,6 +548,8 @@ function buildIndependentListingPayloads(draft) {
     const sharedData = {
         address: draft.address,
         postal: draft.postal,
+        floor: draft.floor,
+        side: draft.side,
         address_data: draft.address_data,
         roommates: draft.roommates,
         shared_spaces: draft.shared_spaces,
@@ -559,12 +574,63 @@ function hasSelectedOfficialAddress() {
     const postalInput = document.getElementById("rent_room_postal");
 
     return !!selectedAddress?.dataforsyningen_id
-        && addressInput?.value.trim() === selectedAddress.street_name
+        && addressInput?.value.trim() === getSelectedStreetAddressLabel()
         && postalInput?.value.trim() === getSelectedPostalLabel();
+}
+
+function getSelectedStreetAddressLabel() {
+    return [selectedAddress?.street_name, selectedAddress?.house_number].filter(Boolean).join(" ");
 }
 
 function getSelectedPostalLabel() {
     return [selectedAddress?.postal_number, selectedAddress?.postal_name].filter(Boolean).join(" ");
+}
+
+function fillAddressDerivedFields() {
+    const postalInput = document.getElementById("rent_room_postal");
+    const floorInput = document.getElementById("rent_room_floor");
+    const sideInput = document.getElementById("rent_room_side");
+
+    if (postalInput) postalInput.value = getSelectedPostalLabel();
+    if (floorInput) floorInput.value = selectedAddress?.floor || "";
+    if (sideInput) sideInput.value = selectedAddress?.door || "";
+}
+
+function clearAddressDerivedFields() {
+    ["rent_room_postal", "rent_room_floor", "rent_room_side"].forEach(id => {
+        const field = document.getElementById(id);
+        if (field) field.value = "";
+    });
+}
+
+function buildFullAddress(address) {
+    const streetAndNumber = [address.vejnavn, address.husnr].filter(Boolean).join(" ");
+    const floorAndDoor = [getAddressFloor(address), getAddressDoor(address)].filter(Boolean).join(". ");
+    const postal = [address.postnr, address.postnrnavn].filter(Boolean).join(" ");
+
+    return [streetAndNumber, floorAndDoor, postal].filter(Boolean).join(", ");
+}
+
+function getAddressFloor(address, suggestionText = "") {
+    return address.etage || parseUnitFromSuggestion(suggestionText).floor || null;
+}
+
+function getAddressDoor(address, suggestionText = "") {
+    return address["dør"] || parseUnitFromSuggestion(suggestionText).door || null;
+}
+
+function parseUnitFromSuggestion(text) {
+    const parts = String(text || "").split(",").map(part => part.trim()).filter(Boolean);
+    if (parts.length < 3) return {floor: null, door: null};
+
+    const unitPart = parts[1];
+    const match = unitPart.match(/^([a-zæøå0-9]+)\.?\s+(.+)$/i);
+    if (!match) return {floor: null, door: null};
+
+    return {
+        floor: match[1],
+        door: match[2]
+    };
 }
 
 function getRoomField(roomElement, name) {

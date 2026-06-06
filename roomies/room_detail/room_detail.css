@@ -1,5 +1,9 @@
+#room_detail {
+    margin-top: -28px;
+}
+
 .room-detail-page {
-    padding: 112px 0 82px;
+    padding: 0 0 82px;
     background: var(--bg-main);
 }
 
@@ -433,8 +437,12 @@
 }
 
 @media (max-width: 767.98px) {
+    #room_detail {
+        margin-top: -24px;
+    }
+
     .room-detail-page {
-        padding-top: 92px;
+        padding-top: 0;
     }
 
     .room-detail-main-image {

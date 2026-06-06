@@ -48,7 +48,7 @@ export function SetupFooter() {
             </a>
           </div>
           <small class="text-muted fw-medium">
-            &copy; ${currentYear} roomies
+            &copy; ${currentYear} RoomieDanmark
           </small>
         </div>
 

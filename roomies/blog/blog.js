@@ -1,4 +1,4 @@
-const BLOG_AUTHOR_IMAGE = "/pics/julian3.PNG";
+const BLOG_AUTHOR_IMAGE = "/pics/julian_blog3.webp";
 
 export const BLOG_POSTS = [
     {
@@ -64,7 +64,7 @@ export const BLOG_POSTS = [
                 label: "Opret gratis profil"
             },
             secondary: {
-                href: "/vaerelser",
+                href: "/ledige-vaerelser",
                 view: "room_list",
                 icon: "fa-solid fa-magnifying-glass",
                 label: "Se ledige værelser"
@@ -105,7 +105,7 @@ function renderBlogIndex() {
     if (!container) return;
 
     container.innerHTML = BLOG_POSTS.map(post => `
-        <a href="${getBlogPostUrl(post)}" data-view="blog" class="blog-card card border-0 rounded-4 shadow-sm h-100 overflow-hidden hover-lift text-decoration-none">
+        <a href="${getBlogPostUrl(post)}" data-view="blog" class="blog-card h-100 overflow-hidden hover-lift text-decoration-none">
             <div class="card-body p-4 p-md-5 d-flex flex-column h-100">
                 <div class="d-flex align-items-center gap-2 mb-4">
                     <span class="blog-chip">
@@ -123,7 +123,7 @@ function renderBlogIndex() {
 
                 <div class="d-flex align-items-center justify-content-between gap-3 mt-auto">
                     <span class="small text-muted fw-semibold">${post.displayDate}</span>
-                    <span class="btn btn-primary rounded-pill px-4 fw-bold">
+                    <span class="btn btn-primary-coral rounded-pill px-4 fw-bold">
                         Læs indlæg
                         <i class="fa-solid fa-arrow-right ms-2"></i>
                     </span>
@@ -142,13 +142,13 @@ function renderBlogArticle(slug) {
     if (!post) {
         container.innerHTML = `
             <div class="container py-5">
-                <div class="bg-white rounded-4 shadow-sm p-5 text-center mx-auto" style="max-width: 760px;">
+                <div class="blog-empty-card p-5 text-center mx-auto" style="max-width: 760px;">
                     <div class="blog-card-icon mx-auto mb-4">
                         <i class="fa-regular fa-file-lines"></i>
                     </div>
                     <h1 class="fw-bold mb-3">Blogindlægget blev ikke fundet</h1>
                     <p class="text-muted mb-4">Indlægget findes ikke længere eller har fået en ny adresse.</p>
-                    <a href="/blog" data-view="blog" class="btn btn-primary rounded-pill px-4 fw-bold">
+                    <a href="/blog" data-view="blog" class="btn btn-primary-coral rounded-pill px-4 fw-bold">
                         <i class="fa-solid fa-arrow-left me-2"></i>Tilbage til bloggen
                     </a>
                 </div>
@@ -166,7 +166,7 @@ function renderBlogArticle(slug) {
                         Tilbage til bloggen
                     </a>
 
-                    <article class="blog-article-card bg-white rounded-4 shadow-sm overflow-hidden">
+                    <article class="blog-article-card overflow-hidden">
                         <header class="blog-article-header p-4 p-md-5 text-center text-md-start">
                             <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-start gap-2 mb-4">
                                 <span class="blog-chip">
@@ -180,14 +180,14 @@ function renderBlogArticle(slug) {
 
                             <div class="blog-author-card d-inline-flex align-items-center gap-3 rounded-pill bg-white shadow-sm border px-3 py-2 mb-4">
                                 <img src="${BLOG_AUTHOR_IMAGE}"
-                                     alt="${post.author}, stifter af roomies"
+                                     alt="${post.author}, stifter"
                                      width="56"
                                      height="56"
                                      class="blog-author-photo rounded-circle flex-shrink-0"
                                      loading="eager">
                                 <div class="text-start">
                                     <div class="fw-bold company-dark">${post.author}</div>
-                                    <div class="small text-muted fw-semibold">Stifter af roomies</div>
+                                    <div class="small text-muted fw-semibold">stifter</div>
                                 </div>
                             </div>
 
@@ -307,7 +307,7 @@ function renderCallout(callout) {
 function renderCalloutCta(cta) {
     return `
         <div class="blog-callout-cta d-flex flex-column flex-sm-row align-items-sm-center gap-3 mt-4">
-            <a href="${cta.href}" data-view="${cta.view}" class="btn btn-primary rounded-pill px-4 fw-bold shadow-sm">
+            <a href="${cta.href}" data-view="${cta.view}" class="btn btn-primary-coral rounded-pill px-4 fw-bold shadow-sm">
                 ${cta.label}
                 <i class="fa-solid fa-arrow-right ms-2"></i>
             </a>
@@ -328,7 +328,7 @@ function renderFinalCta(post) {
             label: "Opret gratis profil"
         },
         secondary: {
-            href: "/vaerelser",
+            href: "/ledige-vaerelser",
             view: "room_list",
             icon: "fa-solid fa-magnifying-glass",
             label: "Se ledige værelser"
@@ -345,10 +345,10 @@ function renderFinalCta(post) {
                 </div>
                 <div class="col-lg-5">
                     <div class="d-grid gap-2">
-                        <a href="${cta.primary.href}" data-view="${cta.primary.view}" class="btn btn-primary rounded-pill py-3 fw-bold shadow-sm">
+                        <a href="${cta.primary.href}" data-view="${cta.primary.view}" class="btn btn-primary-coral rounded-pill py-3 fw-bold shadow-sm">
                             <i class="${cta.primary.icon} me-2"></i>${cta.primary.label}
                         </a>
-                        <a href="${cta.secondary.href}" data-view="${cta.secondary.view}" class="btn btn-outline-primary rounded-pill py-3 fw-bold">
+                        <a href="${cta.secondary.href}" data-view="${cta.secondary.view}" class="btn blog-outline-button rounded-pill py-3 fw-bold">
                             <i class="${cta.secondary.icon} me-2"></i>${cta.secondary.label}
                         </a>
                     </div>
@@ -371,7 +371,7 @@ function renderRelatedCta(post) {
                     <h2 class="h4 fw-bold mb-2">${cta.title}</h2>
                     <p class="text-muted mb-0">${cta.text}</p>
                 </div>
-                <a href="${cta.href}" data-view="${cta.view}" class="btn btn-outline-primary rounded-pill px-4 py-3 fw-bold flex-shrink-0">
+                <a href="${cta.href}" data-view="${cta.view}" class="btn blog-outline-button rounded-pill px-4 py-3 fw-bold flex-shrink-0">
                     <i class="${cta.icon} me-2"></i>${cta.label}
                 </a>
             </div>

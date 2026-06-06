@@ -6,6 +6,9 @@
   Renlighed:Ren
   Snorken:Alle er velkomne
 
+- login med google?
+- Seo optimer alt
+- Få AI til at dobbelttjek at alle frontend kald ryger til endpoints med /roomies prefix
 - Reklame sektion i bunden ligesom TrustMRR
 - Theres a bug when i click one of the elements in the dropdown in "<!-- Auth / Bruger Menu (Right aligned) -->" the buttons background color seems to turn blue and stay blue? Thats weird, no need for this at all. The buttons already animate a little when hovered/clicked and thats enough
 - Cache endpointet "/rooms/all" i CF
@@ -18,10 +21,11 @@ Remove this, not needed in this project
 ‘andelsbolig basen, den nemmeste vej til en andelsbolig’
 - Freemium, se freemium_ideas.txt
 - Slug på roomies fremfor bare ID. Det giver bedre SEO
-
+- Skriv simpelt "vilkaar" view 
 - Scrape værelser fra facebook til at starte med
 - Under "Bliv en del af fælleskabet", CTA der opretter konto
 - Alle billeder skal være webp
+- Opret FB/Insta og link til dem i footer
 
 # Giga smoketest
 

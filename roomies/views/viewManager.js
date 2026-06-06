@@ -877,7 +877,7 @@ function optimizeSEOMetadata(view) {
         } else {
             updateMetaTags(
                 'Blog | roomies',
-                'Læs historier, tips og erfaringer fra andelsboligmarkedet. Få inspiration til boligjagten, selvsalg og BoligMatch.',
+                'Læs historier, tips og erfaringer om roomies, ledige værelser og et mere fair boligmarked uden betalingsmure.',
                 `${baseUrl}/blog`
             );
             setStructuredData(getBlogStructuredData(baseUrl));

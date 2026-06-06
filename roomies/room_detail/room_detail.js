@@ -51,7 +51,6 @@ function normalizeRoomDetail(room) {
         rentalPeriod: room.rental_period || "Efter aftale",
         rooms: Number(room.current_roomies ?? room.rooms ?? 0),
         images: getRoomImages(room),
-        facts: getRoomFacts(room),
         vibes: getRoomVibes(room)
     };
 }
@@ -61,42 +60,34 @@ function renderRoomDetailHtml(room) {
     const secondaryImages = room.images.slice(1, 4);
 
     return `
-        <section class="room-detail-hero">
+        <section class="room-detail-page">
             <div class="container">
                 <a href="/soeg-vaerelse" data-view="soeg_vaerelse" class="room-detail-back">
                     <i class="fa-solid fa-arrow-left"></i>
                     <span>Tilbage til søgning</span>
                 </a>
 
-                <div class="room-detail-gallery">
-                    <img class="room-detail-main-image" src="${mainImage}" alt="${escapeHtml(room.title)}" loading="eager">
-                    <div class="room-detail-side-gallery">
-                        ${secondaryImages.map((image, index) => `
-                            <img src="${image}" alt="${escapeHtml(`${room.title} billede ${index + 2}`)}" loading="lazy">
-                        `).join("")}
-                    </div>
-                </div>
-            </div>
-        </section>
+                <div class="room-detail-top-grid">
+                    <div class="room-detail-media-column">
+                        <div class="room-detail-gallery ${secondaryImages.length ? "" : "room-detail-gallery-single"}">
+                            <img class="room-detail-main-image" src="${mainImage}" alt="${escapeHtml(room.title)}" loading="eager">
+                            ${secondaryImages.length ? `
+                                <div class="room-detail-side-gallery">
+                                    ${secondaryImages.map((image, index) => `
+                                        <img src="${image}" alt="${escapeHtml(`${room.title} billede ${index + 2}`)}" loading="lazy">
+                                    `).join("")}
+                                </div>
+                            ` : ""}
+                        </div>
 
-        <section class="room-detail-body">
-            <div class="container">
-                <div class="row g-4 g-xl-5 align-items-start">
-                    <div class="col-lg-8">
                         <div class="room-detail-heading">
                             <span class="room-detail-eyebrow"><i class="fa-solid fa-house-user"></i> Ledigt værelse</span>
                             <h1>${escapeHtml(room.title)}</h1>
                             <p><i class="fa-solid fa-location-dot"></i>${escapeHtml([room.address, room.postal].filter(Boolean).join(", "))}</p>
                         </div>
 
-                        <div class="room-detail-fact-grid">
-                            ${room.facts.map(fact => `
-                                <div class="room-detail-fact">
-                                    <i class="${fact.icon}"></i>
-                                    <span>${escapeHtml(fact.label)}</span>
-                                    <strong>${escapeHtml(fact.value)}</strong>
-                                </div>
-                            `).join("")}
+                        <div class="room-detail-mobile-card">
+                            ${renderContactCard(room)}
                         </div>
 
                         <div class="room-detail-section">
@@ -111,35 +102,35 @@ function renderRoomDetailHtml(room) {
                             </div>
                         </div>
                     </div>
-
-                    <aside class="col-lg-4">
-                        <div class="room-detail-contact-card">
-                            <span>Husleje</span>
-                            <strong>${formatNumber(room.price)} kr./md</strong>
-                            <div class="room-detail-price-lines">
-                                <p><span>Depositum</span><b>${formatMoneyOrDash(room.deposit)}</b></p>
-                                <p><span>Forudbetalt leje</span><b>${formatMoneyOrDash(room.prepaidRent)}</b></p>
-                                <p><span>Ledig fra</span><b>${formatAvailableDate(room.availableFrom)}</b></p>
-                            </div>
-                            <button class="btn btn-primary-coral rounded-pill w-100 py-3 fw-bold" type="button">
-                                <i class="fa-regular fa-message me-2"></i>Kontakt udlejer
-                            </button>
-                            <p class="small text-muted text-center mb-0 mt-3">Kontaktflow kobles på backend, når endpointet er klar.</p>
+                    <div class="room-detail-sidebar-column">
+                        <div class="room-detail-desktop-card">
+                            ${renderContactCard(room)}
                         </div>
-                    </aside>
+                    </div>
                 </div>
             </div>
         </section>
     `;
 }
 
-function getRoomFacts(room) {
-    return [
-        {icon: "fa-solid fa-ruler-combined", label: "Størrelse", value: room.size ? `${room.size} m²` : "Ikke angivet"},
-        {icon: "fa-regular fa-calendar", label: "Ledig fra", value: formatAvailableDate(room.availableFrom)},
-        {icon: "fa-solid fa-clock", label: "Lejeperiode", value: room.rentalPeriod},
-        {icon: "fa-regular fa-user", label: "Roomies", value: room.rooms ? `${room.rooms}` : "Ikke angivet"}
-    ];
+function renderContactCard(room) {
+    return `
+        <div class="room-detail-contact-card">
+            <span>Husleje</span>
+            <strong>${formatNumber(room.price)} kr./md</strong>
+            <div class="room-detail-price-lines">
+                <p><span>Depositum</span><b>${formatMoneyOrDash(room.deposit)}</b></p>
+                <p><span>Forudbetalt leje</span><b>${formatMoneyOrDash(room.prepaidRent)}</b></p>
+                <p><span>Ledig fra</span><b>${formatAvailableDate(room.availableFrom)}</b></p>
+                <p><span>Lejeperiode</span><b>${escapeHtml(room.rentalPeriod || "Efter aftale")}</b></p>
+                <p><span>Størrelse</span><b>${room.size ? `${formatNumber(room.size)} m²` : "-"}</b></p>
+            </div>
+            <button class="btn btn-primary-coral rounded-pill w-100 py-3 fw-bold" type="button">
+                <i class="fa-regular fa-message me-2"></i>Kontakt udlejer
+            </button>
+            <p class="small text-muted text-center mb-0 mt-3">Kontaktflow kobles på backend, når endpointet er klar.</p>
+        </div>
+    `;
 }
 
 function getRoomVibes(room) {

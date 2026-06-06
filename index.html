@@ -39,7 +39,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
     <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
     <!--    Custom Merged css files -->
-    <link rel="stylesheet" href="roomies/mergedStyles.css?roomies_version=771">
+    <link rel="stylesheet" href="roomies/mergedStyles.css?roomies_version=772">
     <style>
         .nav-auth-btn:active,
         .nav-auth-btn:focus,
@@ -58,7 +58,7 @@
             color: #ffffff !important;
         }
     </style>
-    <script defer type="module" src="roomies/mergedJS.js?roomies_version=771"></script>
+    <script defer type="module" src="roomies/mergedJS.js?roomies_version=772"></script>
 
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18047412076"></script>
@@ -1427,7 +1427,7 @@
                     <h2 id="room-search-empty-title" class="h4 fw-bold">Ingen værelser matcher endnu</h2>
                     <p id="room-search-empty-text" class="text-muted mb-4">Prøv at udvide dit område eller justere dine filtre.</p>
                     <a id="room-search-empty-create" href="/udlej-vaerelse" data-view="udlej_vaerelse" class="btn btn-primary-coral rounded-pill px-4 py-2 fw-bold d-none">
-                        Opret annonce gratis
+                        Udlej værelse
                     </a>
                     <button id="room-search-empty-reset" class="btn btn-outline-primary rounded-pill px-4 py-2 fw-bold" type="button" data-reset-room-search>
                         Nulstil filtre
@@ -1494,15 +1494,19 @@
 
 
 
-    <div id="faq" class="view" style="display:none; max-width: 800px; margin: 0 auto;">
+    <div id="faq" class="view faq-view">
 
-        <div class="container py-5">
-            <div class="text-center mb-5">
+        <div class="container faq-container">
+            <div class="faq-hero text-center mb-5">
+                <div class="faq-eyebrow d-inline-flex align-items-center gap-2 mb-3">
+                    <i class="fa-regular fa-circle-question"></i>
+                    <span>Spørgsmål og svar</span>
+                </div>
                 <h1 class="view-title display-5">Ofte Stillede <span class="view-title-highlight">Spørgsmål</span></h1>
                 <p class="text-secondary fs-5 opacity-75">Få svar på alt om at finde en roomie og udleje et værelse</p>
             </div>
 
-            <div class="accordion shadow-sm rounded-4 overflow-hidden border-0 bg-white" id="faqAccordion">
+            <div class="accordion faq-accordion" id="faqAccordion">
 
                 <div class="accordion-item border-0 border-bottom">
                     <h2 class="accordion-header" id="faqHeadingConcept">
@@ -1595,16 +1599,16 @@
 
             </div>
 
-            <div class="row g-4 mt-4">
+            <div class="row g-4 mt-4 faq-action-grid">
                 <div class="col-md-6">
-                    <div class="bg-white p-4 p-md-5 rounded-4 shadow-sm border border-light h-100 d-flex flex-column justify-content-center text-center">
-                        <div class="d-inline-flex align-items-center justify-content-center bg-primary bg-opacity-10 text-primary rounded-circle mb-4 mx-auto" style="width: 60px; height: 60px;">
+                    <div class="faq-action-card h-100 d-flex flex-column justify-content-center text-center">
+                        <div class="faq-action-icon d-inline-flex align-items-center justify-content-center mb-4 mx-auto">
                             <i class="fa-solid fa-house-chimney fs-3"></i>
                         </div>
                         <h4 class="fw-bold mb-3" style="color: var(--company-dark);">Søger du et værelse?</h4>
                         <p class="text-muted mb-4">Gå på opdagelse blandt ledige værelser og potentielle roomies.</p>
                         <div class="mt-auto">
-                            <a href="/ledige-vaerelser" class="btn btn-primary rounded-pill px-4 py-3 fw-bold shadow-sm hover-lift w-100" style="letter-spacing: -0.2px;">
+                            <a href="/ledige-vaerelser" class="btn btn-primary-coral rounded-pill px-4 py-3 fw-bold shadow-sm hover-lift w-100">
                                 Se ledige værelser
                             </a>
                         </div>
@@ -1612,14 +1616,14 @@
                 </div>
 
                 <div class="col-md-6">
-                    <div class="bg-white p-4 p-md-5 rounded-4 shadow-sm border border-light h-100 d-flex flex-column justify-content-center text-center">
-                        <div class="d-inline-flex align-items-center justify-content-center bg-primary bg-opacity-10 text-primary rounded-circle mb-4 mx-auto" style="width: 60px; height: 60px;">
+                    <div class="faq-action-card h-100 d-flex flex-column justify-content-center text-center">
+                        <div class="faq-action-icon d-inline-flex align-items-center justify-content-center mb-4 mx-auto">
                             <i class="fa-solid fa-key fs-3"></i>
                         </div>
                         <h4 class="fw-bold mb-3" style="color: var(--company-dark);">Har du et ledigt værelse?</h4>
                         <p class="text-muted mb-4">Opret din annonce helt gratis og find den perfekte roomie med det samme.</p>
                         <div class="mt-auto">
-                            <a href="/udlej-vaerelse" class="btn btn-primary rounded-pill px-4 py-3 fw-bold shadow-sm hover-lift w-100" style="letter-spacing: -0.2px;">
+                            <a href="/udlej-vaerelse" class="btn btn-primary-coral rounded-pill px-4 py-3 fw-bold shadow-sm hover-lift w-100">
                                 Opret din annonce nu
                             </a>
                         </div>
@@ -1627,13 +1631,13 @@
                 </div>
             </div>
 
-            <div class="mt-4 text-center bg-white p-4 p-md-5 rounded-4 shadow-sm border border-light">
-                <div class="d-inline-flex align-items-center justify-content-center bg-primary bg-opacity-10 text-primary rounded-circle mb-3" style="width: 60px; height: 60px;">
+            <div class="faq-contact-card mt-4 text-center">
+                <div class="faq-action-icon d-inline-flex align-items-center justify-content-center mb-3">
                     <i class="fa-regular fa-comments fs-3"></i>
                 </div>
                 <h4 class="fw-bold mb-2" style="color: var(--company-dark);">Fik du ikke svar på dit spørgsmål?</h4>
                 <p class="text-muted mb-4">Vi sidder klar til at hjælpe dig videre med din boligjagt.</p>
-                <button type="button" data-bs-toggle="modal" data-bs-target="#contactModal" class="btn btn-outline-primary rounded-pill px-5 py-3 fw-bold shadow-sm hover-lift" style="border-width: 2px; letter-spacing: -0.2px;">
+                <button type="button" data-bs-toggle="modal" data-bs-target="#contactModal" class="btn faq-contact-button rounded-pill px-5 py-3 fw-bold shadow-sm hover-lift">
                     Kontakt Support
                 </button>
             </div>
@@ -3191,180 +3195,6 @@ Venlig hilsen</textarea>
             </div>
         </div>
     </div>
-
-
-    <!-- Om Os View -->
-    <div id="about_us" class="view pb-5" style="display:none; max-width: 950px; margin: 0 auto;">
-
-        <div class="text-center py-4">
-            <img src="/favicon/android-chrome-192x192.webp"
-                 alt="roomies logo"
-                 style="height: 120px; filter: drop-shadow(0 10px 15px rgba(6, 17, 72, 0.08));">
-        </div>
-
-        <section class="py-3 text-center px-3">
-            <h1 class="view-title text-center pb-3" style="font-size: 2.5rem;">
-                Om <span class="view-title-highlight">roomies</span>
-            </h1>
-            <p class="text-muted fs-5 mx-auto" style="max-width: 650px; line-height: 1.6;">
-                Vi gør det <span class="fw-bold text-company-blue">nemt, billigt og hurtigt</span> at sælge eller finde andelsboliger i Danmark. Siden 2025 har vi forbundet købere og sælgere over hele landet.
-            </p>
-        </section>
-
-        <div class="container px-3 px-md-4 py-4">
-
-            <section class="mb-5">
-                <div class="d-flex align-items-center justify-content-center mb-4">
-                    <div class="icon-circle-premium me-3">
-                        <i class="fa-solid fa-bullseye"></i>
-                    </div>
-                    <h2 class="h3 mb-0 fw-bolder text-company-dark" style="letter-spacing: -0.5px;">Vores Mission</h2>
-                </div>
-
-                <div class="glass-card-premium p-4 p-md-5 text-center mx-auto" style="max-width: 750px;">
-                    <p class="fs-5 text-company-dark mb-3 fw-medium" style="line-height: 1.6;">
-                        Vores mission er at revolutionere det danske andelsboligmarked ved at skabe en platform,
-                        der er <strong class="text-company-blue">gennemsigtig, tilgængelig og overkommelig</strong> for alle.
-                    </p>
-                    <p class="text-muted mb-0" style="line-height: 1.6;">
-                        Alle danskere fortjener en fair og simpel måde at købe og sælge deres andelsbolig på, med rimelige priser - <strong>uden skjulte gebyrer og binding.</strong>
-                    </p>
-                </div>
-            </section>
-
-            <section class="py-4">
-                <div class="d-flex align-items-center justify-content-center mb-4">
-                    <div class="icon-circle-premium me-3">
-                        <i class="fa-solid fa-award"></i>
-                    </div>
-                    <h2 class="h3 mb-0 fw-bolder text-company-dark" style="letter-spacing: -0.5px;">Hvad Gør Os Unikke</h2>
-                </div>
-
-                <div class="row row-cols-1 row-cols-md-2 g-4 mt-2">
-                    <div class="col">
-                        <div class="card about-feature-card h-100 p-4">
-                            <div class="d-flex align-items-center mb-3">
-                                <i class="fa-solid fa-percent fs-3 text-success me-3 opacity-75"></i>
-                                <h3 class="h6 fw-bold text-company-dark mb-0">75% Billigere</h3>
-                            </div>
-                            <p class="mb-0 text-muted small" style="line-height: 1.6;">
-                                Abonnement kun 99 kr./md. – laveste på markedet. Vi tror på fair priser.
-                            </p>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card about-feature-card h-100 p-4">
-                            <div class="d-flex align-items-center mb-3">
-                                <i class="fa-solid fa-circle-check fs-3 text-company-blue me-3 opacity-75"></i>
-                                <h3 class="h6 fw-bold text-company-dark mb-0 wavy-underline">100% Gratis at sælge</h3>
-                            </div>
-                            <p class="mb-0 text-muted small" style="line-height: 1.6;">
-                                Opret og administrer din annonce helt uden omkostninger – vi finder køberne til dig.
-                            </p>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card about-feature-card h-100 p-4">
-                            <div class="d-flex align-items-center mb-3">
-                                <i class="fa-solid fa-mobile-screen fs-3 me-3 opacity-75" style="color: rgb(147, 51, 234)"></i>
-                                <h3 class="h6 fw-bold text-company-dark mb-0">Brugervenlig platform</h3>
-                            </div>
-                            <p class="mb-0 text-muted small" style="line-height: 1.6;">
-                                Vores intuitive design og smarte søgefiltre gør det nemt at finde præcis den bolig, du leder efter.
-                            </p>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card about-feature-card h-100 p-4">
-                            <div class="d-flex align-items-center mb-3">
-                                <i class="fa-solid fa-heart fs-3 text-danger me-3 opacity-75"></i>
-                                <h3 class="h6 fw-bold text-company-dark mb-0">God kundeservice</h3>
-                            </div>
-                            <p class="mb-0 text-muted small" style="line-height: 1.6;">
-                                Vi er her for at hjælpe dig hele vejen. Få personligt svar på henvendelser indenfor 24 timer.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <section class="py-5 my-4 bg-white rounded-4 shadow-sm border" style="border-color: rgba(45, 75, 242, 0.08) !important;">
-                <div class="row align-items-center px-4 py-3">
-                    <div class="col-lg-4 text-center mb-4 mb-lg-0">
-                        <div class="position-relative d-inline-block">
-                            <img src="/pics/julian2.png"
-                                 alt="Julian Køster, Grundlægger"
-                                 class="rounded-circle shadow-lg"
-                                 style="width: 180px; height: 180px; object-fit: cover; border: 4px solid #ffffff;">
-                            <div class="position-absolute bottom-0 end-0 bg-primary text-white rounded-circle d-flex align-items-center justify-content-center shadow" style="width: 40px; height: 40px; transform: translate(-10px, -10px);">
-                                <i class="fa-solid fa-quote-right"></i>
-                            </div>
-                        </div>
-                        <h3 class="h6 fw-bold mt-3 mb-0 text-company-dark">Julian Køster</h3>
-                        <span class="small text-muted">Stifter</span>
-                    </div>
-
-                    <div class="col-lg-8">
-                        <h2 class="h4 fw-bold text-company-dark mb-3" style="letter-spacing: -0.5px;">Historien Bag Platformen</h2>
-                        <p class="text-muted" style="line-height: 1.7;">
-                            Ideen til roomies blev født, da Julian selv oplevede, hvor dyrt og besværligt det kan være at finde eller sælge en andelsbolig. Mange drømmer om et nyt hjem, men stopper ved den uoverskuelige proces, urimeligt høje priser eller manglende gennemsigtighed. Det føltes bare ikke fair.
-                        </p>
-                        <p class="text-muted mb-0" style="line-height: 1.7;">
-                            Derfor skabte vi en platform, der sætter dig i centrum: Vi vil gøre boligjagten nem, billig og hurtig – uden at det koster en formue. Vi skaber et mere lige marked for købere og sælgere i hele Danmark.
-                        </p>
-                    </div>
-                </div>
-            </section>
-
-            <section class="pb-4 mt-2">
-                <h2 class="h4 fw-bold text-center text-company-dark mb-4" style="letter-spacing: -0.5px;">Vi prioriterer sikkerhed & tryghed</h2>
-                <div class="row text-center gy-4 pt-2">
-                    <div class="col-md-4">
-                        <div class="d-inline-flex align-items-center justify-content-center rounded-circle bg-success bg-opacity-10 mb-3" style="width: 64px; height: 64px;">
-                            <i class="fa-solid fa-shield-halved fs-3 text-success"></i>
-                        </div>
-                        <h3 class="h6 fw-bold text-company-dark">GDPR-compliant</h3>
-                        <p class="small text-muted mx-auto" style="max-width: 200px;">Dine data er beskyttet efter strenge EU-regler.</p>
-                    </div>
-
-                    <div class="col-md-4">
-                        <div class="d-inline-flex align-items-center justify-content-center rounded-circle bg-primary bg-opacity-10 mb-3" style="width: 64px; height: 64px;">
-                            <i class="fa-solid fa-user-check fs-3 text-company-blue"></i>
-                        </div>
-                        <h3 class="h6 fw-bold text-company-dark">Kvalitetssikret</h3>
-                        <p class="small text-muted mx-auto" style="max-width: 200px;">Vi kvalitetssikrer løbende vores annoncer på platformen.</p>
-                    </div>
-
-                    <div class="col-md-4">
-                        <div class="d-inline-flex align-items-center justify-content-center rounded-circle mb-3" style="width: 64px; height: 64px; background-color: rgba(147,51,234,0.1);">
-                            <i class="fa-solid fa-headset fs-3" style="color: rgb(147,51,234);"></i>
-                        </div>
-                        <h3 class="h6 fw-bold text-company-dark">Dansk support</h3>
-                        <p class="small text-muted mx-auto" style="max-width: 200px;">Få svar på dine spørgsmål indenfor 24 timer.</p>
-                    </div>
-                </div>
-            </section>
-
-            <section class="text-center mt-5">
-                <div class="premium-cta-card p-5 rounded-4 shadow-sm">
-                    <h2 class="h3 fw-bold text-white mb-3" style="letter-spacing: -0.5px;">Har du spørgsmål?</h2>
-                    <p class="text-white text-opacity-75 mb-4 mx-auto" style="max-width: 500px; line-height: 1.6;">
-                        Vi er her for at hjælpe dig. Kontakt os, hvis du har spørgsmål, ris, ros eller brug for hjælp til at komme i gang.
-                    </p>
-                    <a href="mailto:support@roomies.dk" class="btn btn-light rounded-pill px-4 py-2 fw-bold text-company-dark shadow-sm">
-                        <i class="fa-solid fa-envelope me-2 text-company-blue"></i> support@roomies.dk
-                    </a>
-                </div>
-            </section>
-
-        </div>
-    </div>
-
-
-
-
-
-
 
 
 

@@ -69,9 +69,6 @@ export function SetupFooter() {
             <a href="/spoergsmaal-om-andelsbolig" class="nav-link p-0 text-muted footer-pseo-link fw-semibold">Spørgsmål & Svar</a>
           </li>
           <li class="nav-item">
-            <a href="/om-os" class="nav-link p-0 text-muted footer-pseo-link fw-semibold">Om os</a>
-          </li>
-          <li class="nav-item">
             <a href="/blog" class="nav-link p-0 text-muted footer-pseo-link fw-semibold">Blog</a>
           </li>
         </ul>

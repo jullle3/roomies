@@ -47,7 +47,6 @@ const views = {
     seller_profile: document.getElementById('seller_profile'),
     successful_redirect: document.getElementById('successful_redirect'),
     terms_and_conditions: document.getElementById('terms_and_conditions'),
-    about_us: document.getElementById('about_us'),
     faq: document.getElementById('faq'),
     blog: document.getElementById('blog'),
 };
@@ -74,7 +73,6 @@ const routeToView = {
     '/saelger': 'seller_profile',
     '/redirect-success': 'successful_redirect',
     '/vilkaar': 'terms_and_conditions',
-    '/om-os': 'about_us',
     '/blog': 'blog',
     '/login': 'login',  // Hack to prompt users for login and payment, the view doesnt actually exist
     '/spoergsmaal-om-andelsbolig': 'faq',
@@ -761,7 +759,7 @@ function optimizeSEOMetadata(view) {
         updateMetaTags(
             'Ofte stillede spørgsmål | roomies',
             'Få svar på alle dine spørgsmål om køb, salg og bytte af andelsboliger og læs mere om hvordan roomies fungerer her.',
-            `${baseUrl}/faq`
+            `${baseUrl}/spoergsmaal-om-andelsbolig`
         );
 
         // Udfylder Schema markup baseret på din HTML FAQ struktur
@@ -858,14 +856,6 @@ function optimizeSEOMetadata(view) {
             'Beskeder | roomies',
             'Se og svar på dine samtaler med roomies om værelser, fællesskab og næste hjem.',
             `${baseUrl}/beskeder`
-        );
-    }
-    else if (view === 'about_us') {
-        // Fokusord: Om roomies, mission, billig andelsbolig portal
-        updateMetaTags(
-            'Om roomies | Nem, billig og hurtig bolighandel',
-            'Læs historien bag roomies. Vi tilstræber at gøre det mere gennemsigtigt, billigt og nemt at købe, sælge og bytte andelsboliger i Danmark.',
-            `${baseUrl}/om-os`
         );
     }
     else if (view === 'agent' || view === 'agent_create' || view === 'agent_edit') {

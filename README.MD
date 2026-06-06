@@ -1,4 +1,11 @@
-- Just like we do on the landingpage, show a friendly CTA like below on the "soeg-vaerelse" view if 0 rooms were fetched from the backend (we need to handle this case since the site is completely new)
+- Udlejere skal kunne sætte flere kriterier for lejere, se eksempel her https://www.findroommate.dk/vaerelser/436599/2-hyggelige-vaerelser-i-voksent-bofaellesskab-i-cykelafstand-til-byen?utm_campaign=Roomies-Campaign&utm_source=Roomies&utm_medium=link&utm_content=468793
+  Roommate kriterier
+  Foretrukne køn:Alle er velkomne
+  Alder:25 - 38
+  Renlighed:Ren
+  Snorken:Alle er velkomne
+
+- Just like we do on the landingpage, show a friendly CTA like below on the "ledige-vaerelser" view if 0 rooms were fetched from the backend (we need to handle this case since the site is completely new)
 
 Ingen værelser endnu
 De første roomies er på vej ind. Du kan allerede oprette din egen annonce gratis.

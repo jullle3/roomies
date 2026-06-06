@@ -68,7 +68,7 @@ function renderRoomDetailHtml(room) {
     return `
         <section class="room-detail-page">
             <div class="container">
-                <a href="/soeg-vaerelse" data-view="soeg_vaerelse" class="room-detail-back">
+                <a href="/ledige-vaerelser" data-view="soeg_vaerelse" class="room-detail-back">
                     <i class="fa-solid fa-arrow-left"></i>
                     <span>Tilbage til søgning</span>
                 </a>
@@ -239,7 +239,7 @@ function renderSimilarRoomsSection(rooms) {
                     <h2 class="mb-1">Lignende værelser</h2>
                     <p class="text-muted mb-0">Andre muligheder, der kunne passe til dig.</p>
                 </div>
-                <a href="/soeg-vaerelse" data-view="soeg_vaerelse" class="btn btn-link text-decoration-none fw-bold p-0">Se alle</a>
+                <a href="/ledige-vaerelser" data-view="soeg_vaerelse" class="btn btn-link text-decoration-none fw-bold p-0">Se alle</a>
             </div>
             <div class="room-detail-similar-grid">
                 ${rooms.map(renderSimilarRoomCard).join("")}
@@ -430,7 +430,7 @@ function renderMissingState() {
                     <i class="fa-regular fa-face-frown"></i>
                     <h1>Værelset blev ikke fundet</h1>
                     <p>Det kan være fjernet eller udlejet.</p>
-                    <a href="/soeg-vaerelse" data-view="soeg_vaerelse" class="btn btn-primary-coral rounded-pill px-4 py-3 fw-bold">
+                    <a href="/ledige-vaerelser" data-view="soeg_vaerelse" class="btn btn-primary-coral rounded-pill px-4 py-3 fw-bold">
                         Se ledige værelser
                     </a>
                 </div>

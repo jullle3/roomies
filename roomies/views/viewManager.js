@@ -63,7 +63,7 @@ const routeToView = {
     '/': 'landing',
     '/saelg-andelsbolig-selv-koncept': 'sell_landing',
     '/saelg-andelsbolig-selv': 'create',
-    '/soeg-vaerelse': 'soeg_vaerelse',
+    '/ledige-vaerelser': 'soeg_vaerelse',
     '/vaerelse': 'room_detail',
     '/udlej-vaerelse': 'udlej_vaerelse',
     '/boligovervaagning': 'agent',
@@ -824,7 +824,7 @@ function optimizeSEOMetadata(view) {
         updateMetaTags(
             'Søg værelse og find din næste roomie | roomies',
             'Find ledige værelser i København, Aarhus og resten af Danmark. Filtrér efter pris, størrelse og den hverdag, du gerne vil være en del af.',
-            `${baseUrl}/soeg-vaerelse`
+            `${baseUrl}/ledige-vaerelser`
         );
     }
     else if (view === 'room_detail') {

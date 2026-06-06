@@ -115,7 +115,7 @@ const STATIC_SEO_ROUTES = {
         title: 'Andelsboliger til salg i København, Aarhus og hele Danmark',
         desc: 'Se alle aktuelle andelsboliger til salg her. Find din nye andelslejlighed i København (inkl. 2100 Østerbro), Amager, Frederiksberg, Aarhus. m.m.',
     },
-    '/soeg-vaerelse': {
+    '/ledige-vaerelser': {
         title: 'Søg værelse og find din næste roomie | roomies',
         desc: 'Find ledige værelser i København, Aarhus og resten af Danmark. Filtrér efter pris, størrelse og den hverdag, du gerne vil være en del af.',
     },

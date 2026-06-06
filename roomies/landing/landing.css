@@ -1,0 +1,8 @@
+#landing-new-rooms .room-card {
+    position: relative;
+    overflow: visible;
+}
+
+#landing-new-rooms .room-card h3 {
+    line-height: 1.4;
+}

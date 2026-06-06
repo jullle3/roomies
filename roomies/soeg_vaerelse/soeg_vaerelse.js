@@ -1,6 +1,7 @@
 import noUiSlider from "nouislider";
 import wNumb from "wnumb";
 import {getCachedRooms, onRoomsLoaded} from "../rooms/room_cache.js";
+import {s3Url} from "../config/config.js";
 
 const FAVORITES_KEY = "roomies_room_favorites";
 
@@ -112,7 +113,7 @@ function normalizeRoomListing(room) {
         area: area || room.address || postal || "",
         rent: Number(room.monthly_price ?? room.price ?? 0),
         size: Number(room.square_meters ?? 0),
-        availableFrom: room.available_from || "",
+        availableFrom: room.available_from ?? null,
         furnished: Boolean(room.furnished),
         registrationAllowed: Boolean(room.cpr_registration_allowed),
         utilitiesIncluded: Boolean(room.utilities_included),
@@ -138,11 +139,18 @@ function getRoomVibes(room) {
 function getRoomImage(room) {
     const firstImage = Array.isArray(room.images) ? room.images[0] : null;
     if (typeof firstImage === "string" && firstImage) return firstImage;
+    if (firstImage?.name) return buildS3ImageUrl(firstImage.name);
     if (firstImage?.url) return firstImage.url;
     if (firstImage?.src) return firstImage.src;
     if (firstImage?.image_url) return firstImage.image_url;
     if (firstImage?.cloudflare_url) return firstImage.cloudflare_url;
     return "/pics/udlej-vaerelse-example-room.png";
+}
+
+function buildS3ImageUrl(imageName) {
+    if (!imageName) return "";
+    if (/^https?:\/\//i.test(imageName)) return imageName;
+    return `${s3Url}/${String(imageName).replace(/^\/+/, "")}`;
 }
 
 function getRoomAvatar(room) {
@@ -279,10 +287,24 @@ function readFavorites() {
 }
 
 function formatAvailableDate(value) {
-    if (!value) return "Efter aftale";
-    const date = new Date(`${value}T00:00:00`);
+    const date = parseDateValue(value);
     if (Number.isNaN(date.getTime())) return "Efter aftale";
     return new Intl.DateTimeFormat("da-DK", {day: "numeric", month: "short"}).format(date);
+}
+
+function parseDateValue(value) {
+    if (!value) return new Date(NaN);
+
+    const numericValue = Number(value);
+    if (Number.isFinite(numericValue) && String(value).trim() !== "") {
+        return new Date(numericValue < 10000000000 ? numericValue * 1000 : numericValue);
+    }
+
+    if (typeof value === "string" && /^\d{4}-\d{2}-\d{2}$/.test(value)) {
+        return new Date(`${value}T00:00:00`);
+    }
+
+    return new Date(value);
 }
 
 function formatNumber(value) {

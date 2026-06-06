@@ -1,3 +1,5 @@
+- The 3 cards on the landingpage should use the same card as used in "soeg-vaerelse" view. Currently the cards on the landingpage are way too high
+- Cache endpointet "/rooms/all" i CF
 - Vigtigt jeg får folk til at oprettet en profil med billede, både købere og sælgere, det er det menneskelige der skal drive siden rundt.
 - "The existing housing_list anchor/pagination restoration still works."
 Remove this, not needed in this project

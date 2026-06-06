@@ -39,7 +39,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
     <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
     <!--    Custom Merged css files -->
-    <link rel="stylesheet" href="roomies/mergedStyles.css?roomies_version=729">
+    <link rel="stylesheet" href="roomies/mergedStyles.css?roomies_version=746">
     <style>
         .nav-auth-btn:active,
         .nav-auth-btn:focus,
@@ -58,7 +58,7 @@
             color: #ffffff !important;
         }
     </style>
-    <script defer type="module" src="roomies/mergedJS.js?roomies_version=729"></script>
+    <script defer type="module" src="roomies/mergedJS.js?roomies_version=746"></script>
 
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18047412076"></script>
@@ -393,7 +393,7 @@
                     </a>
                 </div>
 
-                <div class="row g-4">
+                <div id="landing-new-rooms" class="row g-4" aria-live="polite" hidden>
                     <!-- Room Card Example 1 -->
                     <div class="col-12 col-md-6 col-lg-4">
                         <a href="/soeg-vaerelse" data-view="soeg_vaerelse" class="card room-card h-100 cursor-pointer text-decoration-none text-dark">
@@ -2209,12 +2209,13 @@
                                             <input class="form-control" data-room-field="available_from" type="date">
                                         </div>
                                         <div class="col-md-6">
-                                            <label class="form-label" data-label-for="duration">Lejeperiode</label>
-                                            <select class="form-select" data-room-field="duration">
-                                                <option value="">Vælg periode</option>
-                                                <option value="unlimited">Ubegrænset</option>
-                                                <option value="temporary">Tidsbegrænset</option>
-                                                <option value="flexible">Fleksibel</option>
+                                            <label class="form-label" data-label-for="rental_period_months">Lejeperiode</label>
+                                            <select class="form-select" data-room-field="rental_period_months">
+                                                <option value="">Ubegrænset</option>
+                                                <option value="3">3 måneder</option>
+                                                <option value="6">6 måneder</option>
+                                                <option value="12">12 måneder</option>
+                                                <option value="24">24 måneder</option>
                                             </select>
                                         </div>
                                         <div class="col-md-4">

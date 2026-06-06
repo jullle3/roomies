@@ -14,7 +14,7 @@ const ROOM_FIELDS = [
     "title",
     "description",
     "available_from",
-    "duration",
+    "rental_period_months",
     "monthly_rent",
     "deposit",
     "prepaid_rent",
@@ -489,7 +489,7 @@ function normalizeDraftRooms(draft) {
             title: draft.title || "",
             description: draft.description || "",
             available_from: draft.available_from || null,
-            duration: draft.duration || null,
+            rental_period_months: draft.rental_period_months ?? null,
             monthly_rent: draft.monthly_rent ?? null,
             deposit: draft.deposit ?? null,
             prepaid_rent: draft.prepaid_rent ?? null,
@@ -531,7 +531,7 @@ function buildRoomDraft(roomElement) {
         title: getRoomString(roomElement, "title"),
         description: getRoomString(roomElement, "description"),
         available_from: getRoomString(roomElement, "available_from") || null,
-        duration: getRoomString(roomElement, "duration") || null,
+        rental_period_months: getRoomNumber(roomElement, "rental_period_months"),
         monthly_rent: getRoomNumber(roomElement, "monthly_rent"),
         deposit: getRoomNumber(roomElement, "deposit"),
         prepaid_rent: getRoomNumber(roomElement, "prepaid_rent"),
@@ -559,12 +559,13 @@ function buildIndependentListingPayloads(draft) {
     };
 
     return draft.rooms.map(room => {
-        const {id, ...roomListingData} = room;
+        const {id, available_from, ...roomListingData} = room;
 
         return {
             listing_type: "room_rental",
             ...sharedData,
-            ...roomListingData
+            ...roomListingData,
+            available_from: dateInputToEpoch(available_from)
         };
     });
 }
@@ -663,6 +664,15 @@ function getNumber(formData, name) {
 
     const value = Number(rawValue);
     return Number.isFinite(value) ? value : null;
+}
+
+function dateInputToEpoch(value) {
+    if (!value) return null;
+
+    const date = new Date(`${value}T00:00:00`);
+    if (Number.isNaN(date.getTime())) return null;
+
+    return Math.floor(date.getTime() / 1000);
 }
 
 function createRoomId() {

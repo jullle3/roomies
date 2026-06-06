@@ -2,169 +2,73 @@ const BLOG_AUTHOR_IMAGE = "/pics/julian3.PNG";
 
 export const BLOG_POSTS = [
     {
-        slug: "saadan-fik-jeg-tilbudt-10-andelsboliger-i-koebenhavn",
-        title: "Sådan fik jeg tilbudt 10 attraktive andelsboliger i København på under en måned",
-        excerpt: "Min personlige historie om forberedelse, hurtig kontakt og det flyer-trick, der hjalp mig med at finde en andelsbolig i København.",
-        publishedDate: "2026-05-13",
-        displayDate: "13. maj 2026",
-        readingTime: "5 min. læsning",
+        slug: "hvorfor-det-er-gratis-at-finde-en-roomie",
+        title: "Hvorfor det ikke skal koste 400 kr. om måneden at finde en roomie i Danmark",
+        excerpt: "Det danske lejemarked er brutalt, og boligportaler udnytter boligsøgende med tårnhøje betalingsmure. Her er grunden til, at jeg har bygget et 100% gratis alternativ.",
+        publishedDate: "2026-06-06",
+        displayDate: "6. juni 2026",
+        readingTime: "4 min. læsning",
         author: "Julian Køster",
-        category: "Boligjagt",
-        heroIcon: "fa-solid fa-key",
-        intro: "Det kan føles som en umulig opgave at finde en god andelsbolig i København. Markedet er lynhurtigt, og de gode lejligheder er ofte væk, før man overhovedet opdager, at de er til salg. Men det er muligt. Her er min personlige historie om, hvordan jeg knækkede koden og fandt min andelsbolig, og hvordan du kan gøre det samme.",
+        category: "Mission",
+        heroIcon: "fa-solid fa-hand-holding-heart",
+        intro: "Hvis du har ledt efter et værelse eller en roomie i Danmark for nylig, kender du allerede den hårde virkelighed: markedet er brutalt, stressende og ekstremt konkurrencepræget. Men det, der gør det absolut uacceptabelt, er ikke kun manglen på boliger – det er den systematiske udnyttelse af mennesker, der bare leder efter et sted at sove. Derfor har jeg bygget roomies. En 100% gratis platform.",
         sections: [
             {
-                title: "Trin 1: Forberedelse er alt",
+                title: "Den grådige standardmodel",
                 body: [
-                    "Før jeg overhovedet begyndte at lede aktivt, sørgede jeg for at have alt på plads, så jeg kunne slå til på et splitsekund:"
+                    "Lige nu er standardmodellen for bolig- og roomieportaler i Danmark at opsætte en massiv betalingsmur mellem dig og dit fremtidige hjem. De kræver 300, nogle gange over 400 kr. hver eneste måned, bare for at du får lov til at sende en besked til en udlejer eller en potentiel roommate.",
+                    "Tænk over det. Du er i forvejen stresset over at finde tag over hovedet. Måske er du studerende på SU, eller måske flytter du til en ny by for at starte på en frisk. For overhovedet at få en chance, tvinges du til at aflevere hundredvis af kroner til et fordyrende mellemled.",
+                    "Det er grådigt. Det er et fuldstændig uacceptabelt misbrug af desperate boligsøgende. Og det skal stoppe."
+                ]
+            },
+            {
+                title: "En bedre og gratis løsning",
+                body: [
+                    "Det var præcis den frustration, der fik mig til at bygge roomies.",
+                    "Som softwareudvikler ved jeg, hvad det kræver at bygge et sikkert, lynhurtigt og pålideligt system. Og jeg ved med sikkerhed, at det ikke kræver, at man afpresser sine brugere for at holde serverne kørende.",
+                    "roomies er en helt ny platform til at finde roomies og udleje værelser, og den er 100% gratis."
                 ],
                 bullets: [
-                    "<strong>Bankgodkendelse:</strong> Jeg vidste præcis, hvad jeg måtte købe for, og havde bankens forhåndsgodkendelse klar.",
-                    "<strong>Den perfekte besked:</strong> Jeg havde skrevet en færdig tekst, der lå klar til at blive sendt til sælger. Budskabet var kort og præcist: “Jeg vil gerne købe din lejlighed, såfremt papirerne er i orden.”",
-                    "<strong>Fokus på sælgers behov:</strong> Sælgere vil gerne have en nem handel. Derfor fremhævede jeg, at jeg var fleksibel i forhold til overtagelsesdatoen, og jeg inkluderede en kort, personlig introduktion af mig selv."
+                    "<strong>Ingen skjulte gebyrer:</strong> Hvad du ser, er hvad du får.",
+                    "<strong>Ingen premium-mure:</strong> Dine beskeder bliver aldrig låst bag et dyrt abonnement.",
+                    "<strong>Intet krav om betalingskort:</strong> Du kan kontakte præcis dem, du vil, helt gratis."
                 ]
             },
             {
-                title: "Trin 2: Vær den første",
+                title: "Hjælp mig med at ændre markedet",
                 body: [
-                    "Dengang foregik boligjagten primært på DBA, og min taktik var simpel, men udmattende. Jeg havde min mail åben på den ene arbejdsskærm hele dagen. Så snart en bolig dukkede op, sendte jeg min forudskrevne besked afsted. Typisk inden for 2-5 minutter.",
-                    "Det virkede, men det krævede fuld opmærksomhed. I dag er andelsboligmarkedet i højere grad rykket over i Facebook-grupper og heldigvis også herind på roomies. Problemet med Facebook-grupper er dog, at du ikke kan opsætte gode filtre. Du bliver præsenteret for alt, uanset om det har relevans for dig eller ej, og du risikerer at drukne i støj."
+                    "Jeg har ikke bygget denne platform for at blive millionær. Jeg har bygget den for at løse et problem, der gjorde mig rasende. Boligmarkedet er svært nok i forvejen – det burde ikke koste kassen at komme i kontakt med andre mennesker.",
+                    "Fordi denne platform er gratis og ikke tjener penge på dig, har jeg kun én ting at bede om: din støtte. Hvis du har et værelse at leje ud, så opret det her. Hvis du leder efter en roomie, så opret en profil. Og hvis du er enig i, at boligsøgning ikke bør gemmes bag en betalingsmur, så hjælp mig med at dele siden med dit netværk."
                 ],
                 callout: {
-                    icon: "fa-solid fa-bell",
-                    title: "Den smarte løsning",
-                    text: "Du behøver ikke sidde klistret til skærmen dagen lang, som jeg gjorde. Med BoligMatch kan du opsætte præcis de filtre, du ønsker, for eksempel makspris, størrelse og område. Systemet overvåger automatisk markedet for dig, og giver dig besked, når en relevant bolig dukker op.",
+                    icon: "fa-solid fa-users",
+                    title: "Lad os fikse markedet sammen",
+                    text: "Opret dig i dag og bliv en del af løsningen. Det koster ingenting, og det kommer det heller aldrig til.",
                     cta: {
-                        href: "/boligovervaagning",
-                        view: "agent_create",
-                        label: "Opret et gratis BoligMatch",
-                        helper: "Det tager kun et øjeblik."
+                        href: "/opret",
+                        view: "signup",
+                        label: "Opret gratis profil",
+                        helper: "Det tager under 1 minut."
                     }
                 }
-            },
-            {
-                title: "Trin 3: Gå skridtet videre med flyer-tricket",
-                body: [
-                    "Da jeg endelig spottede lejligheden, besluttede jeg mig for at skille mig endnu mere ud. Dagen efter jeg havde sendt sælgeren min besked, kørte jeg ud til adressen og hang en flyer op i opgangen. Her skrev jeg, at jeg var bankgodkendt og søgte en lejlighed præcis som deres.",
-                    "Det initiativ tog sælgerne og foreningen rigtig godt imod. Det viste ægte engagement og seriøsitet, og det er et trick, du med fordel kan overveje, hvis du virkelig har fundet noget, der passer perfekt."
-                ]
-            },
-            {
-                title: "Trin 4: Luk aftalen, når du står i lejligheden",
-                body: [
-                    "Når jeg først kom ud og så en andelsbolig, havde jeg ét mål: Jeg ville hurtigt finde ud af, om jeg reelt kunne se mig selv bo der. Ikke om den var perfekt på alle parametre, men om den var god nok til, at jeg ville købe den, hvis papirerne også så fornuftige ud.",
-                    "Hvis svaret var ja, sagde jeg det tydeligt til sælger med det samme og gav hånd på stedet. Det skaber en helt anden psykologisk forbindelse end at sige: “Jeg vender lige tilbage.” Pludselig er du ikke bare endnu en interesseret køber i bunken. Du er personen, der stod i lejligheden, var seriøs, tog en beslutning og gjorde det nemt for sælger at vælge dig.",
-                    "Det betyder selvfølgelig ikke, at du skal springe papirarbejdet over eller købe noget ukritisk. Men i et hurtigt marked kan det gøre en stor forskel, at sælger mærker din beslutning, mens I står ansigt til ansigt."
-                ]
-            },
-            {
-                title: "Resultatet",
-                body: [
-                    "Ved at være forberedt og lynhurtig på tasterne blev jeg på under én måned tilbudt fremvisninger på 10 fede andelsboliger i København.",
-                    "Jeg endte med at købe en af dem: en dejlig 80 kvm lejlighed til kun 1,1 mio. kr. og 2.600 kr. om måneden i Gentofte."
-                ]
-            },
-            {
-                title: "Sådan gør du det samme",
-                body: [
-                    "Du kan finde den andelsbolig, du drømmer om, uden at bruge alle dine vågne timer på det."
-                ],
-                bullets: [
-                    "Få styr på din bankgodkendelse.",
-                    "Skriv din besked til sælger på forhånd.",
-                    "Opret et gratis BoligMatch på roomies, så du får besked, når relevante boliger dukker op.",
-                    "Reagér hurtigt, når den rigtige bolig lander i indbakken.",
-                    "Beslut dig allerede på fremvisningen, og sig tydeligt til sælger, hvis du gerne vil købe boligen."
-                ]
-            }
-        ],
-        relatedCta: {
-            eyebrow: "Læs også denne blog",
-            title: "Historien bag roomies",
-            text: "Læs hvorfor jeg byggede platformen, og hvordan en frustrerende boligjagt blev til roomies.",
-            href: "/blog?slug=historien-bag-andelsbolig-basen",
-            view: "blog",
-            icon: "fa-solid fa-arrow-right",
-            label: "Læs historien bag siden"
-        }
-    },
-    {
-        slug: "historien-bag-andelsbolig-basen",
-        title: "Historien bag roomies",
-        excerpt: "Hvorfor jeg byggede roomies, og hvordan en frustrerende boligjagt blev til en billigere, nemmere og tryggere platform for andelsboliger.",
-        publishedDate: "2026-04-30",
-        displayDate: "30. april 2026",
-        readingTime: "3 min. læsning",
-        author: "Julian Køster",
-        category: "Om platformen",
-        heroIcon: "fa-solid fa-house-chimney",
-        intro: "Hej, jeg hedder Julian. Jeg er 30 år, bor sammen med min kæreste og to dejlige sønner, og jeg står bag roomies.",
-        sections: [
-            {
-                title: "Idéen opstod i min egen boligjagt",
-                body: [
-                    "Idéen til roomies opstod, da jeg selv ledte efter en andelsbolig. Jeg oplevede et marked, der var utroligt uoverskueligt, og hvor det samtidig var unødvendigt dyrt blot at få lov til at kontakte en sælger.",
-                    "Det føltes forkert. Ikke fordi en god platform ikke må koste penge, men fordi prisen og oplevelsen ikke hang sammen med den værdi, man fik som boligsøgende."
-                ]
-            },
-            {
-                title: "Fra frustration til platform",
-                body: [
-                    "Med min baggrund som softwareudvikler besluttede jeg mig for at tage sagen i egen hånd. Jeg byggede en moderne platform fra bunden, hvor sikkerhed og solidt håndværk er i højsædet.",
-                    "Men det vigtigste fokus har hele tiden været enkelt: Det skal være billigt, nemt og trygt at finde sin drømmebolig."
-                ],
-                callout: {
-                    icon: "fa-solid fa-bell",
-                    title: "Boligjagten skal ikke kræve konstant opmærksomhed",
-                    text: "Derfor byggede jeg BoligMatch, så du kan sætte dine ønsker op én gang og få besked, når en relevant andelsbolig dukker op.",
-                    cta: {
-                        href: "/boligovervaagning",
-                        view: "agent_create",
-                        label: "Opret et gratis BoligMatch",
-                        helper: "Så holder vi øje med markedet for dig."
-                    }
-                }
-            },
-            {
-                title: "Ingen dyre mellemled",
-                body: [
-                    "Ved at bygge et moderne og automatiseret system har vi fjernet de dyre mellemled. Ingen skjulte gebyrer. Bare solidt håndværk og en ærlig platform, der forbinder købere, sælgere og folk, der ønsker at bytte andelsbolig.",
-                    "Sælgere kan oprette annoncer gratis, og købere får et samlet sted at lede i stedet for at skulle holde øje med et fragmenteret marked på tværs af internettet."
-                ]
-            },
-            {
-                title: "Velkommen til",
-                body: [
-                    "Jeg håber, siden kan gøre din boligjagt lidt lettere, lidt billigere og meget mere overskuelig.",
-                    "Gå på opdagelse i boligerne, eller opret din egen annonce helt gratis."
-                ]
             }
         ],
         finalCta: {
-            eyebrow: "Kom godt i gang",
-            title: "Find eller opret en andelsbolig på få minutter",
-            text: "Uanset om du leder, sælger eller vil bytte, kan du starte gratis og se, om roomies passer til dig.",
+            eyebrow: "Klar til at finde din nye roomie?",
+            title: "Start din boligsøgning uden betalingsmur.",
+            text: "Opret en profil, find ledige værelser eller lej dit eget værelse ud – helt gratis.",
             primary: {
-                href: "/liste",
-                view: "housing_list",
-                icon: "fa-solid fa-magnifying-glass",
-                label: "Se aktuelle boliger"
+                href: "/opret",
+                view: "signup",
+                icon: "fa-regular fa-user",
+                label: "Opret gratis profil"
             },
             secondary: {
-                href: "/saelg-andelsbolig-selv-koncept",
-                view: "create",
-                icon: "fa-solid fa-plus",
-                label: "Opret gratis annonce"
+                href: "/vaerelser",
+                view: "room_list",
+                icon: "fa-solid fa-magnifying-glass",
+                label: "Se ledige værelser"
             }
-        },
-        relatedCta: {
-            eyebrow: "Læs også denne blog",
-            title: "Sådan fik jeg tilbudt 10 andelsboliger på under en måned",
-            text: "Læs den konkrete historie bag min egen boligjagt, taktikken, beskeden til sælger og flyer-tricket.",
-            href: "/blog?slug=saadan-fik-jeg-tilbudt-10-andelsboliger-i-koebenhavn",
-            view: "blog",
-            icon: "fa-solid fa-arrow-right",
-            label: "Læs hvordan"
         }
     }
 ];
@@ -275,14 +179,14 @@ function renderBlogArticle(slug) {
                             </div>
 
                             <div class="blog-author-card d-inline-flex align-items-center gap-3 rounded-pill bg-white shadow-sm border px-3 py-2 mb-4">
-                                <img src="/pics/julian_blog3.webp"
-                                     alt="Julian Køster, stifter af roomies"
+                                <img src="${BLOG_AUTHOR_IMAGE}"
+                                     alt="${post.author}, stifter af roomies"
                                      width="56"
                                      height="56"
                                      class="blog-author-photo rounded-circle flex-shrink-0"
                                      loading="eager">
                                 <div class="text-start">
-                                    <div class="fw-bold company-dark">Julian Køster</div>
+                                    <div class="fw-bold company-dark">${post.author}</div>
                                     <div class="small text-muted fw-semibold">Stifter af roomies</div>
                                 </div>
                             </div>
@@ -414,20 +318,20 @@ function renderCalloutCta(cta) {
 
 function renderFinalCta(post) {
     const cta = post.finalCta || {
-        eyebrow: "Klar til at gøre boligjagten lettere?",
-        title: "Sæt boligjagten på autopilot.",
-        text: "Opsæt dine ønsker én gang, og få besked, når en relevant andelsbolig dukker op.",
+        eyebrow: "Klar til at finde din nye roomie?",
+        title: "Start din boligsøgning uden betalingsmur.",
+        text: "Opret en profil, find ledige værelser eller lej dit eget værelse ud – helt gratis.",
         primary: {
-            href: "/boligovervaagning",
-            view: "agent_create",
-            icon: "fa-regular fa-bell",
-            label: "Opret et gratis BoligMatch"
+            href: "/opret",
+            view: "signup",
+            icon: "fa-regular fa-user",
+            label: "Opret gratis profil"
         },
         secondary: {
-            href: "/liste",
-            view: "housing_list",
+            href: "/vaerelser",
+            view: "room_list",
             icon: "fa-solid fa-magnifying-glass",
-            label: "Se aktuelle andelsboliger"
+            label: "Se ledige værelser"
         }
     };
 

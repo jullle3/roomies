@@ -1,8 +1,157 @@
 import {authFetch} from "../auth/auth.js";
 import {basePath, s3Url} from "../config/config.js";
 import {displayErrorMessage} from "../utils.js";
+import {preloadRooms} from "../rooms/room_cache.js";
 
 let scannerHighlightedUnavailableClickHandlerReady = false;
+
+export async function loadLandingNewRooms() {
+    const container = document.getElementById("landing-new-rooms");
+    if (!container) return;
+
+    container.hidden = false;
+    container.innerHTML = renderLandingRoomsLoadingState();
+
+    try {
+        const rooms = await preloadRooms();
+        const newestRooms = Array.isArray(rooms)
+            ? rooms
+                .filter(room => room && room.deleted !== true && room.visible !== false)
+                .sort((a, b) => Number(b.created || 0) - Number(a.created || 0))
+                .slice(0, 3)
+            : [];
+
+        container.innerHTML = newestRooms.length
+            ? newestRooms.map(renderLandingRoomCard).join("")
+            : renderLandingRoomsEmptyState();
+    } catch (error) {
+        console.error("Failed to render landing rooms", error);
+        container.innerHTML = renderLandingRoomsEmptyState();
+    }
+}
+
+function renderLandingRoomsLoadingState() {
+    return `
+        <div class="col-12">
+            <div class="p-4 p-md-5 bg-light rounded-4 text-center">
+                <i class="fa-solid fa-circle-notch fa-spin text-primary-coral mb-3"></i>
+                <p class="fw-bold text-muted mb-0">Indlæser nye værelser...</p>
+            </div>
+        </div>
+    `;
+}
+
+function renderLandingRoomsEmptyState() {
+    return `
+        <div class="col-12">
+            <div class="p-4 p-md-5 bg-light rounded-4 text-center border">
+                <i class="fa-regular fa-face-smile text-primary-coral fs-2 mb-3"></i>
+                <h3 class="h5 fw-bold mb-2">Ingen værelser endnu</h3>
+                <p class="text-muted mb-4">De første roomies er på vej ind. Du kan allerede oprette din egen annonce gratis.</p>
+                <a href="/udlej-vaerelse" data-view="udlej_vaerelse" class="btn btn-primary-coral rounded-pill px-4 py-2 fw-bold">
+                    Udlej værelse
+                </a>
+            </div>
+        </div>
+    `;
+}
+
+function renderLandingRoomCard(room) {
+    const id = room._id || room.id || "";
+    const title = room.title || "Ledigt værelse";
+    const area = formatLandingRoomArea(room);
+    const image = getLandingRoomImage(room);
+    const avatar = getLandingRoomAvatar(room);
+    const host = room.host_name || room.created_by_name || "en roomie";
+    const price = Number(room.monthly_price ?? room.price ?? 0);
+    const size = Number(room.square_meters ?? 0);
+    const detailUrl = `/vaerelse?id=${encodeURIComponent(id)}`;
+    const vibes = getLandingRoomVibes(room);
+
+    return `
+        <div class="col-12 col-md-6 col-lg-4">
+            <article class="card room-card h-100">
+                <a class="room-card-detail-link" href="${detailUrl}" aria-label="Se detaljer for ${escapeHtml(title)}"></a>
+                <div class="room-thumb-wrapper">
+                    <img class="room-photo" src="${image}" alt="${escapeHtml(title)}" loading="lazy">
+                    <span class="room-search-available badge bg-white text-dark rounded-pill shadow-sm">
+                        <i class="fa-regular fa-calendar me-1 text-primary"></i>${formatLandingAvailableDate(room.available_from)}
+                    </span>
+                    <img class="avatar-overlap" src="${avatar}" alt="${escapeHtml(host)}" loading="lazy">
+                </div>
+
+                <div class="card-body p-4 pt-4 mt-2 d-flex flex-column">
+                    <div class="d-flex justify-content-between align-items-start mb-2">
+                        <div>
+                            <h3 class="h5 fw-bold mb-2">${escapeHtml(title)}</h3>
+                            <p class="text-muted small mb-0"><i class="fa-solid fa-location-dot me-1"></i>${escapeHtml(area)}</p>
+                        </div>
+                    </div>
+
+                    <strong class="room-search-price d-block mb-3">${formatLandingRoomNumber(price)} <span>kr./md</span></strong>
+
+                    <div class="d-flex flex-wrap gap-2 mb-4">
+                        ${vibes.map(vibe => `<span class="vibe-tag">${escapeHtml(vibe)}</span>`).join("")}
+                    </div>
+
+                    <div class="room-search-facts d-flex justify-content-between align-items-center small text-muted fw-medium mt-auto pt-3 border-top">
+                        <span><i class="fa-regular fa-calendar me-1"></i>${formatLandingRoomCreated(room.created)}</span>
+                        <span>${size ? `${formatLandingRoomNumber(size)} m²` : "Størrelse ikke angivet"}</span>
+                    </div>
+                </div>
+            </article>
+        </div>
+    `;
+}
+
+function getLandingRoomVibes(room) {
+    const vibes = [];
+    if (room.furnished) vibes.push("Møbleret");
+    if (room.cpr_registration_allowed) vibes.push("CPR muligt");
+    if (room.cleaning_plan) vibes.push("Rengøringsplan");
+    if (room.communal_dinners) vibes.push("Fællesspisning");
+    if (room.pets_allowed) vibes.push("Kæledyr");
+    return vibes.length ? vibes.slice(0, 3) : ["Roomie"];
+}
+
+function getLandingRoomAvatar(room) {
+    return room.avatar || room.user_avatar || `${basePath}/pics/community-young-woman-1.png`;
+}
+
+function getLandingRoomImage(room) {
+    const image = Array.isArray(room.images) ? room.images[0] : null;
+    const imageName = typeof image === "string" ? image : image?.name || image?.url || image?.src || image?.image_url || image?.cloudflare_url;
+    if (!imageName) return `${basePath}/pics/udlej-vaerelse-example-room.png`;
+    if (/^https?:\/\//i.test(imageName)) return imageName;
+    return `${s3Url}/${String(imageName).replace(/^\/+/, "")}`;
+}
+
+function formatLandingRoomArea(room) {
+    const postal = [room.postal_number, room.postal_name || room.city].filter(Boolean).join(" ");
+    return postal || room.address || "Område ikke angivet";
+}
+
+function formatLandingRoomCreated(value) {
+    if (!value) return "Ny annonce";
+
+    const date = new Date(Number(value) * 1000);
+    if (Number.isNaN(date.getTime())) return "Ny annonce";
+
+    return `Oprettet ${new Intl.DateTimeFormat("da-DK", {day: "numeric", month: "short"}).format(date)}`;
+}
+
+function formatLandingAvailableDate(value) {
+    if (!value) return "aftale";
+
+    const date = new Date(Number(value) * 1000);
+    if (Number.isNaN(date.getTime())) return "aftale";
+
+    return new Intl.DateTimeFormat("da-DK", {day: "numeric", month: "short"}).format(date);
+}
+
+function formatLandingRoomNumber(value) {
+    return new Intl.NumberFormat("da-DK").format(Number(value || 0));
+}
 
 export function loadFeaturedHousings(advertisementData) {
     const container = document.getElementById("featured-housings-container");

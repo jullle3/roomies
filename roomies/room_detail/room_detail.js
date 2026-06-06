@@ -1,5 +1,6 @@
 import {getCachedRooms, getRoomById} from "../rooms/room_cache.js";
 import {updateMetaTags} from "../utils.js";
+import {s3Url} from "../config/config.js";
 
 export async function renderRoomDetail(roomId) {
     const container = document.getElementById("room-detail-content");
@@ -19,7 +20,9 @@ export async function renderRoomDetail(roomId) {
     }
 
     const viewModel = normalizeRoomDetail(room);
+    removeExistingPhotoViewer();
     container.innerHTML = renderRoomDetailHtml(viewModel);
+    setupRoomPhotoViewer(container);
     updateMetaTags(
         `${viewModel.title} | roomies`,
         viewModel.description || `Ledigt værelse i ${viewModel.area}. Se pris, størrelse og hverdagen i hjemmet.`,
@@ -48,8 +51,8 @@ function normalizeRoomDetail(room) {
         deposit: Number(room.deposit ?? 0),
         prepaidRent: Number(room.prepaid_rent ?? 0),
         size: Number(room.square_meters ?? 0),
-        availableFrom: room.available_from || "",
-        rentalPeriod: room.rental_period || "Efter aftale",
+        availableFrom: room.available_from ?? null,
+        rentalPeriod: formatRentalPeriod(readRentalPeriodMonths(room)),
         created: room.created || null,
         available: room.available !== false,
         images: getRoomImages(room),
@@ -73,12 +76,17 @@ function renderRoomDetailHtml(room) {
                 <div class="room-detail-top-grid">
                     <div class="room-detail-media-column">
                         <div class="room-detail-gallery ${secondaryImages.length ? "" : "room-detail-gallery-single"}">
-                            <img class="room-detail-main-image" src="${mainImage}" alt="${escapeHtml(room.title)}" loading="eager">
+                            <button class="room-detail-photo-trigger room-detail-main-photo-trigger" type="button" data-room-photo-open="0" aria-label="Vis billede 1 i fuld størrelse">
+                                <img class="room-detail-main-image" src="${mainImage}" alt="${escapeHtml(room.title)}" loading="eager">
+                            </button>
                             ${renderStatusBadge(room)}
+                            ${renderGalleryHint(room)}
                             ${secondaryImages.length ? `
                                 <div class="room-detail-side-gallery">
                                     ${secondaryImages.map((image, index) => `
-                                        <img src="${image}" alt="${escapeHtml(`${room.title} billede ${index + 2}`)}" loading="lazy">
+                                        <button class="room-detail-photo-trigger" type="button" data-room-photo-open="${index + 1}" aria-label="Vis billede ${index + 2} i fuld størrelse">
+                                            <img src="${image}" alt="${escapeHtml(`${room.title} billede ${index + 2}`)}" loading="lazy">
+                                        </button>
                                     `).join("")}
                                 </div>
                             ` : ""}
@@ -106,6 +114,8 @@ function renderRoomDetailHtml(room) {
                             </div>
                         </div>
 
+                        ${renderInlineContactCta(room)}
+
                         ${renderSimilarRoomsSection(room.similarRooms)}
                     </div>
                     <div class="room-detail-sidebar-column">
@@ -116,6 +126,106 @@ function renderRoomDetailHtml(room) {
                 </div>
             </div>
         </section>
+        ${renderPhotoViewer(room)}
+    `;
+}
+
+function renderGalleryHint(room) {
+    if (room.images.length <= 1) return "";
+
+    return `
+        <button class="room-detail-gallery-hint" type="button" data-room-photo-open="0" aria-label="Se alle ${room.images.length} billeder">
+            <i class="fa-regular fa-images"></i>
+            <span>${room.images.length} billeder</span>
+        </button>
+    `;
+}
+
+function renderPhotoViewer(room) {
+    return `
+        <div class="modal fade room-detail-photo-modal" data-room-photo-viewer tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-fullscreen m-0">
+                <div class="modal-content border-0 rounded-0 bg-transparent">
+                    <button class="room-detail-photo-viewer-back room-detail-photo-viewer-back-top" type="button" data-bs-dismiss="modal" data-room-photo-close>
+                        <i class="fa-solid fa-arrow-left"></i>
+                        <span>Tilbage</span>
+                    </button>
+                    <div class="room-detail-photo-viewer-scroll" data-room-photo-scroll>
+                        ${room.images.map((image, index) => `
+                            <figure class="room-detail-photo-viewer-item" data-room-photo-index="${index}">
+                                <div class="room-detail-photo-viewer-frame">
+                                    <img src="${image}" alt="${escapeHtml(`${room.title} billede ${index + 1}`)}">
+                                </div>
+                            </figure>
+                        `).join("")}
+                        <div class="room-detail-photo-viewer-footer">
+                            <button class="room-detail-photo-viewer-back room-detail-photo-viewer-back-bottom" type="button" data-bs-dismiss="modal" data-room-photo-close>
+                                <i class="fa-solid fa-arrow-left"></i>
+                                <span>Tilbage</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+}
+
+function setupRoomPhotoViewer(container) {
+    if (container.dataset.photoViewerBound) return;
+    container.dataset.photoViewerBound = "1";
+
+    container.addEventListener("click", event => {
+        const openButton = event.target.closest("[data-room-photo-open]");
+        if (openButton) {
+            openPhotoViewer(container, Number(openButton.dataset.roomPhotoOpen));
+        }
+    });
+}
+
+function openPhotoViewer(container, index) {
+    const modalEl = container.querySelector("[data-room-photo-viewer]")
+        || document.querySelector("[data-room-photo-viewer]");
+    if (modalEl?.parentElement !== document.body) {
+        document.body.appendChild(modalEl);
+    }
+
+    const galleryEl = modalEl?.querySelector("[data-room-photo-scroll]");
+    if (!modalEl || !galleryEl || !window.bootstrap?.Modal) return;
+
+    const modal = window.bootstrap.Modal.getOrCreateInstance(modalEl);
+    galleryEl.scrollTop = 0;
+
+    modalEl.addEventListener("shown.bs.modal", () => {
+        const target = galleryEl.querySelector(`[data-room-photo-index="${Number.isFinite(index) ? index : 0}"]`);
+        if (target) target.scrollIntoView({block: "start"});
+        modalEl.querySelector("[data-room-photo-close]")?.focus();
+    }, {once: true});
+
+    modal.show();
+}
+
+function removeExistingPhotoViewer() {
+    document.querySelectorAll("[data-room-photo-viewer]").forEach(viewer => {
+        window.bootstrap?.Modal?.getInstance(viewer)?.hide();
+        viewer.remove();
+    });
+}
+
+function renderInlineContactCta(room) {
+    const unavailable = room.available === false;
+    const buttonText = unavailable ? "Værelset er ikke ledigt" : "Kontakt udlejer";
+
+    return `
+        <div class="room-detail-inline-cta">
+            <div>
+                <strong>Er værelset noget for dig?</strong>
+                <span>Send en besked og hør mere om hjemmet.</span>
+            </div>
+            <button class="btn btn-primary-coral rounded-pill px-4 py-3 fw-bold" type="button" ${unavailable ? "disabled" : ""}>
+                <i class="fa-regular fa-message me-2"></i>${buttonText}
+            </button>
+        </div>
     `;
 }
 
@@ -166,7 +276,7 @@ function renderContactCard(room) {
                 <p><span>Depositum</span><b>${formatMoneyOrDash(room.deposit)}</b></p>
                 <p><span>Forudbetalt leje</span><b>${formatMoneyOrDash(room.prepaidRent)}</b></p>
                 <p><span>Ledig fra</span><b>${formatAvailableDate(room.availableFrom)}</b></p>
-                <p><span>Lejeperiode</span><b>${escapeHtml(room.rentalPeriod || "Efter aftale")}</b></p>
+                <p><span>Lejeperiode</span><b>${escapeHtml(room.rentalPeriod)}</b></p>
                 <p><span>Størrelse</span><b>${room.size ? `${formatNumber(room.size)} m²` : "-"}</b></p>
             </div>
             <button class="btn btn-primary-coral rounded-pill w-100 py-3 fw-bold" type="button" ${unavailable ? "disabled" : ""}>
@@ -199,7 +309,7 @@ function renderHouseholdFeature(feature) {
 }
 
 function getHouseholdFeatures(room) {
-    return [
+    const alwaysShownFeatures = [
         {
             icon: "fa-solid fa-couch",
             label: "Møbleret",
@@ -215,9 +325,12 @@ function getHouseholdFeatures(room) {
         {
             icon: "fa-solid fa-paw",
             label: "Kæledyr",
-            text: room.pets_allowed ? "Kæledyr er velkomne" : "Kæledyr ikke angivet som muligt",
+            text: room.pets_allowed ? "Kæledyr er velkomne" : "Kæledyr ikke tilladt",
             active: room.pets_allowed === true
-        },
+        }
+    ];
+
+    const positiveOnlyFeatures = [
         {
             icon: "fa-solid fa-broom",
             label: "Rengøring",
@@ -236,7 +349,9 @@ function getHouseholdFeatures(room) {
             text: "En lukket dør respekteres fuldt ud",
             active: room.privacy_focused === true
         }
-    ];
+    ].filter(feature => feature.active);
+
+    return [...alwaysShownFeatures, ...positiveOnlyFeatures];
 }
 
 function getRoomImages(room) {
@@ -284,7 +399,14 @@ function normalizeSimilarRoom(room) {
 
 function getImageUrl(image) {
     if (typeof image === "string") return image;
+    if (image?.name) return buildS3ImageUrl(image.name);
     return image?.url || image?.src || image?.image_url || image?.cloudflare_url || "";
+}
+
+function buildS3ImageUrl(imageName) {
+    if (!imageName) return "";
+    if (/^https?:\/\//i.test(imageName)) return imageName;
+    return `${s3Url}/${String(imageName).replace(/^\/+/, "")}`;
 }
 
 function renderLoadingState() {
@@ -318,18 +440,68 @@ function renderMissingState() {
 }
 
 function formatAvailableDate(value) {
-    if (!value) return "Efter aftale";
-    const date = new Date(`${value}T00:00:00`);
+    const date = parseDateValue(value);
     if (Number.isNaN(date.getTime())) return "Efter aftale";
     return new Intl.DateTimeFormat("da-DK", {day: "numeric", month: "long", year: "numeric"}).format(date);
 }
 
 function formatCreatedDate(value) {
     if (!value) return "Oprettelsesdato ikke angivet";
-    const timestamp = typeof value === "number" ? value * 1000 : value;
-    const date = new Date(timestamp);
+    const date = parseDateValue(value);
     if (Number.isNaN(date.getTime())) return "Oprettelsesdato ikke angivet";
     return `Oprettet ${new Intl.DateTimeFormat("da-DK", {day: "numeric", month: "long", year: "numeric"}).format(date)}`;
+}
+
+function parseDateValue(value) {
+    if (!value) return new Date(NaN);
+
+    const numericValue = Number(value);
+    if (Number.isFinite(numericValue) && String(value).trim() !== "") {
+        return new Date(numericValue < 10000000000 ? numericValue * 1000 : numericValue);
+    }
+
+    if (typeof value === "string" && /^\d{4}-\d{2}-\d{2}$/.test(value)) {
+        return new Date(`${value}T00:00:00`);
+    }
+
+    return new Date(value);
+}
+
+function formatRentalPeriod(value) {
+    if (value == null || value === "") return "Ubegrænset";
+
+    const months = Number(value);
+    if (Number.isFinite(months)) {
+        if (months > 0) return formatMonthPeriod(months);
+        return "Efter aftale";
+    }
+
+    return String(value);
+}
+
+function formatMonthPeriod(value) {
+    const totalMonths = Math.round(value);
+    const years = Math.floor(totalMonths / 12);
+    const months = totalMonths % 12;
+
+    if (years > 0 && months > 0) {
+        return `${formatYearCount(years)} og ${formatMonthCount(months)}`;
+    }
+
+    if (years > 0) return formatYearCount(years);
+    return formatMonthCount(totalMonths);
+}
+
+function formatYearCount(value) {
+    return value === 1 ? "1 år" : `${formatNumber(value)} år`;
+}
+
+function formatMonthCount(value) {
+    return value === 1 ? "1 måned" : `${formatNumber(value)} måneder`;
+}
+
+function readRentalPeriodMonths(room) {
+    return room.rental_period_months ?? room.rentalPeriodMonths ?? null;
 }
 
 function formatMoneyOrDash(value) {

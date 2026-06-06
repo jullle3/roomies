@@ -18,6 +18,7 @@ import {
     fetchAdvertisementData,
     initDynamicScrapedCount,
     initDynamicUserCount,
+    loadLandingNewRooms,
     loadFeaturedHousings,
     loadScannerHighlightedListings
 } from "./landing/landing.js";
@@ -180,6 +181,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // 7. Post-Load Logic (non-critical — errors here must not block the UI)
     try {
+        await loadLandingNewRooms();
+
         const advertisementData = await fetchAdvertisementData();
         if (advertisementData) {
             loadScannerHighlightedListings(advertisementData);

@@ -146,10 +146,32 @@ body {
     z-index: 1;
 }
 
-.custom-dropdown .dropdown-item:hover {
+.custom-dropdown .dropdown-item:hover,
+.custom-dropdown .dropdown-item:focus {
     background-color: #F3F4F6;
     color: var(--text-main);
     transform: translateX(4px); /* Giver en blød, fysisk interaktion */
+}
+
+.custom-dropdown .dropdown-item:active,
+.custom-dropdown .dropdown-item.active {
+    background-color: transparent;
+    color: var(--text-muted);
+}
+
+.custom-dropdown .dropdown-item:focus-visible {
+    outline: 2px solid rgba(255, 107, 107, 0.35);
+    outline-offset: 2px;
+}
+
+.custom-dropdown .dropdown-item.text-danger:active,
+.custom-dropdown .dropdown-item.text-danger.active {
+    color: var(--bs-danger) !important;
+}
+
+.custom-dropdown .dropdown-item.text-primary-coral:active,
+.custom-dropdown .dropdown-item.text-primary-coral.active {
+    color: var(--color-primary) !important;
 }
 
 /* Icons i Dropdowns */

@@ -39,7 +39,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
     <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
     <!--    Custom Merged css files -->
-    <link rel="stylesheet" href="roomies/mergedStyles.css?roomies_version=768">
+    <link rel="stylesheet" href="roomies/mergedStyles.css?roomies_version=771">
     <style>
         .nav-auth-btn:active,
         .nav-auth-btn:focus,
@@ -58,7 +58,7 @@
             color: #ffffff !important;
         }
     </style>
-    <script defer type="module" src="roomies/mergedJS.js?roomies_version=768"></script>
+    <script defer type="module" src="roomies/mergedJS.js?roomies_version=771"></script>
 
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18047412076"></script>
@@ -4030,49 +4030,49 @@ Venlig hilsen</textarea>
 
 <!-- Feedback Modal -->
 <div class="modal fade" id="contactModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content border-0 rounded-4 shadow-lg">
+    <div class="modal-dialog modal-dialog-centered feedback-modal-dialog">
+        <div class="modal-content border-0 feedback-modal-content">
 
-            <div class="modal-header border-0 pb-0">
-                <button type="button" class="btn-close ms-auto opacity-50" data-bs-dismiss="modal" aria-label="Luk"></button>
+            <div class="feedback-modal-closebar">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Luk"></button>
             </div>
 
-            <div class="modal-body px-4 px-md-5 pb-5 pt-0 text-center">
+            <div class="modal-body feedback-modal-body text-center">
 
-                <div class="d-inline-flex align-items-center justify-content-center bg-primary bg-opacity-10 rounded-circle mb-4" style="width: 80px; height: 80px;">
-                    <i class="fa-regular fa-comments text-primary fa-2x"></i>
+                <div class="feedback-modal-icon d-inline-flex align-items-center justify-content-center rounded-circle mb-4">
+                    <i class="fa-regular fa-comments"></i>
                 </div>
 
-                <h3 class="fw-bold company-dark mb-3">Vi vil gerne høre fra dig</h3>
+                <h3 class="feedback-modal-title mb-3">Vi vil gerne høre fra dig</h3>
 
-                <p class="text-muted mb-4" style="font-size: 1.1rem; line-height: 1.6;">
+                <p class="feedback-modal-copy mb-4">
                     Vi sætter stor pris på dit input. Har du idéer, rettelser eller ønsker til nye funktioner?
                     Vi lytter og implementerer forbedringer løbende.
                 </p>
 
-                <div class="d-flex align-items-center justify-content-center gap-3 text-start bg-light bg-opacity-75 border rounded-4 p-3 mb-4 mx-auto" style="max-width: 390px;">
+                <div class="feedback-founder-note d-flex align-items-center gap-3 text-start mb-4 mx-auto">
                     <img src="/pics/julian_blog3.webp"
                          alt="Julian fra roomies"
-                         class="rounded-circle shadow-sm flex-shrink-0"
+                         class="rounded-circle flex-shrink-0"
                          width="56"
                          height="56"
                          style="object-fit: cover;">
-                    <p class="small text-muted mb-0" style="line-height: 1.5;">
+                    <p class="small text-muted mb-0">
                         Jeg læser alle beskeder og bruger feedbacken til at forbedre siden.
                         <span class="d-block fw-bold company-dark mt-1">Julian, stifter</span>
                     </p>
                 </div>
 
                 <div class="d-grid gap-2 col-lg-10 mx-auto mb-4">
-                    <a href="mailto:support@roomies.dk" class="btn btn-primary btn-lg rounded-pill py-3 fw-bold shadow-sm">
+                    <a href="mailto:support@roomies.dk" class="btn btn-primary-coral btn-lg rounded-pill py-3 fw-bold shadow-sm">
                         <i class="fa-regular fa-envelope me-2"></i>Send mail direkte
                     </a>
                 </div>
 
-                <div class="pt-3 border-top border-light opacity-75">
-                    <p class="opacity-75 small mb-1">Eller skriv til:</p>
-                    <p class="fw-bold company-dark mb-2">support@roomies.dk</p>
-                    <small class="opacity-75" style="font-size: 0.75rem;">CVR 40606130</small>
+                <div class="feedback-modal-footer">
+                    <p class="small mb-1">Eller skriv til:</p>
+                    <p class="fw-bold mb-2">support@roomies.dk</p>
+                    <small>CVR 40606130</small>
                 </div>
 
             </div>

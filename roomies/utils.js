@@ -239,23 +239,21 @@ export function showConfirmationModal(title, message, onConfirm, confirmButtonCl
     // 2. Cache Elements
     const $confirmButton = $('#confirmActionButton');
     const $icon = $('#confirmationIcon');
-    const $iconContainer = $('#confirmationIconContainer');
+    const $modal = $('#genericConfirmationModal');
 
     // 3. Reset and Apply Button Classes
     $confirmButton.removeClass('btn-danger btn-primary btn-success btn-warning action-button');
     $confirmButton.addClass(confirmButtonClass);
+    $modal.removeClass('confirmation-intent-danger confirmation-intent-info');
 
     // 4. Dynamic "Theming" based on intent
-    // If the button is danger/red, show a Warning Triangle with Red background
     if (confirmButtonClass.includes('btn-danger')) {
-        $icon.attr('class', 'fa-solid fa-triangle-exclamation text-danger fs-1');
-        $iconContainer.css('background-color', 'rgba(220, 53, 69, 0.1)');
+        $modal.addClass('confirmation-intent-danger');
+        $icon.attr('class', 'fa-solid fa-triangle-exclamation generic-confirmation-icon-symbol');
     }
-    // Otherwise assume it's a positive/neutral action (Blue/Primary)
     else {
-        $icon.attr('class', 'fa-solid fa-circle-info text-primary fs-1');
-        // Use the company blue RGBA for the background
-        $iconContainer.css('background-color', 'rgba(45, 75, 242, 0.1)');
+        $modal.addClass('confirmation-intent-info');
+        $icon.attr('class', 'fa-solid fa-circle-info generic-confirmation-icon-symbol');
     }
 
     // 5. Bind Click Handler

@@ -1,12 +1,9 @@
 import {authFetch} from "../auth/auth.js";
 import {displayErrorMessage, decodeJwt, currentUser, getHousingById} from "../utils.js";
-import {stripe_customer_portal} from "../config/config.js";
 import {showView} from "../views/viewManager.js";
 
 export function setupProfileView() {
     setupProfileSettingsHandlers();
-    setupStripeManageButton();
-    setupFavoritesShortcut();
     setupConversationsShortcut();
 }
 
@@ -78,38 +75,6 @@ function setupProfileSettingsHandlers() {
     })
 }
 
-function setupStripeManageButton() {
-    if (!document.getElementById('stripe-manage-btn')) {
-        const manageBtn = document.createElement('a');
-        manageBtn.id = 'stripe-manage-btn';
-        manageBtn.href = stripe_customer_portal;
-        manageBtn.target = '_blank';
-        manageBtn.className = 'btn btn-primary btn-lg w-100 rounded-pill fw-bold shadow-sm mt-4 py-3';
-        manageBtn.textContent = 'Administrer abonnement';
-
-        document.getElementById('profileForm')?.insertAdjacentElement('afterend', manageBtn);
-    }
-}
-
-function setupFavoritesShortcut() {
-    const favBtn = document.getElementById('btn-my-favorites');
-    if (favBtn) {
-        const newBtn = favBtn.cloneNode(true);
-        favBtn.parentNode.replaceChild(newBtn, favBtn);
-
-        newBtn.addEventListener('click', async (e) => {
-            e.preventDefault();
-
-            resetHousingListFilters();
-            const favCheckbox = document.getElementById('filter-favorites');
-            if (favCheckbox) favCheckbox.checked = true;
-
-            await showView('housing_list');
-            window.scrollTo(0, 0);
-        });
-    }
-}
-
 function setupConversationsShortcut() {
     const conversationsBtn = document.getElementById('btn-my-conversations');
     if (conversationsBtn) {
@@ -121,25 +86,6 @@ function setupConversationsShortcut() {
             showView('conversations');
         });
     }
-}
-
-function resetHousingListFilters() {
-    const searchInput = document.getElementById('housing-list-search');
-    if (searchInput) searchInput.value = '';
-
-    const dropdowns = ['price-filter', 'rooms-filter', 'monthly-fee-filter', 'square-meters-filter'];
-    dropdowns.forEach(id => {
-        const el = document.getElementById(id);
-        if (el) el.value = 'all';
-    });
-
-    document.querySelectorAll('.extra-filter-checkbox').forEach(cb => cb.checked = false);
-
-    const defaultTypeRadio = document.getElementById('filter-type-all');
-    if (defaultTypeRadio) defaultTypeRadio.checked = true;
-
-    const sortSelect = document.getElementById('sort-options');
-    if (sortSelect) sortSelect.value = 'created-desc';
 }
 
 // Helper function to update the inputs

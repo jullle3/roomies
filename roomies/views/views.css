@@ -17,3 +17,123 @@
 #landing {
     display: block;
 }
+
+#genericConfirmationModal .generic-confirmation-dialog {
+    width: min(100% - 2rem, 460px);
+}
+
+#genericConfirmationModal .generic-confirmation-content {
+    border-radius: var(--radius-xl);
+    background:
+        radial-gradient(circle at top left, rgba(255, 107, 107, 0.12), transparent 34%),
+        rgba(255, 255, 255, 0.98);
+    box-shadow: var(--shadow-hover);
+}
+
+#genericConfirmationModal .generic-confirmation-body {
+    padding: clamp(1.5rem, 6vw, 2.75rem);
+}
+
+#genericConfirmationModal .generic-confirmation-icon {
+    width: 78px;
+    height: 78px;
+    background: rgba(255, 107, 107, 0.12);
+    color: var(--color-primary);
+    box-shadow: inset 0 0 0 1px rgba(255, 107, 107, 0.18);
+    transition: background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+}
+
+#genericConfirmationModal.confirmation-intent-danger .generic-confirmation-icon {
+    background: rgba(255, 107, 107, 0.12);
+    color: var(--color-primary);
+    box-shadow: inset 0 0 0 1px rgba(255, 107, 107, 0.2);
+}
+
+#genericConfirmationModal.confirmation-intent-info .generic-confirmation-icon {
+    background: rgba(79, 70, 229, 0.1);
+    color: var(--color-premium-start);
+    box-shadow: inset 0 0 0 1px rgba(79, 70, 229, 0.16);
+}
+
+#genericConfirmationModal .generic-confirmation-icon-symbol {
+    font-size: 2rem;
+}
+
+#genericConfirmationModal .generic-confirmation-title {
+    color: var(--text-main);
+    font-family: var(--font-heading);
+    font-size: clamp(1.35rem, 4vw, 1.75rem);
+    font-weight: 800;
+}
+
+#genericConfirmationModal .generic-confirmation-copy {
+    max-width: 34rem;
+    margin-right: auto;
+    margin-left: auto;
+    color: var(--text-muted);
+    font-size: 1.02rem;
+    font-weight: 500;
+    line-height: 1.65;
+}
+
+#genericConfirmationModal .generic-confirmation-actions {
+    align-items: stretch;
+}
+
+#genericConfirmationModal .generic-confirmation-cancel,
+#genericConfirmationModal .generic-confirmation-confirm {
+    min-height: 48px;
+    padding: 0.75rem 1rem;
+    border-radius: var(--radius-pill);
+    transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+#genericConfirmationModal .generic-confirmation-cancel {
+    border: 1px solid #e5e7eb;
+    background: #fff;
+    color: var(--text-main);
+}
+
+#genericConfirmationModal .generic-confirmation-cancel:hover,
+#genericConfirmationModal .generic-confirmation-cancel:focus {
+    border-color: rgba(255, 107, 107, 0.26);
+    background: #fff7f7;
+    color: var(--text-main);
+}
+
+#genericConfirmationModal .generic-confirmation-confirm {
+    border: 0;
+    background: var(--color-primary);
+    color: #fff;
+    box-shadow: 0 12px 24px rgba(255, 107, 107, 0.24);
+}
+
+#genericConfirmationModal .generic-confirmation-confirm:hover,
+#genericConfirmationModal .generic-confirmation-confirm:focus,
+#genericConfirmationModal .generic-confirmation-confirm:active {
+    background: var(--color-primary-hover) !important;
+    color: #fff !important;
+    transform: translateY(-1px);
+    box-shadow: 0 16px 28px rgba(255, 107, 107, 0.28);
+}
+
+#genericConfirmationModal .generic-confirmation-confirm.btn-primary,
+#genericConfirmationModal .generic-confirmation-confirm.action-button {
+    background: var(--color-primary);
+}
+
+#genericConfirmationModal .generic-confirmation-confirm.btn-success {
+    background: #16a34a;
+    box-shadow: 0 12px 24px rgba(22, 163, 74, 0.22);
+}
+
+#genericConfirmationModal .generic-confirmation-confirm.btn-warning {
+    background: #f59e0b;
+    box-shadow: 0 12px 24px rgba(245, 158, 11, 0.22);
+}
+
+@media (max-width: 420px) {
+    #genericConfirmationModal .generic-confirmation-actions {
+        flex-direction: column-reverse;
+    }
+}

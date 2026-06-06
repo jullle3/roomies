@@ -20,6 +20,11 @@ import {
     getBlogStructuredData,
     renderBlogPage
 } from "../blog/blog.js";
+import {
+    renderRoomieAgentCreate,
+    renderRoomieAgentEdit,
+    renderRoomieAgentOverview
+} from "../roomie_agent/roomie_agent.js";
 
 // Setup click events for all views
 const views = {
@@ -36,6 +41,9 @@ const views = {
     create: document.getElementById('create'),
     profile: document.getElementById('profile'),
     conversations: document.getElementById('conversations'),
+    agent: document.getElementById('agent'),
+    agent_create: document.getElementById('agent_create'),
+    agent_edit: document.getElementById('agent_edit'),
     seller_profile: document.getElementById('seller_profile'),
     successful_redirect: document.getElementById('successful_redirect'),
     terms_and_conditions: document.getElementById('terms_and_conditions'),
@@ -58,6 +66,9 @@ const routeToView = {
     '/soeg-vaerelse': 'soeg_vaerelse',
     '/vaerelse': 'room_detail',
     '/udlej-vaerelse': 'udlej_vaerelse',
+    '/boligovervaagning': 'agent',
+    '/boligovervaagning-opret': 'agent_create',
+    '/boligovervaagning-rediger': 'agent_edit',
     '/profil': 'profile',
     '/beskeder': 'conversations',
     '/saelger': 'seller_profile',
@@ -78,7 +89,7 @@ export function getCurrentView() {
 }
 
 // All views that require login
-const loginRequiredViews = ["login", "seller_profile", "successful_redirect", "login", "conversations"];
+const loginRequiredViews = ["login", "seller_profile", "successful_redirect", "login", "conversations", "agent", "agent_create", "agent_edit"];
 const payWalledViews = ["seller_profile", "successful_redirect", "login"];
 
 // Store requested view to remember redirects after login popup
@@ -457,6 +468,15 @@ async function loadViewData(view, viewParams) {
             break;
         case "conversations":
             await renderConversations(viewParams.get("besked_id") || viewParams.get("id"));
+            break;
+        case "agent":
+            await renderRoomieAgentOverview();
+            break;
+        case "agent_create":
+            await renderRoomieAgentCreate();
+            break;
+        case "agent_edit":
+            await renderRoomieAgentEdit(viewParams.get("id"));
             break;
         case "blog":
             renderBlogPage(viewParams.get("slug"));
@@ -846,6 +866,13 @@ function optimizeSEOMetadata(view) {
             'Om roomies | Nem, billig og hurtig bolighandel',
             'Læs historien bag roomies. Vi tilstræber at gøre det mere gennemsigtigt, billigt og nemt at købe, sælge og bytte andelsboliger i Danmark.',
             `${baseUrl}/om-os`
+        );
+    }
+    else if (view === 'agent' || view === 'agent_create' || view === 'agent_edit') {
+        updateMetaTags(
+            'RoomieAgent | Få besked om nye værelser',
+            'Opret en gratis RoomieAgent og få besked, når et værelse matcher dit budget og dine områder.',
+            `${baseUrl}/boligovervaagning`
         );
     }
     else if (view === 'blog') {

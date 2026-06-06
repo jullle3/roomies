@@ -1,4 +1,4 @@
-import {getRoomById} from "../rooms/room_cache.js";
+import {getCachedRooms, getRoomById} from "../rooms/room_cache.js";
 import {updateMetaTags} from "../utils.js";
 
 export async function renderRoomDetail(roomId) {
@@ -29,12 +29,11 @@ export async function renderRoomDetail(roomId) {
 
 function normalizeRoomDetail(room) {
     const postal = [room.postal_number, room.postal_name || room.city].filter(Boolean).join(" ");
-    const address = room.address || [
+    const streetAddress = [
         room.street_name,
-        room.house_number,
-        room.floor,
-        room.floor_side
+        room.house_number
     ].filter(Boolean).join(" ");
+    const address = streetAddress || room.address || "";
 
     return {
         id: room._id || room.id,
@@ -42,16 +41,20 @@ function normalizeRoomDetail(room) {
         description: room.description || "",
         address: address || "Adresse ikke angivet",
         postal: postal || "",
+        postalNumber: room.postal_number || null,
         area: room.postal_name || room.city || postal || "Område ikke angivet",
+        fullAddress: [address || "Adresse ikke angivet", postal].filter(Boolean).join(", "),
         price: Number(room.monthly_price ?? room.price ?? 0),
         deposit: Number(room.deposit ?? 0),
         prepaidRent: Number(room.prepaid_rent ?? 0),
         size: Number(room.square_meters ?? 0),
         availableFrom: room.available_from || "",
         rentalPeriod: room.rental_period || "Efter aftale",
-        rooms: Number(room.current_roomies ?? room.rooms ?? 0),
+        created: room.created || null,
+        available: room.available !== false,
         images: getRoomImages(room),
-        vibes: getRoomVibes(room)
+        householdFeatures: getHouseholdFeatures(room),
+        similarRooms: getSimilarRooms(room)
     };
 }
 
@@ -71,6 +74,7 @@ function renderRoomDetailHtml(room) {
                     <div class="room-detail-media-column">
                         <div class="room-detail-gallery ${secondaryImages.length ? "" : "room-detail-gallery-single"}">
                             <img class="room-detail-main-image" src="${mainImage}" alt="${escapeHtml(room.title)}" loading="eager">
+                            ${renderStatusBadge(room)}
                             ${secondaryImages.length ? `
                                 <div class="room-detail-side-gallery">
                                     ${secondaryImages.map((image, index) => `
@@ -83,7 +87,7 @@ function renderRoomDetailHtml(room) {
                         <div class="room-detail-heading">
                             <span class="room-detail-eyebrow"><i class="fa-solid fa-house-user"></i> Ledigt værelse</span>
                             <h1>${escapeHtml(room.title)}</h1>
-                            <p><i class="fa-solid fa-location-dot"></i>${escapeHtml([room.address, room.postal].filter(Boolean).join(", "))}</p>
+                            <p><i class="fa-solid fa-location-dot"></i>${escapeHtml(room.fullAddress)}</p>
                         </div>
 
                         <div class="room-detail-mobile-card">
@@ -97,10 +101,12 @@ function renderRoomDetailHtml(room) {
 
                         <div class="room-detail-section">
                             <h2>Hverdagen i hjemmet</h2>
-                            <div class="d-flex flex-wrap gap-2">
-                                ${room.vibes.map(vibe => `<span class="vibe-tag">${escapeHtml(vibe)}</span>`).join("")}
+                            <div class="room-detail-feature-grid">
+                                ${room.householdFeatures.map(renderHouseholdFeature).join("")}
                             </div>
                         </div>
+
+                        ${renderSimilarRoomsSection(room.similarRooms)}
                     </div>
                     <div class="room-detail-sidebar-column">
                         <div class="room-detail-desktop-card">
@@ -113,9 +119,47 @@ function renderRoomDetailHtml(room) {
     `;
 }
 
+function renderSimilarRoomsSection(rooms) {
+    if (!rooms.length) return "";
+
+    return `
+        <section class="room-detail-section room-detail-similar-section">
+            <div class="d-flex align-items-end justify-content-between gap-3 mb-3">
+                <div>
+                    <h2 class="mb-1">Lignende værelser</h2>
+                    <p class="text-muted mb-0">Andre muligheder, der kunne passe til dig.</p>
+                </div>
+                <a href="/soeg-vaerelse" data-view="soeg_vaerelse" class="btn btn-link text-decoration-none fw-bold p-0">Se alle</a>
+            </div>
+            <div class="room-detail-similar-grid">
+                ${rooms.map(renderSimilarRoomCard).join("")}
+            </div>
+        </section>
+    `;
+}
+
+function renderSimilarRoomCard(room) {
+    const detailUrl = `/vaerelse?id=${encodeURIComponent(room.id)}`;
+    return `
+        <a href="${detailUrl}" class="room-detail-similar-card">
+            <img src="${room.image}" alt="${escapeHtml(room.title)}" loading="lazy">
+            <div>
+                <h3>${escapeHtml(room.title)}</h3>
+                <p><i class="fa-solid fa-location-dot"></i>${escapeHtml(room.postal || room.area)}</p>
+                <strong>${formatNumber(room.price)} kr./md</strong>
+                <span>${room.size ? `${formatNumber(room.size)} m²` : "Størrelse ikke angivet"}</span>
+            </div>
+        </a>
+    `;
+}
+
 function renderContactCard(room) {
+    const unavailable = room.available === false;
+    const contactText = unavailable ? "Værelset er ikke ledigt" : "Kontakt udlejer";
+
     return `
         <div class="room-detail-contact-card">
+            ${renderStatusBadge(room)}
             <span>Husleje</span>
             <strong>${formatNumber(room.price)} kr./md</strong>
             <div class="room-detail-price-lines">
@@ -125,23 +169,74 @@ function renderContactCard(room) {
                 <p><span>Lejeperiode</span><b>${escapeHtml(room.rentalPeriod || "Efter aftale")}</b></p>
                 <p><span>Størrelse</span><b>${room.size ? `${formatNumber(room.size)} m²` : "-"}</b></p>
             </div>
-            <button class="btn btn-primary-coral rounded-pill w-100 py-3 fw-bold" type="button">
-                <i class="fa-regular fa-message me-2"></i>Kontakt udlejer
+            <button class="btn btn-primary-coral rounded-pill w-100 py-3 fw-bold" type="button" ${unavailable ? "disabled" : ""}>
+                <i class="fa-regular fa-message me-2"></i>${contactText}
             </button>
+            <p class="room-detail-created small text-muted text-center mb-0 mt-3">${formatCreatedDate(room.created)}</p>
             <p class="small text-muted text-center mb-0 mt-3">Kontaktflow kobles på backend, når endpointet er klar.</p>
         </div>
     `;
 }
 
-function getRoomVibes(room) {
-    const vibes = [];
-    if (room.furnished) vibes.push("Møbleret");
-    if (room.cpr_registration_allowed) vibes.push("CPR muligt");
-    if (room.pets_allowed) vibes.push("Kæledyr tilladt");
-    if (room.cleaning_plan) vibes.push("Rengøringsplan");
-    if (room.communal_dinners) vibes.push("Fællesspisning");
-    if (room.privacy_focused) vibes.push("Ro og privatliv");
-    return vibes.length ? vibes : ["Roomie-venligt hjem"];
+function renderStatusBadge(room) {
+    if (room.available === false) {
+        return `<span class="room-detail-status room-detail-status-unavailable"><i class="fa-solid fa-circle-xmark"></i>Ikke ledigt</span>`;
+    }
+    return "";
+}
+
+function renderHouseholdFeature(feature) {
+    const stateClass = feature.active ? "is-active" : "is-muted";
+    return `
+        <div class="room-detail-feature ${stateClass}">
+            <i class="${feature.icon}"></i>
+            <div>
+                <strong>${escapeHtml(feature.label)}</strong>
+                <span>${escapeHtml(feature.text)}</span>
+            </div>
+        </div>
+    `;
+}
+
+function getHouseholdFeatures(room) {
+    return [
+        {
+            icon: "fa-solid fa-couch",
+            label: "Møbleret",
+            text: room.furnished ? "Værelset er møbleret" : "Ikke møbleret",
+            active: room.furnished === true
+        },
+        {
+            icon: "fa-solid fa-address-card",
+            label: "CPR",
+            text: room.cpr_registration_allowed ? "CPR-registrering muligt" : "CPR ikke angivet som muligt",
+            active: room.cpr_registration_allowed === true
+        },
+        {
+            icon: "fa-solid fa-paw",
+            label: "Kæledyr",
+            text: room.pets_allowed ? "Kæledyr er velkomne" : "Kæledyr ikke angivet som muligt",
+            active: room.pets_allowed === true
+        },
+        {
+            icon: "fa-solid fa-broom",
+            label: "Rengøring",
+            text: room.cleaning_plan ? "Der er en rengøringsplan" : "Rengøring aftales løbende",
+            active: room.cleaning_plan === true
+        },
+        {
+            icon: "fa-solid fa-utensils",
+            label: "Fællesspisning",
+            text: room.communal_dinners ? "Der spises sammen i hjemmet" : "Fællesspisning er ikke fast",
+            active: room.communal_dinners === true
+        },
+        {
+            icon: "fa-solid fa-door-closed",
+            label: "Privatliv",
+            text: "En lukket dør respekteres fuldt ud",
+            active: room.privacy_focused === true
+        }
+    ];
 }
 
 function getRoomImages(room) {
@@ -150,6 +245,41 @@ function getRoomImages(room) {
         : [];
 
     return images.length ? images : ["/pics/udlej-vaerelse-example-room.png"];
+}
+
+function getSimilarRooms(currentRoom) {
+    const rooms = getCachedRooms();
+    if (!Array.isArray(rooms)) return [];
+
+    const currentId = String(currentRoom._id || currentRoom.id || "");
+    const candidates = rooms
+        .filter(room => String(room?._id || room?.id || "") !== currentId)
+        .filter(room => room?.available !== false)
+        .map(normalizeSimilarRoom)
+        .filter(room => room.id);
+
+    const samePostalRooms = candidates.filter(room =>
+        currentRoom.postal_number && String(room.postalNumber) === String(currentRoom.postal_number)
+    );
+    const fallbackRooms = candidates.filter(room =>
+        !currentRoom.postal_number || String(room.postalNumber) !== String(currentRoom.postal_number)
+    );
+
+    return [...samePostalRooms, ...fallbackRooms].slice(0, 3);
+}
+
+function normalizeSimilarRoom(room) {
+    const postal = [room.postal_number, room.postal_name || room.city].filter(Boolean).join(" ");
+    return {
+        id: room._id || room.id,
+        title: room.title || "Ledigt værelse",
+        postal,
+        postalNumber: room.postal_number || null,
+        area: room.postal_name || room.city || postal || "Område ikke angivet",
+        price: Number(room.monthly_price ?? room.price ?? 0),
+        size: Number(room.square_meters ?? 0),
+        image: getRoomImages(room)[0]
+    };
 }
 
 function getImageUrl(image) {
@@ -192,6 +322,14 @@ function formatAvailableDate(value) {
     const date = new Date(`${value}T00:00:00`);
     if (Number.isNaN(date.getTime())) return "Efter aftale";
     return new Intl.DateTimeFormat("da-DK", {day: "numeric", month: "long", year: "numeric"}).format(date);
+}
+
+function formatCreatedDate(value) {
+    if (!value) return "Oprettelsesdato ikke angivet";
+    const timestamp = typeof value === "number" ? value * 1000 : value;
+    const date = new Date(timestamp);
+    if (Number.isNaN(date.getTime())) return "Oprettelsesdato ikke angivet";
+    return `Oprettet ${new Intl.DateTimeFormat("da-DK", {day: "numeric", month: "long", year: "numeric"}).format(date)}`;
 }
 
 function formatMoneyOrDash(value) {

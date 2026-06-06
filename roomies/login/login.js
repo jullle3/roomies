@@ -10,11 +10,21 @@ import {
     viewAfterLogin,
     viewParamsAfterLogin,
 } from "../views/viewManager.js";
-import {decodeJwt, displayErrorMessage, displaySuccessMessage, loadUser} from "../utils.js";
+import {
+    decodeJwt,
+    displayErrorMessage,
+    displaySuccessMessage,
+    loadUser,
+    resetCurrentUser,
+    showConfirmationModal
+} from "../utils.js";
 import {setupProfileView} from "../profile/profile.js";
 import {closeNavbarMenu, updateNavbar} from "../header/header.js";
 import {google_auth_client_id, google_auth_redirect_url} from "../config/config.js";
-import {startGlobalConversationUnreadPolling} from "../conversations/conversations.js";
+import {
+    startGlobalConversationUnreadPolling,
+    stopGlobalConversationUnreadPolling
+} from "../conversations/conversations.js";
 
 function normalizeRegistrationPhoneNumber(rawPhoneNumber) {
     const phoneNumber = rawPhoneNumber.trim().replace(/\D/g, "");
@@ -553,4 +563,32 @@ export async function extractURLJWT() {
     }
 
     return false;
+}
+
+
+export function setupLogoutView() {
+    document.getElementById("logout").addEventListener('click', (event) => {
+        event.preventDefault();
+
+        showConfirmationModal(
+            "Log ud",
+            "Er du sikker på, at du vil logge ud?",
+            () => {
+                // Clear JWT from localStorage
+                localStorage.removeItem('jwt');
+                resetCurrentUser();
+                stopGlobalConversationUnreadPolling();
+
+                // Clean the users information from the website
+                // We add simple checks to ensure elements exist before accessing properties
+                const nameInput = document.getElementById('fullName-profile');
+                if (nameInput) nameInput.value = '';
+                const emailInput = document.getElementById('email-profile');
+                if (emailInput) emailInput.value = '';
+
+                updateNavbar();
+            },
+            "btn-primary" // Use primary color (Blue) since this isn't a destructive action like delete
+        );
+    });
 }

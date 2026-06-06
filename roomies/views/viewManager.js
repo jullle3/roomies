@@ -856,7 +856,7 @@ function optimizeSEOMetadata(view) {
     else if (view === 'conversations') {
         updateMetaTags(
             'Beskeder | roomies',
-            'Se og svar på dine samtaler med sælgere på roomies.',
+            'Se og svar på dine samtaler med roomies om værelser, fællesskab og næste hjem.',
             `${baseUrl}/beskeder`
         );
     }

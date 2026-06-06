@@ -10,8 +10,7 @@ import {
 } from "./utils.js";
 import {handleRouting, setupViews, showView} from "./views/viewManager.js";
 import {setupProfileView} from "./profile/profile.js";
-import {setupLogoutView} from "./logout/logout.js";
-import {extractURLJWT, handleOTPLink, setupLoginView} from "./login/login.js";
+import {extractURLJWT, handleOTPLink, setupLoginView, setupLogoutView} from "./login/login.js";
 import {loadHousingStats, SetupHeader} from "./header/header.js";
 import {SetupFooter} from "./footer/footer.js";
 import {

@@ -613,15 +613,15 @@ function renderInboxThumbnail(context) {
         const properties = getExchangeProperties(context);
         return `
             <div class="chat-thumb-stack flex-shrink-0">
-                <img src="${escapeHtml(getPropertyImageUrl(properties[0]))}" alt="Bolig 1">
-                <img src="${escapeHtml(getPropertyImageUrl(properties[1]))}" alt="Bolig 2">
+                <img src="${escapeHtml(getPropertyImageUrl(properties[0]))}" alt="Værelse 1">
+                <img src="${escapeHtml(getPropertyImageUrl(properties[1]))}" alt="Værelse 2">
             </div>
         `;
     }
 
     const property = getPrimaryProperty(context);
     return `
-        <img src="${escapeHtml(getPropertyImageUrl(property))}" class="chat-thumb-single flex-shrink-0" alt="Bolig">
+        <img src="${escapeHtml(getPropertyImageUrl(property))}" class="chat-thumb-single flex-shrink-0" alt="Værelse">
     `;
 }
 
@@ -633,18 +633,18 @@ function renderHeaderThumbnail(context) {
         const properties = getExchangeProperties(context);
         return `
             <div class="chat-thumb-exchange-header">
-                <img src="${escapeHtml(getPropertyImageUrl(properties[0]))}" alt="Bolig 1">
+                <img src="${escapeHtml(getPropertyImageUrl(properties[0]))}" alt="Værelse 1">
                 <div class="chat-exchange-icon" aria-hidden="true">
                     <i class="fa-solid fa-arrow-right-arrow-left"></i>
                 </div>
-                <img src="${escapeHtml(getPropertyImageUrl(properties[1]))}" alt="Bolig 2">
+                <img src="${escapeHtml(getPropertyImageUrl(properties[1]))}" alt="Værelse 2">
             </div>
         `;
     }
 
     const property = getPrimaryProperty(context);
     return `
-        <img src="${escapeHtml(getPropertyImageUrl(property))}" class="chat-thumb-single" alt="Bolig">
+        <img src="${escapeHtml(getPropertyImageUrl(property))}" class="chat-thumb-single" alt="Værelse">
     `;
 }
 
@@ -655,7 +655,7 @@ function renderHeaderAction(context, currentUserId) {
     const property = getConversationActionProperty(context, currentUserId);
     if (!property?._id) return '';
 
-    const label = context?.isExchange ? 'Se deres bolig' : 'Se bolig';
+    const label = context?.isExchange ? 'Se deres værelse' : 'Se værelse';
     return `
         <a href="/detaljer?id=${encodeURIComponent(property._id)}"
            class="btn btn-light rounded-pill fw-bold shadow-sm hover-lift conversation-listing-link">
@@ -703,7 +703,7 @@ function getConversationSubtitle(context, conversation = null, currentUserId = n
     const otherParticipantName = conversation ? getOtherParticipantName(conversation, currentUserId) : '';
 
     if (context?.isExchange) {
-        return [otherParticipantName, 'Byttehandel'].filter(Boolean).join(' · ');
+        return [otherParticipantName, 'Bytte'].filter(Boolean).join(' · ');
     }
 
     const property = getPrimaryProperty(context);
@@ -731,8 +731,8 @@ function getExchangeProperties(context) {
 }
 
 function getPropertyName(property) {
-    if (!property) return 'Andelsbolig';
-    return property.street_name || property.address || property.title || 'Andelsbolig';
+    if (!property) return 'Værelse';
+    return property.street_name || property.address || property.title || 'Værelse';
 }
 
 function getPropertyImageUrl(property) {

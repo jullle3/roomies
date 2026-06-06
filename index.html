@@ -39,7 +39,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
     <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
     <!--    Custom Merged css files -->
-    <link rel="stylesheet" href="roomies/mergedStyles.css?roomies_version=760">
+    <link rel="stylesheet" href="roomies/mergedStyles.css?roomies_version=763">
     <style>
         .nav-auth-btn:active,
         .nav-auth-btn:focus,
@@ -58,7 +58,7 @@
             color: #ffffff !important;
         }
     </style>
-    <script defer type="module" src="roomies/mergedJS.js?roomies_version=760"></script>
+    <script defer type="module" src="roomies/mergedJS.js?roomies_version=763"></script>
 
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18047412076"></script>
@@ -2847,13 +2847,13 @@
 
 
     <div id="conversations" class="view">
-        <div class="container py-5">
-            <div class="text-center mb-5">
-                <div class="d-inline-flex align-items-center justify-content-center bg-primary bg-opacity-10 rounded-circle mb-3" style="width: 64px; height: 64px;">
-                    <i class="fa-regular fa-comments fs-3 company-blue"></i>
-                </div>
+        <div class="container conversation-page-container">
+            <div class="conversation-page-header text-center mb-5">
+                <span class="conversation-eyebrow mb-3">
+                    <i class="fa-regular fa-comments me-2"></i>Din roomie-indbakke
+                </span>
                 <h1 class="fw-bold company-dark mb-2">Mine beskeder</h1>
-                <p class="text-muted mb-0">Skriv med købere, sælgere og bytteinteresserede.</p>
+                <p class="text-muted mb-0">Skriv trygt med andre unge om værelser, hverdagsvaner og roomie-vibes.</p>
             </div>
 
             <div id="conversations-loading" class="text-center py-5">
@@ -2863,19 +2863,19 @@
             </div>
 
             <div id="conversations-empty" class="d-none">
-                <div class="conversation-list-panel mx-auto p-5 text-center" style="max-width: 640px;">
-                    <div class="d-inline-flex align-items-center justify-content-center bg-primary bg-opacity-10 rounded-circle mb-3" style="width: 56px; height: 56px;">
-                        <i class="fa-regular fa-message fs-4 company-blue"></i>
+                <div class="conversation-list-panel conversation-empty-panel mx-auto text-center">
+                    <div class="conversation-empty-icon">
+                        <i class="fa-regular fa-message"></i>
                     </div>
                     <h2 class="h4 fw-bold company-dark mb-2">Din indbakke er klar</h2>
-                    <p class="text-muted mb-0">Når du skriver med købere, sælgere eller bytteinteresserede, bliver samtalerne samlet her. Du får også en email, når der kommer nye beskeder.</p>
+                    <p class="text-muted mb-0">Når du skriver med en mulig roomie, bliver samtalen samlet her. Vi giver dig også besked, når der lander et nyt svar.</p>
                 </div>
             </div>
 
             <div id="conversations-layout" class="conversation-shell row g-4 d-none">
                 <div id="conversation-list-column" class="col-lg-4">
                     <div class="conversation-list-panel h-100">
-                        <div class="p-4 border-bottom">
+                        <div class="conversation-list-header">
                             <h2 class="h5 fw-bold company-dark mb-1">Samtaler</h2>
                             <div class="text-muted small">Vælg en samtale for at læse og svare</div>
                         </div>
@@ -2885,8 +2885,8 @@
 
                 <div id="conversation-thread-column" class="col-lg-8">
                     <div class="conversation-thread-panel">
-                        <div class="conversation-thread-header p-4 border-bottom d-flex align-items-center gap-3">
-                            <button type="button" id="conversation-mobile-back" class="btn btn-light rounded-pill fw-bold shadow-sm conversation-mobile-back">
+                        <div class="conversation-thread-header d-flex align-items-center gap-3">
+                            <button type="button" id="conversation-mobile-back" class="btn conversation-mobile-back">
                                 <i class="fa-solid fa-arrow-left me-2"></i>Tilbage
                             </button>
                             <div id="conversation-active-image" class="flex-shrink-0"></div>
@@ -2903,7 +2903,7 @@
                             <div class="d-flex align-items-end gap-2">
                                 <textarea
                                         id="conversation-reply-text"
-                                        class="form-control bg-light border-0 rounded-4 shadow-none"
+                                        class="form-control shadow-none"
                                         rows="2"
                                         placeholder="Skriv en besked..."
                                         style="resize: none;"
@@ -2911,7 +2911,7 @@
                                 <button
                                         type="submit"
                                         id="conversation-reply-submit"
-                                        class="btn btn-primary rounded-pill px-4 py-3 fw-bold flex-shrink-0"
+                                        class="btn btn-primary-coral rounded-pill px-4 py-3 fw-bold flex-shrink-0"
                                 >
                                     <i class="fa-regular fa-paper-plane me-2"></i>Send
                                 </button>

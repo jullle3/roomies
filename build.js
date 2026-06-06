@@ -67,17 +67,11 @@ const cssFiles = [
     'seller_profile/seller_profile.css',
     'blog/blog.css',
     'landing/landing.css',
-    'landing_sell/landing_sell.css',
     'soeg_vaerelse/soeg_vaerelse.css',
     'room_detail/room_detail.css',
     'udlej_vaerelse/udlej_vaerelse.css',
     'roomie_agent/roomie_agent.css',
-    // 'ai_analysis/ai_analysis.css',
-    // 'ai_result/ai_result.css',
     'toast/toast.css',
-    // Disabled themes for now, I didn't like ChatGPT first theme proposal.
-    // Needs more thought...
-    // 'theme.css'
 ].map(rel => path.join(SRC_DIR, rel));
 
 let mergedCss = '';

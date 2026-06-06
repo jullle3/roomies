@@ -67,7 +67,7 @@ const cssFiles = [
     'seller_profile/seller_profile.css',
     'blog/blog.css',
     'landing/landing.css',
-    'soeg_vaerelse/soeg_vaerelse.css',
+    'ledige_vaerelser/ledige_vaerelser.css',
     'room_detail/room_detail.css',
     'udlej_vaerelse/udlej_vaerelse.css',
     'roomie_agent/roomie_agent.css',

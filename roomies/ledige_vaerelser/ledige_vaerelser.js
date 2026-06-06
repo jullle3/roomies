@@ -56,24 +56,47 @@ function renderRoomListings() {
     const count = document.getElementById("room-search-count");
     if (!results || !empty || !count) return;
 
-    const rooms = getFilteredRooms();
-    if (rooms === null) {
+    const cachedRooms = getCachedRooms();
+    if (cachedRooms === null) {
         results.innerHTML = "";
         empty.classList.add("d-none");
         count.textContent = "Indlæser værelser...";
         return;
     }
 
+    const rooms = getFilteredRooms(cachedRooms);
+    updateRoomSearchEmptyState(cachedRooms.length === 0);
+
     results.innerHTML = rooms.map(renderRoomCard).join("");
     empty.classList.toggle("d-none", rooms.length > 0);
     count.textContent = rooms.length === 1 ? "1 ledigt værelse" : `${rooms.length} ledige værelser`;
 }
 
-function getFilteredRooms() {
+function updateRoomSearchEmptyState(hasNoFetchedRooms) {
+    const icon = document.getElementById("room-search-empty-icon");
+    const title = document.getElementById("room-search-empty-title");
+    const text = document.getElementById("room-search-empty-text");
+    const createButton = document.getElementById("room-search-empty-create");
+    const resetButton = document.getElementById("room-search-empty-reset");
+
+    if (!icon || !title || !text || !createButton || !resetButton) return;
+
+    icon.className = hasNoFetchedRooms
+        ? "fa-solid fa-house-circle-check mb-3"
+        : "fa-solid fa-magnifying-glass mb-3";
+    title.textContent = hasNoFetchedRooms
+        ? "Ingen værelser endnu"
+        : "Ingen værelser matcher endnu";
+    text.textContent = hasNoFetchedRooms
+        ? "De første roomies er på vej ind. Du kan allerede oprette din egen annonce gratis."
+        : "Prøv at udvide dit område eller justere dine filtre.";
+    createButton.classList.toggle("d-none", !hasNoFetchedRooms);
+    resetButton.classList.toggle("d-none", hasNoFetchedRooms);
+}
+
+function getFilteredRooms(cachedRooms) {
     const form = document.getElementById("room-search-form");
     const data = new FormData(form);
-    const cachedRooms = getCachedRooms();
-    if (cachedRooms === null) return null;
 
     const location = getNormalizedText(data.get("location"));
     const maxRent = Number(data.get("max_rent")) || Infinity;

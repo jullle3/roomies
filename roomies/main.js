@@ -24,7 +24,7 @@ import {
 import {environment} from "./config/config.js";
 import {setupConversationsView, startGlobalConversationUnreadPolling} from "./conversations/conversations.js";
 import {setupRentRoomView} from "./udlej_vaerelse/udlej_vaerelse.js";
-import {setupRoomSearchView} from "./soeg_vaerelse/soeg_vaerelse.js";
+import {setupRoomSearchView} from "./ledige_vaerelser/ledige_vaerelser.js";
 import {setupRoomieAgentView} from "./roomie_agent/roomie_agent.js";
 import {preloadRooms} from "./rooms/room_cache.js";
 

@@ -1,0 +1,311 @@
+import noUiSlider from "nouislider";
+import wNumb from "wnumb";
+import {getCachedRooms, onRoomsLoaded} from "../rooms/room_cache.js";
+
+const FAVORITES_KEY = "roomies_room_favorites";
+
+let roomFavorites = readFavorites();
+
+export function setupRoomSearchView() {
+    const form = document.getElementById("room-search-form");
+    const results = document.getElementById("room-search-results");
+    if (!form || !results || form.dataset.bound) return;
+
+    form.dataset.bound = "1";
+
+    setupRoomSearchSliders();
+
+    form.addEventListener("submit", event => {
+        event.preventDefault();
+        renderRoomListings();
+    });
+
+    form.addEventListener("change", renderRoomListings);
+    document.getElementById("room-search-location")?.addEventListener("input", renderRoomListings);
+    document.getElementById("room-search-reset")?.addEventListener("click", resetRoomSearch);
+    document.querySelector("[data-reset-room-search]")?.addEventListener("click", resetRoomSearch);
+    onRoomsLoaded(renderRoomListings);
+
+    results.addEventListener("click", event => {
+        const button = event.target.closest("[data-room-favorite]");
+        if (button) {
+            toggleFavorite(button.dataset.roomFavorite);
+            renderRoomListings();
+            event.preventDefault();
+            event.stopPropagation();
+        }
+    });
+
+    window.openRoomSearch = openRoomSearch;
+    renderRoomListings();
+}
+
+function openRoomSearch() {
+    const landingLocation = document.getElementById("landing-room-search-location")?.value || "";
+    const searchLocation = document.getElementById("room-search-location");
+    if (searchLocation) searchLocation.value = landingLocation;
+
+    window.showView("soeg_vaerelse");
+    renderRoomListings();
+}
+
+function renderRoomListings() {
+    const results = document.getElementById("room-search-results");
+    const empty = document.getElementById("room-search-empty");
+    const count = document.getElementById("room-search-count");
+    if (!results || !empty || !count) return;
+
+    const rooms = getFilteredRooms();
+    if (rooms === null) {
+        results.innerHTML = "";
+        empty.classList.add("d-none");
+        count.textContent = "Indlæser værelser...";
+        return;
+    }
+
+    results.innerHTML = rooms.map(renderRoomCard).join("");
+    empty.classList.toggle("d-none", rooms.length > 0);
+    count.textContent = rooms.length === 1 ? "1 ledigt værelse" : `${rooms.length} ledige værelser`;
+}
+
+function getFilteredRooms() {
+    const form = document.getElementById("room-search-form");
+    const data = new FormData(form);
+    const cachedRooms = getCachedRooms();
+    if (cachedRooms === null) return null;
+
+    const location = getNormalizedText(data.get("location"));
+    const maxRent = Number(data.get("max_rent")) || Infinity;
+    const minSize = Number(data.get("min_size")) || 0;
+
+    const rooms = cachedRooms.map(normalizeRoomListing).filter(room => {
+        const searchableLocation = getNormalizedText(`${room.postal} ${room.area}`);
+        return (!location || searchableLocation.includes(location))
+            && room.rent <= maxRent
+            && room.size >= minSize
+            && (!data.has("furnished") || room.furnished)
+            && (!data.has("registration_allowed") || room.registrationAllowed)
+            && (!data.has("utilities_included") || room.utilitiesIncluded);
+    });
+
+    return rooms.sort((a, b) => {
+        switch (data.get("sort")) {
+            case "rent_asc":
+                return a.rent - b.rent;
+            case "size_desc":
+                return b.size - a.size;
+            default:
+                return new Date(b.created) - new Date(a.created);
+        }
+    });
+}
+
+function normalizeRoomListing(room) {
+    const postal = [room.postal_number, room.postal_name || room.city].filter(Boolean).join(" ");
+    const addressParts = [room.street_name, room.house_number, room.floor, room.floor_side].filter(Boolean);
+    const area = [addressParts.join(" "), room.postal_name || room.city].filter(Boolean).join(", ");
+
+    return {
+        id: room._id || room.id || crypto.randomUUID(),
+        title: room.title || "Ledigt værelse",
+        postal: postal || room.address || "Adresse ikke angivet",
+        area: area || room.address || postal || "",
+        rent: Number(room.monthly_price ?? room.price ?? 0),
+        size: Number(room.square_meters ?? 0),
+        availableFrom: room.available_from || "",
+        furnished: Boolean(room.furnished),
+        registrationAllowed: Boolean(room.cpr_registration_allowed),
+        utilitiesIncluded: Boolean(room.utilities_included),
+        roommates: Number(room.current_roomies ?? room.rooms ?? 0),
+        vibes: getRoomVibes(room),
+        image: getRoomImage(room),
+        avatar: getRoomAvatar(room),
+        host: room.host_name || room.created_by_name || "en roomie",
+        created: formatCreatedDate(room.created)
+    };
+}
+
+function getRoomVibes(room) {
+    const vibes = [];
+    if (room.communal_dinners) vibes.push("Socialt");
+    if (room.cleaning_plan) vibes.push("Rengøringsplan");
+    if (room.pets_allowed) vibes.push("Kæledyr");
+    if (room.privacy_focused) vibes.push("Stille");
+    if (room.furnished) vibes.push("Møbleret");
+    return vibes.length ? vibes : ["Roomie"];
+}
+
+function getRoomImage(room) {
+    const firstImage = Array.isArray(room.images) ? room.images[0] : null;
+    if (typeof firstImage === "string" && firstImage) return firstImage;
+    if (firstImage?.url) return firstImage.url;
+    if (firstImage?.src) return firstImage.src;
+    if (firstImage?.image_url) return firstImage.image_url;
+    if (firstImage?.cloudflare_url) return firstImage.cloudflare_url;
+    return "/pics/udlej-vaerelse-example-room.png";
+}
+
+function getRoomAvatar(room) {
+    return room.avatar || room.user_avatar || "/pics/community-young-woman-1.png";
+}
+
+function formatCreatedDate(value) {
+    if (!value) return "1970-01-01";
+    if (typeof value === "number") {
+        return new Date(value * 1000).toISOString().slice(0, 10);
+    }
+    return String(value).slice(0, 10);
+}
+
+function renderRoomCard(room) {
+    const isFavorite = roomFavorites.has(room.id);
+    const favoriteLabel = isFavorite ? "Fjern fra gemte værelser" : "Gem værelse";
+    const favoriteIcon = isFavorite ? "fa-solid" : "fa-regular";
+    const detailUrl = `/vaerelse?id=${encodeURIComponent(room.id)}`;
+
+    return `
+        <div class="col-12 col-md-6 col-xl-4">
+            <article class="card room-card h-100">
+                <a class="room-card-detail-link" href="${detailUrl}" data-room-detail-id="${room.id}" aria-label="Se detaljer for ${escapeHtml(room.title)}"></a>
+                <div class="room-thumb-wrapper">
+                    <img class="room-photo" src="${room.image}" alt="${escapeHtml(room.title)}" loading="lazy">
+                    <button class="room-search-favorite" type="button" data-room-favorite="${room.id}" aria-label="${favoriteLabel}" title="${favoriteLabel}">
+                        <i class="${favoriteIcon} fa-heart"></i>
+                    </button>
+                    <span class="room-search-available badge bg-white text-dark rounded-pill shadow-sm">
+                        <i class="fa-regular fa-calendar me-1 text-primary"></i>${formatAvailableDate(room.availableFrom)}
+                    </span>
+                    <img class="avatar-overlap" src="${room.avatar}" alt="${escapeHtml(room.host)}" loading="lazy">
+                </div>
+                <div class="card-body p-4 pt-4 mt-2 d-flex flex-column">
+                    <h3 class="h5 fw-bold mb-2">${escapeHtml(room.title)}</h3>
+                    <p class="text-muted small mb-3">
+                        <i class="fa-solid fa-location-dot me-1"></i>${escapeHtml(room.postal)}
+                    </p>
+                    <div class="d-flex align-items-end justify-content-between gap-3 mb-3">
+                        <strong class="room-search-price">${formatNumber(room.rent)} <span>kr./md</span></strong>
+                        <span class="text-muted fw-bold">${room.size} m²</span>
+                    </div>
+                    <div class="d-flex flex-wrap gap-2 mb-4">
+                        ${room.vibes.map(vibe => `<span class="vibe-tag">${getVibeEmoji(vibe)} ${escapeHtml(vibe)}</span>`).join("")}
+                    </div>
+                    <div class="room-search-facts d-flex flex-wrap gap-3 mt-auto pt-3 border-top">
+                        <span><i class="fa-regular fa-user me-1"></i>${room.roommates} roomie${room.roommates === 1 ? "" : "s"}</span>
+                        ${room.furnished ? '<span><i class="fa-solid fa-couch me-1"></i>Møbleret</span>' : ""}
+                        ${room.utilitiesIncluded ? '<span><i class="fa-solid fa-bolt me-1"></i>Forbrug inkl.</span>' : ""}
+                    </div>
+                    <p class="room-search-host small mb-0 mt-3"><i class="fa-regular fa-face-smile me-1"></i> Bo med <strong>${escapeHtml(room.host)}</strong></p>
+                </div>
+            </article>
+        </div>
+    `;
+}
+
+function resetRoomSearch() {
+    document.getElementById("room-search-form")?.reset();
+    document.getElementById("room-search-rent-slider")?.noUiSlider?.set(8000);
+    document.getElementById("room-search-size-slider")?.noUiSlider?.set(8);
+    renderRoomListings();
+}
+
+function setupRoomSearchSliders() {
+    setupRoomSearchSlider({
+        sliderId: "room-search-rent-slider",
+        inputId: "room-search-max-rent",
+        outputId: "room-search-rent-value",
+        start: 8000,
+        range: {min: 2500, max: 8000},
+        step: 250,
+        isOpenEnd: value => value >= 8000,
+        openLabel: "Alle priser",
+        formatValue: value => `${formatNumber(value)} kr.`
+    });
+
+    setupRoomSearchSlider({
+        sliderId: "room-search-size-slider",
+        inputId: "room-search-min-size",
+        outputId: "room-search-size-value",
+        start: 8,
+        range: {min: 8, max: 30},
+        step: 1,
+        isOpenEnd: value => value <= 8,
+        openLabel: "Alle størrelser",
+        formatValue: value => `${formatNumber(value)} m²`
+    });
+}
+
+function setupRoomSearchSlider(config) {
+    const slider = document.getElementById(config.sliderId);
+    const input = document.getElementById(config.inputId);
+    const output = document.getElementById(config.outputId);
+    if (!slider || !input || !output || slider.noUiSlider) return;
+
+    const integerFormat = wNumb({decimals: 0});
+
+    noUiSlider.create(slider, {
+        start: config.start,
+        connect: [true, false],
+        step: config.step,
+        range: config.range,
+        format: integerFormat
+    });
+
+    slider.noUiSlider.on("update", values => {
+        const value = Number(values[0]);
+        const isOpenEnd = config.isOpenEnd(value);
+        input.value = isOpenEnd ? "" : String(value);
+        output.value = isOpenEnd ? config.openLabel : config.formatValue(value);
+        renderRoomListings();
+    });
+}
+
+function toggleFavorite(roomId) {
+    if (roomFavorites.has(roomId)) {
+        roomFavorites.delete(roomId);
+    } else {
+        roomFavorites.add(roomId);
+    }
+
+    localStorage.setItem(FAVORITES_KEY, JSON.stringify([...roomFavorites]));
+}
+
+function readFavorites() {
+    try {
+        const favorites = JSON.parse(localStorage.getItem(FAVORITES_KEY) || "[]");
+        return new Set(Array.isArray(favorites) ? favorites : []);
+    } catch {
+        return new Set();
+    }
+}
+
+function formatAvailableDate(value) {
+    if (!value) return "Efter aftale";
+    const date = new Date(`${value}T00:00:00`);
+    if (Number.isNaN(date.getTime())) return "Efter aftale";
+    return new Intl.DateTimeFormat("da-DK", {day: "numeric", month: "short"}).format(date);
+}
+
+function formatNumber(value) {
+    return new Intl.NumberFormat("da-DK").format(value);
+}
+
+function getNormalizedText(value) {
+    return String(value || "").trim().toLocaleLowerCase("da-DK");
+}
+
+function getVibeEmoji(vibe) {
+    return {
+        "Socialt": "🍻",
+        "Rengøringsplan": "🧹",
+        "Studievenligt": "🎓",
+        "Kæledyr": "🐾",
+        "Stille": "🤫",
+        "Vegan": "🌿"
+    }[vibe] || "✨";
+}
+
+function escapeHtml(value) {
+    const element = document.createElement("div");
+    element.textContent = String(value || "");
+    return element.innerHTML;
+}

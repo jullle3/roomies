@@ -37,7 +37,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
     <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
     <!--    Custom Merged css files -->
-    <link rel="stylesheet" href="roomies/mergedStyles.css?roomies_version=819">
+    <link rel="stylesheet" href="roomies/mergedStyles.css?roomies_version=821">
     <style>
         .nav-auth-btn:active,
         .nav-auth-btn:focus,
@@ -56,7 +56,7 @@
             color: #ffffff !important;
         }
     </style>
-    <script defer type="module" src="roomies/mergedJS.js?roomies_version=819"></script>
+    <script defer type="module" src="roomies/mergedJS.js?roomies_version=821"></script>
 
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18047412076"></script>
@@ -1009,65 +1009,66 @@
         <section class="room-search-content">
             <div class="container">
                 <form id="room-search-form" class="room-search-toolbar" role="search">
-                    <div class="room-search-toolbar-heading d-flex align-items-center gap-3 mb-4">
-                        <span><i class="fa-solid fa-sliders"></i></span>
-                        <div>
-                            <h2 class="h5 fw-bold mb-1">Find dit match</h2>
-                            <p class="small text-muted mb-0">Juster filtrene, indtil det føles rigtigt.</p>
+                    <div class="room-search-simple-row">
+                        <label class="visually-hidden" for="room-search-location">Område</label>
+                        <div class="input-group input-group-lg room-search-main-input">
+                            <span class="input-group-text"><i class="fa-solid fa-magnifying-glass"></i></span>
+                            <input id="room-search-location" class="form-control" name="location" type="search" placeholder="Søg efter område, postnummer eller by">
                         </div>
-                    </div>
-                    <div class="row g-3 align-items-end">
-                        <div class="col-lg-3">
-                            <label class="form-label" for="room-search-location">Område</label>
-                            <div class="input-group">
-                                <span class="input-group-text"><i class="fa-solid fa-location-dot"></i></span>
-                                <input id="room-search-location" class="form-control" name="location" type="search" placeholder="F.eks. Nørrebro eller Aarhus">
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-lg-3">
-                            <div class="room-search-slider-label d-flex align-items-center justify-content-between gap-2">
-                                <label class="form-label mb-0" for="room-search-rent-slider">Maks. husleje</label>
-                                <output id="room-search-rent-value" for="room-search-rent-slider">Alle priser</output>
-                            </div>
-                            <div id="room-search-rent-slider" class="room-search-slider" aria-label="Maksimal månedlig husleje"></div>
-                            <input id="room-search-max-rent" name="max_rent" type="hidden" value="">
-                        </div>
-                        <div class="col-md-6 col-lg-3">
-                            <div class="room-search-slider-label d-flex align-items-center justify-content-between gap-2">
-                                <label class="form-label mb-0" for="room-search-size-slider">Min. størrelse</label>
-                                <output id="room-search-size-value" for="room-search-size-slider">Alle størrelser</output>
-                            </div>
-                            <div id="room-search-size-slider" class="room-search-slider" aria-label="Minimum størrelse på værelset"></div>
-                            <input id="room-search-min-size" name="min_size" type="hidden" value="">
-                        </div>
-                        <div class="col-lg-2">
-                            <label class="form-label" for="room-search-sort">Sortér</label>
-                            <select id="room-search-sort" class="form-select" name="sort">
-                                <option value="newest">Nyeste først</option>
-                                <option value="rent_asc">Laveste pris</option>
-                                <option value="size_desc">Største først</option>
-                            </select>
-                        </div>
-                        <div class="col-lg-1 d-grid">
-                            <button class="btn btn-primary-coral rounded-pill py-3 fw-bold" type="submit" aria-label="Søg">
-                                <i class="fa-solid fa-magnifying-glass"></i><span class="d-lg-none ms-2">Søg</span>
-                            </button>
-                        </div>
-                    </div>
 
-                    <div class="d-flex flex-wrap gap-2 mt-3">
-                        <input class="btn-check" id="room-filter-furnished" name="furnished" type="checkbox" autocomplete="off">
-                        <label class="btn btn-outline-secondary rounded-pill px-3" for="room-filter-furnished">
-                            <i class="fa-solid fa-couch me-2"></i>Møbleret
-                        </label>
-                        <input class="btn-check" id="room-filter-registration" name="registration_allowed" type="checkbox" autocomplete="off">
-                        <label class="btn btn-outline-secondary rounded-pill px-3" for="room-filter-registration">
-                            <i class="fa-solid fa-address-card me-2"></i>CPR muligt
-                        </label>
-                        <input class="btn-check" id="room-filter-utilities" name="utilities_included" type="checkbox" autocomplete="off">
-                        <label class="btn btn-outline-secondary rounded-pill px-3" for="room-filter-utilities">
-                            <i class="fa-solid fa-bolt me-2"></i>Forbrug inkluderet
-                        </label>
+                        <div class="dropdown">
+                            <button class="btn room-search-filter-toggle" id="room-search-filter-toggle" type="button" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false" aria-label="Vis filtre">
+                                <i class="fa-solid fa-sliders"></i>
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-end room-search-filter-menu" aria-labelledby="room-search-filter-toggle">
+                                <div class="room-search-filter-heading">
+                                    <h2 class="h6 fw-bold mb-1">Find dit match</h2>
+                                    <p class="small text-muted mb-0">Juster filtrene, indtil det føles rigtigt.</p>
+                                </div>
+
+                                <div class="room-search-filter-block">
+                                    <div class="room-search-slider-label d-flex align-items-center justify-content-between gap-2">
+                                        <label class="form-label mb-0" for="room-search-rent-slider">Maks. husleje</label>
+                                        <output id="room-search-rent-value" for="room-search-rent-slider">Alle priser</output>
+                                    </div>
+                                    <div id="room-search-rent-slider" class="room-search-slider" aria-label="Maksimal månedlig husleje"></div>
+                                    <input id="room-search-max-rent" name="max_rent" type="hidden" value="">
+                                </div>
+
+                                <div class="room-search-filter-block">
+                                    <div class="room-search-slider-label d-flex align-items-center justify-content-between gap-2">
+                                        <label class="form-label mb-0" for="room-search-size-slider">Min. størrelse</label>
+                                        <output id="room-search-size-value" for="room-search-size-slider">Alle størrelser</output>
+                                    </div>
+                                    <div id="room-search-size-slider" class="room-search-slider" aria-label="Minimum størrelse på værelset"></div>
+                                    <input id="room-search-min-size" name="min_size" type="hidden" value="">
+                                </div>
+
+                                <div class="room-search-filter-block">
+                                    <label class="form-label" for="room-search-sort">Sortér</label>
+                                    <select id="room-search-sort" class="form-select" name="sort">
+                                        <option value="newest">Nyeste først</option>
+                                        <option value="rent_asc">Laveste pris</option>
+                                        <option value="size_desc">Største først</option>
+                                    </select>
+                                </div>
+
+                                <div class="room-search-filter-chips d-flex flex-wrap gap-2">
+                                    <input class="btn-check" id="room-filter-furnished" name="furnished" type="checkbox" autocomplete="off">
+                                    <label class="btn btn-outline-secondary rounded-pill px-3" for="room-filter-furnished">
+                                        <i class="fa-solid fa-couch me-2"></i>Møbleret
+                                    </label>
+                                    <input class="btn-check" id="room-filter-registration" name="registration_allowed" type="checkbox" autocomplete="off">
+                                    <label class="btn btn-outline-secondary rounded-pill px-3" for="room-filter-registration">
+                                        <i class="fa-solid fa-address-card me-2"></i>CPR muligt
+                                    </label>
+                                    <input class="btn-check" id="room-filter-utilities" name="utilities_included" type="checkbox" autocomplete="off">
+                                    <label class="btn btn-outline-secondary rounded-pill px-3" for="room-filter-utilities">
+                                        <i class="fa-solid fa-bolt me-2"></i>Forbrug inkluderet
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </form>
 

@@ -38,7 +38,7 @@ export async function renderSearchAgentOverview() {
     if (!isLoggedIn()) {
         updateOverviewEmptyStateCopy({
             title: "Få besked, når nye værelser matcher dig",
-            text: "Opret en gratis SøgeAgentmed dit budget og dine ønskede områder. Så holder vi øje med nye værelser for dig.",
+            text: "Opret en gratis SøgeAgent med dit budget og dine ønskede områder. Så holder vi øje med nye værelser for dig.",
             cta: "Opret gratis SøgeAgent"
         });
         loading.classList.add("d-none");

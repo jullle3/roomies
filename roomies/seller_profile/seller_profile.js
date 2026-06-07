@@ -22,7 +22,7 @@ Venlig hilsen`;
 }
 
 export async function loadSellerProfile(seller_profile_id) {
-    const response = await authFetch(`/user/${seller_profile_id}`);
+    const response = await authFetch(`/roomies/user/${seller_profile_id}`);
     if (!response.ok) {
         let body = await response.json()
         displayErrorMessage(body.detail);
@@ -30,7 +30,7 @@ export async function loadSellerProfile(seller_profile_id) {
     }
 
     // Fetch advertisement to show the full address
-    const housing_detail_response = await authFetch(`/advertisement?created_by=${seller_profile_id}&full_model=true`);
+    const housing_detail_response = await authFetch(`/roomies/advertisement?created_by=${seller_profile_id}&full_model=true`);
     if (!housing_detail_response.ok) {
         let body = await housing_detail_response.json()
         displayErrorMessage(body.detail);
@@ -77,7 +77,7 @@ export async function loadSellerProfile(seller_profile_id) {
         newSendBtn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin me-2"></i>Sender...';
 
         try {
-            const response = await authFetch(`/contact-seller`, {
+            const response = await authFetch(`/roomies/contact-seller`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

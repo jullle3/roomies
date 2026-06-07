@@ -20,7 +20,7 @@ export async function loadProfileView() {
             updateProfileUI(currentUser);
         } else {
             try {
-                const response = await authFetch(`/user/${userId}`);
+                const response = await authFetch(`/roomies/user/${userId}`);
                 if (response.ok) {
                     const userProfile = await response.json();
                     updateProfileUI(userProfile);
@@ -64,7 +64,7 @@ function setupProfileSettingsHandlers() {
         const settingName = this.id;
         const settingValue = $(this).is(':checked');
 
-        const response = await authFetch('/user', {
+        const response = await authFetch('/roomies/user', {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json'
@@ -129,7 +129,7 @@ async function handleHumanProfileSubmit(event) {
     submitButton.innerHTML = '<span class="spinner-border spinner-border-sm me-2" aria-hidden="true"></span>Gemmer...';
 
     try {
-        const response = await authFetch('/user', {
+        const response = await authFetch('/roomies/user', {
             method: 'PATCH',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(payload)

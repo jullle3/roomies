@@ -277,7 +277,7 @@ export function isLoggedIn() {
  * @returns {boolean} True if the user is still subscribed, false otherwise.
  */
 export async function isSubscribed() {
-    let response = await authFetch("/is-subscribed")
+    let response = await authFetch("/roomies/is-subscribed")
     return response.ok
 }
 
@@ -288,7 +288,7 @@ export async function loadUser() {
     }
 
     const jwt = decodeJwt()
-    const response = await authFetch(`/user/${jwt.sub}`);
+    const response = await authFetch(`/roomies/user/${jwt.sub}`);
 
     if (!response.ok) {
         let body = await response.json()
@@ -359,7 +359,7 @@ export async function favoriteHousing(id_to_update, housingId) {
     }
 
     // Query the backend to update the user's favorites
-    const response = await authFetch('/user', {
+    const response = await authFetch('/roomies/user', {
         method: 'PATCH',
         headers: {
             'Content-Type': 'application/json'
@@ -817,7 +817,7 @@ export function openMissingEmailModal() {
         }
 
         try {
-            const updateRes = await authFetch('/user/contact-info', {
+            const updateRes = await authFetch('/roomies/user/contact-info', {
                 method: 'PATCH',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email, phone })

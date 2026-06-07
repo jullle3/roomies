@@ -330,7 +330,7 @@ function escapeHtml(value) {
 
 export async function fetchAdvertisementData() {
     // Used for stats or featured listings
-    const response = await authFetch("/advertisement_data");
+    const response = await authFetch("/roomies/advertisement_data");
     if (!response.ok) return null;
 
     try {

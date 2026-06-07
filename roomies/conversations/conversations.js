@@ -60,7 +60,7 @@ export async function renderConversations(targetConversationId = null, options =
     }
 
     try {
-        const response = await authFetch('/conversations');
+        const response = await authFetch('/roomies/conversations');
 
         if (!response.ok) {
             const body = await safeJson(response);
@@ -150,7 +150,7 @@ async function refreshGlobalConversationUnreadCount({force = false} = {}) {
 
     globalUnreadFetchInFlight = true;
     try {
-        const response = await authFetch('/conversations');
+        const response = await authFetch('/roomies/conversations');
         if (!response.ok) return;
 
         const rawConversations = await response.json();
@@ -281,7 +281,7 @@ async function markConversationRead(conversationId, {render = true} = {}) {
     updateConversationUnreadBadgeFromConversations(conversations);
 
     try {
-        const response = await authFetch(`/conversation/${encodeURIComponent(conversationId)}/read`, {method: 'POST'});
+        const response = await authFetch(`/roomies/conversation/${encodeURIComponent(conversationId)}/read`, {method: 'POST'});
         if (!response.ok) return;
 
         const updatedConversation = await response.json();
@@ -338,7 +338,7 @@ async function sendConversationReply(event) {
     }
 
     try {
-        const response = await authFetch('/conversation/message', {
+        const response = await authFetch('/roomies/conversation/message', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({

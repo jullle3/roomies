@@ -135,7 +135,7 @@ export function setupLoginView() {
             const payload = { email : user_email };
 
             try {
-                const response = await authFetch('/login/request-code', {
+                const response = await authFetch('/roomies/login/request-code', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(payload)
@@ -235,7 +235,7 @@ export function setupLoginView() {
 
             try {
                 // 3. Call the API again
-                const response = await authFetch('/login/request-code', {
+                const response = await authFetch('/roomies/login/request-code', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ email: email })
@@ -301,7 +301,7 @@ export function setupLoginView() {
                 userData.phone_number = normalizedPhone.phoneNumber;
             }
 
-            const response = await authFetch('/user', {
+            const response = await authFetch('/roomies/user', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(userData)
@@ -312,8 +312,6 @@ export function setupLoginView() {
                 displayErrorMessage(getApiErrorMessage(response_json.detail))
                 return
             }
-
-            displaySuccessMessage("Tak for din oprettelse. Vi har sendt dig en mail, og efter login kan du gøre din roomie-profil personlig.");
 
             // Transition to OTP modal
             const registerModalEl = document.getElementById('registerModal');
@@ -522,7 +520,7 @@ async function performOTPVerification(login_code, email, modalToCloseID, id = nu
         requestBody.id = id;
     }
 
-    const response = await authFetch('/login', {
+    const response = await authFetch('/roomies/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(requestBody)

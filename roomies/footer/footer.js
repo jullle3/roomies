@@ -66,7 +66,7 @@ export function SetupFooter() {
             </button>
           </li>
           <li class="nav-item">
-            <a href="/spoergsmaal-om-andelsbolig" class="nav-link p-0 text-muted footer-pseo-link fw-semibold">Spørgsmål & Svar</a>
+            <a href="/spoergsmaal-om-roomies" class="nav-link p-0 text-muted footer-pseo-link fw-semibold">Spørgsmål & Svar</a>
           </li>
           <li class="nav-item">
             <a href="/blog" class="nav-link p-0 text-muted footer-pseo-link fw-semibold">Blog</a>

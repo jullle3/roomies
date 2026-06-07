@@ -7,53 +7,7 @@ const CACHE_KEY = "ALL_ADVERTISEMENTS";
 
 // --- STATIC SEO MAP (Replicating viewManager.js metadata) ---
 const STATIC_SEO_ROUTES = {
-    '/saelg-andelsbolig-selv': {
-        title: 'Sælg andelsbolig selv - 100% gratis | Salg & Bytte',
-        desc: 'Sælg din andelsbolig selv og spar mægleren. Det er 100% gratis at oprette din annonce til salg eller bytte af andelsbolig.',
-    },
-    '/saelg-andelsbolig-selv-koncept': {
-        title: 'Sælg din andelsbolig selv – 100% gratis | Se konceptet',
-        desc: 'Står du overfor et salg af din andelsbolig? Lad roomies hjælpe dig trygt og nemt videre. Uanset om din bolig ligger i København, Aarhus, på Frederiksberg, Amager, Østerbro eller et andet sted i Danmark, gør vi det enkelt at finde den rette køber.',
-        jsonLd: {
-            "@context": "https://schema.org",
-            "@type": "FAQPage",
-            "mainEntity": [
-                {
-                    "@type": "Question",
-                    "name": "Må jeg sælge min andelsbolig selv?",
-                    "acceptedAnswer": {
-                        "@type": "Answer",
-                        "text": "Ja, du må i høj grad gerne sælge din andelsbolig selv. Faktisk er selvsalg den mest almindelige måde at sælge andelsboliger på i Danmark. Du behøver ingen ejendomsmægler, da andelsboligforeningens administrator typisk står for at udarbejde overdragelsesaftalen og håndtere det juridiske papirarbejde."
-                    }
-                },
-                {
-                    "@type": "Question",
-                    "name": "Hvad er processen når jeg sælger selv?",
-                    "acceptedAnswer": {
-                        "@type": "Answer",
-                        "text": "Processen er simpel: 1. Undersøg først, hvilke regler og processer der gælder i din specifikke andelsboligforening (f.eks. krav til vurderingsmand). 2. Opret en gratis annonce på roomies og fremvis boligen for interesserede købere. 3. Når du har fundet din køber, giver du besked til foreningens administrator, som herefter opretter overdragelsesaftalen og indhenter bestyrelsens godkendelse."
-                    }
-                },
-                {
-                    "@type": "Question",
-                    "name": "Er det usikkert at sælge uden en ejendomsmægler?",
-                    "acceptedAnswer": {
-                        "@type": "Answer",
-                        "text": "Nej, og salg går ofte hurtigere ved selvsalg. Alt salg af andelsboliger skal lovpligtigt godkendes af andelsboligforeningens bestyrelse. Det er foreningens professionelle administrator (ofte en advokat), der udarbejder selve købsaftalen og håndterer købesummen sikkert via en deponeringskonto. Mæglerens primære job er blot at finde køberen, hvilket vi hjælper dig med."
-                    }
-                },
-                {
-                    "@type": "Question",
-                    "name": "Hvad koster det at sælge andelsbolig?",
-                    "acceptedAnswer": {
-                        "@type": "Answer",
-                        "text": "Hos roomies er det 100% gratis at sælge. Dine eneste udgifter ved et selvsalg vil typisk være et overdragelsesgebyr til foreningens administrator, udgiften til en vurderingsmand, et gebyr til banken for indfrielse af dit eventuelle lån, samt et el- og VVS-tjek, hvis din forening kræver det."
-                    }
-                }
-            ]
-        }
-    },
-    '/spoergsmaal-om-andelsbolig': {
+    '/spoergsmaal-om-roomies': {
         title: 'Ofte stillede spørgsmål | roomies',
         desc: 'Få svar på alle dine spørgsmål om køb, salg og bytte af andelsboliger og læs mere om hvordan roomies fungerer her.',
         jsonLd: {

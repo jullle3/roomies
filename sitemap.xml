@@ -15,23 +15,14 @@
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
-  <url>
-    <loc>https://roomies.dk/saelg-andelsbolig-selv</loc>
-    <changefreq>weekly</changefreq>
-    <priority>1.0</priority>
-  </url>
-  <url>
-    <loc>https://roomies.dk/saelg-andelsbolig-selv-koncept</loc>
-    <changefreq>weekly</changefreq>
-    <priority>1.0</priority>
-  </url>
+
   <url>
     <loc>https://roomies.dk/boligovervaagning</loc>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://roomies.dk/spoergsmaal-om-andelsbolig</loc>
+    <loc>https://roomies.dk/spoergsmaal-om-roomies</loc>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>

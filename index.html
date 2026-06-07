@@ -6,18 +6,16 @@
     <!--Let browser know the website is optimized for mobile-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta name="description" content="Køb, salg og bytte af andelsboliger gjort simpelt. Det er 100% gratis at sælge. Opret en RoomieAgent og få besked straks, når din drømmebolig kommer til salg.">
-    <meta name="theme-color" content="#ffffff">
+    <meta name="theme-color" content="#FF6B6B">
 
 
 
-    <link rel="icon" href="/favicon.ico" sizes="48x48">
+    <link rel="icon" href="/favicon/favicon.ico" sizes="48x48">
     <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="48x48" href="/favicon/android-chrome-48x48.png">
-    <link rel="icon" type="image/png" sizes="96x96" href="/favicon/favicon-96x96.png">
     <link rel="icon" type="image/png" sizes="192x192" href="/favicon/android-chrome-192x192.png">
-    <link rel="icon" type="image/webp" sizes="512x512" href="/favicon/android-chrome-512x512.webp">
+    <link rel="icon" type="image/png" sizes="512x512" href="/favicon/android-chrome-512x512.png">
     <link rel="manifest" href="/favicon/site.webmanifest">
 
     <!-- Open Graph/Link preview -->
@@ -39,7 +37,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
     <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
     <!--    Custom Merged css files -->
-    <link rel="stylesheet" href="roomies/mergedStyles.css?roomies_version=781">
+    <link rel="stylesheet" href="roomies/mergedStyles.css?roomies_version=782">
     <style>
         .nav-auth-btn:active,
         .nav-auth-btn:focus,
@@ -58,7 +56,7 @@
             color: #ffffff !important;
         }
     </style>
-    <script defer type="module" src="roomies/mergedJS.js?roomies_version=781"></script>
+    <script defer type="module" src="roomies/mergedJS.js?roomies_version=782"></script>
 
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18047412076"></script>
@@ -76,7 +74,7 @@
 
 <div id="app-loader">
     <div class="text-center">
-        <img src="/favicon/android-chrome-192x192.webp"
+        <img src="/favicon/android-chrome-192x192.png"
              alt="Logo"
              class="mb-3 rounded-4 shadow-sm bg-white p-1"
              style="width: 80px; height: 80px;">
@@ -114,7 +112,9 @@
         <!-- Brand / Logo -->
         <a class="navbar-brand d-flex align-items-center gap-2 hover-lift" href="/" data-view="landing">
             <img src="/pics/favicon.png" alt="Logo" class="navbar-logo" style="height: 36px; width: 36px; object-fit: contain;">
-            <span class="fw-bolder tracking-tight brand-text" style="font-size: 1.4rem;">roomies<span class="text-primary-coral">.</span></span>
+            <span class="fw-bolder tracking-tight brand-text" style="font-size: 1.4rem;">
+        roomiedanmark<span class="text-primary-coral">.dk</span>
+    </span>
         </a>
 
         <!-- Custom Mobile Toggle (Animated Hamburger) -->
@@ -718,298 +718,6 @@
     </div>
 
     
-    <div id="landing2" class="view">
-
-        <section class="landing-hero text-center text-lg-start" style="background-image: url('/pics/landing2.png');">
-            <div class="container">
-                <div class="row align-items-center gy-5">
-                    <div class="col-lg-7">
-
-                        <!-- NEW: Pulsating Live Badge (Now Clickable with Smooth Scroll) -->
-                        <a href="#scanner-section"
-                           onclick="document.getElementById('scanner-section').scrollIntoView({behavior: 'smooth'}); return false;"
-                           class="scanner-badge-wrapper d-inline-flex align-items-center gap-2 px-3 py-2 rounded-pill mb-4 shadow-sm text-decoration-none hover-lift"
-                           style="background-color: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2); backdrop-filter: blur(4px);">
-                            <span class="live-indicator"></span>
-                            <span class="scanner-badge-label text-white small fw-bold tracking-wide">Få et forspring i boligjagten</span>
-                            <span class="scanner-badge-action small fw-bold text-nowrap">
-                                Se mere <i class="fa-solid fa-arrow-down ms-1"></i>
-                            </span>
-                        </a>
-
-                        <h1 class="display-4 mb-4">
-                            Køb, salg og bytte af <span class="text-landing-highlight">andelsboliger</span> gjort simpelt
-                        </h1>
-
-                        <div class="landing-use-case-chips d-flex flex-wrap gap-2 justify-content-center justify-content-lg-start mb-4" aria-label="roomies kan bruges til køb, salg og bytte">
-                            <a href="/liste" data-view="housing_list" class="landing-use-case-chip">
-                                <i class="fa-solid fa-key"></i>
-                                Find bolig
-                            </a>
-                            <a href="/saelg-andelsbolig-selv-koncept" data-view="create" class="landing-use-case-chip">
-                                <i class="fa-solid fa-house-chimney"></i>
-                                Sælg gratis
-                            </a>
-                            <a href="/saelg-andelsbolig-selv-koncept" data-view="create" class="landing-use-case-chip">
-                                <i class="fa-solid fa-right-left"></i>
-                                Byt bolig
-                            </a>
-                        </div>
-
-                        <p class="lead mb-5 mx-auto mx-lg-0" style="max-width: 600px;">
-                            Vi overvåger hele internettet for andelsboliger. Læn dig tilbage, og få besked øjeblikkeligt, når drømmeboligen dukker op.</p>
-                        <div class="d-flex flex-column flex-sm-row gap-3 justify-content-center justify-content-lg-start">
-                            <a href="/liste" data-view="housing_list" class="btn btn-hero-primary px-5 py-3">
-                                <i class="fa-solid fa-magnifying-glass me-2"></i> Find bolig
-                            </a>
-                            <a href="/saelg-andelsbolig-selv-koncept" data-view="create" class="btn btn-hero-outline px-5 py-3">
-                                <i class="fa-solid fa-house-chimney me-2"></i> Sælg og byt gratis
-                            </a>
-                        </div>
-
-                        <div class="landing-trust-row trust-indicator-container mt-4 d-flex flex-column flex-sm-row align-items-center justify-content-center justify-content-lg-start gap-3">
-
-                                <div class="trust-avatar-group d-flex align-items-center" aria-hidden="true">
-                                    <img src="/pics/avatars/avatar8.png" alt="" class="trust-avatar rounded-circle border border-2 border-white shadow-sm" loading="lazy">
-                                    <img src="/pics/avatars/avatar6.png" alt="" class="trust-avatar rounded-circle border border-2 border-white shadow-sm" loading="lazy">
-                                    <img src="/pics/avatars/avatar7.png" alt="" class="trust-avatar rounded-circle border border-2 border-white shadow-sm" loading="lazy">
-                                    <img src="/pics/avatars/avatar3.png" alt="" class="trust-avatar rounded-circle border border-2 border-white shadow-sm" loading="lazy">
-                                </div>
-
-                                <p class="landing-trust-copy mb-0 text-center text-sm-start">
-                                    Elsket af
-
-                                    <strong>
-                                        <span id="user-count-wrapper" class="d-inline-block text-end me-2">
-                                            <span id="user-count-number">---</span>
-                                        </span>
-                                    </strong>
-
-                                    boligsøgende
-                                </p>
-                        </div>
-
-
-
-
-
-
-
-                    </div>
-
-                    <div class="col-lg-5 d-none d-lg-block">
-                        <picture>
-                            <source media="(max-width: 991.98px)" srcset="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=">
-
-                            <source media="(min-width: 992px)" srcset="/pics/Smuk_Andelsbolig_København.webp">
-
-                            <img src="/pics/Smuk_Andelsbolig_København.webp"
-                                 alt="Smuk andelsbolig København"
-                                 class="img-fluid rounded-4 shadow-lg"
-                                 style="opacity: 0.9; transform: rotate(2deg); border: 4px solid rgba(255,255,255,0.1);"
-                                 fetchpriority="high">
-                        </picture>
-                    </div>
-
-                </div>
-            </div>
-        </section>
-
-
-
-
-
-        <section class="py-6 bg-light">
-            <div class="container py-5">
-                <div class="row g-4">
-
-                    <div class="col-md-4">
-                        <a href="/saelg-andelsbolig-selv-koncept" data-view="sell_landing" class="feature-card d-block text-decoration-none h-100">
-                            <div class="feature-icon-wrapper">
-                                <i class="fa-solid fa-piggy-bank fs-2"></i>
-                            </div>
-                            <h3 class="h4 fw-bold mb-3 text-dark">Sælg din andelsbolig selv</h3>
-                            <p class="text-muted mb-0">
-                                Spar mægleren og behold pengene selv. Vi sørger for markedsføringen og sender din annonce direkte ud til tusindvis af aktive købere.
-                            </p>
-                        </a>
-                    </div>
-
-                    <div class="col-md-4">
-                        <a href="/saelg-andelsbolig-selv-koncept" data-view="sell_landing" class="feature-card d-block text-decoration-none h-100">
-                            <div class="feature-icon-wrapper">
-                                <i class="fa-solid fa-handshake fs-2"></i>
-                            </div>
-                            <h3 class="h4 fw-bold mb-3 text-dark">Byt din andelsbolig</h3>
-                            <p class="text-muted mb-0">
-                                Få adgang til det skjulte byttemarked. Vores system matcher dig automatisk med andre, der søger netop din bolig i bytte for deres.
-                            </p>
-                        </a>
-                    </div>
-
-                    <div class="col-md-4">
-                        <a href="/boligovervaagning" data-view="agent" class="feature-card d-block text-decoration-none h-100">
-                            <div class="feature-icon-wrapper">
-                                <i class="fa-regular fa-bell fs-2"></i>
-                            </div>
-                            <h3 class="h4 fw-bold mb-3 text-dark">RoomieAgent</h3>
-                            <p class="text-muted mb-0">
-                                Overvåg værelsesmarkedet automatisk. Opret en RoomieAgent og få besked, når et værelse matcher dine ønsker.
-                            </p>
-                        </a>
-                    </div>
-
-                </div>
-            </div>
-        </section>
-
-
-
-
-
-
-
-        <section id="featured-section" class="py-5 bg-white">
-            <div class="container">
-
-                    <div class="row justify-content-center mb-5">
-                        <div class="col-12 col-md-8 col-lg-6">
-                            <div class="card border-0 bg-light rounded-pill overflow-hidden shadow-sm">
-                                <div class="card-body p-0">
-                                    <div id="priceChangeCarousel" class="carousel slide" data-bs-ride="carousel">
-                                        <div class="carousel-inner" id="landing-carousel-inner">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-
-                <div class="featured-header mb-5">
-                    <div>
-                        <h2 class="h2 fw-bold text-dark">Udvalgte boliger</h2>
-                        <p class="text-muted mb-0">
-                            Se de udvalgte.
-                        </p>
-                    </div>
-                    <a href="/liste" data-view="housing_list" class="btn btn-outline-primary rounded-pill px-4 btn-see-all">Se alle</a>
-                </div>
-
-                <div class="row g-4 justify-content-center" id="featured-housings-container">
-                    <div class="col-12 text-center py-5">
-                        <div class="spinner-border text-primary" role="status"></div>
-                    </div>
-                </div>
-
-            </div>
-        </section>
-
-
-        <section class="landing-founder-section py-6" style="background-color: #f8faff;">
-            <div class="container py-5">
-                <div class="row align-items-center g-5">
-                    <!-- Image Column with Modern Fintech Styling -->
-                    <div class="col-lg-5 order-2 order-lg-1">
-                        <div class="position-relative mx-auto ms-lg-auto me-lg-0" style="max-width: 420px;">
-                            <!-- Soft offset background shape -->
-                            <div class="position-absolute rounded-4 bg-primary bg-opacity-10" style="inset: -20px 20px 20px -20px; z-index: 0;"></div>
-
-                            <img src="/pics/julian3.webp"
-                                 alt="Julian Køster, stifter"
-                                 class="img-fluid rounded-4 shadow-lg position-relative z-1 hover-lift"
-                                 style="border: 6px solid #ffffff; transform: rotate(-1deg);"
-                                 loading="lazy"
-                                 decoding="async">
-
-                            <!-- Trust/Value Badge -->
-                            <div class="position-absolute bg-white rounded-pill shadow-sm px-4 py-3 z-2 hover-lift d-none d-sm-block" style="bottom: -20px; right: -30px; border: 1px solid rgba(45, 75, 242, 0.1);">
-                                <div class="d-flex align-items-center gap-2">
-                                    <div class="d-flex align-items-center justify-content-center bg-success bg-opacity-10 rounded-circle text-success" style="width: 28px; height: 28px;">
-                                        <i class="fa-solid fa-check fa-sm"></i>
-                                    </div>
-                                    <span class="fw-bold text-dark small tracking-wide">100% gratis at sælge</span>
-                                </div>
-                            </div>
-
-
-                        </div>
-                    </div>
-
-                    <!-- Copy Column -->
-                    <div class="col-lg-7 order-1 order-lg-2">
-                        <div class="landing-founder-copy mx-auto ms-lg-0 pe-lg-4">
-
-                            <!-- Eyebrow Tag -->
-                            <div class="d-inline-flex align-items-center gap-2 px-3 py-2 rounded-pill mb-4" style="background-color: rgba(45, 75, 242, 0.08); border: 1px solid rgba(45, 75, 242, 0.1);">
-                                <i class="fa-solid fa-hand-peace text-primary"></i>
-                                <span class="fw-bold small text-primary text-uppercase tracking-wide" style="letter-spacing: 0.5px;">Fra boligsøgende til stifter</span>
-                            </div>
-
-                            <h2 class="display-5 fw-bold mb-4" style="color: var(--company-dark); line-height: 1.15;">
-                                Jeg manglede et overblik over markedet. <br><span class="view-title-highlight">Så jeg byggede det.</span>
-                            </h2>
-
-                            <p class="fs-5 text-secondary mb-4 lh-base">
-                                Da jeg selv var på boligjagt, mødte jeg et uoverskueligt marked spredt over Facebook, DBA og dyre boligportaler. Det var svært at navigere i, og det føltes bare ikke fair.
-                            </p>
-
-                            <p class="fs-5 text-secondary mb-4 lh-base">
-                                Som udvikler besluttede jeg mig for at løse problemet fra bunden. Ambitionen var krystalklar: At skabe en platform, der samler markedet og sætter dig i centrum. Boligjagten skal være let, gennemsigtig og fair – uden at det koster en formue
-                            </p>
-
-                            <p class="fs-5 text-secondary mb-5 lh-base">
-                                Derfor er det <strong>100% gratis at sælge og bytte</strong>, og for købere har vi banket prisen helt i bund. Vigtigst af alt udvikles platformen løbende baseret på jeres feedback, så den bliver præcis, som I har brug for. En moderne platform bygget på gennemsigtighed og troværdighed – fra mig til jer.
-                            </p>
-
-                            <!-- Author & CTA -->
-                            <div class="d-flex flex-column flex-sm-row align-items-start align-items-sm-center gap-4">
-                                <a href="/blog?slug=historien-bag-andelsbolig-basen"
-                                   data-view="blog"
-                                   class="btn btn-primary btn-lg rounded-pill px-5 py-3 fw-bold shadow-sm hover-lift">
-                                    Læs hele historien
-                                </a>
-
-                                <div class="d-flex align-items-center gap-3">
-                                    <div style="width: 2px; height: 40px; background-color: #e9ecef;" class="d-none d-sm-block"></div>
-                                    <div>
-                                        <span class="d-block fw-bold fs-5" style="color: var(--company-dark);">Julian Køster</span>
-                                        <span class="d-block text-muted small fw-medium text-uppercase tracking-wide" style="letter-spacing: 0.5px;">stifter</span>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-
-
-        <section class="py-5 bg-light">
-            <div class="container">
-                <div class="pricing-alert-box p-5 rounded-4 mx-auto bg-white">
-                    <div class="row align-items-center">
-                        <div class="col-lg-8">
-                            <h3 class="fw-bold mb-3">Klar til at finde dit næste hjem?</h3>
-                            <p class="text-muted fs-5 mb-0">
-                                Gå på opdagelse i Danmarks nye platform til køb og salg af andelsboliger. Det er helt uforpligtende at kigge med.
-                            </p>
-                        </div>
-                        <div class="col-lg-4 text-lg-end mt-4 mt-lg-0">
-                            <a href="/liste" class="btn btn-primary btn-lg w-100 py-3 rounded-3 shadow-sm">
-                                Se boliger nu
-                            </a>
-                            <p class="small text-muted mt-2 text-center">Måske drømmeboligen er iblandt?</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </div>
-
-
 
 
 
@@ -3251,202 +2959,6 @@ Venlig hilsen</textarea>
 
 
 
-    <div id="sell_landing" class="view">
-
-        <section class="py-6 text-center text-md-start" style="background-color: rgb(235,239,247)">
-            <div class="container py-5 mt-4">
-                <div class="row align-items-center gy-5">
-                    <div class="col-lg-7">
-                        <h1 class="display-4 fw-bold view-title mb-4" style="line-height: 1.15;">
-                            Sælg din andelsbolig selv - <span class="wavy-underline view-title-highlight">100% gratis</span>
-                        </h1>
-                        <p class="lead text-secondary mb-5" style="max-width: 600px; font-size: 1.25rem;">
-                            Står du overfor et salg eller bytte af din andelsbolig? Hos roomies hjælper vi dig trygt videre. Uanset om din bolig ligger i København, Aarhus, på Frederiksberg, Amager, Østerbro eller et andet sted i Danmark, gør vi det enkelt at finde den rette køber.</p>
-                        <div class="d-flex flex-column flex-sm-row gap-3 justify-content-center justify-content-lg-start">
-                            <a href="/saelg-andelsbolig-selv" data-view="create" class="btn btn-primary btn-lg rounded-pill px-5 py-3 fw-bold shadow-sm hover-lift">
-                                <i class="fa-solid fa-pen-to-square me-2"></i> Opret annonce
-                            </a>
-                        </div>
-                        <div class="d-flex flex-wrap justify-content-center justify-content-lg-start gap-4 mt-4 text-muted small fw-medium">
-                            <span><i class="fa-solid fa-check text-success me-1"></i> Vi reklamerer for dig</span>
-                            <span><i class="fa-solid fa-check text-success me-1"></i> 0 kr. i salær</span>
-                        </div>
-                    </div>
-                    <div class="col-lg-5 d-none d-lg-block position-relative">
-                        <img src="/pics/Smuk_Andelsbolig_København.webp" alt="Salg af andelsbolig i København" class="img-fluid rounded-4 shadow-lg hover-lift" style="border: 6px solid #ffffff; transform: rotate(1deg);">
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="py-6 bg-white">
-            <div class="container py-5">
-                <div class="text-center mb-5">
-                    <h2 class="fw-bold mb-3" style="color: var(--company-dark);">Sådan fungerer det</h2>
-                    <p class="text-secondary mx-auto" style="max-width: 600px;">Det tager under 5 minutter at komme i gang med at sælge din andelsbolig selv.</p>
-                </div>
-
-                <div class="row g-4 justify-content-center">
-                    <div class="col-md-4">
-                        <div class="card h-100 shadow-sm rounded-4 bg-white text-center p-4 p-md-5 sell-step-card">
-                            <div class="d-inline-flex align-items-center justify-content-center bg-primary bg-opacity-10 text-primary rounded-circle mx-auto mb-4 sell-step-icon" style="width: 72px; height: 72px;">
-                                <i class="fa-solid fa-house-medical fs-2"></i>
-                            </div>
-                            <h4 class="fw-bold mb-3" style="color: var(--company-dark);">1. Opret din annonce</h4>
-                            <p class="text-muted mb-0">Indtast boligens oplysninger, pris, boligafgift m.m. og upload dine bedste billeder.</p>
-                        </div>
-                    </div>
-
-                    <div class="col-md-4">
-                        <div class="card h-100 shadow-sm rounded-4 bg-white text-center p-4 p-md-5 sell-step-card">
-                            <div class="d-inline-flex align-items-center justify-content-center bg-primary bg-opacity-10 text-primary rounded-circle mx-auto mb-4 sell-step-icon" style="width: 72px; height: 72px;">
-                                <i class="fa-solid fa-users-viewfinder fs-2"></i>
-                            </div>
-                            <h4 class="fw-bold mb-3" style="color: var(--company-dark);">2. Vi finder køberne</h4>
-                            <p class="text-muted mb-0">Vi eksponerer din bolig for tusindvis af seriøse købere, der søger en andelsbolig til salg, og giver dem automatisk besked.</p>
-                        </div>
-                    </div>
-
-                    <div class="col-md-4">
-                        <div class="card h-100 shadow-sm rounded-4 bg-white text-center p-4 p-md-5 sell-step-card">
-                            <div class="d-inline-flex align-items-center justify-content-center bg-primary bg-opacity-10 text-primary rounded-circle mx-auto mb-4 sell-step-icon" style="width: 72px; height: 72px;">
-                                <i class="fa-solid fa-handshake fs-2"></i>
-                            </div>
-                            <h4 class="fw-bold mb-3" style="color: var(--company-dark);">3. Sælg eller byt</h4>
-                            <p class="text-muted mb-0">Modtag henvendelser direkte i din indbakke. Aftal selv fremvisning og lad din forening eller administrator klare det juridiske papirarbejde.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="py-5" style="background-color: #f8faff;">
-            <div class="container py-4">
-                <div class="position-relative overflow-hidden rounded-4 shadow-sm p-4 p-md-5 bg-white" style="border: 1px solid rgba(45, 75, 242, 0.1);">
-                    <div class="row align-items-center position-relative z-1">
-                        <div class="col-lg-8">
-                            <div class="d-inline-flex align-items-center gap-2 px-3 py-1 rounded-pill shadow-sm mb-3" style="background-color: #f4f8ff;">
-                                <i class="fa-solid fa-arrow-right-arrow-left text-primary"></i>
-                                <span class="fw-bold small text-primary text-uppercase tracking-wide" style="letter-spacing: 0.5px;">Det skjulte byttemarked</span>
-                            </div>
-                            <h2 class="fw-bold mb-3" style="color: var(--company-dark);">Vil du hellere bytte andelsbolig?</h2>
-                            <p class="text-secondary fs-5 mb-0" style="max-width: 650px;">
-                                Drømmer du om at bytte andelsbolig i København, på Frederiksberg, Østerbro (2100) eller Vesterbro? Måske overvejer du endda at bytte andelsbolig til ejerbolig eller hus? Vores intelligente BytteMatch-algoritme matcher dig automatisk med dem, der leder efter netop din bolig i bytte for deres.
-                            </p>
-                        </div>
-                        <div class="col-lg-4 text-lg-end mt-4 mt-lg-0">
-                            <a href="/saelg-andelsbolig-selv" data-view="create" class="btn btn-outline-primary btn-lg rounded-pill px-4 py-3 fw-bold shadow-sm hover-lift">
-                                Prøv BytteMatch
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="py-6 bg-white">
-            <div class="container py-5" style="max-width: 800px;">
-                <div class="text-center mb-5">
-                    <h2 class="fw-bold mb-3" style="color: var(--company-dark);">Værd at vide når du vil sælge din andelsbolig selv</h2>
-                    <p class="text-secondary">Vi har samlet svarene på de oftest stillede spørgsmål omkring selvsalg af andelsboliger.</p>
-                </div>
-
-                <div class="accordion accordion-flush bg-transparent" id="seoFaqAccordion">
-
-                    <div class="accordion-item border-0 bg-transparent mb-3">
-                        <h3 class="accordion-header" id="headingOne">
-                            <button class="accordion-button collapsed rounded-4 shadow-sm fw-bold py-3 px-4 text-dark" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne" style="font-size: 1.1rem; background-color: #f8faff;">
-                                Må jeg sælge min andelsbolig selv?
-                            </button>
-                        </h3>
-                        <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#seoFaqAccordion">
-                            <div class="accordion-body px-4 pt-3 pb-4 text-secondary lh-lg">
-                                Ja, du må i høj grad gerne sælge din andelsbolig selv. Faktisk er selvsalg den mest almindelige måde at sælge attraktive andelsboliger på i Danmark. Du behøver ingen ejendomsmægler, da andelsboligforeningens administrator typisk står for at udarbejde overdragelsesaftalen og håndtere det juridiske papirarbejde.
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="accordion-item border-0 bg-transparent mb-3">
-                        <h3 class="accordion-header" id="headingTwo">
-                            <button class="accordion-button collapsed rounded-4 shadow-sm fw-bold py-3 px-4 text-dark" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo" style="font-size: 1.1rem; background-color: #f8faff;">
-                                Hvad er processen når jeg sælger selv?
-                            </button>
-                        </h3>
-                        <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#seoFaqAccordion">
-                            <div class="accordion-body px-4 pt-3 pb-4 text-secondary lh-lg">
-                                Overordnet set er processen simpel:<br>
-                                <strong>1.</strong> Undersøg først, hvilke regler og processer der gælder i din specifikke andelsboligforening (f.eks. krav til vurderingsmand).<br>
-                                <strong>2.</strong> Opret en gratis annonce på roomies. Vi finder interesserede købere og du fremviser boligen.<br>
-                                <strong>3.</strong> Når du har fundet din køber, giver du besked til foreningens administrator, som herefter opretter overdragelsesaftalen og indhenter bestyrelsens godkendelse.
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="accordion-item border-0 bg-transparent mb-3">
-                        <h3 class="accordion-header" id="headingThree">
-                            <button class="accordion-button collapsed rounded-4 shadow-sm fw-bold py-3 px-4 text-dark" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree" style="font-size: 1.1rem; background-color: #f8faff;">
-                                Er det usikkert at sælge uden en ejendomsmægler?
-                            </button>
-                        </h3>
-                        <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#seoFaqAccordion">
-                            <div class="accordion-body px-4 pt-3 pb-4 text-secondary lh-lg">
-                                Nej, og salg går ofte hurtigere ved selvsalg. Alt salg af andelsboliger skal lovpligtigt godkendes af andelsboligforeningens bestyrelse. Det er foreningens professionelle administrator (ofte en advokat), der udarbejder selve købsaftalen og håndterer købesummen sikkert via en deponeringskonto. Mæglerens primære job er blot at finde køberen, hvilket vi hjælper dig med.
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="accordion-item border-0 bg-transparent mb-3">
-                        <h3 class="accordion-header" id="headingFour">
-                            <button class="accordion-button collapsed rounded-4 shadow-sm fw-bold py-3 px-4 text-dark" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour" style="font-size: 1.1rem; background-color: #f8faff;">
-                                Hvad koster det at sælge andelsbolig?
-                            </button>
-                        </h3>
-                        <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#seoFaqAccordion">
-                            <div class="accordion-body px-4 pt-3 pb-4 text-secondary lh-lg">
-                                Hos roomies er det <strong>100% gratis</strong> at sælge. Dine eneste udgifter ved et selvsalg vil typisk være:
-                                <ul class="mt-2 mb-0 ps-3">
-                                    <li>Et overdragelsesgebyr til foreningens administrator</li>
-                                    <li>Udgift til en vurderingsmand</li>
-                                    <li>Et gebyr til banken for indfrielse af dit eventuelle andelsboliglån</li>
-                                    <li>Et el- og VVS-tjek (hvis foreningen kræver det)</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-
-                <div class="text-center mt-5">
-                    <a href="/spoergsmaal-om-andelsbolig" class="btn btn-outline-primary rounded-pill px-3 py-2 fw-bold shadow-sm hover-lift d-inline-flex align-items-center" style="border-width: 2px; letter-spacing: -0.2px;">
-                        Se alle ofte stillede spørgsmål
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-right ms-2" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
-                        </svg>
-                    </a>
-                </div>
-            </div>
-        </section>
-
-        <section class="py-6 position-relative overflow-hidden" style="background-color: var(--company-dark);">
-            <div class="position-absolute top-0 end-0 opacity-10" style="transform: translate(30%, -30%);">
-                <i class="fa-solid fa-house-circle-check" style="font-size: 350px; color: #fff;"></i>
-            </div>
-
-            <div class="container py-5 text-center position-relative z-1">
-                <h2 class="display-5 fw-bold text-white mb-4">Klar til at finde din køber?</h2>
-                <p class="text-white opacity-75 fs-5 mb-5 mx-auto" style="max-width: 600px;">
-                    Tusindvis af danskere står klar til at købe. Opret din bolig i dag, og lad køberne finde dig.
-                </p>
-                <a href="/saelg-andelsbolig-selv" data-view="create" class="btn btn-primary btn-lg rounded-pill px-5 py-3 fw-bold shadow-lg hover-lift border-2 border-white">
-                    <i class="fa-solid fa-plus me-2"></i> Opret din annonce nu
-                </a>
-            </div>
-        </section>
-
-    </div>
-
-
-
 
 
 
@@ -3468,7 +2980,7 @@ Venlig hilsen</textarea>
                 <div class="login-modal-intro text-center mb-4">
                     <div class="login-modal-brand d-inline-flex align-items-center justify-content-center mb-3">
                         <img
-                                src="/favicon/android-chrome-192x192.webp"
+                                src="/favicon/android-chrome-192x192.png"
                                 alt="roomies"
                                 width="74"
                                 height="74"
@@ -3672,7 +3184,7 @@ Venlig hilsen</textarea>
 
             <div class="modal-body register-modal-body">
                 <div class="register-modal-intro text-center mb-4">
-                    <img src="/favicon/android-chrome-192x192.webp"
+                    <img src="/favicon/android-chrome-192x192.png"
                          alt="roomies"
                          width="74"
                          height="74">

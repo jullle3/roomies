@@ -485,6 +485,8 @@ export async function handleOTPLink(){
         return false;
     }
 
+    rememberRoomRedirectFromOTPParams(params, email);
+
     const legacyIdIsLoginIdentity = !email && Boolean(legacyId);
     const verificationSuccessful = await performOTPVerification(login_code, email, null, legacyIdIsLoginIdentity ? legacyId : null);
 
@@ -493,6 +495,44 @@ export async function handleOTPLink(){
     }
 
     return verificationSuccessful;
+}
+
+function rememberRoomRedirectFromOTPParams(params, email) {
+    const roomId = getRoomIdFromOTPParams(params, email);
+    if (!roomId) return;
+
+    const roomParams = new URLSearchParams({id: roomId});
+    localStorage.removeItem('postLoginRedirect');
+    rememberPostOnboardingContext({
+        view: 'room_detail',
+        params: roomParams,
+        returnUrl: `/vaerelse?${roomParams.toString()}`
+    });
+}
+
+function getRoomIdFromOTPParams(params, email) {
+    const explicitRoomId = params.get("room_id") || params.get("roomId") || params.get("room");
+    if (explicitRoomId) return explicitRoomId;
+
+    const id = params.get("id");
+    if (!id) return null;
+
+    const view = params.get("view");
+    const pathname = window.location.pathname.replace(/\/+$/, "") || "/";
+
+    if (view === "room_detail" || view === "vaerelse" || pathname === "/vaerelse") {
+        return id;
+    }
+
+    if (view === "detail" && email) {
+        return id;
+    }
+
+    if (email && !view) {
+        return id;
+    }
+
+    return null;
 }
 
 function removeOTPParamsFromURL(removeLegacyId = false) {

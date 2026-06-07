@@ -37,7 +37,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
     <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
     <!--    Custom Merged css files -->
-    <link rel="stylesheet" href="roomies/mergedStyles.css?roomies_version=785">
+    <link rel="stylesheet" href="roomies/mergedStyles.css?roomies_version=792">
     <style>
         .nav-auth-btn:active,
         .nav-auth-btn:focus,
@@ -56,7 +56,7 @@
             color: #ffffff !important;
         }
     </style>
-    <script defer type="module" src="roomies/mergedJS.js?roomies_version=785"></script>
+    <script defer type="module" src="roomies/mergedJS.js?roomies_version=792"></script>
 
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18047412076"></script>
@@ -2170,10 +2170,6 @@
                                             <label class="profile-pill-option" for="profile-gender-man">Mand</label>
                                             <input type="radio" class="btn-check" name="gender" id="profile-gender-woman" value="kvinde">
                                             <label class="profile-pill-option" for="profile-gender-woman">Kvinde</label>
-                                            <input type="radio" class="btn-check" name="gender" id="profile-gender-other" value="andet">
-                                            <label class="profile-pill-option" for="profile-gender-other">Andet</label>
-                                            <input type="radio" class="btn-check" name="gender" id="profile-gender-private" value="ønsker_ikke_at_oplyse">
-                                            <label class="profile-pill-option" for="profile-gender-private">Ønsker ikke at oplyse</label>
                                         </div>
                                     </div>
 
@@ -2205,7 +2201,7 @@
                                             <label class="form-label" for="profile-description">Lidt om mig som roomie</label>
                                             <span class="profile-char-count"><span id="profile-description-count">0</span>/500</span>
                                         </div>
-                                        <textarea class="form-control" id="profile-description" name="description" rows="5" maxlength="500" placeholder="Fortæl lidt om din hverdag, hvad du laver i din fritid, og hvad du sætter pris på i et godt hjem..."></textarea>
+                                        <textarea class="form-control" id="profile-description" name="description" rows="5" maxlength="500" placeholder="Fortæl lidt om din hverdag, hvad du laver i din fritid, og hvad du sætter pris på i et godt hjem."></textarea>
                                     </div>
 
                                     <div class="row g-3">
@@ -2220,6 +2216,13 @@
                                             <label class="form-label" for="profile-move-in-date">Klar til indflytning fra</label>
                                             <input type="date" class="form-control" id="profile-move-in-date" name="move_in_date">
                                         </div>
+                                    </div>
+
+                                    <div class="profile-area-picker">
+                                        <label class="form-label" for="profile-area-search">Hvor vil du bo?</label>
+                                        <input id="profile-area-search" type="search" class="form-control" autocomplete="off" placeholder="Søg efter postnummer eller område">
+                                        <div id="profile-selected-areas" class="roomie-agent-selected-areas"></div>
+                                        <div id="profile-area-suggestions" class="roomie-agent-area-suggestions"></div>
                                     </div>
 
                                     <button type="submit" class="btn btn-primary-coral rounded-pill fw-bold py-3 px-4 shadow-sm hover-lift profile-human-submit">

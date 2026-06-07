@@ -192,6 +192,10 @@
     resize: vertical;
 }
 
+.profile-area-picker .roomie-agent-area-suggestions {
+    margin-top: 0.85rem;
+}
+
 .profile-human-form .form-control:focus,
 .profile-human-form .input-group:focus-within {
     border-color: rgba(255, 107, 107, 0.55);
@@ -376,5 +380,9 @@
     .profile-pill-option,
     .profile-vibe-grid label {
         width: 100%;
+    }
+
+    .profile-area-picker .roomie-agent-area-suggestions {
+        grid-template-columns: 1fr;
     }
 }

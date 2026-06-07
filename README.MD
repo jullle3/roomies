@@ -1,3 +1,4 @@
+- Jeg skriver gratis lidt for ofte og mange steder
 - When the user wants to create an roomieagent, in case they have NOT filled out their roomie profile (read local cache), show a popup prompting them to do so. It should link them to the profile page directly to  roomie-profile section
 - 
 - Remove the "favorite" button on room cards, dont need the feature atm. 

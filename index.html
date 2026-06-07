@@ -37,7 +37,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
     <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
     <!--    Custom Merged css files -->
-    <link rel="stylesheet" href="roomies/mergedStyles.css?roomies_version=803">
+    <link rel="stylesheet" href="roomies/mergedStyles.css?roomies_version=804">
     <style>
         .nav-auth-btn:active,
         .nav-auth-btn:focus,
@@ -56,7 +56,7 @@
             color: #ffffff !important;
         }
     </style>
-    <script defer type="module" src="roomies/mergedJS.js?roomies_version=803"></script>
+    <script defer type="module" src="roomies/mergedJS.js?roomies_version=804"></script>
 
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18047412076"></script>
@@ -238,12 +238,12 @@
                         <div class="action-hub-card p-3 p-md-4">
                             <ul class="nav nav-pills nav-fill mb-4 gap-2" id="heroTab" role="tablist">
                                 <li class="nav-item" role="presentation">
-                                    <button class="nav-link active" id="search-tab" data-bs-toggle="tab" data-bs-target="#search" type="button" role="tab">
+                                    <button class="nav-link" id="search-tab" data-bs-toggle="tab" data-bs-target="#search" type="button" role="tab" aria-selected="false">
                                         <i class="fa-solid fa-magnifying-glass me-2"></i>Søg værelse
                                     </button>
                                 </li>
                                 <li class="nav-item" role="presentation">
-                                    <button class="nav-link" id="sell-tab" data-bs-toggle="tab" data-bs-target="#sell" type="button" role="tab">
+                                    <button class="nav-link active" id="sell-tab" data-bs-toggle="tab" data-bs-target="#sell" type="button" role="tab" aria-selected="true">
                                         <i class="fa-solid fa-house-user me-2"></i>Udlej værelse
                                     </button>
                                 </li>
@@ -251,13 +251,13 @@
 
                             <div class="tab-content" id="heroTabContent">
                                 <!-- Seeker Tab -->
-                                <div class="tab-pane fade show active" id="search" role="tabpanel">
+                                <div class="tab-pane fade" id="search" role="tabpanel">
                                     <div class="landing-room-search-field">
                                         <div class="input-group input-group-lg search-input-group rounded-pill overflow-hidden p-1">
                                         <span class="input-group-text bg-transparent border-0 ps-3 text-muted">
                                             <i class="fa-solid fa-location-dot"></i>
                                         </span>
-                                            <input id="landing-room-search-location" type="text" class="form-control border-0 px-2" autocomplete="off" placeholder="Hvor vil du bo? (F.eks. Nørrebro eller Aarhus C)">
+                                            <input id="landing-room-search-location" type="text" class="form-control border-0 px-2" autocomplete="off" placeholder="Hvor vil du bo?">
                                             <button class="btn btn-primary-coral rounded-pill px-4 px-md-5 fw-bold" onclick="openRoomSearch()">
                                                 Søg
                                             </button>
@@ -266,11 +266,11 @@
                                     </div>
                                 </div>
                                 <!-- Provider Tab -->
-                                <div class="tab-pane fade" id="sell" role="tabpanel">
+                                <div class="tab-pane fade show active" id="sell" role="tabpanel">
                                     <div class="d-flex flex-column flex-md-row align-items-center justify-content-between bg-white rounded-pill p-2 border border-light">
                                         <div class="text-start mb-3 mb-md-0 ps-3 py-2">
-                                            <h6 class="fw-bold mb-1">Mangler du en roomie?</h6>
-                                            <span class="small text-muted">Opret din annonce på 2 minutter. 100% gratis.</span>
+                                            <h6 class="fw-bold mb-1">Har du et ledigt værelse?</h6>
+                                            <span class="small text-muted">Opret din annonce på 2 minutter.</span>
                                         </div>
                                         <a href="/udlej-vaerelse" data-view="udlej_vaerelse" class="btn btn-primary-coral rounded-pill px-5 py-3 fw-bold shadow-sm w-100 w-md-auto">
                                             Udlej værelse

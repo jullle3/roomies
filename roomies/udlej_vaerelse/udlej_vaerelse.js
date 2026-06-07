@@ -38,6 +38,7 @@ export function setupRentRoomView() {
     setupAddressAutocomplete(form);
     setupDraftSaving(form);
     setupVibeLimit();
+    setupRentRoomWizard(form);
 
     form.addEventListener("submit", handleRentRoomSubmit);
 }
@@ -116,8 +117,116 @@ function addRoom(form, room = {}) {
     });
 
     setupRoomImageHandling(roomElement, form);
+    setupRoomEconomyDefaults(roomElement);
     roomList.appendChild(fragment);
     return roomList.querySelector(`[data-room-id="${id}"]`);
+}
+
+function setupRentRoomWizard(form) {
+    if (form.dataset.wizardBound === "1") return;
+    form.dataset.wizardBound = "1";
+    form.dataset.currentStep = "0";
+
+    form.addEventListener("click", event => {
+        const nextButton = event.target.closest("[data-rent-room-next]");
+        if (nextButton) {
+            event.preventDefault();
+            goToRentRoomStep(form, getCurrentRentRoomStep(form) + 1);
+            return;
+        }
+
+        const prevButton = event.target.closest("[data-rent-room-prev]");
+        if (prevButton) {
+            event.preventDefault();
+            goToRentRoomStep(form, getCurrentRentRoomStep(form) - 1, {skipValidation: true});
+        }
+    });
+
+    showRentRoomStep(form, 0);
+}
+
+function goToRentRoomStep(form, step, options = {}) {
+    const currentStep = getCurrentRentRoomStep(form);
+    if (!options.skipValidation && step > currentStep && !validateRentRoomStep(form, currentStep)) {
+        return;
+    }
+
+    showRentRoomStep(form, step);
+}
+
+function showRentRoomStep(form, step) {
+    const sections = [...form.querySelectorAll("[data-rent-room-step]")];
+    const maxStep = sections.length - 1;
+    const nextStep = Math.max(0, Math.min(step, maxStep));
+
+    form.dataset.currentStep = String(nextStep);
+
+    sections.forEach(section => {
+        section.classList.toggle("d-none", Number(section.dataset.rentRoomStep) !== nextStep);
+    });
+
+    form.querySelectorAll("[data-rent-room-step-indicator]").forEach(indicator => {
+        const indicatorStep = Number(indicator.dataset.rentRoomStepIndicator);
+        indicator.classList.toggle("is-active", indicatorStep === nextStep);
+        indicator.classList.toggle("is-complete", indicatorStep < nextStep);
+    });
+}
+
+function getCurrentRentRoomStep(form) {
+    return Number(form.dataset.currentStep || 0);
+}
+
+function validateRentRoomStep(form, step) {
+    const section = form.querySelector(`[data-rent-room-step="${step}"]`);
+    if (!section) return true;
+
+    section.classList.add("was-validated");
+
+    const invalidField = [...section.querySelectorAll("input, select, textarea")]
+        .find(field => !field.checkValidity());
+
+    if (invalidField) {
+        invalidField.focus();
+        displayErrorMessage("Tjek de markerede felter, før du fortsætter.");
+        return false;
+    }
+
+    if (step === 0 && !hasSelectedOfficialAddress()) {
+        document.getElementById("rent_room_address")?.focus();
+        displayErrorMessage("Vælg adressen fra listen, så vi kan placere værelserne korrekt.");
+        return false;
+    }
+
+    return true;
+}
+
+function setupRoomEconomyDefaults(roomElement) {
+    const monthlyRentInput = getRoomField(roomElement, "monthly_rent");
+    const depositInput = getRoomField(roomElement, "deposit");
+    const prepaidRentInput = getRoomField(roomElement, "prepaid_rent");
+    if (!monthlyRentInput || !depositInput || !prepaidRentInput) return;
+
+    [depositInput, prepaidRentInput].forEach(input => {
+        input.dataset.autoFilled = input.value ? "0" : "1";
+        input.addEventListener("input", () => {
+            input.dataset.autoFilled = "0";
+        });
+    });
+
+    monthlyRentInput.addEventListener("input", () => {
+        const rent = Number(monthlyRentInput.value);
+        if (!Number.isFinite(rent) || rent <= 0) return;
+
+        if (!depositInput.value || depositInput.dataset.autoFilled === "1") {
+            depositInput.value = String(Math.round(rent * 3));
+            depositInput.dataset.autoFilled = "1";
+        }
+
+        if (!prepaidRentInput.value || prepaidRentInput.dataset.autoFilled === "1") {
+            prepaidRentInput.value = String(Math.round(rent));
+            prepaidRentInput.dataset.autoFilled = "1";
+        }
+    });
 }
 
 function removeRoom(roomId) {
@@ -391,16 +500,11 @@ function handleRentRoomSubmit(event) {
     const form = event.currentTarget;
     form.classList.add("was-validated");
 
-    if (!form.reportValidity()) {
-        form.querySelector(":invalid")?.focus();
-        displayErrorMessage("Tjek de markerede felter, før du fortsætter.");
-        return;
-    }
-
-    if (!hasSelectedOfficialAddress()) {
-        document.getElementById("rent_room_address")?.focus();
-        displayErrorMessage("Vælg adressen fra listen, så vi kan placere værelserne korrekt.");
-        return;
+    for (const step of [0, 1, 2]) {
+        showRentRoomStep(form, step);
+        if (!validateRentRoomStep(form, step)) {
+            return;
+        }
     }
 
     const draft = buildRentRoomDraft(form);

@@ -37,7 +37,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
     <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
     <!--    Custom Merged css files -->
-    <link rel="stylesheet" href="roomies/mergedStyles.css?roomies_version=828">
+    <link rel="stylesheet" href="roomies/mergedStyles.css?roomies_version=830">
     <style>
         .nav-auth-btn:active,
         .nav-auth-btn:focus,
@@ -56,7 +56,7 @@
             color: #ffffff !important;
         }
     </style>
-    <script defer type="module" src="roomies/mergedJS.js?roomies_version=828"></script>
+    <script defer type="module" src="roomies/mergedJS.js?roomies_version=830"></script>
 
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18047412076"></script>
@@ -1391,20 +1391,14 @@
                         </div>
 
                         <form id="form-rent-room" class="rent-room-form-card" novalidate>
-                            <!-- Værelser -->
-                            <section class="rent-room-form-block">
-                                <h3><i class="fa-solid fa-door-open text-primary-coral"></i> Værelser</h3>
-                                <p class="text-muted mb-4">Hvert værelse bliver oprettet som sin egen annonce.</p>
-                                <div id="rent-room-list"></div>
-                                <div class="d-grid">
-                                    <button id="rent-room-add-button" class="btn btn-outline-primary rounded-pill py-3 fw-bold" type="button">
-                                        <i class="fa-solid fa-plus me-2"></i>Tilføj værelse
-                                    </button>
-                                </div>
-                            </section>
+                            <div class="rent-room-stepper" aria-label="Opret værelse trin">
+                                <span class="is-active" data-rent-room-step-indicator="0">1. Beliggenhed</span>
+                                <span data-rent-room-step-indicator="1">2. Hjemmet</span>
+                                <span data-rent-room-step-indicator="2">3. Værelset</span>
+                            </div>
 
                             <!-- Beliggenhed -->
-                            <section class="rent-room-form-block">
+                            <section class="rent-room-form-block rent-room-step" data-rent-room-step="0">
                                 <h3><i class="fa-solid fa-location-dot text-primary-coral"></i> Beliggenhed</h3>
                                 <div class="row g-3">
                                     <div class="col-12">
@@ -1424,10 +1418,15 @@
                                         <input class="form-control rent-room-autofill-field" id="rent_room_side" name="side" type="text" placeholder="th/tv" readonly aria-readonly="true">
                                     </div>
                                 </div>
+                                <div class="rent-room-step-actions">
+                                    <button class="btn btn-primary-coral rounded-pill px-4 py-3 fw-bold" type="button" data-rent-room-next>
+                                        Næste <i class="fa-solid fa-arrow-right ms-2"></i>
+                                    </button>
+                                </div>
                             </section>
 
                             <!-- Hjemmet -->
-                            <section class="rent-room-form-block">
+                            <section class="rent-room-form-block rent-room-step d-none" data-rent-room-step="1">
                                 <h3><i class="fa-solid fa-house-user text-primary-coral"></i> Hjemmet</h3>
                                 <div class="row g-3">
                                     <div class="col-md-4">
@@ -1453,11 +1452,9 @@
                                         </label>
                                     </div>
                                 </div>
-                            </section>
-
-                            <!-- Roomie-vibes -->
-                            <section class="rent-room-form-block">
-                                <h3><i class="fa-solid fa-face-smile text-primary-coral"></i> Roomie-vibes</h3>
+                                <div class="mt-4">
+                                    <h3><i class="fa-solid fa-face-smile text-primary-coral"></i> Roomie-vibes</h3>
+                                </div>
                                 <p class="text-muted mb-3">Vælg de tags, der bedst beskriver hverdagen i hjemmet.</p>
                                 <div class="rent-room-vibe-grid">
                                     <input type="checkbox" id="vibe_quiet" name="vibes" value="Stille">
@@ -1478,13 +1475,35 @@
                                     <input type="checkbox" id="vibe_pets" name="vibes" value="Kæledyr">
                                     <label for="vibe_pets">🐾 Kæledyr</label>
                                 </div>
+                                <div class="rent-room-step-actions">
+                                    <button class="btn btn-light rounded-pill px-4 py-3 fw-bold" type="button" data-rent-room-prev>
+                                        <i class="fa-solid fa-arrow-left me-2"></i>Tilbage
+                                    </button>
+                                    <button class="btn btn-primary-coral rounded-pill px-4 py-3 fw-bold" type="button" data-rent-room-next>
+                                        Næste <i class="fa-solid fa-arrow-right ms-2"></i>
+                                    </button>
+                                </div>
                             </section>
 
-                            <div class="d-grid">
-                                <button class="btn btn-primary-coral btn-lg rounded-pill py-3 fw-bold shadow-sm" type="submit">
-                                    <i class="fa-solid fa-check me-2"></i>Udlej værelser
-                                </button>
-                            </div>
+                            <!-- Værelser -->
+                            <section class="rent-room-form-block rent-room-step d-none" data-rent-room-step="2">
+                                <h3><i class="fa-solid fa-door-open text-primary-coral"></i> Værelset</h3>
+                                <p class="text-muted mb-4">Hvert værelse bliver oprettet som sin egen annonce.</p>
+                                <div id="rent-room-list"></div>
+                                <div class="d-grid mt-3">
+                                    <button id="rent-room-add-button" class="btn btn-outline-primary rounded-pill py-3 fw-bold" type="button">
+                                        <i class="fa-solid fa-plus me-2"></i>Tilføj endnu et værelse
+                                    </button>
+                                </div>
+                                <div class="rent-room-step-actions">
+                                    <button class="btn btn-light rounded-pill px-4 py-3 fw-bold" type="button" data-rent-room-prev>
+                                        <i class="fa-solid fa-arrow-left me-2"></i>Tilbage
+                                    </button>
+                                    <button class="btn btn-primary-coral btn-lg rounded-pill px-4 py-3 fw-bold shadow-sm" type="submit">
+                                        <i class="fa-solid fa-check me-2"></i>Udlej værelser
+                                    </button>
+                                </div>
+                            </section>
 
                             <template id="rent-room-item-template">
                                 <div class="rent-room-item mb-4 pb-4 border-bottom" data-room-id="">
@@ -1511,9 +1530,29 @@
                                             <label class="form-label" data-label-for="rental_period_months">Lejeperiode</label>
                                             <select class="form-select" data-room-field="rental_period_months">
                                                 <option value="">Ubegrænset</option>
+                                                <option value="1">1 måned</option>
+                                                <option value="2">2 måneder</option>
                                                 <option value="3">3 måneder</option>
+                                                <option value="4">4 måneder</option>
+                                                <option value="5">5 måneder</option>
                                                 <option value="6">6 måneder</option>
+                                                <option value="7">7 måneder</option>
+                                                <option value="8">8 måneder</option>
+                                                <option value="9">9 måneder</option>
+                                                <option value="10">10 måneder</option>
+                                                <option value="11">11 måneder</option>
                                                 <option value="12">12 måneder</option>
+                                                <option value="13">13 måneder</option>
+                                                <option value="14">14 måneder</option>
+                                                <option value="15">15 måneder</option>
+                                                <option value="16">16 måneder</option>
+                                                <option value="17">17 måneder</option>
+                                                <option value="18">18 måneder</option>
+                                                <option value="19">19 måneder</option>
+                                                <option value="20">20 måneder</option>
+                                                <option value="21">21 måneder</option>
+                                                <option value="22">22 måneder</option>
+                                                <option value="23">23 måneder</option>
                                                 <option value="24">24 måneder</option>
                                             </select>
                                         </div>

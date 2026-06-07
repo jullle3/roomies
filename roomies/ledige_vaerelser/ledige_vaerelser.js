@@ -1,5 +1,3 @@
-import noUiSlider from "nouislider";
-import wNumb from "wnumb";
 import {getCachedRooms, onRoomsLoaded} from "../rooms/room_cache.js";
 import {s3Url} from "../config/config.js";
 
@@ -15,6 +13,7 @@ export function setupRoomSearchView() {
     form.dataset.bound = "1";
 
     setupRoomSearchSliders();
+    setupRoomSearchFilterDropdown();
 
     form.addEventListener("submit", event => {
         event.preventDefault();
@@ -263,8 +262,8 @@ function resetRoomSearch() {
     document.getElementById("room-search-form")?.reset();
     const locationInput = document.getElementById("room-search-location");
     if (locationInput) locationInput.dataset.areaId = "";
-    document.getElementById("room-search-rent-slider")?.noUiSlider?.set(8000);
-    document.getElementById("room-search-size-slider")?.noUiSlider?.set(8);
+    setRoomSearchSliderValue("room-search-rent-slider", 8000);
+    setRoomSearchSliderValue("room-search-size-slider", 8);
     renderRoomListings();
 }
 
@@ -294,29 +293,72 @@ function setupRoomSearchSliders() {
     });
 }
 
+function setupRoomSearchFilterDropdown() {
+    const toggle = document.getElementById("room-search-filter-toggle");
+    if (!toggle) return;
+
+    toggle.addEventListener("shown.bs.dropdown", () => {
+        requestAnimationFrame(refreshRoomSearchSliders);
+    });
+}
+
+function refreshRoomSearchSliders() {
+    ["room-search-rent-slider", "room-search-size-slider"].forEach(updateNativeSliderFill);
+}
+
 function setupRoomSearchSlider(config) {
     const slider = document.getElementById(config.sliderId);
     const input = document.getElementById(config.inputId);
     const output = document.getElementById(config.outputId);
-    if (!slider || !input || !output || slider.noUiSlider) return;
+    if (!slider || !input || !output || slider.dataset.nativeSliderBound === "1") return;
 
-    const integerFormat = wNumb({decimals: 0});
+    slider.dataset.nativeSliderBound = "1";
+    slider.dataset.openLabel = config.openLabel;
+    slider.dataset.formatKind = config.formatValue(config.start).includes("m²") ? "size" : "rent";
+    slider.dataset.isOpenAt = config.isOpenEnd(config.range.min) ? "min" : "max";
 
-    noUiSlider.create(slider, {
-        start: config.start,
-        connect: [true, false],
-        step: config.step,
-        range: config.range,
-        format: integerFormat
-    });
+    const range = document.createElement("input");
+    range.type = "range";
+    range.className = "room-search-native-range";
+    range.min = String(config.range.min);
+    range.max = String(config.range.max);
+    range.step = String(config.step);
+    range.value = String(config.start);
+    range.setAttribute("aria-label", slider.getAttribute("aria-label") || "");
 
-    slider.noUiSlider.on("update", values => {
-        const value = Number(values[0]);
+    slider.innerHTML = "";
+    slider.appendChild(range);
+
+    const syncValue = () => {
+        const value = Number(range.value);
         const isOpenEnd = config.isOpenEnd(value);
         input.value = isOpenEnd ? "" : String(value);
         output.value = isOpenEnd ? config.openLabel : config.formatValue(value);
+        updateNativeSliderFill(config.sliderId);
         renderRoomListings();
-    });
+    };
+
+    range.addEventListener("input", syncValue);
+    syncValue();
+}
+
+function setRoomSearchSliderValue(sliderId, value) {
+    const range = document.querySelector(`#${sliderId} .room-search-native-range`);
+    if (!range) return;
+
+    range.value = String(value);
+    range.dispatchEvent(new Event("input", {bubbles: true}));
+}
+
+function updateNativeSliderFill(sliderId) {
+    const range = document.querySelector(`#${sliderId} .room-search-native-range`);
+    if (!range) return;
+
+    const min = Number(range.min);
+    const max = Number(range.max);
+    const value = Number(range.value);
+    const percent = ((value - min) / (max - min)) * 100;
+    range.style.setProperty("--room-search-range-progress", `${Math.max(0, Math.min(100, percent))}%`);
 }
 
 function toggleFavorite(roomId) {

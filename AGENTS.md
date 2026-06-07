@@ -1,6 +1,8 @@
-﻿# AGENTS.MD - roomies Frontend Context
+﻿# AGENTS.MD - RoomieDanmark Frontend Context
 
-Read this file first. It is the compact entrypoint for AI agents working in the roomies frontend. Use the linked `ai_docs/` files for deeper context.
+Read this file first. It is the compact entrypoint for AI agents working in the RoomieDanmark frontend. Use the linked `ai_docs/` files for deeper context.
+
+This repository is the frontend for the website roomiedanmark.dk
 
 ## Critical Rules
 

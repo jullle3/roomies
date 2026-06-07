@@ -37,6 +37,7 @@ export function setupRentRoomView() {
     setupRoomEditor(form, draft);
     setupAddressAutocomplete(form);
     setupDraftSaving(form);
+    setupRentRoomTotalCalculation(form);
     setupVibeLimit();
     setupRentRoomWizard(form);
 
@@ -118,8 +119,11 @@ function addRoom(form, room = {}) {
 
     setupRoomImageHandling(roomElement, form);
     setupRoomEconomyDefaults(roomElement);
+    setupPrepaidRentToggle(roomElement);
     roomList.appendChild(fragment);
-    return roomList.querySelector(`[data-room-id="${id}"]`);
+    const addedRoom = roomList.querySelector(`[data-room-id="${id}"]`);
+    updateRoomTotalRent(addedRoom);
+    return addedRoom;
 }
 
 function setupRentRoomWizard(form) {
@@ -203,29 +207,78 @@ function validateRentRoomStep(form, step) {
 function setupRoomEconomyDefaults(roomElement) {
     const monthlyRentInput = getRoomField(roomElement, "monthly_rent");
     const depositInput = getRoomField(roomElement, "deposit");
-    const prepaidRentInput = getRoomField(roomElement, "prepaid_rent");
-    if (!monthlyRentInput || !depositInput || !prepaidRentInput) return;
+    if (!monthlyRentInput || !depositInput) return;
 
-    [depositInput, prepaidRentInput].forEach(input => {
-        input.dataset.autoFilled = input.value ? "0" : "1";
-        input.addEventListener("input", () => {
-            input.dataset.autoFilled = "0";
-        });
+    depositInput.dataset.autoFilled = depositInput.value ? "0" : "1";
+    depositInput.addEventListener("input", () => {
+        depositInput.dataset.autoFilled = "0";
     });
 
     monthlyRentInput.addEventListener("input", () => {
         const rent = Number(monthlyRentInput.value);
+        updateRoomTotalRent(roomElement);
         if (!Number.isFinite(rent) || rent <= 0) return;
 
         if (!depositInput.value || depositInput.dataset.autoFilled === "1") {
             depositInput.value = String(Math.round(rent * 3));
             depositInput.dataset.autoFilled = "1";
         }
+    });
+}
 
-        if (!prepaidRentInput.value || prepaidRentInput.dataset.autoFilled === "1") {
-            prepaidRentInput.value = String(Math.round(rent));
-            prepaidRentInput.dataset.autoFilled = "1";
+function setupRentRoomTotalCalculation(form) {
+    const acontoInput = form.querySelector('[name="aconto_monthly"]');
+    if (!acontoInput) return;
+
+    acontoInput.addEventListener("input", () => updateAllRoomTotalRents(form));
+    updateAllRoomTotalRents(form);
+}
+
+function updateAllRoomTotalRents(form) {
+    form.querySelectorAll("#rent-room-list [data-room-id]").forEach(updateRoomTotalRent);
+}
+
+function updateRoomTotalRent(roomElement) {
+    if (!roomElement) return;
+
+    const totalInput = roomElement.querySelector("[data-room-total-rent]");
+    const monthlyRent = parsePositiveNumber(getRoomField(roomElement, "monthly_rent")?.value);
+    const aconto = parsePositiveNumber(document.getElementById("rent_room_aconto_monthly")?.value);
+    if (!totalInput) return;
+
+    totalInput.value = `${formatDanishNumber(monthlyRent + aconto)} kr.`;
+}
+
+function parsePositiveNumber(value) {
+    const number = Number(value || 0);
+    return Number.isFinite(number) && number > 0 ? number : 0;
+}
+
+function formatDanishNumber(value) {
+    return Math.round(value).toLocaleString("da-DK");
+}
+
+function setupPrepaidRentToggle(roomElement) {
+    const toggle = roomElement.querySelector("[data-prepaid-rent-toggle]");
+    const panel = roomElement.querySelector("[data-prepaid-rent-panel]");
+    const input = getRoomField(roomElement, "prepaid_rent");
+    if (!toggle || !panel || !input) return;
+
+    const sync = expanded => {
+        panel.classList.toggle("d-none", !expanded);
+        toggle.classList.toggle("d-none", expanded);
+        if (!expanded) input.value = "";
+    };
+
+    sync(Boolean(input.value));
+
+    toggle.addEventListener("click", () => {
+        const rent = Number(getRoomField(roomElement, "monthly_rent")?.value);
+        if (!input.value && Number.isFinite(rent) && rent > 0) {
+            input.value = String(Math.round(rent));
         }
+        sync(true);
+        input.focus();
     });
 }
 
@@ -260,8 +313,7 @@ function setupAddressAutocomplete(form) {
     const addressInput = document.getElementById("rent_room_address");
     const postalInput = document.getElementById("rent_room_postal");
     const floorInput = document.getElementById("rent_room_floor");
-    const sideInput = document.getElementById("rent_room_side");
-    if (!addressInput || !postalInput || !floorInput || !sideInput) return;
+    if (!addressInput || !postalInput || !floorInput) return;
 
     const dropdown = ensureAddressDropdown(addressInput);
     let debounceTimer = null;
@@ -552,11 +604,11 @@ function restoreSharedDraft(form, draft) {
         "address",
         "postal",
         "floor",
-        "side",
-        "roommates",
-        "shared_spaces",
-        "utilities_included",
-        "registration_allowed"
+        "aconto_monthly",
+        "registration_allowed",
+        "preferred_gender",
+        "preferred_age_min",
+        "preferred_age_max"
     ];
 
     sharedFields.forEach(name => {
@@ -614,12 +666,12 @@ function buildRentRoomDraft(form) {
         address: getString(formData, "address"),
         postal: getString(formData, "postal"),
         floor: getString(formData, "floor"),
-        side: getString(formData, "side"),
         address_data: selectedAddress,
-        roommates: getNumber(formData, "roommates"),
-        shared_spaces: getString(formData, "shared_spaces"),
-        utilities_included: formData.has("utilities_included"),
+        aconto_monthly: getNumber(formData, "aconto_monthly"),
         registration_allowed: formData.has("registration_allowed"),
+        preferred_gender: getString(formData, "preferred_gender") || null,
+        preferred_age_min: getNumber(formData, "preferred_age_min"),
+        preferred_age_max: getNumber(formData, "preferred_age_max"),
         vibes: formData.getAll("vibes").map(String),
         rooms: [...document.querySelectorAll("#rent-room-list [data-room-id]")].map(buildRoomDraft),
         saved_at: new Date().toISOString()
@@ -632,7 +684,7 @@ function buildRoomDraft(roomElement) {
 
     return {
         id: roomId,
-        title: getRoomString(roomElement, "title"),
+        title: getRoomString(roomElement, "title") || generateRoomTitle(roomElement),
         description: getRoomString(roomElement, "description"),
         available_from: getRoomString(roomElement, "available_from") || null,
         rental_period_months: getRoomNumber(roomElement, "rental_period_months"),
@@ -648,17 +700,32 @@ function buildRoomDraft(roomElement) {
     };
 }
 
+function generateRoomTitle(roomElement) {
+    const size = getRoomNumber(roomElement, "size");
+    const city = selectedAddress?.postal_name || selectedAddress?.municipality_name || selectedAddress?.postal_number || "området";
+    const vibes = [...document.querySelectorAll('#form-rent-room input[name="vibes"]:checked')].map(input => input.value);
+    const vibeText = vibes.includes("Socialt")
+        ? "socialt hjem"
+        : vibes.includes("Stille")
+            ? "roligt hjem"
+            : "hyggeligt hjem";
+
+    const sizeText = size ? `${size} m²` : "Ledigt";
+    return `${sizeText} værelse i ${vibeText} i ${city}`;
+}
+
 function buildIndependentListingPayloads(draft) {
     const sharedData = {
         address: draft.address,
         postal: draft.postal,
         floor: draft.floor,
-        side: draft.side,
         address_data: draft.address_data,
-        roommates: draft.roommates,
-        shared_spaces: draft.shared_spaces,
-        utilities_included: draft.utilities_included,
+        utilities_included: false,
+        aconto_monthly: draft.aconto_monthly,
         registration_allowed: draft.registration_allowed,
+        preferred_gender: draft.preferred_gender,
+        preferred_age_min: draft.preferred_age_min,
+        preferred_age_max: draft.preferred_age_max,
         vibes: draft.vibes
     };
 
@@ -694,15 +761,13 @@ function getSelectedPostalLabel() {
 function fillAddressDerivedFields() {
     const postalInput = document.getElementById("rent_room_postal");
     const floorInput = document.getElementById("rent_room_floor");
-    const sideInput = document.getElementById("rent_room_side");
 
     if (postalInput) postalInput.value = getSelectedPostalLabel();
     if (floorInput) floorInput.value = selectedAddress?.floor || "";
-    if (sideInput) sideInput.value = selectedAddress?.door || "";
 }
 
 function clearAddressDerivedFields() {
-    ["rent_room_postal", "rent_room_floor", "rent_room_side"].forEach(id => {
+    ["rent_room_postal", "rent_room_floor"].forEach(id => {
         const field = document.getElementById(id);
         if (field) field.value = "";
     });

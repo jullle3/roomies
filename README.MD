@@ -1,3 +1,29 @@
+- Upload af billede skal trigger en update mod backend med det samme, uden at behøve at klikke gem. Man skal også kunne vælge et billede ved at klikke på sit profilbillede
+- Profilbillede fra sælgere
+
+Here is the "third option" that solves both the conversion risk and the cognitive load.
+
+The "Just-in-Time" Intercept Modal (Best Practice)
+Let the user fill out the entire listing form completely frictionless. Do not ask for their profile picture during the actual form flow.
+
+Instead, intercept them at the moment of highest intent—right when they click the final "Udlej værelser" submit button.
+
+The Logic Flow:
+
+User clicks "Udlej værelser".
+
+Your JavaScript checks the current user state: if the loaded user.roomie_profile.profile_photo isnt a string (or if roomie_profile doesnt exist) then prompt for the image upload
+
+Instead of immediately redirecting to a success page, you trigger a modal over the current view.
+
+The Modal Copy:
+
+Annoncen er næsten klar! 🎉
+Boligsøgende vil gerne se, hvem de skal bo med. Annoncer med profilbillede får 3x flere henvendelser.
+[ Upload Profilbillede Button ]
+[ Spring over og udgiv annonce (Secondary button) ]
+
+
 - Jeg skriver gratis lidt for ofte og mange steder
 - When the user wants to create an SøgeAgent, in case they have NOT filled out their roomie profile (read local cache), show a popup prompting them to do so. It should link them to the profile page directly to  roomie-profile section
 - Find god måde at få folks profilbilleder vist på room listings, det giver tillid.

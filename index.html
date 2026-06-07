@@ -37,7 +37,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
     <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
     <!--    Custom Merged css files -->
-    <link rel="stylesheet" href="roomies/mergedStyles.css?roomies_version=830">
+    <link rel="stylesheet" href="roomies/mergedStyles.css?roomies_version=836">
     <style>
         .nav-auth-btn:active,
         .nav-auth-btn:focus,
@@ -56,7 +56,7 @@
             color: #ffffff !important;
         }
     </style>
-    <script defer type="module" src="roomies/mergedJS.js?roomies_version=830"></script>
+    <script defer type="module" src="roomies/mergedJS.js?roomies_version=836"></script>
 
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18047412076"></script>
@@ -1413,10 +1413,6 @@
                                         <label for="rent_room_floor" class="form-label">Etage</label>
                                         <input class="form-control rent-room-autofill-field" id="rent_room_floor" name="floor" type="text" placeholder="Udfyldes automatisk" readonly aria-readonly="true">
                                     </div>
-                                    <div class="col-6 col-md-3">
-                                        <label for="rent_room_side" class="form-label">Side</label>
-                                        <input class="form-control rent-room-autofill-field" id="rent_room_side" name="side" type="text" placeholder="th/tv" readonly aria-readonly="true">
-                                    </div>
                                 </div>
                                 <div class="rent-room-step-actions">
                                     <button class="btn btn-primary-coral rounded-pill px-4 py-3 fw-bold" type="button" data-rent-room-next>
@@ -1429,20 +1425,12 @@
                             <section class="rent-room-form-block rent-room-step d-none" data-rent-room-step="1">
                                 <h3><i class="fa-solid fa-house-user text-primary-coral"></i> Hjemmet</h3>
                                 <div class="row g-3">
-                                    <div class="col-md-4">
-                                        <label for="rent_room_roommates" class="form-label">Antal roomies i hjemmet</label>
-                                        <input class="form-control" id="rent_room_roommates" name="roommates" type="number" inputmode="numeric" min="0" placeholder="2">
-                                    </div>
-                                    <div class="col-md-4">
-                                        <label for="rent_room_shared_spaces" class="form-label">Fællesområder</label>
-                                        <input class="form-control" id="rent_room_shared_spaces" name="shared_spaces" type="text" placeholder="Køkken, bad, altan">
-                                    </div>
-                                    <div class="col-md-6">
-                                        <input class="facility-check-input" type="checkbox" id="rent_room_utilities_included" name="utilities_included">
-                                        <label class="facility-card rent-room-toggle-card" for="rent_room_utilities_included">
-                                            <i class="fa-solid fa-bolt"></i>
-                                            <span class="facility-text">Forbrug er inkluderet i huslejen</span>
-                                        </label>
+                                    <div class="col-md-6" id="rent-room-aconto-wrapper">
+                                        <label for="rent_room_aconto_monthly" class="form-label">Aconto pr. måned</label>
+                                        <div class="input-group">
+                                            <input class="form-control" id="rent_room_aconto_monthly" name="aconto_monthly" type="number" inputmode="numeric" min="0" placeholder="500">
+                                            <span class="input-group-text">kr.</span>
+                                        </div>
                                     </div>
                                     <div class="col-md-6">
                                         <input class="facility-check-input" type="checkbox" id="rent_room_registration" name="registration_allowed">
@@ -1451,6 +1439,22 @@
                                             <span class="facility-text">CPR-adresse er mulig</span>
                                         </label>
                                     </div>
+                                    <div class="col-md-6">
+                                        <label for="rent_room_preferred_gender" class="form-label">Foretrukket roomie</label>
+                                        <select class="form-select" id="rent_room_preferred_gender" name="preferred_gender">
+                                            <option value="">Alle køn er velkomne</option>
+                                            <option value="female">Kvinde</option>
+                                            <option value="male">Mand</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label for="rent_room_preferred_age_min" class="form-label">Alder fra</label>
+                                        <input class="form-control" id="rent_room_preferred_age_min" name="preferred_age_min" type="number" inputmode="numeric" min="18" max="120" placeholder="20">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label for="rent_room_preferred_age_max" class="form-label">Alder til</label>
+                                        <input class="form-control" id="rent_room_preferred_age_max" name="preferred_age_max" type="number" inputmode="numeric" min="18" max="120" placeholder="28">
+                                    </div>
                                 </div>
                                 <div class="mt-4">
                                     <h3><i class="fa-solid fa-face-smile text-primary-coral"></i> Roomie-vibes</h3>
@@ -1458,7 +1462,7 @@
                                 <p class="text-muted mb-3">Vælg de tags, der bedst beskriver hverdagen i hjemmet.</p>
                                 <div class="rent-room-vibe-grid">
                                     <input type="checkbox" id="vibe_quiet" name="vibes" value="Stille">
-                                    <label for="vibe_quiet">🤫 Stille</label>
+                                    <label for="vibe_quiet">🤫 Roligt hjem</label>
 
                                     <input type="checkbox" id="vibe_social" name="vibes" value="Socialt">
                                     <label for="vibe_social">🍻 Socialt</label>
@@ -1469,8 +1473,8 @@
                                     <input type="checkbox" id="vibe_student" name="vibes" value="Studievenligt">
                                     <label for="vibe_student">🎓 Studievenligt</label>
 
-                                    <input type="checkbox" id="vibe_vegan" name="vibes" value="Vegan">
-                                    <label for="vibe_vegan">🌿 Vegan</label>
+                                    <input type="checkbox" id="vibe_dinner" name="vibes" value="Vegan">
+                                    <label for="vibe_dinner">☕ Fællesspisning</label>
 
                                     <input type="checkbox" id="vibe_pets" name="vibes" value="Kæledyr">
                                     <label for="vibe_pets">🐾 Kæledyr</label>
@@ -1500,7 +1504,7 @@
                                         <i class="fa-solid fa-arrow-left me-2"></i>Tilbage
                                     </button>
                                     <button class="btn btn-primary-coral btn-lg rounded-pill px-4 py-3 fw-bold shadow-sm" type="submit">
-                                        <i class="fa-solid fa-check me-2"></i>Udlej værelser
+                                        <i class="fa-solid fa-check me-2"></i>Opret opslag
                                     </button>
                                 </div>
                             </section>
@@ -1516,11 +1520,11 @@
                                     <div class="row g-3">
                                         <div class="col-12">
                                             <label class="form-label" data-label-for="title">Overskrift</label>
-                                            <input class="form-control form-control-lg" data-room-field="title" type="text" required placeholder="f.eks. Lyst værelse i socialt kollektiv på Nørrebro">
+                                            <input class="form-control form-control-lg" data-room-field="title" type="text" placeholder="Vi foreslår en overskrift, hvis du lader feltet stå tomt">
                                         </div>
                                         <div class="col-12">
                                             <label class="form-label" data-label-for="description">Beskrivelse</label>
-                                            <textarea class="form-control" data-room-field="description" rows="5" required placeholder="Fortæl om værelset og hvem I håber at finde."></textarea>
+                                            <textarea class="form-control" data-room-field="description" rows="5" required placeholder="Fortæl om værelset og hvem du håber at finde."></textarea>
                                         </div>
                                         <div class="col-md-6">
                                             <label class="form-label" data-label-for="available_from">Ledigt fra</label>
@@ -1564,17 +1568,29 @@
                                             </div>
                                         </div>
                                         <div class="col-md-4">
+                                            <label class="form-label">Total husleje, inkl. aconto</label>
+                                            <div class="input-group">
+                                                <input class="form-control rent-room-total-field" data-room-total-rent type="text" value="0 kr." readonly aria-readonly="true" tabindex="-1">
+                                                <span class="input-group-text">/md</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
                                             <label class="form-label" data-label-for="deposit">Depositum</label>
                                             <div class="input-group">
                                                 <input class="form-control" data-room-field="deposit" type="number" inputmode="numeric" min="0" placeholder="10400">
                                                 <span class="input-group-text">kr.</span>
                                             </div>
                                         </div>
-                                        <div class="col-md-4">
-                                            <label class="form-label" data-label-for="prepaid_rent">Forudbetalt leje</label>
-                                            <div class="input-group">
-                                                <input class="form-control" data-room-field="prepaid_rent" type="number" inputmode="numeric" min="0" placeholder="0">
-                                                <span class="input-group-text">kr.</span>
+                                        <div class="col-12">
+                                            <button class="btn btn-link text-primary-coral fw-bold p-0 text-decoration-none" type="button" data-prepaid-rent-toggle>
+                                                <i class="fa-solid fa-plus me-2"></i>Tilføj forudbetalt leje
+                                            </button>
+                                            <div class="mt-3 d-none" data-prepaid-rent-panel>
+                                                <label class="form-label" data-label-for="prepaid_rent">Forudbetalt leje</label>
+                                                <div class="input-group">
+                                                    <input class="form-control" data-room-field="prepaid_rent" type="number" inputmode="numeric" min="0" placeholder="0">
+                                                    <span class="input-group-text">kr.</span>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="col-md-6">

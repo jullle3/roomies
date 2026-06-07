@@ -188,8 +188,98 @@
     color: #9ca3af;
 }
 
+.rent-room-total-field[readonly] {
+    background: rgba(255, 107, 107, 0.08);
+    border-color: rgba(255, 107, 107, 0.2);
+    color: var(--text-main);
+    font-weight: 900;
+    cursor: default;
+}
+
 .rent-room-toggle-card {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
     min-height: 64px;
+    padding: 0.85rem 1rem;
+    border: 1px solid #eef0f3;
+    border-radius: var(--radius-xl);
+    background: #fff;
+    color: var(--text-main);
+    box-shadow: var(--shadow-soft);
+    cursor: pointer;
+    transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+}
+
+.rent-room-form-card .facility-check-input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.rent-room-toggle-card i {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    flex: 0 0 42px;
+    border-radius: 50%;
+    background: rgba(255, 107, 107, 0.1);
+    color: var(--color-primary);
+}
+
+.rent-room-toggle-card .facility-text {
+    min-width: 0;
+    font-weight: 800;
+    line-height: 1.25;
+}
+
+.rent-room-toggle-card::after {
+    content: "\f00c";
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    flex: 0 0 28px;
+    margin-left: auto;
+    border-radius: 50%;
+    background: #f3f4f6;
+    color: transparent;
+    font-family: "Font Awesome 6 Free";
+    font-size: 0.8rem;
+    font-weight: 900;
+    transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+
+.rent-room-toggle-card:hover {
+    transform: translateY(-2px);
+    border-color: rgba(255, 107, 107, 0.35);
+    box-shadow: var(--shadow-hover);
+}
+
+.rent-room-form-card .facility-check-input:focus-visible + .rent-room-toggle-card {
+    outline: 3px solid rgba(255, 107, 107, 0.22);
+    outline-offset: 3px;
+}
+
+.rent-room-form-card .facility-check-input:checked + .rent-room-toggle-card {
+    border-color: rgba(255, 107, 107, 0.48);
+    background: rgba(255, 107, 107, 0.08);
+    box-shadow: 0 14px 28px rgba(255, 107, 107, 0.12);
+}
+
+.rent-room-form-card .facility-check-input:checked + .rent-room-toggle-card i {
+    background: var(--color-primary);
+    color: #fff;
+}
+
+.rent-room-form-card .facility-check-input:checked + .rent-room-toggle-card::after {
+    background: var(--color-primary);
+    color: #fff;
+    transform: scale(1.05);
 }
 
 .rent-room-vibe-grid {

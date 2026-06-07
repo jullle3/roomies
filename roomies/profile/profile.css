@@ -196,6 +196,39 @@
     margin-top: 0.85rem;
 }
 
+.profile-agent-cta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1rem;
+    border: 1px solid rgba(255, 107, 107, 0.24);
+    border-radius: var(--radius-xl);
+    background: rgba(255, 107, 107, 0.07);
+}
+
+.profile-agent-cta strong,
+.profile-agent-cta span {
+    display: block;
+}
+
+.profile-agent-cta strong {
+    color: var(--text-main);
+    font-weight: 900;
+}
+
+.profile-agent-cta span {
+    margin-top: 0.2rem;
+    color: var(--text-muted);
+    font-size: 0.88rem;
+    font-weight: 600;
+}
+
+.profile-agent-cta .btn {
+    flex: 0 0 auto;
+    min-height: 52px;
+}
+
 .profile-human-form .form-control:focus,
 .profile-human-form .input-group:focus-within {
     border-color: rgba(255, 107, 107, 0.55);
@@ -374,6 +407,14 @@
     }
 
     .profile-human-submit {
+        width: 100%;
+    }
+
+    .profile-agent-cta {
+        display: grid;
+    }
+
+    .profile-agent-cta .btn {
         width: 100%;
     }
 

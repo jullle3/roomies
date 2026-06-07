@@ -5,13 +5,6 @@
 and a photo of them. This is important for the site since its all about human connection in the end. After users have created an account, thank them and send them an email to remind them of filling this.
 Plan https://gemini.google.com/gem/c9297fa0daa6/438200f96cb01b5e
 - Brug ansigt billede fremfor bolig billede i chat view. Hav default billede hvis intet billede
-- Udlejere skal kunne sætte flere kriterier for lejere, se eksempel her https://www.findroommate.dk/vaerelser/436599/2-hyggelige-vaerelser-i-voksent-bofaellesskab-i-cykelafstand-til-byen?utm_campaign=Roomies-Campaign&utm_source=Roomies&utm_medium=link&utm_content=468793
-  Roommate kriterier
-  Foretrukne køn:Alle er velkomne
-  Alder:25 - 38
-  Renlighed:Ren
-  Snorken:Alle er velkomne
-
 - login med google?
 - Seo optimer alt
 - Få AI til at dobbelttjek at alle frontend kald ryger til endpoints med /roomies prefix

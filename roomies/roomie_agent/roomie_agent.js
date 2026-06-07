@@ -18,6 +18,10 @@ export function setupRoomieAgentView() {
     bindFormContainers();
 }
 
+export function invalidateRoomieAgentCache() {
+    cachedAgents = null;
+}
+
 export async function renderRoomieAgentOverview() {
     const loading = document.getElementById("agent-loading");
     const grid = document.getElementById("agent-grid");

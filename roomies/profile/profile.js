@@ -2,11 +2,13 @@ import {authFetch} from "../auth/auth.js";
 import {areaAutocompleteOptions} from "../config/hardcoded_data.js";
 import {displayErrorMessage, displaySuccessMessage, decodeJwt, currentUser, getHousingById} from "../utils.js";
 import {showView} from "../views/viewManager.js";
+import {invalidateRoomieAgentCache} from "../roomie_agent/roomie_agent.js";
 
 const PROFILE_MAX_PHOTO_SIZE_BYTES = 3 * 1024 * 1024;
 const PROFILE_INTEREST_LIMIT = 5;
 const PROFILE_MAX_AREA_SUGGESTIONS = 4;
 const PROFILE_AREA_LOOKUP = new Map(areaAutocompleteOptions.map(area => [String(area.id), area]));
+const AGENTS_API_BASE = "/roomies/agents";
 let profilePhotoDataUrl = null;
 let selectedProfileAreas = [];
 
@@ -131,6 +133,13 @@ function setupHumanProfileHandlers() {
     }
 
     form.addEventListener('click', event => {
+        const createAgentButton = event.target.closest('#profile-create-agent');
+        if (createAgentButton) {
+            event.preventDefault();
+            handleCreateAgentFromProfile(createAgentButton);
+            return;
+        }
+
         const areaOption = event.target.closest('[data-profile-area-option]');
         if (areaOption) {
             event.preventDefault();
@@ -150,6 +159,51 @@ function setupHumanProfileHandlers() {
     form.addEventListener('submit', handleHumanProfileSubmit);
 }
 
+async function handleCreateAgentFromProfile(button) {
+    const profilePayload = getHumanProfilePayload();
+
+    if (profilePayload.monthly_price_max == null || profilePayload.monthly_price_max <= 0) {
+        displayErrorMessage("Indtast dit maks budget, før du opretter en RoomieAgent.");
+        document.getElementById('profile-budget')?.focus();
+        return;
+    }
+
+    const payload = {
+        name: "Min roomie-profil",
+        criteria: {
+            monthly_price_max: profilePayload.monthly_price_max,
+            areas: profilePayload.areas,
+            text: "Fra min roomie-profil"
+        }
+    };
+
+    button.disabled = true;
+    button.dataset.originalText = button.innerHTML;
+    button.innerHTML = '<span class="spinner-border spinner-border-sm me-2" aria-hidden="true"></span>Opretter...';
+
+    try {
+        const response = await authFetch(AGENTS_API_BASE, {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(payload)
+        });
+
+        if (!response.ok) {
+            throw new Error(await getProfileAgentErrorMessage(response));
+        }
+
+        invalidateRoomieAgentCache();
+        displaySuccessMessage("Din RoomieAgent er oprettet ud fra din profil.");
+        await showView("agent");
+    } catch (error) {
+        console.error('Could not create RoomieAgent from profile:', error);
+        displayErrorMessage(error.message || "Kunne ikke oprette din RoomieAgent lige nu.");
+    } finally {
+        button.disabled = false;
+        button.innerHTML = button.dataset.originalText || 'Opret RoomieAgent fra min profil';
+    }
+}
+
 async function handleHumanProfileSubmit(event) {
     event.preventDefault();
 
@@ -165,7 +219,7 @@ async function handleHumanProfileSubmit(event) {
         const response = await authFetch('/roomies/user', {
             method: 'PATCH',
             headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(payload)
+            body: JSON.stringify({roomie_profile: payload})
         });
 
         if (!response.ok) {
@@ -195,9 +249,9 @@ function getHumanProfilePayload() {
         occupation: getTrimmedValue('profile-occupation') || null,
         interests: selectedInterests,
         description: getTrimmedValue('profile-description') || null,
-        monthly_budget_max: budgetValue,
-        move_in_date: getTrimmedValue('profile-move-in-date') || null,
-        preferred_areas: selectedProfileAreas.length ? selectedProfileAreas.map(Number).filter(Number.isFinite) : null
+        monthly_price_max: budgetValue,
+        move_in_date: dateInputValueToEpochSeconds(getTrimmedValue('profile-move-in-date')),
+        areas: selectedProfileAreas.length ? selectedProfileAreas.map(Number).filter(Number.isFinite) : null
     };
 }
 
@@ -208,6 +262,15 @@ function getTrimmedValue(id) {
 function parseInteger(value) {
     const parsed = Number.parseInt(String(value || '').replace(/\./g, ''), 10);
     return Number.isFinite(parsed) ? parsed : null;
+}
+
+function dateInputValueToEpochSeconds(value) {
+    const match = String(value || '').match(/^(\d{4})-(\d{2})-(\d{2})$/);
+    if (!match) return null;
+
+    const [, year, month, day] = match;
+    const date = new Date(Number(year), Number(month) - 1, Number(day));
+    return Math.floor(date.getTime() / 1000);
 }
 
 function enforceInterestLimit(changedInput) {
@@ -280,23 +343,25 @@ function updateProfileUI(userProfile) {
 }
 
 function populateHumanProfileForm(userProfile = {}) {
-    profilePhotoDataUrl = userProfile.profile_photo || userProfile.photo || userProfile.avatar || userProfile.user_avatar || null;
+    const roomieProfile = getRoomieProfile(userProfile);
+
+    profilePhotoDataUrl = roomieProfile.profile_photo || null;
     updateProfilePhotoPreview(profilePhotoDataUrl);
 
-    setInputValue('profile-age', userProfile.age);
-    setInputValue('profile-occupation', userProfile.occupation);
-    setInputValue('profile-description', userProfile.description || userProfile.profile_description);
-    setInputValue('profile-budget', userProfile.monthly_budget_max);
-    setInputValue('profile-move-in-date', userProfile.move_in_date);
-    selectedProfileAreas = normalizeProfileAreaIds(userProfile.preferred_areas || userProfile.desired_areas || userProfile.areas);
+    setInputValue('profile-age', roomieProfile.age);
+    setInputValue('profile-occupation', roomieProfile.occupation);
+    setInputValue('profile-description', roomieProfile.description);
+    setInputValue('profile-budget', roomieProfile.monthly_price_max);
+    setInputValue('profile-move-in-date', epochSecondsToDateInputValue(roomieProfile.move_in_date));
+    selectedProfileAreas = normalizeProfileAreaIds(roomieProfile.areas);
     renderProfileSelectedAreas();
     renderProfileAreaSuggestions("");
 
     document.querySelectorAll('input[name="gender"]').forEach(input => {
-        input.checked = input.value === userProfile.gender;
+        input.checked = input.value === roomieProfile.gender;
     });
 
-    const interests = Array.isArray(userProfile.interests) ? userProfile.interests : [];
+    const interests = Array.isArray(roomieProfile.interests) ? roomieProfile.interests : [];
     document.querySelectorAll('input[name="interests"]').forEach(input => {
         input.checked = interests.includes(input.value);
     });
@@ -304,9 +369,34 @@ function populateHumanProfileForm(userProfile = {}) {
     updateDescriptionCount();
 }
 
+function getRoomieProfile(userProfile = {}) {
+    return userProfile.roomie_profile && typeof userProfile.roomie_profile === 'object'
+        ? userProfile.roomie_profile
+        : {};
+}
+
 function setInputValue(id, value) {
     const input = document.getElementById(id);
     if (input) input.value = value ?? '';
+}
+
+function epochSecondsToDateInputValue(value) {
+    if (value == null || value === '') return '';
+
+    if (typeof value === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(value)) {
+        return value;
+    }
+
+    const timestamp = Number(value);
+    if (!Number.isFinite(timestamp)) return '';
+
+    const date = new Date(timestamp < 10000000000 ? timestamp * 1000 : timestamp);
+    if (Number.isNaN(date.getTime())) return '';
+
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
 }
 
 function renderProfileAreaSuggestions(query) {
@@ -384,6 +474,21 @@ function escapeHtml(value) {
 
 function escapeAttribute(value) {
     return escapeHtml(value).replace(/"/g, "&quot;");
+}
+
+async function getProfileAgentErrorMessage(response) {
+    try {
+        const body = await response.json();
+        if (body?.detail === "You can only have 5 agents") {
+            return "Du kan højest have 5 RoomieAgents.";
+        }
+        if (typeof body?.detail === "string") {
+            return body.detail;
+        }
+        return `Serveren svarede med status ${response.status}.`;
+    } catch {
+        return `Serveren svarede med status ${response.status}.`;
+    }
 }
 
 

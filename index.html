@@ -37,7 +37,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
     <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
     <!--    Custom Merged css files -->
-    <link rel="stylesheet" href="roomies/mergedStyles.css?roomies_version=784">
+    <link rel="stylesheet" href="roomies/mergedStyles.css?roomies_version=785">
     <style>
         .nav-auth-btn:active,
         .nav-auth-btn:focus,
@@ -56,7 +56,7 @@
             color: #ffffff !important;
         }
     </style>
-    <script defer type="module" src="roomies/mergedJS.js?roomies_version=784"></script>
+    <script defer type="module" src="roomies/mergedJS.js?roomies_version=785"></script>
 
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18047412076"></script>
@@ -1353,375 +1353,6 @@
         </div>
 
     </div>
-
-
-
-    <article id="detail" class="view bg-light">
-        <div class="container pt-4 pb-2">
-            <div class="row">
-                <div class="col-12">
-                    <a href="/liste" class="text-decoration-none d-inline-flex align-items-center hover-lift px-3 py-2 rounded-pill shadow-sm">
-                        <i class="fa-solid fa-arrow-left me-2 text-primary"></i>
-                        <span class="company-dark fw-bold opacity-75">Tilbage til oversigten</span>
-                    </a>
-                </div>
-            </div>
-        </div>
-
-        <div class="container pb-5">
-            <div class="row g-4 g-lg-5">
-
-                <div class="col-lg-8">
-
-                    <div class="position-relative rounded-4 overflow-hidden shadow-sm bg-white mb-4">
-
-                        <div id="detail-image-badges" class="position-absolute top-0 start-0 p-3 z-3 d-flex flex-column gap-2">
-                        </div>
-
-                        <div class="position-absolute top-0 end-0 p-3 z-3 d-flex gap-2">
-                            <button id="detail-fav-btn" class="btn btn-light rounded-circle shadow-sm d-flex align-items-center justify-content-center" style="width: 44px; height: 44px;">
-                                <i class="fa-regular fa-heart"></i>
-                            </button>
-                            <button id="detail-share-btn" class="btn btn-light rounded-circle shadow-sm d-flex align-items-center justify-content-center" style="width: 44px; height: 44px;">
-                                <i class="fa-solid fa-share-nodes"></i>
-                            </button>
-                        </div>
-
-                        <div id="listingImagesCarousel" class="carousel slide" data-bs-interval="false">
-                            <div class="carousel-indicators" id="detail-carousel-indicators"></div>
-                            <div class="carousel-inner" id="detail-carousel-inner"></div>
-                            <button class="carousel-control-prev" type="button" data-bs-target="#listingImagesCarousel" data-bs-slide="prev">
-                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                <span class="visually-hidden">Previous</span>
-                            </button>
-                            <button class="carousel-control-next" type="button" data-bs-target="#listingImagesCarousel" data-bs-slide="next">
-                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                <span class="visually-hidden">Next</span>
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- Denne container er skjult som standard (d-none) og fyldes af JS -->
-                    <div id="detail-scraper-alert" class="d-none w-100"></div>
-
-                    <div class="d-block d-lg-none mb-4">
-                        <h1 class="fw-bold mb-2" style="color: var(--company-dark);" id="detail-title-mobile"></h1>
-                        <div class="d-flex align-items-center text-secondary flex-wrap gap-2">
-                            <div class="d-flex align-items-center">
-                                <i class="fa-solid fa-location-dot me-2 text-primary"></i>
-                                <span id="detail-address-mobile" class="fw-medium"></span>
-                            </div>
-                            <a id="detail-map-btn-mobile" href="#" data-view="housing_map" class="btn btn-sm btn-outline-primary rounded-pill hover-lift py-1 px-3 ms-1">
-                                <i class="fa-regular fa-map me-2"></i>Kort
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="d-block d-lg-none mb-4">
-                        <div class="card border-0 shadow-lg rounded-4 overflow-hidden">
-                            <div class="card-body p-4">
-                                <div class="mb-4">
-                                    <label class="small text-muted fw-bold text-uppercase tracking-wide mb-1">Kontantpris</label>
-                                    <h2 class="fw-bold text-primary mb-0 display-6" id="detail-price-mobile"></h2>
-
-                                    <div class="d-flex justify-content-between align-items-center mt-2 opacity-75">
-                                        <span class="small text-secondary">Forbedringer udgør</span>
-                                        <span class="fw-bold text-dark" id="detail-improvements-mobile"></span>
-                                    </div>
-                                </div>
-                                <div class="d-flex justify-content-between align-items-center py-3 border-top border-bottom mb-4">
-                                    <span class="fw-medium text-secondary">Månedlig ydelse</span>
-                                    <span class="fw-bold fs-5 text-dark" id="detail-fee-mobile"></span>
-                                </div>
-                                <a id="detail-contact-btn-mobile" class="btn btn-primary w-100 py-3 rounded-pill fw-bold shadow-sm transition-transform mb-3">
-                                    <i class="fa-regular fa-envelope me-2"></i> Kontakt sælger
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="d-block d-lg-none mb-4">
-                        <div data-admin-status-dashboard-detail
-                             class="card border-0 shadow-sm rounded-4 d-none"
-                             style="background-color: #f8faff; border: 1px solid rgba(45, 75, 242, 0.1) !important;">
-                            <div class="card-body p-4">
-
-                                <div class="d-flex flex-wrap justify-content-between align-items-start gap-3 mb-4">
-                                    <h6 class="fw-bold mb-0" style="color: var(--company-dark);">
-                                        <i class="fa-solid fa-sliders me-2 text-primary"></i>Annoncestatus
-                                    </h6>
-
-                                    <div class="d-flex align-items-center gap-2 ms-auto">
-                                        <div data-dashboard-status-icon-wrapper
-                                             class="d-flex align-items-center justify-content-center bg-white rounded-circle shadow-sm flex-shrink-0"
-                                             style="width: 36px; height: 36px;">
-                                            <i class="fa-solid fa-eye text-success" data-dashboard-status-icon></i>
-                                        </div>
-
-                                        <div class="text-end">
-                                            <div class="text-uppercase text-muted fw-bold"
-                                                 style="font-size: 0.70rem; letter-spacing: 0.5px; line-height: 1;">
-                                                Synlighed
-                                            </div>
-                                            <div class="fw-bold"
-                                                 data-dashboard-status-text
-                                                 style="color: var(--company-dark); line-height: 1.15;">
-                                                Aktiv
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="d-grid gap-2">
-                                    <button type="button" data-btn-upgrade-housing-detail
-                                            class="btn btn-sm rounded-pill fw-bold shadow-sm hover-lift py-2 d-none"
-                                            style="color: #4f46e5; background-color: #e0e7ff; border: 1px solid #c7d2fe;">
-                                        <i class="fa-solid fa-rocket me-2"></i>Boost Annonce
-                                    </button>
-
-                                    <button type="button" data-btn-toggle-reserved-detail
-                                            class="btn btn-sm rounded-pill fw-bold shadow-sm hover-lift py-2"
-                                            style="color: #d97706; background-color: #fef3c7; border: 1px solid #fcd34d;">
-                                        <i class="fa-solid fa-hourglass-half me-2"></i>
-                                        <span data-text-toggle-reserved-detail>Markér Reserveret</span>
-                                    </button>
-
-                                    <button type="button" data-btn-toggle-sold-detail
-                                            class="btn btn-sm rounded-pill fw-bold shadow-sm hover-lift py-2"
-                                            style="color: #166534; background-color: #dcfce7; border: 1px solid #86efac;">
-                                        <i class="fa-solid fa-handshake me-2"></i>
-                                        <span data-text-toggle-sold-detail>Markér Solgt</span>
-                                    </button>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="d-none d-lg-block mb-4">
-                        <div class="d-flex justify-content-between align-items-start gap-4">
-                            <div>
-                                <h1 class="fw-bold mb-2 display-6" style="color: var(--company-dark);" id="detail-title"></h1>
-                                <div class="d-flex align-items-center text-secondary fs-5">
-                                    <i class="fa-solid fa-location-dot me-2 text-primary"></i>
-                                    <span id="detail-address" class="fw-medium"></span>
-
-                                    <a id="detail-map-btn" href="#" data-view="housing_map" class="btn btn-sm btn-outline-primary rounded-pill hover-lift ms-3 px-3">
-                                        <i class="fa-regular fa-map me-2"></i>Se på kort
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row row-cols-2 row-cols-md-4 g-3 mb-5">
-                        <div class="col">
-                            <div class="p-3 bg-white rounded-4 border border-light shadow-sm h-100 text-center transition-lift d-flex flex-column align-items-center">
-                                <div class="d-flex align-items-center justify-content-center bg-primary bg-opacity-10 text-primary rounded-circle mb-2" style="width: 40px; height: 40px;">
-                                    <i class="fa-solid fa-house"></i>
-                                </div>
-                                <div class="small text-muted fw-bold text-uppercase tracking-wide">Størrelse</div>
-                                <div class="d-flex align-items-center justify-content-center mt-1" style="height: 32px;">
-                                    <div class="fw-bold fs-5 text-dark"><span id="detail-size"></span> m²</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="p-3 bg-white rounded-4 border border-light shadow-sm h-100 text-center transition-lift d-flex flex-column align-items-center">
-                                <div class="d-flex align-items-center justify-content-center bg-primary bg-opacity-10 text-primary rounded-circle mb-2" style="width: 40px; height: 40px;">
-                                    <i class="fa-solid fa-bed"></i>
-                                </div>
-                                <div class="small text-muted fw-bold text-uppercase tracking-wide">Værelser</div>
-                                <div class="d-flex align-items-center justify-content-center mt-1" style="height: 32px;">
-                                    <div id="detail-rooms" class="fw-bold fs-5 text-dark"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="p-3 bg-white rounded-4 border border-light shadow-sm h-100 text-center transition-lift d-flex flex-column align-items-center">
-                                <div class="d-flex align-items-center justify-content-center bg-primary bg-opacity-10 text-primary rounded-circle mb-2" style="width: 40px; height: 40px;">
-                                    <i class="fa-regular fa-calendar"></i>
-                                </div>
-                                <div class="small text-muted fw-bold text-uppercase tracking-wide">Byggeår</div>
-                                <div class="d-flex align-items-center justify-content-center mt-1" style="height: 32px;">
-                                    <div id="detail-year" class="fw-bold fs-5 text-dark"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="p-3 bg-white rounded-4 border border-light shadow-sm h-100 text-center transition-lift d-flex flex-column align-items-center">
-                                <div class="d-flex align-items-center justify-content-center bg-primary bg-opacity-10 text-primary rounded-circle mb-2" style="width: 40px; height: 40px;">
-                                    <i class="fa-solid fa-leaf"></i>
-                                </div>
-                                <div class="small text-muted fw-bold text-uppercase tracking-wide">Energimærke</div>
-                                <div class="d-flex align-items-center justify-content-center mt-1" style="height: 32px;">
-                                    <div id="detail-energy-label"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Bytte Match Box (conditionally shown for swap listings) -->
-                    <div id="detail-exchange-match-box" class="mb-5 d-none"></div>
-
-                    <div class="mb-5">
-                        <h2 class="h5 fw-bold mb-4 d-flex align-items-center gap-2" style="color: var(--company-dark);">
-                            <i class="fa-solid fa-align-left text-primary opacity-75"></i> Beskrivelse
-                        </h2>
-
-                        <div class="description-glass-card p-4 p-md-5 overflow-hidden">
-                            <i class="fa-solid fa-quote-right position-absolute description-bg-icon"></i>
-
-                            <div class="position-relative z-1">
-                                <p id="detail-description" class="description-text mb-0"></p>
-
-                                <div class="description-action-wrapper text-center mt-4">
-                                    <a href="#" id="detail-description-btn" class="btn btn-primary rounded-pill px-5 py-2 shadow-sm d-none transition-lift fw-medium">
-                                        Læs mere
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="mb-4 mb-lg-5 d-none" id="detail-facilities-container">
-                        <h2 class="h5 fw-bold mb-3" style="color: var(--company-dark);">Faciliteter</h2>
-                        <div class="bg-white p-4 p-md-5 rounded-4 shadow-sm border border-light">
-                            <div id="detail-facilities-list" class="row g-3 row-cols-2 row-cols-md-3 row-cols-lg-4">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="d-block d-lg-none mb-3">
-                        <a id="detail-contact-btn-bottom-mobile" class="btn btn-primary w-100 py-3 rounded-pill fw-bold shadow-sm transition-transform">
-                            <i class="fa-regular fa-envelope me-2"></i> Kontakt sælger
-                        </a>
-                    </div>
-
-                    <div class="d-flex flex-column flex-sm-row align-items-center justify-content-center justify-content-lg-start gap-3 mb-4">
-                        <button id="detail-share-btn-bottom" class="btn btn-outline-primary rounded-pill px-4 py-2 fw-bold shadow-sm hover-lift d-flex align-items-center">
-                            <i class="fa-solid fa-share-nodes me-2"></i> Del boligen
-                        </button>
-
-                        <button id="detail-report-btn" class="btn btn-link text-muted text-decoration-none small hover-lift d-flex align-items-center opacity-75">
-                            <i class="fa-regular fa-flag me-2"></i> Anmeld annonce
-                        </button>
-                    </div>
-                    <div class="d-block d-lg-none mt-4 text-center text-muted small">
-                        Oprettet <span id="detail-created-mobile"></span>
-                    </div>
-
-                </div>
-
-                <div class="col-lg-4 d-none d-lg-block">
-                    <div class="sticky-top" style="top: 100px; z-index: 10;">
-
-                        <div class="card border-0 shadow-lg rounded-4 overflow-hidden mb-4">
-                            <div class="card-body p-4">
-                                <div class="mb-4">
-                                    <label class="small text-muted fw-bold text-uppercase tracking-wide mb-1">Kontantpris</label>
-                                    <h2 class="fw-bold text-primary mb-0 display-6" id="detail-price"></h2>
-
-                                    <div class="d-flex justify-content-between align-items-center mt-2">
-                                        <span class="fw-medium text-secondary">Forbedringer udgør</span>
-                                        <span class="fw-bold text-dark" id="detail-improvements"></span>
-                                    </div>
-                                </div>
-
-                                <div class="d-flex justify-content-between align-items-center py-3 border-top border-bottom mb-4">
-                                    <span class="fw-medium text-secondary">Månedlig ydelse</span>
-                                    <span class="fw-bold fs-5 text-dark" id="detail-fee"></span>
-                                </div>
-
-                                <a id="detail-contact-btn" class="btn btn-primary w-100 py-3 rounded-pill fw-bold shadow-sm transition-transform mb-3">
-                                    <i class="fa-regular fa-envelope me-2"></i> Kontakt sælger
-                                </a>
-                            </div>
-                        </div>
-
-                        <div data-admin-status-dashboard-detail
-                             class="card border-0 shadow-sm rounded-4 mb-4 d-none"
-                             style="background-color: #f8faff; border: 1px solid rgba(45, 75, 242, 0.1) !important;">
-                            <div class="card-body p-4">
-
-                                <div class="d-flex flex-wrap justify-content-between align-items-start gap-3 mb-4">
-                                    <h6 class="fw-bold mb-0" style="color: var(--company-dark);">
-                                        <i class="fa-solid fa-sliders me-2 text-primary"></i>Opdater annoncestatus
-                                    </h6>
-
-                                    <div class="d-flex align-items-center gap-2 ms-auto">
-                                        <div data-dashboard-status-icon-wrapper
-                                             class="d-flex align-items-center justify-content-center bg-white rounded-circle shadow-sm flex-shrink-0"
-                                             style="width: 36px; height: 36px;">
-                                            <i class="fa-solid fa-eye text-success" data-dashboard-status-icon></i>
-                                        </div>
-
-                                        <div class="text-end">
-                                            <div class="text-uppercase text-muted fw-bold"
-                                                 style="font-size: 0.70rem; letter-spacing: 0.5px; line-height: 1;">
-                                                Synlighed
-                                            </div>
-                                            <div class="fw-bold"
-                                                 data-dashboard-status-text
-                                                 style="color: var(--company-dark); line-height: 1.15;">
-                                                Aktiv
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="d-grid gap-2">
-                                    <button type="button" data-btn-upgrade-housing-detail
-                                            class="btn btn-sm rounded-pill fw-bold shadow-sm hover-lift py-2 d-none"
-                                            style="color: #4f46e5; background-color: #e0e7ff; border: 1px solid #c7d2fe;">
-                                        <i class="fa-solid fa-rocket me-2"></i>Boost Annonce
-                                    </button>
-
-                                    <button type="button" data-btn-toggle-reserved-detail
-                                            class="btn btn-sm rounded-pill fw-bold shadow-sm hover-lift py-2"
-                                            style="color: #d97706; background-color: #fef3c7; border: 1px solid #fcd34d;">
-                                        <i class="fa-solid fa-hourglass-half me-2"></i>
-                                        <span data-text-toggle-reserved-detail>Markér Reserveret</span>
-                                    </button>
-
-                                    <button type="button" data-btn-toggle-sold-detail
-                                            class="btn btn-sm rounded-pill fw-bold shadow-sm hover-lift py-2"
-                                            style="color: #166534; background-color: #dcfce7; border: 1px solid #86efac;">
-                                        <i class="fa-solid fa-handshake me-2"></i>
-                                        <span data-text-toggle-sold-detail>Markér Solgt</span>
-                                    </button>
-                                </div>
-
-                            </div>
-                        </div>
-
-                        <div class="text-center mt-3 d-none d-lg-block">
-                            <small class="text-muted opacity-75">
-                                Oprettet <span id="detail-created"></span>
-                            </small>
-                        </div>
-                    </div>
-                </div>
-
-
-
-            </div>
-        </div>
-
-        <div id="similar-housings-section" class="container pb-5 d-none">
-            <hr class="border-light mb-5">
-            <div class="d-flex justify-content-between align-items-end mb-4">
-                <h3 class="h4 fw-bold mb-0" style="color: var(--company-dark);">
-                    Se lignende boliger
-                </h3>
-            </div>
-
-            <div id="similar-housings-container" class="row g-4"></div>
-        </div>
-    </article>
-
-
-
 
 
 
@@ -3197,56 +2828,55 @@ Venlig hilsen</textarea>
 
 <div class="modal fade" id="loginCodeModal" tabindex="-1"
      aria-labelledby="loginCodeModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content rounded-4 border-0 shadow-lg">
+    <div class="modal-dialog modal-dialog-centered login-code-modal-dialog">
+        <div class="modal-content login-code-modal-content border-0">
 
-            <div class="modal-header border-0 p-4 pb-0">
+            <div class="login-code-modal-closebar">
                 <button type="button" class="btn-close" data-bs-dismiss="modal"
-                        aria-label="Close"></button>
+                        aria-label="Luk"></button>
             </div>
 
-            <div class="modal-body p-4 pt-0 text-center">
+            <div class="modal-body login-code-modal-body text-center">
 
-                <div class="mb-3">
-                    <span class="d-inline-flex align-items-center justify-content-center bg-light rounded-circle" style="width: 60px; height: 60px; color: var(--bs-primary);">
-                        <i class="fa-solid fa-shield-halved fs-3"></i>
+                <div class="login-code-modal-intro mb-3">
+                    <span class="login-code-modal-icon d-inline-flex align-items-center justify-content-center">
+                        <i class="fa-solid fa-shield-halved"></i>
                     </span>
                 </div>
 
-                <h4 class="modal-title fw-bold mb-3" id="loginCodeModalLabel" style="color: var(--company-dark);">
+                <h4 class="login-code-modal-title modal-title" id="loginCodeModalLabel">
                     Indtast kode
                 </h4>
 
                 <form id="modalCodeForm" novalidate>
-                    <p class="mb-3 text-secondary">
+                    <p class="login-code-modal-copy">
                         Vi har sendt en kode til
-                        <span id="email-sent-to" class="d-block fw-bold text-dark mt-1"></span>
+                        <span id="email-sent-to" class="d-block fw-bold mt-1"></span>
                     </p>
 
-                    <div class="alert alert-light border-0 bg-light-subtle rounded-3 p-3 mb-4 text-start d-flex align-items-center gap-2">
-                        <i class="fa-regular fa-clock" style="color: var(--bs-primary);"></i>
-                        <small class="text-secondary line-height-base">
+                    <div class="login-code-modal-note text-start d-flex align-items-start gap-3">
+                        <i class="fa-regular fa-clock"></i>
+                        <small>
                             Det kan tage <strong>10-15 sekunder</strong> før mailen ankommer. Husk at tjekke din <strong>spam-mappe</strong>.
                         </small>
                     </div>
 
-                    <div class="mb-4 px-4">
+                    <div class="login-code-modal-field">
                         <label class="visually-hidden" for="modal-login-code">Kode</label>
                         <input
                                 type="text"
                                 maxlength="6"
-                                class="form-control text-center fw-bold fs-3 py-3 rounded-3 shadow-sm bg-light-subtle border-0"
+                                class="form-control login-code-modal-input text-center fw-bold"
                                 id="modal-login-code"
                                 required
                                 autocomplete="one-time-code"
                                 placeholder="000000"
-                                style="letter-spacing: 0.5rem; color: var(--company-dark);"
                         >
                     </div>
 
                     <div class="row justify-content-center">
                         <div class="col-12">
-                            <button class="btn btn-primary w-100 rounded-pill py-3 fw-bold shadow-sm hover-lift"
+                            <button class="btn btn-primary-coral w-100 rounded-pill py-3 fw-bold shadow-sm hover-lift login-code-modal-submit"
                                     type="submit"
                                     id="loginCodeSubmit">
                                 Bekræft kode
@@ -3254,9 +2884,9 @@ Venlig hilsen</textarea>
                         </div>
                     </div>
 
-                    <div class="mt-4">
-                        <small class="text-secondary">Modtog du ikke koden?</small>
-                        <button type="button" id="resendCodeLink" class="btn btn-link p-0 fw-bold text-decoration-none small align-baseline ms-1" style="color: var(--bs-primary);">
+                    <div class="login-code-modal-footer">
+                        <small>Modtog du ikke koden?</small>
+                        <button type="button" id="resendCodeLink" class="btn btn-link p-0 fw-bold text-decoration-none small align-baseline ms-1">
                             Send igen
                         </button>
                     </div>

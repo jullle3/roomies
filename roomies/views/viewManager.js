@@ -302,21 +302,8 @@ export async function showView(view, viewParams = new URLSearchParams(), updateU
     // leave users on an invisible view or app-level spinner, especially on mobile.
     // Map still needs a visible container before initMap() + fitBounds().
     try {
-        if (view === 'housing_map') {
-            updateViewStatus(view);
-            await new Promise(requestAnimationFrame); // let layout apply
-            await loadViewData(view, viewParams);
-        } else if (view === 'housing_list') {
-            updateViewStatus(view);
-            await waitForNextPaint();
-            await loadViewData(view, viewParams);
-        } else if (view === 'detail') {
-            updateViewStatus(view);
-            await loadViewData(view, viewParams);
-        } else {
             await loadViewData(view, viewParams);
             updateViewStatus(view);
-        }
     } catch (err) {
         console.error(`Error loading view "${view}":`, err);
         // Ensure the view is still shown (even if data failed to load)

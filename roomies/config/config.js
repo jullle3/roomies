@@ -14,7 +14,7 @@ let environment;
 if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
     environment = 'local';
     apiUrl = 'http://localhost:8080';
-    // apiUrl = 'https://api2-dev.roomies.dk';
+    // apiUrl = 'https://api2-dev.andelsboligbasen.dk';
     // directApiUrl = 'https://hidden-slice-416812.ew.r.appspot.com';
     directApiUrl = 'http://localhost:8080';
     s3Url = 'https://dev-images.andelsboligbasen.dk';
@@ -39,7 +39,7 @@ if (window.location.hostname === 'localhost' || window.location.hostname === '12
     stripe_buy_button_id = "buy_btn_1RFXuQRwMNhLL1Z9c9QTJ8Hk";
     stripe_buy_button_publishable_key = "pk_test_51PhrGIRwMNhLL1Z9dUFZqpxKIZrfZr64BTyUmHwWdEUjWjm3XulkLuozpbOuFT7dmkzKYAQ1ePD2cV2HLEnD1yMC00Q95j5SB1";
     google_auth_redirect_url = "https://api2-dev.andelsboligbasen.dk/login/google/callback"
-} else if (window.location.hostname === 'roomies.dk') {
+} else if (window.location.hostname === 'roomiedanmark.dk') {
     environment = 'prod';
     // App Engine proxied.
     apiUrl = 'https://api2.andelsboligbasen.dk';

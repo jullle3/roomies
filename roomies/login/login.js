@@ -313,6 +313,8 @@ export function setupLoginView() {
                 return
             }
 
+            displaySuccessMessage("Tak for din oprettelse. Vi har sendt dig en mail, og efter login kan du gøre din roomie-profil personlig.");
+
             // Transition to OTP modal
             const registerModalEl = document.getElementById('registerModal');
             const logincodeModalEl = document.getElementById('loginCodeModal');

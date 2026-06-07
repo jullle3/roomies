@@ -1,10 +1,15 @@
 import {authFetch} from "../auth/auth.js";
-import {displayErrorMessage, decodeJwt, currentUser, getHousingById} from "../utils.js";
+import {displayErrorMessage, displaySuccessMessage, decodeJwt, currentUser, getHousingById} from "../utils.js";
 import {showView} from "../views/viewManager.js";
+
+const PROFILE_MAX_PHOTO_SIZE_BYTES = 3 * 1024 * 1024;
+const PROFILE_INTEREST_LIMIT = 5;
+let profilePhotoDataUrl = null;
 
 export function setupProfileView() {
     setupProfileSettingsHandlers();
     setupConversationsShortcut();
+    setupHumanProfileHandlers();
 }
 
 export async function loadProfileView() {
@@ -88,16 +93,183 @@ function setupConversationsShortcut() {
     }
 }
 
+function setupHumanProfileHandlers() {
+    const form = document.getElementById('profileHumanForm');
+    if (!form || form.dataset.bound === '1') return;
+
+    form.dataset.bound = '1';
+
+    const photoInput = document.getElementById('profile-photo-input');
+    if (photoInput) {
+        photoInput.addEventListener('change', handleProfilePhotoSelected);
+    }
+
+    const description = document.getElementById('profile-description');
+    if (description) {
+        description.addEventListener('input', updateDescriptionCount);
+        updateDescriptionCount();
+    }
+
+    form.querySelectorAll('input[name="interests"]').forEach(input => {
+        input.addEventListener('change', () => enforceInterestLimit(input));
+    });
+
+    form.addEventListener('submit', handleHumanProfileSubmit);
+}
+
+async function handleHumanProfileSubmit(event) {
+    event.preventDefault();
+
+    const form = event.currentTarget;
+    const submitButton = form.querySelector('[type="submit"]');
+    const payload = getHumanProfilePayload();
+
+    submitButton.disabled = true;
+    submitButton.dataset.originalText = submitButton.innerHTML;
+    submitButton.innerHTML = '<span class="spinner-border spinner-border-sm me-2" aria-hidden="true"></span>Gemmer...';
+
+    try {
+        const response = await authFetch('/user', {
+            method: 'PATCH',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(payload)
+        });
+
+        if (!response.ok) {
+            throw new Error('Kunne ikke gemme din roomie-profil.');
+        }
+
+        displaySuccessMessage('Din roomie-profil er gemt.');
+    } catch (error) {
+        console.error('Could not save human profile:', error);
+        displayErrorMessage(error.message || 'Kunne ikke gemme din roomie-profil.');
+    } finally {
+        submitButton.disabled = false;
+        submitButton.innerHTML = submitButton.dataset.originalText || 'Gem roomie-profil';
+    }
+}
+
+function getHumanProfilePayload() {
+    const selectedGender = document.querySelector('input[name="gender"]:checked');
+    const selectedInterests = [...document.querySelectorAll('input[name="interests"]:checked')].map(input => input.value);
+    const ageValue = parseInteger(document.getElementById('profile-age')?.value);
+    const budgetValue = parseInteger(document.getElementById('profile-budget')?.value);
+
+    return {
+        profile_photo: profilePhotoDataUrl || null,
+        age: ageValue,
+        gender: selectedGender?.value || null,
+        occupation: getTrimmedValue('profile-occupation') || null,
+        interests: selectedInterests,
+        description: getTrimmedValue('profile-description') || null,
+        monthly_budget_max: budgetValue,
+        move_in_date: getTrimmedValue('profile-move-in-date') || null
+    };
+}
+
+function getTrimmedValue(id) {
+    return String(document.getElementById(id)?.value || '').trim();
+}
+
+function parseInteger(value) {
+    const parsed = Number.parseInt(String(value || '').replace(/\./g, ''), 10);
+    return Number.isFinite(parsed) ? parsed : null;
+}
+
+function enforceInterestLimit(changedInput) {
+    const selected = [...document.querySelectorAll('input[name="interests"]:checked')];
+    if (selected.length <= PROFILE_INTEREST_LIMIT) return;
+
+    changedInput.checked = false;
+    displayErrorMessage(`Vælg højst ${PROFILE_INTEREST_LIMIT} roomie-vibes.`);
+}
+
+function handleProfilePhotoSelected(event) {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    if (!file.type.startsWith('image/')) {
+        displayErrorMessage('Vælg et billede i PNG, JPG eller WebP.');
+        event.target.value = '';
+        return;
+    }
+
+    if (file.size > PROFILE_MAX_PHOTO_SIZE_BYTES) {
+        displayErrorMessage('Profilbilledet må højst være 3 MB.');
+        event.target.value = '';
+        return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = () => {
+        profilePhotoDataUrl = String(reader.result || '');
+        updateProfilePhotoPreview(profilePhotoDataUrl);
+    };
+    reader.readAsDataURL(file);
+}
+
+function updateProfilePhotoPreview(src) {
+    const preview = document.getElementById('profile-photo-preview');
+    const placeholder = document.getElementById('profile-photo-placeholder');
+    if (!preview || !placeholder) return;
+
+    if (src) {
+        preview.src = src;
+        preview.classList.remove('d-none');
+        placeholder.classList.add('d-none');
+    } else {
+        preview.removeAttribute('src');
+        preview.classList.add('d-none');
+        placeholder.classList.remove('d-none');
+    }
+}
+
+function updateDescriptionCount() {
+    const description = document.getElementById('profile-description');
+    const counter = document.getElementById('profile-description-count');
+    if (description && counter) {
+        counter.textContent = String(description.value.length);
+    }
+}
+
 // Helper function to update the inputs
 function updateProfileUI(userProfile) {
     document.getElementById('fullName-profile').value = userProfile.full_name;
     document.getElementById('email-profile').value = userProfile.email;
+    populateHumanProfileForm(userProfile);
 
     const emailToggle = document.getElementById('email_notifications');
     if (emailToggle) {
         emailToggle.checked = userProfile.email_notifications;
     }
 
+}
+
+function populateHumanProfileForm(userProfile = {}) {
+    profilePhotoDataUrl = userProfile.profile_photo || userProfile.photo || userProfile.avatar || userProfile.user_avatar || null;
+    updateProfilePhotoPreview(profilePhotoDataUrl);
+
+    setInputValue('profile-age', userProfile.age);
+    setInputValue('profile-occupation', userProfile.occupation);
+    setInputValue('profile-description', userProfile.description || userProfile.profile_description);
+    setInputValue('profile-budget', userProfile.monthly_budget_max);
+    setInputValue('profile-move-in-date', userProfile.move_in_date);
+
+    document.querySelectorAll('input[name="gender"]').forEach(input => {
+        input.checked = input.value === userProfile.gender;
+    });
+
+    const interests = Array.isArray(userProfile.interests) ? userProfile.interests : [];
+    document.querySelectorAll('input[name="interests"]').forEach(input => {
+        input.checked = interests.includes(input.value);
+    });
+
+    updateDescriptionCount();
+}
+
+function setInputValue(id, value) {
+    const input = document.getElementById(id);
+    if (input) input.value = value ?? '';
 }
 
 
@@ -111,6 +283,7 @@ export function populateProfileView(){
 
         document.getElementById('fullName-profile').value = payloadObj.full_name;
         document.getElementById('email-profile').value = payloadObj.email;
+        populateHumanProfileForm(payloadObj);
 
         const emailToggle = document.getElementById('email_notifications');
         if (emailToggle) {

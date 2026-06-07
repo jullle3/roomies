@@ -37,7 +37,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
     <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
     <!--    Custom Merged css files -->
-    <link rel="stylesheet" href="roomies/mergedStyles.css?roomies_version=782">
+    <link rel="stylesheet" href="roomies/mergedStyles.css?roomies_version=783">
     <style>
         .nav-auth-btn:active,
         .nav-auth-btn:focus,
@@ -56,7 +56,7 @@
             color: #ffffff !important;
         }
     </style>
-    <script defer type="module" src="roomies/mergedJS.js?roomies_version=782"></script>
+    <script defer type="module" src="roomies/mergedJS.js?roomies_version=783"></script>
 
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18047412076"></script>
@@ -551,7 +551,7 @@
                             </h2>
 
                             <p class="fs-5 text-muted mb-4 lh-base">
-                                Jeg hedder Julian, og jeg har bygget roomies for at gøre boligjagten mere fair, mere personlig og mere overskuelig. Du skal kunne se, hvem du skriver med, forstå hvad du siger ja til, og slippe for dyre betalingsmure.
+                                Jeg hedder Julian, og jeg har bygget roomiedanmark for at gøre boligjagten mere fair, mere personlig og mere overskuelig. Du skal kunne se, hvem du skriver med, forstå hvad du siger ja til, og slippe for dyre betalingsmure.
                             </p>
 
                             <p class="fs-5 text-muted mb-5 lh-base">
@@ -2493,6 +2493,107 @@
                                                    readonly>
                                         </div>
                                     </div>
+                                </form>
+                            </div>
+
+                            <hr class="my-4 opacity-10">
+
+                            <div class="mb-5 profile-human-section">
+                                <h5 class="fw-bold mb-4 company-dark d-flex align-items-center">
+                                    <div class="d-flex align-items-center justify-content-center bg-primary bg-opacity-10 rounded-circle me-3" style="width: 32px; height: 32px;">
+                                        <i class="fa-solid fa-heart text-primary fs-6"></i>
+                                    </div>
+                                    Din roomie-profil
+                                </h5>
+
+                                <form id="profileHumanForm" class="profile-human-form" novalidate>
+                                    <div class="profile-photo-row">
+                                        <div class="profile-photo-preview">
+                                            <img id="profile-photo-preview" alt="Dit profilbillede" class="d-none">
+                                            <div id="profile-photo-placeholder" class="profile-photo-placeholder">
+                                                <i class="fa-regular fa-user"></i>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <label class="form-label" for="profile-photo-input">Profilbillede</label>
+                                            <p class="text-muted small mb-3">Et ansigt gør det lettere at mærke, hvem man måske skal bo sammen med.</p>
+                                            <input type="file" class="form-control" id="profile-photo-input" accept="image/png,image/jpeg,image/webp">
+                                        </div>
+                                    </div>
+
+                                    <div class="row g-3">
+                                        <div class="col-md-6">
+                                            <label class="form-label" for="profile-age">Alder</label>
+                                            <input type="number" class="form-control" id="profile-age" name="age" min="16" max="120" placeholder="24">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="form-label" for="profile-occupation">Beskæftigelse</label>
+                                            <input type="text" class="form-control" id="profile-occupation" name="occupation" maxlength="80" placeholder="Studerende, arbejder fuldtid...">
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <label class="form-label">Køn <span class="text-muted fw-semibold">(valgfrit)</span></label>
+                                        <div class="profile-pill-group" role="radiogroup" aria-label="Køn">
+                                            <input type="radio" class="btn-check" name="gender" id="profile-gender-man" value="mand">
+                                            <label class="profile-pill-option" for="profile-gender-man">Mand</label>
+                                            <input type="radio" class="btn-check" name="gender" id="profile-gender-woman" value="kvinde">
+                                            <label class="profile-pill-option" for="profile-gender-woman">Kvinde</label>
+                                            <input type="radio" class="btn-check" name="gender" id="profile-gender-other" value="andet">
+                                            <label class="profile-pill-option" for="profile-gender-other">Andet</label>
+                                            <input type="radio" class="btn-check" name="gender" id="profile-gender-private" value="ønsker_ikke_at_oplyse">
+                                            <label class="profile-pill-option" for="profile-gender-private">Ønsker ikke at oplyse</label>
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <label class="form-label">Mine roomie-vibes</label>
+                                        <p class="text-muted small mb-3">Vælg 3-5 tags, der bedst beskriver dig derhjemme.</p>
+                                        <div class="profile-vibe-grid">
+                                            <input type="checkbox" class="btn-check" name="interests" id="profile-vibe-social" value="🍻 Socialt anlagt">
+                                            <label for="profile-vibe-social">🍻 Socialt anlagt</label>
+                                            <input type="checkbox" class="btn-check" name="interests" id="profile-vibe-private" value="🎧 Privatliv">
+                                            <label for="profile-vibe-private">🎧 Privatliv</label>
+                                            <input type="checkbox" class="btn-check" name="interests" id="profile-vibe-dinner" value="☕ Fællesspisning">
+                                            <label for="profile-vibe-dinner">☕ Fællesspisning</label>
+                                            <input type="checkbox" class="btn-check" name="interests" id="profile-vibe-cleaning" value="🧹 Rengøringsplan">
+                                            <label for="profile-vibe-cleaning">🧹 Rengøringsplan</label>
+                                            <input type="checkbox" class="btn-check" name="interests" id="profile-vibe-calm" value="🤫 Roligt hjem">
+                                            <label for="profile-vibe-calm">🤫 Roligt hjem</label>
+                                            <input type="checkbox" class="btn-check" name="interests" id="profile-vibe-pets" value="🐶 Dyreven">
+                                            <label for="profile-vibe-pets">🐶 Dyreven</label>
+                                            <input type="checkbox" class="btn-check" name="interests" id="profile-vibe-nonsmoker" value="🚭 Ikke-ryger">
+                                            <label for="profile-vibe-nonsmoker">🚭 Ikke-ryger</label>
+                                            <input type="checkbox" class="btn-check" name="interests" id="profile-vibe-active" value="🏃 Aktiv hverdag">
+                                            <label for="profile-vibe-active">🏃 Aktiv hverdag</label>
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <div class="d-flex justify-content-between gap-3">
+                                            <label class="form-label" for="profile-description">Lidt om mig som roomie</label>
+                                            <span class="profile-char-count"><span id="profile-description-count">0</span>/500</span>
+                                        </div>
+                                        <textarea class="form-control" id="profile-description" name="description" rows="5" maxlength="500" placeholder="Fortæl lidt om din hverdag, hvad du laver i din fritid, og hvad du sætter pris på i et godt hjem..."></textarea>
+                                    </div>
+
+                                    <div class="row g-3">
+                                        <div class="col-md-6">
+                                            <label class="form-label" for="profile-budget">Maks budget pr. måned</label>
+                                            <div class="input-group">
+                                                <input type="number" class="form-control" id="profile-budget" name="monthly_budget_max" min="0" step="100" placeholder="6500">
+                                                <span class="input-group-text">kr.</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="form-label" for="profile-move-in-date">Klar til indflytning fra</label>
+                                            <input type="date" class="form-control" id="profile-move-in-date" name="move_in_date">
+                                        </div>
+                                    </div>
+
+                                    <button type="submit" class="btn btn-primary-coral rounded-pill fw-bold py-3 px-4 shadow-sm hover-lift profile-human-submit">
+                                        Gem roomie-profil
+                                    </button>
                                 </form>
                             </div>
 

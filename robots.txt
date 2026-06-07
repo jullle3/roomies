@@ -11,4 +11,4 @@ Disallow: /redirect-success
 Disallow: /profil
 Disallow: /login
 
-Sitemap: https://roomies.dk/sitemap.xml
+Sitemap: https://roomiedanmark.dk/sitemap.xml

@@ -1,6 +1,6 @@
 {
-  "name": "roomies",
-  "short_name": "roomies",
+  "name": "roomiedanmark",
+  "short_name": "roomiedanmark",
   "description": "Find et værelse, udlej et værelse, og mød din næste roomie.",
   "start_url": "/",
   "scope": "/",

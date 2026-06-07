@@ -11,7 +11,7 @@ export const BLOG_POSTS = [
         author: "Julian Køster",
         category: "Mission",
         heroIcon: "fa-solid fa-hand-holding-heart",
-        intro: "Hvis du har ledt efter et værelse eller en roomie i Danmark for nylig, kender du allerede den hårde virkelighed: markedet er brutalt, stressende og ekstremt konkurrencepræget. Men det, der gør det absolut uacceptabelt, er ikke kun manglen på boliger – det er den systematiske udnyttelse af mennesker, der bare leder efter et sted at sove. Derfor har jeg bygget roomies. En 100% gratis platform.",
+        intro: "Hvis du har ledt efter et værelse eller en roomie i Danmark for nylig, kender du allerede den hårde virkelighed: markedet er brutalt, stressende og ekstremt konkurrencepræget. Men det, der gør det absolut uacceptabelt, er ikke kun manglen på boliger – det er den systematiske udnyttelse af mennesker, der bare leder efter et sted at sove. Derfor har jeg bygget roomiedanmark. En 100% gratis platform.",
         sections: [
             {
                 title: "Den grådige standardmodel",
@@ -24,7 +24,7 @@ export const BLOG_POSTS = [
             {
                 title: "En bedre og gratis løsning",
                 body: [
-                    "Det var præcis den frustration, der fik mig til at bygge roomies.",
+                    "Det var præcis den frustration, der fik mig til at bygge roomiedanmark.",
                     "Som softwareudvikler ved jeg, hvad det kræver at bygge et sikkert, lynhurtigt og pålideligt system. Og jeg ved med sikkerhed, at det ikke kræver, at man afpresser sine brugere for at holde serverne kørende.",
                     "roomies er en helt ny platform til at finde roomies og udleje værelser, og den er 100% gratis."
                 ],

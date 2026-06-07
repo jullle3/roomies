@@ -262,8 +262,8 @@ function resetRoomSearch() {
     document.getElementById("room-search-form")?.reset();
     const locationInput = document.getElementById("room-search-location");
     if (locationInput) locationInput.dataset.areaId = "";
-    setRoomSearchSliderValue("room-search-rent-slider", 8000);
-    setRoomSearchSliderValue("room-search-size-slider", 8);
+    setRoomSearchSliderValue("room-search-rent-slider", 10000);
+    setRoomSearchSliderValue("room-search-size-slider", 5);
     renderRoomListings();
 }
 
@@ -272,10 +272,10 @@ function setupRoomSearchSliders() {
         sliderId: "room-search-rent-slider",
         inputId: "room-search-max-rent",
         outputId: "room-search-rent-value",
-        start: 8000,
-        range: {min: 2500, max: 8000},
+        start: 10000,
+        range: {min: 2000, max: 10000},
         step: 250,
-        isOpenEnd: value => value >= 8000,
+        isOpenEnd: value => value >= 10000,
         openLabel: "Alle priser",
         formatValue: value => `${formatNumber(value)} kr.`
     });
@@ -284,10 +284,10 @@ function setupRoomSearchSliders() {
         sliderId: "room-search-size-slider",
         inputId: "room-search-min-size",
         outputId: "room-search-size-value",
-        start: 8,
-        range: {min: 8, max: 30},
+        start: 5,
+        range: {min: 5, max: 30},
         step: 1,
-        isOpenEnd: value => value <= 8,
+        isOpenEnd: value => value <= 5,
         openLabel: "Alle størrelser",
         formatValue: value => `${formatNumber(value)} m²`
     });

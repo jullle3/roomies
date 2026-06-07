@@ -4,6 +4,7 @@ import {displayLoginModal} from "./views/viewManager.js";
 import {environment, stripe_buy_button_id, stripe_buy_button_publishable_key} from "./config/config.js";
 
 export let currentUser = null;
+let currentUserLoadPromise = null;
 let stripeScriptPromise = null;
 let stripeFallbackTimer = null;
 export const DEFAULT_OG_IMAGE = 'https://roomies.dk/pics/opengraph.webp';
@@ -282,25 +283,56 @@ export async function isSubscribed() {
 }
 
 // Load and store info about the logged-in user
-export async function loadUser() {
+export async function loadUser(force = false) {
     if (!isLoggedIn()) {
-        return
+        currentUser = null;
+        currentUserLoadPromise = null;
+        return null;
     }
 
-    const jwt = decodeJwt()
-    const response = await authFetch(`/roomies/user/${jwt.sub}`);
-
-    if (!response.ok) {
-        let body = await response.json()
-        displayErrorMessage(body.detail);
-        return;
+    if (currentUser && !force) {
+        return currentUser;
     }
-    currentUser = await response.json()
-    checkAndDisplayEmailWarnings();
+
+    if (currentUserLoadPromise && !force) {
+        return currentUserLoadPromise;
+    }
+
+    currentUserLoadPromise = (async () => {
+        const jwt = decodeJwt()
+        const response = await authFetch(`/roomies/user/${jwt.sub}`);
+
+        if (!response.ok) {
+            let body = await response.json()
+            displayErrorMessage(body.detail);
+            return null;
+        }
+
+        currentUser = await response.json()
+        checkAndDisplayEmailWarnings();
+        return currentUser;
+    })();
+
+    try {
+        return await currentUserLoadPromise;
+    } finally {
+        currentUserLoadPromise = null;
+    }
+}
+
+export async function ensureCurrentUserLoaded() {
+    return loadUser(false);
 }
 
 export function resetCurrentUser(){
     currentUser = null;
+    currentUserLoadPromise = null;
+}
+
+export function setCurrentUser(user) {
+    currentUser = user || null;
+    currentUserLoadPromise = null;
+    checkAndDisplayEmailWarnings();
 }
 
 // Called when user clicks "favorite" icon on an housing

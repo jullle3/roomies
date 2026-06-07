@@ -19,7 +19,8 @@ import {
     initDynamicUserCount,
     loadLandingNewRooms,
     loadFeaturedHousings,
-    loadScannerHighlightedListings
+    loadScannerHighlightedListings,
+    setupLandingRoomSearchAutocomplete
 } from "./landing/landing.js";
 import {environment} from "./config/config.js";
 import {setupConversationsView, startGlobalConversationUnreadPolling} from "./conversations/conversations.js";
@@ -127,6 +128,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         setupRentRoomView();
         setupRoomSearchView();
         setupRoomieAgentView();
+        setupLandingRoomSearchAutocomplete();
         SetupHeader();
         setupProfileView()
 

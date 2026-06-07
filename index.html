@@ -37,7 +37,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
     <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
     <!--    Custom Merged css files -->
-    <link rel="stylesheet" href="roomies/mergedStyles.css?roomies_version=798">
+    <link rel="stylesheet" href="roomies/mergedStyles.css?roomies_version=803">
     <style>
         .nav-auth-btn:active,
         .nav-auth-btn:focus,
@@ -56,7 +56,7 @@
             color: #ffffff !important;
         }
     </style>
-    <script defer type="module" src="roomies/mergedJS.js?roomies_version=798"></script>
+    <script defer type="module" src="roomies/mergedJS.js?roomies_version=803"></script>
 
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18047412076"></script>
@@ -252,14 +252,17 @@
                             <div class="tab-content" id="heroTabContent">
                                 <!-- Seeker Tab -->
                                 <div class="tab-pane fade show active" id="search" role="tabpanel">
-                                    <div class="input-group input-group-lg search-input-group rounded-pill overflow-hidden p-1">
-                                    <span class="input-group-text bg-transparent border-0 ps-3 text-muted">
-                                        <i class="fa-solid fa-location-dot"></i>
-                                    </span>
-                                        <input id="landing-room-search-location" type="text" class="form-control border-0 px-2" placeholder="Hvor vil du bo? (F.eks. Nørrebro eller Aarhus C)">
-                                        <button class="btn btn-primary-coral rounded-pill px-4 px-md-5 fw-bold" onclick="openRoomSearch()">
-                                            Søg
-                                        </button>
+                                    <div class="landing-room-search-field">
+                                        <div class="input-group input-group-lg search-input-group rounded-pill overflow-hidden p-1">
+                                        <span class="input-group-text bg-transparent border-0 ps-3 text-muted">
+                                            <i class="fa-solid fa-location-dot"></i>
+                                        </span>
+                                            <input id="landing-room-search-location" type="text" class="form-control border-0 px-2" autocomplete="off" placeholder="Hvor vil du bo? (F.eks. Nørrebro eller Aarhus C)">
+                                            <button class="btn btn-primary-coral rounded-pill px-4 px-md-5 fw-bold" onclick="openRoomSearch()">
+                                                Søg
+                                            </button>
+                                        </div>
+                                        <div id="landing-room-search-suggestions" class="landing-room-search-suggestions" role="listbox" aria-label="Område-forslag"></div>
                                     </div>
                                 </div>
                                 <!-- Provider Tab -->
@@ -394,74 +397,6 @@
                 </div>
 
                 <div id="landing-new-rooms" class="row g-4" aria-live="polite" hidden>
-                    <!-- Room Card Example 1 -->
-                    <div class="col-12 col-md-6 col-lg-4">
-                        <a href="/ledige-vaerelser" data-view="soeg_vaerelse" class="card room-card h-100 cursor-pointer text-decoration-none text-dark">
-                            <div class="room-thumb-wrapper">
-                                <!-- Room Image -->
-                                <img src="/pics/sample_room1.webp" alt="Værelse på Nørrebro" loading="lazy">
-                                <!-- Premium Badge -->
-                                <div class="position-absolute top-0 start-0 m-3 z-3">
-                                <span class="badge bg-white text-dark rounded-pill shadow-sm px-3 py-2 fw-bold" style="font-size: 0.8rem;">
-                                    <i class="fa-solid fa-bolt text-warning me-1"></i> Hurtig indflytning
-                                </span>
-                                </div>
-                                <!-- Human Focus: Avatar -->
-                                <img src="/pics/sample_avatar1.webp" alt="Sofie" class="avatar-overlap">
-                            </div>
-
-                            <div class="card-body p-4 pt-4 mt-2">
-                                <div class="d-flex justify-content-between align-items-start mb-2">
-                                    <div>
-                                        <h3 class="h5 fw-bold mb-1">Stort værelse på Nørrebro</h3>
-                                        <p class="text-muted small mb-0"><i class="fa-solid fa-location-dot me-1"></i> 2200 København N</p>
-                                    </div>
-                                </div>
-
-                                <h4 class="fw-bolder mb-4" style="color: var(--color-primary);">4.500 <span class="fs-6 fw-semibold text-muted">kr./md</span></h4>
-
-                                <div class="d-flex flex-wrap gap-2 mb-3">
-                                    <span class="vibe-tag">🌱 Vegan</span>
-                                    <span class="vibe-tag">🍻 Socialt</span>
-                                    <span class="vibe-tag">🧹 Turnus</span>
-                                </div>
-
-                                <hr class="opacity-10 my-3">
-                                <div class="d-flex justify-content-between align-items-center small text-muted fw-medium">
-                                    <span><i class="fa-regular fa-user me-1"></i> Udlejes af Sofie</span>
-                                    <span>14 m²</span>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-
-                    <!-- Room Card Example 2 -->
-                    <div class="col-12 col-md-6 col-lg-4">
-                        <a href="/ledige-vaerelser" data-view="soeg_vaerelse" class="card room-card h-100 cursor-pointer text-decoration-none text-dark">
-                            <div class="room-thumb-wrapper">
-                                <img src="/pics/sample_room2.webp" alt="Kollektiv i Aarhus" loading="lazy">
-                                <img src="/pics/sample_avatar2.webp" alt="Mads" class="avatar-overlap">
-                            </div>
-                            <div class="card-body p-4 pt-4 mt-2">
-                                <div class="d-flex justify-content-between align-items-start mb-2">
-                                    <div>
-                                        <h3 class="h5 fw-bold mb-1">Hyggeligt kollektiv i Midtbyen</h3>
-                                        <p class="text-muted small mb-0"><i class="fa-solid fa-location-dot me-1"></i> 8000 Aarhus C</p>
-                                    </div>
-                                </div>
-                                <h4 class="fw-bolder mb-4" style="color: var(--color-primary);">3.200 <span class="fs-6 fw-semibold text-muted">kr./md</span></h4>
-                                <div class="d-flex flex-wrap gap-2 mb-3">
-                                    <span class="vibe-tag">🎸 Fester</span>
-                                    <span class="vibe-tag">🐱 Dyr tilladt</span>
-                                </div>
-                                <hr class="opacity-10 my-3">
-                                <div class="d-flex justify-content-between align-items-center small text-muted fw-medium">
-                                    <span><i class="fa-regular fa-user me-1"></i> Udlejes af Mads</span>
-                                    <span>20 m²</span>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
                 </div>
 
                 <div class="text-center mt-4 pt-3 d-block d-md-none">
@@ -628,7 +563,7 @@
             <div class="container py-4 text-center position-relative z-1">
                 <h2 class="display-6 fw-bold mb-4 text-white">Vær med fra start 👋</h2>
                 <p class="fs-5 text-white opacity-90 mx-auto mb-5 lh-base" style="max-width: 650px;">
-                    roomies er bygget af og for unge på boligjagt. Vi bygger platformen sammen med vores brugere og tilføjer løbende de funktioner, som I har allermest brug for.
+                    Fællesskabet er bygget af og for unge på boligjagt. Vi bygger platformen sammen med vores brugere og tilføjer løbende de funktioner, som I har allermest brug for.
                 </p>
                 <div class="d-flex justify-content-center align-items-center gap-2 mb-4" aria-label="Unge roomies i fællesskabet">
                     <img src="/pics/avatar10.png" alt="Ung boligsøgende i roomies fællesskabet" class="rounded-circle border border-3 border-white shadow-sm hover-lift" style="width: 56px; height: 56px; object-fit: cover;">

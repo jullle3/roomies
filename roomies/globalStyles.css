@@ -130,6 +130,76 @@ h1, h2, h3, h4, h5, h6, .view-title {
     box-shadow: none;
 }
 
+.landing-room-search-field {
+    position: relative;
+}
+
+.landing-room-search-suggestions {
+    position: absolute;
+    top: calc(100% + 0.6rem);
+    left: 0;
+    right: 0;
+    z-index: 20;
+    display: none;
+    grid-template-columns: 1fr;
+    gap: 0.45rem;
+    padding: 0.65rem;
+    border: 1px solid rgba(255, 255, 255, 0.74);
+    border-radius: var(--radius-xl);
+    background: rgba(255, 255, 255, 0.98);
+    box-shadow: var(--shadow-hover);
+}
+
+.landing-room-search-suggestions.is-visible {
+    display: grid;
+}
+
+.landing-room-search-suggestions button {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 0 0.7rem;
+    align-items: center;
+    min-height: 58px;
+    padding: 0.72rem 0.85rem;
+    border: 1px solid transparent;
+    border-radius: 16px;
+    background: #fff;
+    color: var(--text-main);
+    text-align: left;
+    transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+}
+
+.landing-room-search-suggestions button:hover,
+.landing-room-search-suggestions button:focus {
+    transform: translateY(-2px);
+    border-color: rgba(255, 107, 107, 0.35);
+    background: rgba(255, 107, 107, 0.06);
+    outline: none;
+}
+
+.landing-room-search-suggestions i {
+    grid-row: span 2;
+    color: var(--color-primary);
+}
+
+.landing-room-search-suggestions span,
+.landing-room-search-suggestions small {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.landing-room-search-suggestions span {
+    font-weight: 800;
+}
+
+.landing-room-search-suggestions small {
+    color: var(--text-muted);
+    font-size: 0.78rem;
+    font-weight: 700;
+}
+
 /* =========================================
    3. Human-Centric Room Cards
 ========================================= */

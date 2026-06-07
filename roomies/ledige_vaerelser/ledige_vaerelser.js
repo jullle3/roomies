@@ -22,7 +22,10 @@ export function setupRoomSearchView() {
     });
 
     form.addEventListener("change", renderRoomListings);
-    document.getElementById("room-search-location")?.addEventListener("input", renderRoomListings);
+    document.getElementById("room-search-location")?.addEventListener("input", event => {
+        event.currentTarget.dataset.areaId = "";
+        renderRoomListings();
+    });
     document.getElementById("room-search-reset")?.addEventListener("click", resetRoomSearch);
     document.querySelector("[data-reset-room-search]")?.addEventListener("click", resetRoomSearch);
     onRoomsLoaded(renderRoomListings);
@@ -42,9 +45,13 @@ export function setupRoomSearchView() {
 }
 
 function openRoomSearch() {
-    const landingLocation = document.getElementById("landing-room-search-location")?.value || "";
+    const landingInput = document.getElementById("landing-room-search-location");
+    const landingLocation = landingInput?.value || "";
     const searchLocation = document.getElementById("room-search-location");
-    if (searchLocation) searchLocation.value = landingLocation;
+    if (searchLocation) {
+        searchLocation.value = landingLocation;
+        searchLocation.dataset.areaId = landingInput?.dataset.areaId || "";
+    }
 
     window.showView("soeg_vaerelse");
     renderRoomListings();
@@ -99,12 +106,17 @@ function getFilteredRooms(cachedRooms) {
     const data = new FormData(form);
 
     const location = getNormalizedText(data.get("location"));
+    const selectedAreaId = document.getElementById("room-search-location")?.dataset.areaId || "";
     const maxRent = Number(data.get("max_rent")) || Infinity;
     const minSize = Number(data.get("min_size")) || 0;
 
     const rooms = cachedRooms.map(normalizeRoomListing).filter(room => {
         const searchableLocation = getNormalizedText(`${room.postal} ${room.area}`);
-        return (!location || searchableLocation.includes(location))
+        const locationMatches = selectedAreaId
+            ? roomMatchesSelectedArea(room, selectedAreaId)
+            : (!location || searchableLocation.includes(location));
+
+        return locationMatches
             && room.rent <= maxRent
             && room.size >= minSize
             && (!data.has("furnished") || room.furnished)
@@ -132,6 +144,7 @@ function normalizeRoomListing(room) {
     return {
         id: room._id || room.id || crypto.randomUUID(),
         title: room.title || "Ledigt værelse",
+        postalNumber: Number(room.postal_number),
         postal: postal || room.address || "Adresse ikke angivet",
         area: area || room.address || postal || "",
         rent: Number(room.monthly_price ?? room.price ?? 0),
@@ -147,6 +160,20 @@ function normalizeRoomListing(room) {
         host: room.host_name || room.created_by_name || "en roomie",
         created: formatCreatedDate(room.created)
     };
+}
+
+function roomMatchesSelectedArea(room, areaId) {
+    const postalNumber = Number(room.postalNumber);
+    if (!Number.isFinite(postalNumber)) return false;
+
+    const id = String(areaId || "");
+    if (/^\d{8}$/.test(id)) {
+        const min = Number(id.slice(0, 4));
+        const max = Number(id.slice(4, 8));
+        return postalNumber >= min && postalNumber <= max;
+    }
+
+    return String(postalNumber) === id;
 }
 
 function getRoomVibes(room) {
@@ -234,6 +261,8 @@ function renderRoomCard(room) {
 
 function resetRoomSearch() {
     document.getElementById("room-search-form")?.reset();
+    const locationInput = document.getElementById("room-search-location");
+    if (locationInput) locationInput.dataset.areaId = "";
     document.getElementById("room-search-rent-slider")?.noUiSlider?.set(8000);
     document.getElementById("room-search-size-slider")?.noUiSlider?.set(8);
     renderRoomListings();

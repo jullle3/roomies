@@ -1,6 +1,7 @@
 import {authFetch} from "../auth/auth.js";
 import {areaAutocompleteOptions} from "../config/hardcoded_data.js";
-import {displayErrorMessage, displaySuccessMessage, decodeJwt, currentUser, getHousingById} from "../utils.js";
+import {s3Url} from "../config/config.js";
+import {displayErrorMessage, displaySuccessMessage, decodeJwt, currentUser, getHousingById, setCurrentUser} from "../utils.js";
 import {showView} from "../views/viewManager.js";
 import {invalidateRoomieAgentCache} from "../roomie_agent/roomie_agent.js";
 
@@ -9,7 +10,8 @@ const PROFILE_INTEREST_LIMIT = 5;
 const PROFILE_MAX_AREA_SUGGESTIONS = 4;
 const PROFILE_AREA_LOOKUP = new Map(areaAutocompleteOptions.map(area => [String(area.id), area]));
 const AGENTS_API_BASE = "/roomies/agents";
-let profilePhotoDataUrl = null;
+let profilePhotoName = null;
+let pendingProfilePhotoFile = null;
 let selectedProfileAreas = [];
 
 export function setupProfileView() {
@@ -194,7 +196,6 @@ async function handleCreateAgentFromProfile(button) {
 
         invalidateRoomieAgentCache();
         displaySuccessMessage("Din RoomieAgent er oprettet ud fra din profil.");
-        await showView("agent");
     } catch (error) {
         console.error('Could not create RoomieAgent from profile:', error);
         displayErrorMessage(error.message || "Kunne ikke oprette din RoomieAgent lige nu.");
@@ -209,13 +210,15 @@ async function handleHumanProfileSubmit(event) {
 
     const form = event.currentTarget;
     const submitButton = form.querySelector('[type="submit"]');
-    const payload = getHumanProfilePayload();
 
     submitButton.disabled = true;
     submitButton.dataset.originalText = submitButton.innerHTML;
     submitButton.innerHTML = '<span class="spinner-border spinner-border-sm me-2" aria-hidden="true"></span>Gemmer...';
 
     try {
+        await uploadPendingProfilePhoto();
+        const payload = getHumanProfilePayload();
+
         const response = await authFetch('/roomies/user', {
             method: 'PATCH',
             headers: {'Content-Type': 'application/json'},
@@ -226,6 +229,8 @@ async function handleHumanProfileSubmit(event) {
             throw new Error('Kunne ikke gemme din roomie-profil.');
         }
 
+        const updatedUser = await response.json();
+        setCurrentUser(updatedUser);
         displaySuccessMessage('Din roomie-profil er gemt.');
     } catch (error) {
         console.error('Could not save human profile:', error);
@@ -243,7 +248,7 @@ function getHumanProfilePayload() {
     const budgetValue = parseInteger(document.getElementById('profile-budget')?.value);
 
     return {
-        profile_photo: profilePhotoDataUrl || null,
+        profile_photo: profilePhotoName || null,
         age: ageValue,
         gender: selectedGender?.value || null,
         occupation: getTrimmedValue('profile-occupation') || null,
@@ -297,12 +302,39 @@ function handleProfilePhotoSelected(event) {
         return;
     }
 
+    pendingProfilePhotoFile = file;
+
     const reader = new FileReader();
     reader.onload = () => {
-        profilePhotoDataUrl = String(reader.result || '');
-        updateProfilePhotoPreview(profilePhotoDataUrl);
+        updateProfilePhotoPreview(String(reader.result || ''));
     };
     reader.readAsDataURL(file);
+}
+
+async function uploadPendingProfilePhoto() {
+    if (!pendingProfilePhotoFile) return profilePhotoName;
+
+    const formData = new FormData();
+    formData.append('file', pendingProfilePhotoFile);
+
+    const response = await authFetch('/roomies/user/profile-photo', {
+        method: 'POST',
+        body: formData
+    });
+
+    const body = await response.json().catch(() => ({}));
+    if (!response.ok) {
+        throw new Error(body.detail || body.message || 'Kunne ikke uploade profilbilledet.');
+    }
+
+    profilePhotoName = body.profile_photo || body.name || null;
+    pendingProfilePhotoFile = null;
+    updateProfilePhotoPreview(buildProfilePhotoUrl(profilePhotoName));
+
+    const photoInput = document.getElementById('profile-photo-input');
+    if (photoInput) photoInput.value = '';
+
+    return profilePhotoName;
 }
 
 function updateProfilePhotoPreview(src) {
@@ -319,6 +351,15 @@ function updateProfilePhotoPreview(src) {
         preview.classList.add('d-none');
         placeholder.classList.remove('d-none');
     }
+}
+
+function buildProfilePhotoUrl(imageName) {
+    if (!imageName) return null;
+
+    const value = String(imageName);
+    if (/^(https?:|data:|blob:)/i.test(value)) return value;
+
+    return `${s3Url}/${value.replace(/^\/+/, '')}`;
 }
 
 function updateDescriptionCount() {
@@ -345,8 +386,9 @@ function updateProfileUI(userProfile) {
 function populateHumanProfileForm(userProfile = {}) {
     const roomieProfile = getRoomieProfile(userProfile);
 
-    profilePhotoDataUrl = roomieProfile.profile_photo || null;
-    updateProfilePhotoPreview(profilePhotoDataUrl);
+    profilePhotoName = roomieProfile.profile_photo || null;
+    pendingProfilePhotoFile = null;
+    updateProfilePhotoPreview(buildProfilePhotoUrl(profilePhotoName));
 
     setInputValue('profile-age', roomieProfile.age);
     setInputValue('profile-occupation', roomieProfile.occupation);

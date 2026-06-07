@@ -1,6 +1,6 @@
 import {authFetch} from "../auth/auth.js";
 import {areaAutocompleteOptions} from "../config/hardcoded_data.js";
-import {displayErrorMessage, displaySuccessMessage, isLoggedIn} from "../utils.js";
+import {displayErrorMessage, displaySuccessMessage, ensureCurrentUserLoaded, isLoggedIn} from "../utils.js";
 import {showView} from "../views/viewManager.js";
 
 const MAX_AGENTS = 5;
@@ -85,7 +85,8 @@ function updateOverviewEmptyStateCopy({title, text, cta}) {
 }
 
 export async function renderRoomieAgentCreate() {
-    renderAgentForm({mode: "create"});
+    const user = await ensureCurrentUserLoaded();
+    renderAgentForm({mode: "create", user});
 }
 
 export async function renderRoomieAgentEdit(agentId) {
@@ -168,13 +169,13 @@ function bindFormContainers() {
     });
 }
 
-function renderAgentForm({mode, agent = null}) {
+function renderAgentForm({mode, agent = null, user = null}) {
     const viewId = mode === "edit" ? "agent_edit" : "agent_create";
     const mount = getFormMount(viewId);
     if (!mount) return;
 
     selectedAreas = normalizeAreaIds(agent?.criteria?.areas);
-    mount.innerHTML = renderFormMarkup(mode, agent);
+    mount.innerHTML = renderFormMarkup(mode, agent, user);
     renderSelectedAreas();
     renderAreaSuggestions("");
 
@@ -355,10 +356,11 @@ function renderErrorCard(message) {
     `;
 }
 
-function renderFormMarkup(mode, agent) {
+function renderFormMarkup(mode, agent, user = null) {
     const criteria = agent?.criteria || {};
     const isEdit = mode === "edit";
     const agentId = getAgentId(agent);
+    const profileWarning = !isEdit && !hasFilledRoomieProfile(user) ? renderRoomieProfileWarning() : "";
 
     return `
         <section class="roomie-agent-form-shell">
@@ -380,6 +382,7 @@ function renderFormMarkup(mode, agent) {
 
                 <div class="col-lg-7">
                     <form id="roomie-agent-form" class="roomie-agent-form-card" data-mode="${mode}" data-agent-id="${escapeHtml(agentId)}" novalidate>
+                        ${profileWarning}
                         <div class="roomie-agent-form-block">
                             <label for="roomie-agent-name" class="form-label">Navn på din RoomieAgent</label>
                             <input id="roomie-agent-name" name="name" type="text" maxlength="200" class="form-control" value="${escapeAttribute(agent?.name || "")}" placeholder="F.eks. Nørrebro under 6.000 kr.">
@@ -407,6 +410,36 @@ function renderFormMarkup(mode, agent) {
                 </div>
             </div>
         </section>
+    `;
+}
+
+function hasFilledRoomieProfile(user) {
+    const profile = user?.roomie_profile;
+    if (!profile || typeof profile !== "object") return false;
+
+    return Boolean(
+        profile.profile_photo ||
+        profile.age ||
+        profile.gender ||
+        profile.occupation ||
+        profile.description ||
+        profile.monthly_price_max ||
+        profile.move_in_date ||
+        (Array.isArray(profile.interests) && profile.interests.length > 0) ||
+        (Array.isArray(profile.areas) && profile.areas.length > 0)
+    );
+}
+
+function renderRoomieProfileWarning() {
+    return `
+        <div class="roomie-agent-profile-warning">
+            <i class="fa-solid fa-circle-info"></i>
+            <div>
+                <strong>Din roomie-profil er tom</strong>
+                <p>Udfyld din profil, så udlejere hurtigere kan mærke hvem du er, når du skriver.</p>
+                <a href="/profil" data-view="profile">Udfyld profil</a>
+            </div>
+        </div>
     `;
 }
 

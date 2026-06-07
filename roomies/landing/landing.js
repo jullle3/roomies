@@ -1,9 +1,101 @@
 import {authFetch} from "../auth/auth.js";
 import {basePath, s3Url} from "../config/config.js";
+import {areaAutocompleteOptions} from "../config/hardcoded_data.js";
 import {displayErrorMessage} from "../utils.js";
 import {preloadRooms} from "../rooms/room_cache.js";
 
+const LANDING_AREA_SUGGESTION_LIMIT = 5;
+
 let scannerHighlightedUnavailableClickHandlerReady = false;
+let landingRoomSearchBound = false;
+
+export function setupLandingRoomSearchAutocomplete() {
+    if (landingRoomSearchBound) return;
+
+    const input = document.getElementById("landing-room-search-location");
+    const suggestions = document.getElementById("landing-room-search-suggestions");
+    if (!input || !suggestions) return;
+
+    landingRoomSearchBound = true;
+
+    input.addEventListener("input", () => {
+        input.dataset.areaId = "";
+        renderLandingAreaSuggestions(input.value);
+    });
+
+    input.addEventListener("focus", () => renderLandingAreaSuggestions(input.value));
+
+    input.addEventListener("keydown", event => {
+        if (event.key === "Escape") {
+            clearLandingAreaSuggestions();
+            input.blur();
+            return;
+        }
+
+        if (event.key !== "Enter") return;
+
+        const firstOption = suggestions.querySelector("[data-landing-area-option]");
+        if (!firstOption) return;
+
+        event.preventDefault();
+        selectLandingAreaOption(firstOption.dataset.landingAreaOption);
+    });
+
+    suggestions.addEventListener("mousedown", event => {
+        const option = event.target.closest("[data-landing-area-option]");
+        if (!option) return;
+
+        event.preventDefault();
+        selectLandingAreaOption(option.dataset.landingAreaOption);
+    });
+
+    document.addEventListener("click", event => {
+        if (event.target === input || suggestions.contains(event.target)) return;
+        clearLandingAreaSuggestions();
+    });
+}
+
+function renderLandingAreaSuggestions(query) {
+    const suggestions = document.getElementById("landing-room-search-suggestions");
+    if (!suggestions) return;
+
+    const normalizedQuery = normalizeLandingAreaText(query);
+    const matches = areaAutocompleteOptions
+        .filter(area => !normalizedQuery || area.searchText.includes(normalizedQuery))
+        .slice(0, LANDING_AREA_SUGGESTION_LIMIT);
+
+    suggestions.innerHTML = matches.map(area => `
+        <button type="button" data-landing-area-option="${escapeAttribute(area.id)}" role="option">
+            <i class="${area.icon}"></i>
+            <span>${escapeHtml(area.label)}</span>
+            <small>${escapeHtml(area.description)}</small>
+        </button>
+    `).join("");
+
+    suggestions.classList.toggle("is-visible", matches.length > 0);
+}
+
+function selectLandingAreaOption(areaId) {
+    const input = document.getElementById("landing-room-search-location");
+    const area = areaAutocompleteOptions.find(option => String(option.id) === String(areaId));
+    if (!input || !area) return;
+
+    input.value = area.label;
+    input.dataset.areaId = String(area.id);
+    clearLandingAreaSuggestions();
+}
+
+function clearLandingAreaSuggestions() {
+    const suggestions = document.getElementById("landing-room-search-suggestions");
+    if (!suggestions) return;
+
+    suggestions.innerHTML = "";
+    suggestions.classList.remove("is-visible");
+}
+
+function normalizeLandingAreaText(value) {
+    return String(value || "").trim().toLocaleLowerCase("da-DK");
+}
 
 export async function loadLandingNewRooms() {
     const container = document.getElementById("landing-new-rooms");

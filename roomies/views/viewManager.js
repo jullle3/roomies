@@ -21,9 +21,9 @@ import {
     renderBlogPage
 } from "../blog/blog.js";
 import {
-    renderRoomieAgentCreate,
-    renderRoomieAgentEdit,
-    renderRoomieAgentOverview
+    renderSearchAgentCreate,
+    renderSearchAgentEdit,
+    renderSearchAgentOverview
 } from "../roomie_agent/roomie_agent.js";
 
 // Setup click events for all views
@@ -453,13 +453,13 @@ async function loadViewData(view, viewParams) {
             await renderConversations(viewParams.get("besked_id") || viewParams.get("id"));
             break;
         case "agent":
-            await renderRoomieAgentOverview();
+            await renderSearchAgentOverview();
             break;
         case "agent_create":
-            await renderRoomieAgentCreate();
+            await renderSearchAgentCreate();
             break;
         case "agent_edit":
-            await renderRoomieAgentEdit(viewParams.get("id"));
+            await renderSearchAgentEdit(viewParams.get("id"));
             break;
         case "blog":
             renderBlogPage(viewParams.get("slug"));
@@ -798,8 +798,8 @@ function optimizeSEOMetadata(view) {
     }
     else if (view === 'agent' || view === 'agent_create' || view === 'agent_edit') {
         updateMetaTags(
-            'RoomieAgent | Få besked om nye værelser',
-            'Opret en gratis RoomieAgent og få besked, når et værelse matcher dit budget og dine områder.',
+            'SøgeAgent| Få besked om nye værelser',
+            'Opret en gratis SøgeAgentog få besked, når et værelse matcher dit budget og dine områder.',
             `${baseUrl}/boligovervaagning`
         );
     }

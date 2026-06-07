@@ -3,7 +3,7 @@ import {areaAutocompleteOptions} from "../config/hardcoded_data.js";
 import {s3Url} from "../config/config.js";
 import {displayErrorMessage, displaySuccessMessage, decodeJwt, currentUser, getHousingById, setCurrentUser} from "../utils.js";
 import {showView} from "../views/viewManager.js";
-import {invalidateRoomieAgentCache} from "../roomie_agent/roomie_agent.js";
+import {invalidateSearchAgentCache} from "../roomie_agent/roomie_agent.js";
 
 const PROFILE_MAX_PHOTO_SIZE_BYTES = 3 * 1024 * 1024;
 const PROFILE_INTEREST_LIMIT = 5;
@@ -165,7 +165,7 @@ async function handleCreateAgentFromProfile(button) {
     const profilePayload = getHumanProfilePayload();
 
     if (profilePayload.monthly_price_max == null || profilePayload.monthly_price_max <= 0) {
-        displayErrorMessage("Indtast dit maks budget, før du opretter en RoomieAgent.");
+        displayErrorMessage("Indtast dit maks budget, før du opretter en SøgeAgent.");
         document.getElementById('profile-budget')?.focus();
         return;
     }
@@ -194,14 +194,14 @@ async function handleCreateAgentFromProfile(button) {
             throw new Error(await getProfileAgentErrorMessage(response));
         }
 
-        invalidateRoomieAgentCache();
-        displaySuccessMessage("Din RoomieAgent er oprettet ud fra din profil.");
+        invalidateSearchAgentCache();
+        displaySuccessMessage("Din SøgeAgenter oprettet ud fra din profil.");
     } catch (error) {
-        console.error('Could not create RoomieAgent from profile:', error);
-        displayErrorMessage(error.message || "Kunne ikke oprette din RoomieAgent lige nu.");
+        console.error('Could not create SøgeAgentfrom profile:', error);
+        displayErrorMessage(error.message || "Kunne ikke oprette din SøgeAgentlige nu.");
     } finally {
         button.disabled = false;
-        button.innerHTML = button.dataset.originalText || 'Opret RoomieAgent fra min profil';
+        button.innerHTML = button.dataset.originalText || 'Opret SøgeAgentfra min profil';
     }
 }
 
@@ -522,7 +522,7 @@ async function getProfileAgentErrorMessage(response) {
     try {
         const body = await response.json();
         if (body?.detail === "You can only have 5 agents") {
-            return "Du kan højest have 5 RoomieAgents.";
+            return "Du kan højest have 5 SøgeAgenter.";
         }
         if (typeof body?.detail === "string") {
             return body.detail;

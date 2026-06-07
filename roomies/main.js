@@ -26,7 +26,7 @@ import {environment} from "./config/config.js";
 import {setupConversationsView, startGlobalConversationUnreadPolling} from "./conversations/conversations.js";
 import {setupRentRoomView} from "./udlej_vaerelse/udlej_vaerelse.js";
 import {setupRoomSearchView} from "./ledige_vaerelser/ledige_vaerelser.js";
-import {setupRoomieAgentView} from "./roomie_agent/roomie_agent.js";
+import {setupSearchAgentView} from "./roomie_agent/roomie_agent.js";
 import {preloadRooms} from "./rooms/room_cache.js";
 
 // Legacy andelsbolig source modules were removed while their startup hooks still
@@ -127,7 +127,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         setupConversationsView();
         setupRentRoomView();
         setupRoomSearchView();
-        setupRoomieAgentView();
+        setupSearchAgentView();
         setupLandingRoomSearchAutocomplete();
         SetupHeader();
         setupProfileView()

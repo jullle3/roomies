@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <!--Let browser know the website is optimized for mobile-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <meta name="description" content="Køb, salg og bytte af andelsboliger gjort simpelt. Det er 100% gratis at sælge. Opret en RoomieAgent og få besked straks, når din drømmebolig kommer til salg.">
+    <meta name="description" content="Køb, salg og bytte af andelsboliger gjort simpelt. Det er 100% gratis at sælge. Opret en SøgeAgentog få besked straks, når din drømmebolig kommer til salg.">
     <meta name="theme-color" content="#FF6B6B">
 
 
@@ -21,7 +21,7 @@
     <!-- Open Graph/Link preview -->
     <meta property="og:type"        content="website">
     <meta property="og:title"       content="roomies | Køb, Salg & Bytte af Andelsboliger i DK">
-    <meta property="og:description" content="Køb, salg og bytte af andelsboliger gjort simpelt. Det er 100% gratis at sælge. Opret en RoomieAgent og få besked straks, når din drømmebolig kommer til salg.">
+    <meta property="og:description" content="Køb, salg og bytte af andelsboliger gjort simpelt. Det er 100% gratis at sælge. Opret en SøgeAgentog få besked straks, når din drømmebolig kommer til salg.">
     <meta property="og:image"       content="https://roomies.dk/pics/opengraph.webp">
     <meta property="og:image:width" content="1421">
     <meta property="og:image:height" content="744">
@@ -30,14 +30,14 @@
     <!-- optional: Twitter card (falls back to OG if missing) -->
     <meta name="twitter:card"       content="summary_large_image">
     <meta name="twitter:title"      content="roomies | Køb, Salg & Bytte af Andelsboliger i DK">
-    <meta name="twitter:description" content="Køb, salg og bytte af andelsboliger gjort simpelt. Det er 100% gratis at sælge. Opret en RoomieAgent og få besked straks, når din drømmebolig kommer til salg.">
+    <meta name="twitter:description" content="Køb, salg og bytte af andelsboliger gjort simpelt. Det er 100% gratis at sælge. Opret en SøgeAgentog få besked straks, når din drømmebolig kommer til salg.">
     <meta name="twitter:image"      content="https://roomies.dk/pics/opengraph.webp">
 
     <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
     <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
     <!--    Custom Merged css files -->
-    <link rel="stylesheet" href="roomies/mergedStyles.css?roomies_version=804">
+    <link rel="stylesheet" href="roomies/mergedStyles.css?roomies_version=810">
     <style>
         .nav-auth-btn:active,
         .nav-auth-btn:focus,
@@ -56,7 +56,7 @@
             color: #ffffff !important;
         }
     </style>
-    <script defer type="module" src="roomies/mergedJS.js?roomies_version=804"></script>
+    <script defer type="module" src="roomies/mergedJS.js?roomies_version=810"></script>
 
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18047412076"></script>
@@ -147,7 +147,7 @@
 
                 <li class="nav-item">
                     <a class="nav-link custom-nav-link" href="/boligovervaagning" data-view="agent">
-                        <i class="fa-regular fa-bell nav-icon"></i> RoomieAgent
+                        <i class="fa-regular fa-bell nav-icon"></i> SøgeAgent
                     </a>
                 </li>
             </ul>
@@ -252,6 +252,7 @@
                             <div class="tab-content" id="heroTabContent">
                                 <!-- Seeker Tab -->
                                 <div class="tab-pane fade" id="search" role="tabpanel">
+                                    <!-- Search is paused during launch while listings are sparse.
                                     <div class="landing-room-search-field">
                                         <div class="input-group input-group-lg search-input-group rounded-pill overflow-hidden p-1">
                                         <span class="input-group-text bg-transparent border-0 ps-3 text-muted">
@@ -263,6 +264,16 @@
                                             </button>
                                         </div>
                                         <div id="landing-room-search-suggestions" class="landing-room-search-suggestions" role="listbox" aria-label="Område-forslag"></div>
+                                    </div>
+                                    -->
+                                    <div class="d-flex flex-column flex-md-row align-items-center justify-content-between bg-white rounded-pill p-2 border border-light">
+                                        <div class="text-start mb-3 mb-md-0 ps-3 py-2">
+                                            <h6 class="fw-bold mb-1">Få besked før andre</h6>
+                                            <span class="small text-muted">Opret en gratis SøgeAgent, så holder vi øje med nye værelser for dig.</span>
+                                        </div>
+                                        <a href="/boligovervaagning-opret" data-view="agent_create" class="btn btn-primary-coral rounded-pill px-5 py-3 fw-bold shadow-sm w-100 w-md-auto">
+                                            Opret SøgeAgent
+                                        </a>
                                     </div>
                                 </div>
                                 <!-- Provider Tab -->
@@ -344,11 +355,11 @@
                                 </li>
                                 <li class="d-flex align-items-start gap-3 mb-3">
                                     <i class="fa-solid fa-check text-success mt-1"></i>
-                                    <span class="text-muted fw-medium lh-base">Opret en RoomieAgent og kom først i køen.</span>
+                                    <span class="text-muted fw-medium lh-base">Opret en SøgeAgentog kom først i køen.</span>
                                 </li>
                                 <li class="d-flex align-items-start gap-3 mb-3">
                                     <i class="fa-solid fa-check text-success mt-1"></i>
-                                    <span class="text-muted fw-medium lh-base">Trygt og sikkert community uden scam.</span>
+                                    <span class="text-muted fw-medium lh-base">Trygt og sikkert community.</span>
                                 </li>
                             </ul>
                             <a href="/ledige-vaerelser" data-view="soeg_vaerelse" class="btn btn-primary-coral rounded-pill px-4 py-3 fw-bold mt-auto shadow-sm w-100">
@@ -367,7 +378,7 @@
                                 </li>
                                 <li class="d-flex align-items-start gap-3 mb-3">
                                     <i class="fa-solid fa-check text-success mt-1"></i>
-                                    <span class="text-muted fw-medium lh-base">Nå ud til tusindvis af aktive boligsøgende.</span>
+                                    <span class="text-muted fw-medium lh-base">Nå ud til aktive boligsøgende.</span>
                                 </li>
                                 <li class="d-flex align-items-start gap-3 mb-3">
                                     <i class="fa-solid fa-check text-success mt-1"></i>
@@ -1160,7 +1171,7 @@
                     </h2>
                     <div id="faqCollapseConcept" class="accordion-collapse collapse" aria-labelledby="faqHeadingConcept" data-bs-parent="#faqAccordion">
                         <div class="accordion-body ps-5 pe-4 pb-4 pt-0 text-secondary lh-lg">
-                            Det kan være uoverskueligt og dyrt at finde et værelse eller en roomie i Danmark. Det problem løser vi. <strong>Vores platform samler ledige værelser og boligsøgende ét sted</strong>, og via RoomieAgent <strong>får du besked i samme sekund</strong>, et værelse matcher dine ønsker.
+                            Det kan være uoverskueligt og dyrt at finde et værelse eller en roomie i Danmark. Det problem løser vi. <strong>Vores platform samler ledige værelser og boligsøgende ét sted</strong>, og via SøgeAgent<strong>får du besked i samme sekund</strong>, et værelse matcher dine ønsker.
                             <br><br>
                             Samtidig gør vi op med dyre betalingsmure. Det er <strong>100% gratis at finde og udleje værelser</strong> hos os, og din annonce når øjeblikkeligt ud til tusindvis af danskere.
                         </div>
@@ -1216,12 +1227,12 @@
                     <h2 class="accordion-header" id="faqHeadingFour">
                         <button class="accordion-button collapsed fw-bold py-4 px-4 bg-transparent" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapseFour" aria-expanded="false" aria-controls="faqCollapseFour" style="color: var(--company-dark); font-size: 1.1rem;">
                             <i class="fa-solid fa-bell me-3 text-primary"></i>
-                            Hvordan fungerer RoomieAgent?
+                            Hvordan fungerer SøgeAgent?
                         </button>
                     </h2>
                     <div id="faqCollapseFour" class="accordion-collapse collapse" aria-labelledby="faqHeadingFour" data-bs-parent="#faqAccordion">
                         <div class="accordion-body ps-5 pe-4 pb-4 pt-0 text-secondary lh-lg">
-                            Med RoomieAgent overvåger vi markedet for dig helt automatisk. Du opretter dine kriterier (f.eks. max husleje, område og indflytningsdato), og vi sender dig en e-mail i samme sekund, som et værelse, der matcher dine drømme, bliver oprettet.
+                            Med SøgeAgentovervåger vi markedet for dig helt automatisk. Du opretter dine kriterier (f.eks. max husleje, område og indflytningsdato), og vi sender dig en e-mail i samme sekund, som et værelse, der matcher dine drømme, bliver oprettet.
                         </div>
                     </div>
                 </div>
@@ -2163,10 +2174,10 @@
                                     <div class="profile-agent-cta">
                                         <div>
                                             <strong>Få besked om nye værelser</strong>
-                                            <span>Brug dit budget og dine områder til at oprette en RoomieAgent med ét klik.</span>
+                                            <span>Brug dit budget og dine områder til at oprette en SøgeAgentmed ét klik.</span>
                                         </div>
                                         <button type="button" id="profile-create-agent" class="btn btn-primary-coral rounded-pill fw-bold px-4 py-3 shadow-sm hover-lift">
-                                            <i class="fa-regular fa-bell me-2"></i>Opret RoomieAgent
+                                            <i class="fa-regular fa-bell me-2"></i>Opret SøgeAgent
                                         </button>
                                     </div>
 
@@ -2443,7 +2454,7 @@ Venlig hilsen</textarea>
                         <i class="fa-solid fa-bell me-2"></i>Din personlige roomie-scanner
                     </span>
                     <h1 class="view-title">
-                        Dine <span class="view-title-highlight">RoomieAgent</span>
+                        Dine <span class="view-title-highlight">SøgeAgent</span>
                     </h1>
                     <p class="text-muted fs-5 opacity-75">
                         Fortæl os hvor du vil bo, og hvad huslejen maks må være. Så giver vi dig besked, når et værelse matcher.
@@ -2451,7 +2462,7 @@ Venlig hilsen</textarea>
 
                     <div id="agent-header-actions" class="mt-4 d-none">
                         <a href="/boligovervaagning-opret" data-view="agent_create" class="btn btn-primary-coral btn-lg rounded-pill px-5 fw-bold shadow-sm transition-transform">
-                            <i class="fa-solid fa-plus me-2"></i>Opret ny RoomieAgent
+                            <i class="fa-solid fa-plus me-2"></i>Opret ny SøgeAgent
                         </a>
                     </div>
                 </div>
@@ -2461,7 +2472,7 @@ Venlig hilsen</textarea>
                 <div class="spinner-border text-primary" role="status" style="width: 3rem; height: 3rem;">
                     <span class="visually-hidden">Henter...</span>
                 </div>
-                <p class="text-muted mt-3">Henter dine RoomieAgent...</p>
+                <p class="text-muted mt-3">Henter dine SøgeAgent...</p>
             </div>
 
             <div id="agent-grid" class="row g-4"></div>
@@ -2475,15 +2486,15 @@ Venlig hilsen</textarea>
                                     <i class="fa-solid fa-bell fa-3x"></i>
                                 </div>
                             </div>
-                            <h3 class="fw-bold text-dark mb-3">Du har ingen aktive RoomieAgent</h3>
+                            <h3 class="fw-bold text-dark mb-3">Du har ingen aktive SøgeAgent</h3>
                             <p class="text-muted mb-4 mx-auto" style="max-width: 500px;">
-                                Opret en gratis RoomieAgent, så du hurtigt får besked, når der kommer et værelse, der matcher din pris og dit område.
+                                Opret en gratis SøgeAgent, så du hurtigt får besked, når der kommer et værelse, der matcher din pris og dit område.
                             </p>
 
                             <div class="d-grid">
                                 <a href="/boligovervaagning-opret" data-view="agent_create" class="btn btn-primary-coral btn-lg rounded-pill fw-bold d-flex align-items-center justify-content-center text-wrap">
                                     <i class="fa-solid fa-plus me-2"></i>
-                                    <span>Opret min første RoomieAgent</span>
+                                    <span>Opret min første SøgeAgent</span>
                                 </a>
                             </div>
                         </div>
@@ -2953,7 +2964,7 @@ Venlig hilsen</textarea>
                     <span class="fw-bold" style="color: var(--company-dark); font-size: 1.1rem;">Giv dit salg et gratis boost!</span>
                 </div>
                 <p class="small text-muted mb-0 lh-lg">
-                    Vi har allerede sendt besked til købere, som har et matchende RoomieAgent på din bolig. Du kan øge dine chancer for et hurtigt salg endnu mere ved at dele annoncen med dit netværk.
+                    Vi har allerede sendt besked til købere, som har et matchende SøgeAgentpå din bolig. Du kan øge dine chancer for et hurtigt salg endnu mere ved at dele annoncen med dit netværk.
                 </p>
             </div>
 

@@ -13,16 +13,16 @@ let overviewBound = false;
 let formBound = false;
 let selectedAreas = [];
 
-export function setupRoomieAgentView() {
+export function setupSearchAgentView() {
     bindOverviewActions();
     bindFormContainers();
 }
 
-export function invalidateRoomieAgentCache() {
+export function invalidateSearchAgentCache() {
     cachedAgents = null;
 }
 
-export async function renderRoomieAgentOverview() {
+export async function renderSearchAgentOverview() {
     const loading = document.getElementById("agent-loading");
     const grid = document.getElementById("agent-grid");
     const empty = document.getElementById("agent-empty");
@@ -38,8 +38,8 @@ export async function renderRoomieAgentOverview() {
     if (!isLoggedIn()) {
         updateOverviewEmptyStateCopy({
             title: "Få besked, når nye værelser matcher dig",
-            text: "Opret en gratis RoomieAgent med dit budget og dine ønskede områder. Så holder vi øje med nye værelser for dig.",
-            cta: "Opret gratis RoomieAgent"
+            text: "Opret en gratis SøgeAgentmed dit budget og dine ønskede områder. Så holder vi øje med nye værelser for dig.",
+            cta: "Opret gratis SøgeAgent"
         });
         loading.classList.add("d-none");
         empty.classList.remove("d-none");
@@ -50,9 +50,9 @@ export async function renderRoomieAgentOverview() {
         const agents = await fetchAgents();
         cachedAgents = agents;
         updateOverviewEmptyStateCopy({
-            title: "Du har ingen aktive RoomieAgent",
-            text: "Opret en gratis RoomieAgent, så du hurtigt får besked, når der kommer et værelse, der matcher din pris og dit område.",
-            cta: "Opret min første RoomieAgent"
+            title: "Du har ingen aktive SøgeAgent",
+            text: "Opret en gratis SøgeAgent, så du hurtigt får besked, når der kommer et værelse, der matcher din pris og dit område.",
+            cta: "Opret min første SøgeAgent"
         });
 
         loading.classList.add("d-none");
@@ -65,9 +65,9 @@ export async function renderRoomieAgentOverview() {
             grid.insertAdjacentHTML("beforeend", renderLimitCard());
         }
     } catch (error) {
-        console.error("Kunne ikke hente RoomieAgents:", error);
+        console.error("Kunne ikke hente SøgeAgenter:", error);
         loading.classList.add("d-none");
-        grid.innerHTML = renderErrorCard("Vi kunne ikke hente dine RoomieAgents lige nu.");
+        grid.innerHTML = renderErrorCard("Vi kunne ikke hente dine SøgeAgenter lige nu.");
     }
 }
 
@@ -84,17 +84,17 @@ function updateOverviewEmptyStateCopy({title, text, cta}) {
     if (ctaEl) ctaEl.textContent = cta;
 }
 
-export async function renderRoomieAgentCreate() {
+export async function renderSearchAgentCreate() {
     const user = await ensureCurrentUserLoaded();
     renderAgentForm({mode: "create", user});
 }
 
-export async function renderRoomieAgentEdit(agentId) {
+export async function renderSearchAgentEdit(agentId) {
     const mount = getFormMount("agent_edit");
     if (!mount) return;
 
     if (!agentId) {
-        mount.innerHTML = renderErrorPanel("Vi mangler et RoomieAgent-id.");
+        mount.innerHTML = renderErrorPanel("Vi mangler et SøgeAgent-id.");
         return;
     }
 
@@ -104,8 +104,8 @@ export async function renderRoomieAgentEdit(agentId) {
         const agent = await fetchAgent(agentId);
         renderAgentForm({mode: "edit", agent});
     } catch (error) {
-        console.error("Kunne ikke hente RoomieAgent:", error);
-        mount.innerHTML = renderErrorPanel("Vi kunne ikke hente den RoomieAgent.");
+        console.error("Kunne ikke hente SøgeAgent:", error);
+        mount.innerHTML = renderErrorPanel("Vi kunne ikke hente den SøgeAgent.");
     }
 }
 
@@ -218,20 +218,20 @@ async function handleAgentFormSubmit(form) {
         }
 
         cachedAgents = null;
-        displaySuccessMessage(mode === "edit" ? "Din RoomieAgent er opdateret." : "Din RoomieAgent er oprettet.");
+        displaySuccessMessage(mode === "edit" ? "Din SøgeAgenter opdateret." : "Din SøgeAgenter oprettet.");
         await showView("agent");
     } catch (error) {
-        console.error("Kunne ikke gemme RoomieAgent:", error);
-        displayErrorMessage(error.message || "Kunne ikke gemme din RoomieAgent lige nu.");
+        console.error("Kunne ikke gemme SøgeAgent:", error);
+        displayErrorMessage(error.message || "Kunne ikke gemme din SøgeAgentlige nu.");
     } finally {
         submitButton.disabled = false;
-        submitButton.innerHTML = submitButton.dataset.originalText || "Gem RoomieAgent";
+        submitButton.innerHTML = submitButton.dataset.originalText || "Gem SøgeAgent";
     }
 }
 
 async function handleDeleteAgent(agentId) {
     if (!agentId) return;
-    if (!window.confirm("Vil du slette denne RoomieAgent?")) return;
+    if (!window.confirm("Vil du slette denne SøgeAgent?")) return;
 
     try {
         const response = await authFetch(`${AGENTS_API_BASE}/${encodeURIComponent(agentId)}`, {method: "DELETE"});
@@ -240,11 +240,11 @@ async function handleDeleteAgent(agentId) {
         }
 
         cachedAgents = null;
-        displaySuccessMessage("RoomieAgent er slettet.");
-        await renderRoomieAgentOverview();
+        displaySuccessMessage("SøgeAgenter slettet.");
+        await renderSearchAgentOverview();
     } catch (error) {
-        console.error("Kunne ikke slette RoomieAgent:", error);
-        displayErrorMessage(error.message || "Kunne ikke slette din RoomieAgent lige nu.");
+        console.error("Kunne ikke slette SøgeAgent:", error);
+        displayErrorMessage(error.message || "Kunne ikke slette din SøgeAgentlige nu.");
     }
 }
 
@@ -279,7 +279,7 @@ function getFormPayload(form) {
         criteria: {
             monthly_price_max: monthlyPriceMax,
             areas: selectedAreas.length ? selectedAreas.map(Number).filter(Number.isFinite) : null,
-            text: "Min RoomieAgent"
+            text: "Min SøgeAgent"
         }
     };
 }
@@ -287,7 +287,7 @@ function getFormPayload(form) {
 function renderAgentCard(agent) {
     const id = getAgentId(agent);
     const criteria = agent.criteria || {};
-    const name = agent.name || "Min RoomieAgent";
+    const name = agent.name || "Min SøgeAgent";
     const areas = normalizeAreaIds(criteria.areas);
     const areaSummary = areas.length ? areas.map(formatAreaLabel).join(", ") : "Alle områder";
 
@@ -334,7 +334,7 @@ function renderLimitCard() {
             <div class="roomie-agent-limit-card">
                 <i class="fa-solid fa-circle-info"></i>
                 <div>
-                    <strong>Du har nået grænsen på ${MAX_AGENTS} RoomieAgents.</strong>
+                    <strong>Du har nået grænsen på ${MAX_AGENTS} SøgeAgents.</strong>
                     <p class="mb-0">Slet eller rediger en eksisterende agent, hvis du vil ændre din overvågning.</p>
                 </div>
             </div>
@@ -367,8 +367,8 @@ function renderFormMarkup(mode, agent, user = null) {
             <div class="row g-4 align-items-start">
                 <div class="col-lg-5">
                     <div class="roomie-agent-form-intro">
-                        <span class="roomie-agent-eyebrow"><i class="fa-solid fa-wand-magic-sparkles me-2"></i>RoomieAgent</span>
-                        <h1 class="display-6 fw-bold mt-3 mb-3">${isEdit ? "Rediger din RoomieAgent" : "Opret din RoomieAgent"}</h1>
+                        <span class="roomie-agent-eyebrow"><i class="fa-solid fa-wand-magic-sparkles me-2"></i>SøgeAgent</span>
+                        <h1 class="display-6 fw-bold mt-3 mb-3">${isEdit ? "Rediger din SøgeAgent" : "Opret din SøgeAgent"}</h1>
                         <p class="text-muted fs-5 mb-4">Fortæl os hvor og til hvilken pris du leder, så giver vi dig besked, når et værelse matcher dine ønsker.</p>
                         <div class="roomie-agent-mini-preview">
                             <div class="roomie-agent-mini-icon"><i class="fa-solid fa-bell"></i></div>
@@ -384,7 +384,7 @@ function renderFormMarkup(mode, agent, user = null) {
                     <form id="roomie-agent-form" class="roomie-agent-form-card" data-mode="${mode}" data-agent-id="${escapeHtml(agentId)}" novalidate>
                         ${profileWarning}
                         <div class="roomie-agent-form-block">
-                            <label for="roomie-agent-name" class="form-label">Navn på din RoomieAgent</label>
+                            <label for="roomie-agent-name" class="form-label">Navn på din SøgeAgent</label>
                             <input id="roomie-agent-name" name="name" type="text" maxlength="200" class="form-control" value="${escapeAttribute(agent?.name || "")}" placeholder="F.eks. Nørrebro under 6.000 kr.">
                         </div>
 
@@ -404,7 +404,7 @@ function renderFormMarkup(mode, agent, user = null) {
                         </div>
 
                         <button type="submit" class="btn btn-primary-coral roomie-agent-submit rounded-pill fw-bold w-100">
-                            <i class="fa-solid fa-check me-2"></i>${isEdit ? "Gem ændringer" : "Opret RoomieAgent"}
+                            <i class="fa-solid fa-check me-2"></i>${isEdit ? "Gem ændringer" : "Opret SøgeAgent"}
                         </button>
                     </form>
                 </div>
@@ -507,7 +507,7 @@ function renderFormLoading() {
             <div class="spinner-border text-primary" role="status">
                 <span class="visually-hidden">Henter...</span>
             </div>
-            <p class="text-muted mt-3 mb-0">Henter din RoomieAgent...</p>
+            <p class="text-muted mt-3 mb-0">Henter din SøgeAgent...</p>
         </div>
     `;
 }
@@ -524,7 +524,7 @@ async function getApiErrorMessage(response) {
     try {
         const body = await response.json();
         if (body?.detail === "You can only have 5 agents") {
-            return "Du kan højst have 5 RoomieAgents.";
+            return "Du kan højst have 5 SøgeAgents.";
         }
         if (typeof body?.detail === "string") {
             return body.detail;

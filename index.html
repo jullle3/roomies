@@ -37,7 +37,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
     <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
     <!--    Custom Merged css files -->
-    <link rel="stylesheet" href="roomies/mergedStyles.css?roomies_version=810">
+    <link rel="stylesheet" href="roomies/mergedStyles.css?roomies_version=819">
     <style>
         .nav-auth-btn:active,
         .nav-auth-btn:focus,
@@ -56,7 +56,7 @@
             color: #ffffff !important;
         }
     </style>
-    <script defer type="module" src="roomies/mergedJS.js?roomies_version=810"></script>
+    <script defer type="module" src="roomies/mergedJS.js?roomies_version=819"></script>
 
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18047412076"></script>
@@ -267,11 +267,11 @@
                                     </div>
                                     -->
                                     <div class="d-flex flex-column flex-md-row align-items-center justify-content-between bg-white rounded-pill p-2 border border-light">
-                                        <div class="text-start mb-3 mb-md-0 ps-3 py-2">
+                                        <div class="text-center mb-3 mb-md-0 ps-3 py-2">
                                             <h6 class="fw-bold mb-1">Få besked før andre</h6>
                                             <span class="small text-muted">Opret en gratis SøgeAgent, så holder vi øje med nye værelser for dig.</span>
                                         </div>
-                                        <a href="/boligovervaagning-opret" data-view="agent_create" class="btn btn-primary-coral rounded-pill px-5 py-3 fw-bold shadow-sm w-100 w-md-auto">
+                                        <a href="/boligovervaagning-opret" data-view="agent_create" class="btn btn-primary-coral rounded-pill px-4 px-md-5 py-3 fw-bold shadow-sm flex-shrink-0 text-nowrap">
                                             Opret SøgeAgent
                                         </a>
                                     </div>
@@ -283,7 +283,7 @@
                                             <h6 class="fw-bold mb-1">Har du et ledigt værelse?</h6>
                                             <span class="small text-muted">Opret din annonce på 2 minutter.</span>
                                         </div>
-                                        <a href="/udlej-vaerelse" data-view="udlej_vaerelse" class="btn btn-primary-coral rounded-pill px-5 py-3 fw-bold shadow-sm w-100 w-md-auto">
+                                        <a href="/udlej-vaerelse" data-view="udlej_vaerelse" class="btn btn-primary-coral rounded-pill px-4 px-md-5 py-3 fw-bold shadow-sm flex-shrink-0 text-nowrap">
                                             Udlej værelse
                                         </a>
                                     </div>
@@ -386,7 +386,7 @@
                                 </li>
                             </ul>
                             <a href="/udlej-vaerelse" data-view="udlej_vaerelse" class="btn btn-primary-coral rounded-pill px-4 py-3 fw-bold mt-auto shadow-sm w-100">
-                                Udlej værelse gratis
+                                Udlej værelse
                             </a>
                         </div>
                     </div>
@@ -522,8 +522,8 @@
                                             <i class="fa-solid fa-comments"></i>
                                         </div>
                                         <div>
-                                            <h5 class="h6 fw-bold mb-1">Skriv sikkert</h5>
-                                            <p class="small text-muted mb-0 lh-base">Hold dialogen samlet, indtil du selv vil dele mere.</p>
+                                            <h5 class="h6 fw-bold mb-1">Beskedsystem</h5>
+                                            <p class="small text-muted mb-0 lh-base">Indbygget beskedsystem så du kan samle dialogen ét sted</p>
                                         </div>
                                     </div>
                                 </div>
@@ -552,8 +552,8 @@
                             </div>
 
                             <div class="d-flex flex-column flex-sm-row align-items-start align-items-sm-center gap-4">
-                                <a href="/ledige-vaerelser" data-view="soeg_vaerelse" class="btn btn-primary-coral rounded-pill px-5 py-3 fw-bold shadow-sm hover-lift">
-                                    Se værelser
+                                <a href="/boligovervaagning" data-view="agent" class="btn btn-primary-coral rounded-pill px-5 py-3 fw-bold shadow-sm hover-lift">
+                                    Opret SøgeAgent
                                 </a>
                                 <div class="d-flex align-items-center gap-3">
                                     <div class="d-none d-sm-block" style="width: 2px; height: 40px; background-color: #e9ecef;"></div>
@@ -581,7 +581,14 @@
                     <img src="/pics/community-young-man-1.png" alt="Ung roomie i roomies fællesskabet" class="rounded-circle border border-3 border-white shadow-sm hover-lift" style="width: 64px; height: 64px; object-fit: cover; z-index: 1; margin: 0 -10px;">
                     <img src="/pics/avatar11.png" alt="Ung boligsøgende i roomies fællesskabet" class="rounded-circle border border-3 border-white shadow-sm hover-lift" style="width: 56px; height: 56px; object-fit: cover;">
                 </div>
-                <p class="text-white fw-medium tracking-wide text-uppercase small">Bliv en del af fællesskabet</p>
+                <div class="d-flex flex-column flex-sm-row justify-content-center align-items-center gap-3">
+                    <a href="/udlej-vaerelse" data-view="udlej_vaerelse" class="btn btn-light rounded-pill px-4 px-md-5 py-3 fw-bold shadow-sm hover-lift text-nowrap">
+                        Udlej værelse
+                    </a>
+                    <a href="/boligovervaagning-opret" data-view="agent_create" class="btn btn-outline-light rounded-pill px-4 px-md-5 py-3 fw-bold hover-lift text-nowrap">
+                        Opret SøgeAgent
+                    </a>
+                </div>
             </div>
         </section>
 
@@ -971,13 +978,13 @@
             <div class="container">
                 <div class="row align-items-end g-4">
                     <div class="col-lg-7">
-                        <span class="room-search-eyebrow"><i class="fa-solid fa-house-user"></i> Ledige værelser</span>
+<!-- TODO: Add this when we have rooms                        <span class="room-search-eyebrow"><i class="fa-solid fa-house-user"></i> Ledige værelser</span> -->
                         <h1 class="display-5 fw-bolder mb-3">Find et hjem, du har lyst til at være en del af</h1>
                         <p class="text-muted fs-5 mb-0">Søg efter både værelset og den hverdag, der passer til dig.</p>
                         <div class="room-search-trust-row d-flex flex-wrap gap-3 mt-4">
                             <span><i class="fa-solid fa-check"></i> Gratis at kontakte</span>
-                            <span><i class="fa-solid fa-shield-halved"></i> Trygt community</span>
-                            <span><i class="fa-solid fa-heart"></i> Fokus på mennesker</span>
+                            <span><i class="fa-solid fa-shield-halved"></i> Roomie community</span>
+                            <span><i class="fa-solid fa-heart"></i> Fokus på mennesket</span>
                         </div>
                     </div>
                     <div class="col-lg-5">
@@ -990,8 +997,8 @@
                                     <span><i class="fa-solid fa-location-dot"></i> Nørrebro</span>
                                 </div>
                             </div>
-                            <a href="/udlej-vaerelse" data-view="udlej_vaerelse" class="room-search-provider-cta btn rounded-pill px-4 py-3 fw-bold">
-                                <i class="fa-regular fa-square-plus me-2"></i>Udlej et værelse
+                            <a href="/boligovervaagning" data-view="agent" class="room-search-provider-cta btn rounded-pill px-4 py-3 fw-bold">
+                                <i class="fa-regular fa-square-plus me-2"></i>Opret SøgeAgent
                             </a>
                         </div>
                     </div>
@@ -1326,20 +1333,19 @@
                     <div class="col-lg-6">
                         <div class="hero-intro-badge d-inline-flex align-items-center p-1 rounded-pill mb-4">
                             <span class="rounded-pill fw-semibold text-white px-3 py-2 badge-highlight">
-                                100% gratis
+                                Gratis annonce
                             </span>
                             <span class="small fw-semibold text-white ms-3 me-4 opacity-90">
                                 Udlej værelse til folk på boligjagt
                             </span>
                         </div>
                         <h1 class="display-4 fw-bolder mb-4 text-white">
-                            Udlej dit værelse gratis
+                            Udlej dit værelse
                         </h1>
                         <p class="lead text-white opacity-90 mb-4" style="max-width: 620px;">
-                            Opret en annonce på få minutter, fortæl hvem du gerne vil bo med, og find en tryg roomie uden skjulte gebyrer.
+                            Opret en annonce på få minutter, fortæl hvem du gerne vil bo med, og find en roomie du er tryg ved.
                         </p>
                         <div class="d-flex flex-wrap gap-3 text-white small fw-semibold">
-                            <span class="rent-room-hero-check"><i class="fa-solid fa-check"></i> Gratis annonce</span>
                             <span class="rent-room-hero-check"><i class="fa-solid fa-check"></i> Vi reklamerer for dig</span>
                             <span class="rent-room-hero-check"><i class="fa-solid fa-check"></i> Direkte kontakt</span>
                         </div>
@@ -2454,7 +2460,7 @@ Venlig hilsen</textarea>
                         <i class="fa-solid fa-bell me-2"></i>Din personlige roomie-scanner
                     </span>
                     <h1 class="view-title">
-                        Dine <span class="view-title-highlight">SøgeAgent</span>
+                        Dine <span class="view-title-highlight">SøgeAgenter</span>
                     </h1>
                     <p class="text-muted fs-5 opacity-75">
                         Fortæl os hvor du vil bo, og hvad huslejen maks må være. Så giver vi dig besked, når et værelse matcher.

@@ -1,0 +1,374 @@
+#agent,
+#agent_create,
+#agent_edit {
+    background:
+        radial-gradient(circle at 8% 8%, rgba(255, 107, 107, 0.08), transparent 28%),
+        var(--bg-main);
+    min-height: 80vh;
+}
+
+.roomie-agent-hero {
+    padding-top: 112px;
+}
+
+.roomie-agent-hero-copy {
+    max-width: 760px;
+}
+
+.roomie-agent-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    width: fit-content;
+    padding: 0.45rem 0.85rem;
+    border-radius: var(--radius-pill);
+    background: rgba(255, 107, 107, 0.1);
+    color: var(--color-primary);
+    font-size: 0.78rem;
+    font-weight: 800;
+}
+
+.roomie-agent-card,
+.roomie-agent-form-card,
+.roomie-agent-form-intro,
+.roomie-agent-empty-card {
+    border: 1px solid rgba(255, 255, 255, 0.74);
+    border-radius: var(--radius-xl);
+    background: rgba(255, 255, 255, 0.96);
+    box-shadow: var(--shadow-soft);
+}
+
+.roomie-agent-card {
+    display: flex;
+    flex-direction: column;
+    padding: clamp(1.25rem, 3vw, 1.75rem);
+    transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.2s ease;
+}
+
+.roomie-agent-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-hover);
+}
+
+.roomie-agent-status {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    flex: 0 0 42px;
+    border-radius: 50%;
+    background: rgba(34, 197, 94, 0.12);
+    color: #16a34a;
+}
+
+.roomie-agent-card-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+}
+
+.roomie-agent-card-grid > div {
+    padding: 1rem;
+    border-radius: 16px;
+    background: #f9fafb;
+}
+
+.roomie-agent-card-grid span,
+.roomie-agent-card-grid strong {
+    display: block;
+}
+
+.roomie-agent-card-grid span {
+    margin-bottom: 0.25rem;
+    color: var(--text-muted);
+    font-size: 0.76rem;
+    font-weight: 800;
+}
+
+.roomie-agent-card-grid strong {
+    color: var(--text-main);
+    font-size: 1rem;
+}
+
+.roomie-agent-limit-card {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+    padding: 1rem 1.25rem;
+    border: 1px solid rgba(79, 70, 229, 0.14);
+    border-radius: var(--radius-xl);
+    background: rgba(79, 70, 229, 0.07);
+    color: var(--text-main);
+}
+
+.roomie-agent-limit-card > i {
+    margin-top: 0.2rem;
+    color: var(--color-premium-start);
+}
+
+.roomie-agent-limit-card-error {
+    border-color: rgba(220, 38, 38, 0.18);
+    background: rgba(254, 226, 226, 0.7);
+}
+
+.roomie-agent-limit-card-error > i {
+    color: #dc2626;
+}
+
+.roomie-agent-empty-card {
+    padding: clamp(1.5rem, 5vw, 3rem);
+    text-align: center;
+}
+
+.roomie-agent-empty-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 96px;
+    height: 96px;
+    border-radius: 50%;
+    background: rgba(255, 107, 107, 0.1);
+    color: var(--color-primary);
+}
+
+.roomie-agent-form-shell {
+    padding: 32px clamp(1rem, 4vw, 2rem) 80px;
+}
+
+.roomie-agent-backbar {
+    display: flex;
+    justify-content: flex-start;
+    padding: 24px clamp(1rem, 4vw, 2rem) 0;
+}
+
+.roomie-agent-back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    min-height: 44px;
+    padding: 0.55rem 1rem;
+    border: 1px solid rgba(255, 107, 107, 0.18);
+    border-radius: var(--radius-pill);
+    background: rgba(255, 255, 255, 0.92);
+    color: var(--text-main);
+    box-shadow: var(--shadow-soft);
+    text-decoration: none;
+    font-weight: 800;
+    transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.roomie-agent-back-link i {
+    color: var(--color-primary);
+}
+
+.roomie-agent-back-link:hover,
+.roomie-agent-back-link:focus {
+    transform: translateY(-2px);
+    border-color: rgba(255, 107, 107, 0.42);
+    color: var(--color-primary);
+    box-shadow: var(--shadow-hover);
+}
+
+.roomie-agent-form-intro {
+    position: sticky;
+    top: 104px;
+    padding: clamp(1.5rem, 4vw, 2rem);
+}
+
+.roomie-agent-mini-preview {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    padding: 1rem;
+    border-radius: 18px;
+    background: rgba(255, 107, 107, 0.08);
+}
+
+.roomie-agent-mini-preview strong,
+.roomie-agent-mini-preview span {
+    display: block;
+}
+
+.roomie-agent-mini-preview span {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.roomie-agent-mini-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 46px;
+    height: 46px;
+    flex: 0 0 46px;
+    border-radius: 50%;
+    background: #fff;
+    color: var(--color-primary);
+    box-shadow: var(--shadow-soft);
+}
+
+.roomie-agent-form-card {
+    padding: clamp(1.25rem, 4vw, 2rem);
+}
+
+.roomie-agent-form-block {
+    padding-bottom: 1.5rem;
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid rgba(107, 114, 128, 0.15);
+}
+
+.roomie-agent-form-block:last-of-type {
+    border-bottom: 0;
+}
+
+.roomie-agent-form-card .form-label {
+    color: var(--text-main);
+    font-size: 0.86rem;
+    font-weight: 800;
+}
+
+.roomie-agent-form-card .form-control,
+.roomie-agent-form-card .input-group-text {
+    min-height: 54px;
+    border-color: #e5e7eb;
+    border-radius: 16px;
+    font-size: 1rem;
+}
+
+.roomie-agent-form-card .input-group .form-control {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.roomie-agent-form-card .input-group .input-group-text {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    background: #fff;
+    font-weight: 800;
+}
+
+.roomie-agent-selected-areas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    min-height: 34px;
+    margin-top: 0.85rem;
+}
+
+.roomie-agent-area-empty {
+    color: var(--text-muted);
+    font-size: 0.88rem;
+    font-weight: 600;
+}
+
+.roomie-agent-area-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.45rem 0.55rem 0.45rem 0.85rem;
+    border-radius: var(--radius-pill);
+    background: rgba(255, 107, 107, 0.1);
+    color: var(--text-main);
+    font-size: 0.86rem;
+    font-weight: 800;
+}
+
+.roomie-agent-area-pill button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    border: 0;
+    border-radius: 50%;
+    background: #fff;
+    color: var(--color-primary);
+}
+
+.roomie-agent-area-suggestions {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.65rem;
+    margin-top: 1rem;
+}
+
+.roomie-agent-area-suggestions button {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 0 0.65rem;
+    align-items: center;
+    min-height: 62px;
+    padding: 0.75rem;
+    border: 1px solid #eef0f3;
+    border-radius: 16px;
+    background: #fff;
+    color: var(--text-main);
+    text-align: left;
+    transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+.roomie-agent-area-suggestions button:hover {
+    transform: translateY(-2px);
+    border-color: rgba(255, 107, 107, 0.45);
+}
+
+.roomie-agent-area-suggestions i {
+    grid-row: span 2;
+    color: var(--color-primary);
+}
+
+.roomie-agent-area-suggestions span,
+.roomie-agent-area-suggestions small {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.roomie-agent-area-suggestions span {
+    font-weight: 800;
+}
+
+.roomie-agent-area-suggestions small {
+    color: var(--text-muted);
+    font-weight: 600;
+}
+
+.roomie-agent-submit {
+    min-height: 58px;
+}
+
+.roomie-agent-form-loading {
+    padding: 5rem 1rem;
+    text-align: center;
+}
+
+@media (max-width: 991.98px) {
+    .roomie-agent-hero {
+        padding-top: 96px;
+    }
+
+    .roomie-agent-form-intro {
+        position: static;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .roomie-agent-hero {
+        padding-top: 88px;
+    }
+
+    .roomie-agent-card-grid,
+    .roomie-agent-area-suggestions {
+        grid-template-columns: 1fr;
+    }
+
+    .roomie-agent-card .btn {
+        width: 100%;
+    }
+
+    .roomie-agent-limit-card {
+        flex-direction: column;
+    }
+}

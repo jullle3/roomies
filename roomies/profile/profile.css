@@ -1,0 +1,380 @@
+#profile {
+    min-height: 80vh;
+    background:
+        radial-gradient(circle at 10% 8%, rgba(255, 107, 107, 0.08), transparent 28%),
+        var(--bg-main);
+}
+
+#profile > .container {
+    max-width: 1120px;
+    padding-top: 112px !important;
+    padding-bottom: 80px !important;
+}
+
+#profile .text-center.mb-4 {
+    max-width: 720px;
+    margin: 0 auto 2.25rem !important;
+}
+
+#profile .text-center.mb-4::before {
+    content: "Min roomies-konto";
+    display: inline-flex;
+    align-items: center;
+    margin-bottom: 0.85rem;
+    padding: 0.45rem 0.85rem;
+    border-radius: var(--radius-pill);
+    background: rgba(255, 107, 107, 0.1);
+    color: var(--color-primary);
+    font-size: 0.78rem;
+    font-weight: 800;
+}
+
+#profile .row.justify-content-center {
+    justify-content: center !important;
+}
+
+#profile .col-lg-6.col-md-8 {
+    width: 100%;
+    max-width: 980px;
+}
+
+#missing-email-section .card,
+#profile .card.border-0.shadow-sm.rounded-4.bg-white {
+    border: 1px solid rgba(255, 255, 255, 0.72) !important;
+    border-radius: var(--radius-xl) !important;
+    background: rgba(255, 255, 255, 0.96) !important;
+    box-shadow: var(--shadow-soft) !important;
+}
+
+#missing-email-section .card {
+    background: rgba(255, 247, 237, 0.94) !important;
+}
+
+#missing-email-section .btn-warning {
+    border: 0;
+    background: var(--color-primary);
+}
+
+#missing-email-section .btn-warning:hover,
+#missing-email-section .btn-warning:focus {
+    background: var(--color-primary-hover);
+}
+
+#profile .card.border-0.shadow-sm.rounded-4.bg-white > .card-body {
+    padding: clamp(1.25rem, 4vw, 2.5rem) !important;
+}
+
+#profile h5.company-dark {
+    gap: 0.75rem;
+    margin-bottom: 1.25rem !important;
+    color: var(--text-main);
+    font-family: var(--font-heading);
+    font-size: 1.05rem;
+}
+
+#profile h5.company-dark > div {
+    width: 42px !important;
+    height: 42px !important;
+    flex: 0 0 42px;
+    border-radius: 50% !important;
+    background: rgba(255, 107, 107, 0.1) !important;
+    color: var(--color-primary) !important;
+}
+
+#profile h5.company-dark i {
+    color: var(--color-primary) !important;
+}
+
+#profile hr {
+    margin: 2rem 0 !important;
+    border-color: rgba(107, 114, 128, 0.18);
+    opacity: 1 !important;
+}
+
+#btn-my-conversations,
+#btn-my-listing,
+#profileForm > div {
+    min-height: 72px;
+    padding: 1rem 1.1rem !important;
+    border: 1px solid #eef0f3 !important;
+    border-radius: 18px !important;
+    background: #fff !important;
+    box-shadow: none;
+    transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+#btn-my-conversations:hover,
+#btn-my-listing:hover {
+    transform: translateY(-2px);
+    border-color: rgba(255, 107, 107, 0.4) !important;
+    box-shadow: var(--shadow-soft);
+}
+
+#btn-my-conversations .text-primary,
+#btn-my-listing .text-primary,
+#profileForm .text-primary {
+    color: var(--color-primary) !important;
+    opacity: 1 !important;
+}
+
+#btn-my-conversations .company-dark,
+#btn-my-listing .company-dark,
+#profileForm .company-dark {
+    color: var(--text-main) !important;
+}
+
+#profile .read-only-form {
+    gap: 1rem !important;
+}
+
+#profile .read-only-form .form-label {
+    margin-bottom: 0.45rem;
+    color: var(--text-main) !important;
+    font-size: 0.82rem;
+    font-weight: 800 !important;
+    letter-spacing: 0;
+    text-transform: none !important;
+}
+
+#profile .read-only-form .input-group {
+    min-height: 56px;
+    border: 1px solid #e5e7eb;
+    border-radius: 16px;
+    background: #fff;
+    overflow: hidden;
+}
+
+#profile .read-only-form .input-group-text {
+    border: 0 !important;
+    border-radius: 0 !important;
+    background: #fff !important;
+    color: var(--color-primary) !important;
+    opacity: 1 !important;
+}
+
+#profile .read-only-form .form-control {
+    border: 0 !important;
+    border-radius: 0 !important;
+    background: #fff !important;
+    color: var(--text-main) !important;
+    font-size: 1rem;
+}
+
+.profile-human-section {
+    grid-column: 1 / -1;
+}
+
+.profile-human-form {
+    display: grid;
+    gap: 1.25rem;
+}
+
+.profile-human-form .form-label {
+    margin-bottom: 0.5rem;
+    color: var(--text-main);
+    font-size: 0.86rem;
+    font-weight: 800;
+}
+
+.profile-human-form .form-control,
+.profile-human-form .form-select,
+.profile-human-form .input-group {
+    min-height: 54px;
+    border: 1px solid #e5e7eb;
+    border-radius: 16px;
+    background: #fff;
+    box-shadow: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.profile-human-form textarea.form-control {
+    min-height: 132px;
+    resize: vertical;
+}
+
+.profile-human-form .form-control:focus,
+.profile-human-form .input-group:focus-within {
+    border-color: rgba(255, 107, 107, 0.55);
+    box-shadow: 0 0 0 4px rgba(255, 107, 107, 0.12);
+}
+
+.profile-human-form .input-group {
+    overflow: hidden;
+}
+
+.profile-human-form .input-group .form-control,
+.profile-human-form .input-group .input-group-text {
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+}
+
+.profile-human-form .input-group .input-group-text {
+    color: var(--text-main);
+    font-weight: 800;
+}
+
+.profile-photo-row {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 1.25rem;
+    align-items: center;
+    padding: 1rem;
+    border: 1px solid #eef0f3;
+    border-radius: var(--radius-xl);
+    background: #fff;
+}
+
+.profile-photo-preview {
+    position: relative;
+    display: grid;
+    place-items: center;
+    width: 112px;
+    height: 112px;
+    flex: 0 0 112px;
+    overflow: hidden;
+    border: 6px solid #fff;
+    border-radius: 50%;
+    background: rgba(255, 107, 107, 0.1);
+    box-shadow: var(--shadow-soft);
+}
+
+.profile-photo-preview img,
+.profile-photo-placeholder {
+    width: 100%;
+    height: 100%;
+}
+
+.profile-photo-preview img {
+    object-fit: cover;
+}
+
+.profile-photo-placeholder {
+    display: grid;
+    place-items: center;
+    color: var(--color-primary);
+    font-size: 2.25rem;
+}
+
+.profile-pill-group,
+.profile-vibe-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.65rem;
+}
+
+.profile-pill-option,
+.profile-vibe-grid label {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 46px;
+    padding: 0.7rem 1rem;
+    border: 2px solid #f3f4f6;
+    border-radius: var(--radius-pill);
+    background: #fff;
+    color: var(--text-muted);
+    font-size: 0.92rem;
+    font-weight: 800;
+    cursor: pointer;
+    transition: transform 0.2s ease, border-color 0.2s ease, background-color 0.2s ease, color 0.2s ease;
+}
+
+.profile-pill-option:hover,
+.profile-vibe-grid label:hover {
+    transform: translateY(-2px);
+    border-color: rgba(255, 107, 107, 0.34);
+    color: var(--text-main);
+}
+
+.profile-pill-group .btn-check:checked + .profile-pill-option,
+.profile-vibe-grid .btn-check:checked + label {
+    border-color: var(--color-primary);
+    background: rgba(255, 107, 107, 0.1);
+    color: var(--text-main);
+}
+
+.profile-char-count {
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    font-weight: 800;
+}
+
+.profile-human-submit {
+    min-height: 56px;
+    justify-self: start;
+}
+
+#profileForm .form-switch .form-check-input {
+    width: 3.25em !important;
+    height: 1.7em !important;
+    cursor: pointer;
+}
+
+#profileForm .form-check-input:checked {
+    border-color: var(--color-primary);
+    background-color: var(--color-primary);
+}
+
+#profile .text-center.mt-4 a {
+    color: var(--color-primary) !important;
+}
+
+@media (min-width: 992px) {
+    #profile .card.border-0.shadow-sm.rounded-4.bg-white > .card-body {
+        display: grid;
+        grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+        gap: 2rem;
+    }
+
+    #profile .card.border-0.shadow-sm.rounded-4.bg-white > .card-body > hr {
+        display: none;
+    }
+
+    #profile .card.border-0.shadow-sm.rounded-4.bg-white > .card-body > div {
+        margin-bottom: 0 !important;
+    }
+
+    #profile .card.border-0.shadow-sm.rounded-4.bg-white > .card-body > div:first-child {
+        grid-row: span 2;
+        padding-right: 2rem;
+        border-right: 1px solid rgba(107, 114, 128, 0.16);
+    }
+
+    #profile .card.border-0.shadow-sm.rounded-4.bg-white > .card-body > .profile-human-section {
+        padding-right: 0;
+        border-right: 0;
+    }
+}
+
+@media (max-width: 575.98px) {
+    #profile > .container {
+        padding-top: 88px !important;
+    }
+
+    #missing-email-section .card-body,
+    #btn-my-conversations,
+    #btn-my-listing,
+    #profileForm > div {
+        align-items: flex-start !important;
+    }
+
+    #profileForm > div {
+        gap: 1rem;
+    }
+
+    .profile-photo-row {
+        grid-template-columns: 1fr;
+        justify-items: center;
+        text-align: center;
+    }
+
+    .profile-human-submit {
+        width: 100%;
+    }
+
+    .profile-pill-option,
+    .profile-vibe-grid label {
+        width: 100%;
+    }
+}

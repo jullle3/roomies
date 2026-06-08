@@ -37,7 +37,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
     <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
     <!--    Custom Merged css files -->
-    <link rel="stylesheet" href="roomies/mergedStyles.css?roomies_version=841">
+    <link rel="stylesheet" href="roomies/mergedStyles.css?roomies_version=852">
     <style>
         .nav-auth-btn:active,
         .nav-auth-btn:focus,
@@ -56,7 +56,7 @@
             color: #ffffff !important;
         }
     </style>
-    <script defer type="module" src="roomies/mergedJS.js?roomies_version=841"></script>
+    <script defer type="module" src="roomies/mergedJS.js?roomies_version=852"></script>
 
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18047412076"></script>
@@ -1456,11 +1456,11 @@
                                     </div>
                                     <div class="col-md-3">
                                         <label for="rent_room_preferred_age_min" class="form-label">Alder fra</label>
-                                        <input class="form-control" id="rent_room_preferred_age_min" name="preferred_age_min" type="number" inputmode="numeric" min="18" max="120" placeholder="fx 20">
+                                        <input class="form-control" id="rent_room_preferred_age_min" name="preferred_age_min" type="number" inputmode="numeric" min="1" max="120" placeholder="fx 20">
                                     </div>
                                     <div class="col-md-3">
                                         <label for="rent_room_preferred_age_max" class="form-label">Alder til</label>
-                                        <input class="form-control" id="rent_room_preferred_age_max" name="preferred_age_max" type="number" inputmode="numeric" min="18" max="120" placeholder="fx 28">
+                                        <input class="form-control" id="rent_room_preferred_age_max" name="preferred_age_max" type="number" inputmode="numeric" min="1" max="120" placeholder="fx 28">
                                     </div>
                                 </div>
                                 <div class="mt-4">
@@ -1480,11 +1480,11 @@
                                     <input type="checkbox" id="vibe_student" name="vibes" value="Studievenligt">
                                     <label for="vibe_student">🎓 Studievenligt</label>
 
-                                    <input type="checkbox" id="vibe_dinner" name="vibes" value="Vegan">
+                                    <input type="checkbox" id="vibe_dinner" name="vibes" value="Fællesspisning">
                                     <label for="vibe_dinner">☕ Fællesspisning</label>
 
-                                    <input type="checkbox" id="vibe_privacy" name="privacy" value="Privatliv Respekteres">
-                                    <label for="vibe_privacy">🎧 Privatliv respekteres</label>
+                                    <input type="checkbox" id="vibe_door" name="vibes" value="Lukket_dør_okay">
+                                    <label for="vibe_door">🎧 Lukket dør er okay</label>
                                 </div>
                                 <div class="rent-room-step-actions">
                                     <button class="btn btn-light rounded-pill px-4 py-3 fw-bold" type="button" data-rent-room-prev>
@@ -2640,32 +2640,35 @@ Venlig hilsen</textarea>
 </div>
 
 
-<div class="modal fade" id="listingSuccessModal" tabindex="-1" aria-labelledby="listingSuccessModalLabel" aria-hidden="true">
+<div class="modal fade listing-success-modal" id="listingSuccessModal" data-bs-backdrop="static" tabindex="-1" aria-labelledby="listingSuccessModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content border-0 shadow-lg rounded-4 overflow-hidden text-center p-4 p-md-5">
+        <div class="modal-content border-0 text-center p-4 p-md-5">
 
-            <div class="d-inline-flex align-items-center justify-content-center bg-success bg-opacity-10 text-success rounded-circle mx-auto mb-4" style="width: 80px; height: 80px;">
-                <i class="fa-solid fa-champagne-glasses fs-1"></i>
+            <div class="listing-success-icon mx-auto mb-4">
+                <i class="fa-solid fa-champagne-glasses"></i>
             </div>
 
-            <h2 class="fw-bold mb-3" style="color: var(--company-dark);" id="listingSuccessModalLabel">Tillykke! 🎉</h2>
-            <p class="text-muted fs-5 mb-4">
-                Din andelsbolig er nu oprettet og <span class="fw-bold text-success">synlig for tusindvis af købere</span>.
+            <h2 class="fw-bold mb-3" id="listingSuccessModalLabel">Tillykke! 🎉</h2>
+            <p class="text-muted fs-5 mb-4" id="listingSuccessModalIntro">
+                Dit værelse er nu oprettet og <span class="fw-bold text-success">synligt for boligsøgende</span>.
             </p>
 
-            <div class="p-4 bg-light rounded-4 mb-4 text-start shadow-sm" style="border: 1px solid rgba(0,0,0,0.05);">
+            <div class="listing-success-growth-card p-4 mb-4 text-start">
                 <div class="d-flex align-items-center mb-2">
-                    <i class="fa-solid fa-rocket text-primary me-2 fs-5"></i>
-                    <span class="fw-bold" style="color: var(--company-dark); font-size: 1.1rem;">Giv dit salg et gratis boost!</span>
+                    <i class="fa-solid fa-rocket me-2 fs-5"></i>
+                    <span class="fw-bold">Få endnu flere henvendelser</span>
                 </div>
-                <p class="small text-muted mb-0 lh-lg">
-                    Vi har allerede sendt besked til købere, som har et matchende SøgeAgentpå din bolig. Du kan øge dine chancer for et hurtigt salg endnu mere ved at dele annoncen med dit netværk.
+                <p class="small text-muted mb-0">
+                    Vi giver automatisk besked til brugere med en matchende SøgeAgent. Men du kan lukke aftalen endnu hurtigere ved at dele annoncen, f.x. i Facebook-grupper.
                 </p>
             </div>
 
             <div class="d-grid gap-3">
-                <button class="btn btn-primary btn-lg rounded-pill fw-bold shadow-sm hover-lift d-flex align-items-center justify-content-center" id="btn-share-new-listing" style="border-width: 2px;">
-                    <i class="fa-solid fa-share-nodes me-2"></i> Del din annonce
+                <button class="btn btn-primary-coral btn-lg rounded-pill fw-bold shadow-sm" id="btn-copy-listing-link" type="button">
+                    <i class="fa-solid fa-link me-2"></i>Kopier link til annonce
+                </button>
+                <button class="btn btn-light rounded-pill fw-bold" id="btn-go-to-listing" type="button">
+                    Se din annonce
                 </button>
             </div>
 

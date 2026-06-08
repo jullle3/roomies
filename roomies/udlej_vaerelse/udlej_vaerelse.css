@@ -352,10 +352,64 @@
     font-size: 2.4rem;
 }
 
+.rent-room-uploading-image img {
+    opacity: 0.45;
+}
+
+.rent-room-uploading-image::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(255, 255, 255, 0.22);
+}
+
 .rent-room-profile-photo-modal .modal-content {
     border-radius: var(--radius-xl);
     background: rgba(255, 255, 255, 0.98);
     box-shadow: var(--shadow-hover);
+}
+
+.listing-success-modal .modal-content {
+    border-radius: var(--radius-xl);
+    background: rgba(255, 255, 255, 0.98);
+    box-shadow: var(--shadow-hover);
+}
+
+.listing-success-modal h2 {
+    color: var(--text-main);
+    font-family: var(--font-heading);
+    font-weight: 900;
+}
+
+.listing-success-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 86px;
+    height: 86px;
+    border-radius: 50%;
+    background: rgba(255, 107, 107, 0.12);
+    color: var(--color-primary);
+    box-shadow: var(--shadow-soft);
+}
+
+.listing-success-icon i {
+    font-size: 2.25rem;
+}
+
+.listing-success-growth-card {
+    border: 1px solid rgba(255, 107, 107, 0.18);
+    border-radius: var(--radius-xl);
+    background: rgba(255, 107, 107, 0.06);
+    box-shadow: var(--shadow-soft);
+}
+
+.listing-success-growth-card i {
+    color: var(--color-primary);
+}
+
+.listing-success-growth-card span {
+    color: var(--text-main);
 }
 
 .rent-room-profile-photo-icon {

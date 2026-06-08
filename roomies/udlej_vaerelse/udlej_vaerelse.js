@@ -6,14 +6,15 @@ import {
     isLoggedIn
 } from "../utils.js";
 import {authFetch} from "../auth/auth.js";
-import {displayLoginModal} from "../views/viewManager.js";
+import {s3Url} from "../config/config.js";
+import {preloadRooms} from "../rooms/room_cache.js";
+import {displayLoginModal, showView} from "../views/viewManager.js";
 
 const RENT_ROOM_DRAFT_KEY = "roomies_rent_room_draft";
 const ADDRESS_AUTOCOMPLETE_URL = "https://api.dataforsyningen.dk/adresser/autocomplete";
 const MAX_IMAGES = 8;
 const MAX_IMAGE_SIZE_BYTES = 12 * 1024 * 1024;
 const PROFILE_MAX_PHOTO_SIZE_BYTES = 3 * 1024 * 1024;
-const MAX_VIBES = 4;
 const ROOM_FIELDS = [
     "title",
     "description",
@@ -30,19 +31,18 @@ let selectedAddress = null;
 let draftSaveTimeout = null;
 const roomStates = new Map();
 
-export function setupRentRoomView() {
+export async function setupRentRoomView() {
     const form = document.getElementById("form-rent-room");
     if (!form || form.dataset.bound) return;
 
     form.dataset.bound = "1";
 
-    const draft = readDraft();
+    const draft = await getInitialRentRoomDraft();
     restoreSharedDraft(form, draft);
     setupRoomEditor(form, draft);
     setupAddressAutocomplete(form);
     setupDraftSaving(form);
     setupRentRoomTotalCalculation(form);
-    setupVibeLimit();
     setupRentRoomWizard(form);
 
     form.addEventListener("submit", handleRentRoomSubmit);
@@ -76,10 +76,12 @@ function setupRoomEditor(form, draft) {
         removeRoom(roomElement.dataset.roomId);
         roomElement.remove();
         updateRoomHeadings();
+        updateRentRoomSubmitLabel(form);
         saveDraft(form);
     });
 
     updateRoomHeadings();
+    updateRentRoomSubmitLabel(form);
 }
 
 function addRoom(form, room = {}) {
@@ -91,6 +93,9 @@ function addRoom(form, room = {}) {
     const fragment = template.content.cloneNode(true);
     const roomElement = fragment.querySelector("[data-room-id]");
     roomElement.dataset.roomId = id;
+    if (room.backend_room_id) {
+        roomElement.dataset.backendRoomId = room.backend_room_id;
+    }
 
     ROOM_FIELDS.forEach(fieldName => {
         const field = roomElement.querySelector(`[data-room-field="${fieldName}"]`);
@@ -127,6 +132,8 @@ function addRoom(form, room = {}) {
     roomList.appendChild(fragment);
     const addedRoom = roomList.querySelector(`[data-room-id="${id}"]`);
     updateRoomTotalRent(addedRoom);
+    renderImagePreviews(id, addedRoom?.querySelector("[data-image-previews]"));
+    updateRentRoomSubmitLabel(form);
     return addedRoom;
 }
 
@@ -303,6 +310,21 @@ function updateRoomHeadings() {
     });
 }
 
+function updateRentRoomSubmitLabel(form) {
+    const submitButton = form.querySelector('[type="submit"]');
+    if (!submitButton || submitButton.disabled) return;
+
+    const rooms = [...form.querySelectorAll("#rent-room-list [data-room-id]")];
+    const existingCount = rooms.filter(room => room.dataset.backendRoomId).length;
+    const label = existingCount === 0
+        ? "Opret opslag"
+        : existingCount === rooms.length
+            ? "Opdater opslag"
+            : "Gem opslag";
+
+    submitButton.innerHTML = `<i class="fa-solid fa-check me-2"></i>${label}`;
+}
+
 function setupDraftSaving(form) {
     const scheduleDraftSave = () => {
         clearTimeout(draftSaveTimeout);
@@ -448,9 +470,8 @@ function setupRoomImageHandling(roomElement, form) {
     if (!input || !uploadZone || !previewContainer) return;
 
     input.addEventListener("change", () => {
-        addImages(roomId, [...input.files], previewContainer);
+        addImages(roomId, [...input.files], previewContainer, form);
         input.value = "";
-        saveDraft(form);
     });
 
     ["dragenter", "dragover"].forEach(eventName => {
@@ -468,86 +489,135 @@ function setupRoomImageHandling(roomElement, form) {
     });
 
     uploadZone.addEventListener("drop", event => {
-        addImages(roomId, [...event.dataTransfer.files], previewContainer);
-        saveDraft(form);
+        addImages(roomId, [...event.dataTransfer.files], previewContainer, form);
     });
 
     previewContainer.addEventListener("click", event => {
-        const button = event.target.closest("[data-remove-rent-room-image]");
+        const button = event.target.closest("[data-remove-rent-room-saved-image]");
         if (!button) return;
 
-        const index = Number(button.dataset.removeRentRoomImage);
+        const index = Number(button.dataset.removeRentRoomSavedImage);
         const state = roomStates.get(roomId);
-        if (!Number.isInteger(index) || !state?.images[index]) return;
+        if (!Number.isInteger(index) || !state?.savedImageNames[index]) return;
 
-        URL.revokeObjectURL(state.images[index].previewUrl);
-        state.images.splice(index, 1);
+        state.savedImageNames.splice(index, 1);
         renderImagePreviews(roomId, previewContainer);
         saveDraft(form);
     });
 }
 
-function addImages(roomId, files, previewContainer) {
+async function addImages(roomId, files, previewContainer, form) {
     const state = roomStates.get(roomId);
     if (!state) return;
+
+    if (!isLoggedIn()) {
+        saveDraft(form);
+        displayLoginModal("udlej_vaerelse", new URLSearchParams());
+        return;
+    }
 
     const validImages = files.filter(file => file.type.startsWith("image/"));
     if (validImages.length !== files.length) {
         displayErrorMessage("Du kan kun vælge billeder i JPG-, PNG- eller WebP-format.");
     }
 
-    const availableSlots = MAX_IMAGES - state.images.length;
-    validImages.slice(0, availableSlots).forEach(file => {
-        if (file.size > MAX_IMAGE_SIZE_BYTES) {
-            displayErrorMessage(`${file.name} er for stort. Vælg et billede under 12 MB.`);
-            return;
-        }
-
-        state.images.push({
-            file,
-            previewUrl: URL.createObjectURL(file)
-        });
-    });
-
+    const availableSlots = MAX_IMAGES - state.images.length - state.savedImageNames.length;
+    const filesToUpload = validImages.slice(0, Math.max(0, availableSlots));
     if (validImages.length > availableSlots) {
         displayErrorMessage(`Du kan højst vælge ${MAX_IMAGES} billeder pr. værelse.`);
     }
 
-    renderImagePreviews(roomId, previewContainer);
+    for (const file of filesToUpload) {
+        if (file.size > MAX_IMAGE_SIZE_BYTES) {
+            displayErrorMessage(`${file.name} er for stort. Vælg et billede under 12 MB.`);
+            continue;
+        }
+
+        const uploadingImage = {
+            file,
+            previewUrl: URL.createObjectURL(file),
+            isUploading: true
+        };
+
+        state.images.push(uploadingImage);
+        renderImagePreviews(roomId, previewContainer);
+
+        try {
+            const uploadedImage = await uploadRoomImage(file);
+            state.savedImageNames.push(uploadedImage.name);
+            state.images = state.images.filter(image => image !== uploadingImage);
+            URL.revokeObjectURL(uploadingImage.previewUrl);
+            renderImagePreviews(roomId, previewContainer);
+            saveDraft(form);
+        } catch (error) {
+            console.error("Kunne ikke uploade værelsesbillede:", error);
+            displayErrorMessage(`Kunne ikke uploade ${file.name}`);
+            state.images = state.images.filter(image => image !== uploadingImage);
+            URL.revokeObjectURL(uploadingImage.previewUrl);
+            renderImagePreviews(roomId, previewContainer);
+        }
+    }
+}
+
+async function uploadRoomImage(file) {
+    const formData = new FormData();
+    formData.append("file", file);
+
+    const response = await authFetch("/roomies/images/upload", {
+        method: "POST",
+        body: formData
+    });
+
+    const body = await response.json().catch(() => ({}));
+    if (!response.ok) {
+        throw new Error(body.detail || body.message || "Upload fejlede");
+    }
+
+    if (!body.name) {
+        throw new Error("Upload mangler filnavn");
+    }
+
+    return body;
 }
 
 function renderImagePreviews(roomId, container) {
     const state = roomStates.get(roomId);
-    if (!state) return;
+    if (!state || !container) return;
 
-    container.innerHTML = state.images.map((image, index) => `
+    const savedImages = state.savedImageNames.map((imageName, index) => `
         <div class="col-6 col-md-3">
             <div class="position-relative ratio ratio-1x1 rounded-4 overflow-hidden bg-light">
-                <img src="${image.previewUrl}" alt="Valgt billede ${index + 1}" class="w-100 h-100 object-fit-cover">
+                <img src="${buildUploadedRoomImageUrl(imageName)}" alt="Uploadet billede ${index + 1}" class="w-100 h-100 object-fit-cover">
                 <button type="button"
                         class="btn btn-dark rounded-circle position-absolute top-0 end-0 m-2 d-inline-flex align-items-center justify-content-center"
                         style="width: 34px; height: 34px;"
-                        data-remove-rent-room-image="${index}"
+                        data-remove-rent-room-saved-image="${index}"
                         aria-label="Fjern billede ${index + 1}">
                     <i class="fa-solid fa-xmark"></i>
                 </button>
             </div>
         </div>
     `).join("");
+
+    const uploadingImages = state.images.map((image, index) => `
+        <div class="col-6 col-md-3">
+            <div class="position-relative ratio ratio-1x1 rounded-4 overflow-hidden bg-light rent-room-uploading-image">
+                <img src="${image.previewUrl}" alt="Uploader billede ${index + 1}" class="w-100 h-100 object-fit-cover">
+                <div class="position-absolute top-50 start-50 translate-middle">
+                    <div class="spinner-border text-primary-coral" role="status" aria-label="Uploader billede"></div>
+                </div>
+            </div>
+        </div>
+    `).join("");
+
+    container.innerHTML = savedImages + uploadingImages;
 }
 
-function setupVibeLimit() {
-    const vibeInputs = [...document.querySelectorAll('#form-rent-room input[name="vibes"]')];
-
-    vibeInputs.forEach(input => {
-        input.addEventListener("change", () => {
-            const selected = vibeInputs.filter(candidate => candidate.checked);
-            if (selected.length <= MAX_VIBES) return;
-
-            input.checked = false;
-            displayErrorMessage(`Vælg højst ${MAX_VIBES} roomie-vibes.`);
-        });
-    });
+function buildUploadedRoomImageUrl(imageName) {
+    if (!imageName) return "";
+    const value = String(imageName);
+    if (/^(https?:|data:|blob:)/i.test(value)) return value;
+    return `${s3Url}/${value.replace(/^\/+/, "")}`;
 }
 
 async function handleRentRoomSubmit(event) {
@@ -571,14 +641,148 @@ async function handleRentRoomSubmit(event) {
         return;
     }
 
+    if (hasPendingRoomImageUploads()) {
+        showRentRoomStep(form, 2);
+        displayErrorMessage("Vent lige til billederne er uploadet, før du udgiver annoncen.");
+        return;
+    }
+
     const profilePhoto = await ensureProfilePhotoBeforePublishing();
     const listings = buildIndependentListingPayloads(draft, profilePhoto);
 
-    const message = listings.length === 1
-        ? "Din værelse-annonce er gemt som kladde. Vi kobler den på oprettelsesflowet, når backend er klar."
-        : `Dine ${listings.length} værelse-annoncer er gemt som kladde. Vi kobler dem på oprettelsesflowet, når backend er klar.`;
+    const submitButton = form.querySelector('[type="submit"]');
+    setRentRoomSubmitBusy(submitButton, true);
 
-    displaySuccessMessage(message, 7000);
+    try {
+        const createdRooms = await createRoomListings(listings);
+        mergeCreatedRoomsIntoCache(createdRooms);
+        localStorage.removeItem(RENT_ROOM_DRAFT_KEY);
+        const updatedCount = listings.filter(listing => listing.backend_room_id).length;
+        const createdCount = listings.length - updatedCount;
+
+        const message = updatedCount > 0 && createdCount === 0
+            ? (createdRooms.length === 1 ? "Din annonce er opdateret." : `Dine ${createdRooms.length} annoncer er opdateret.`)
+            : (createdRooms.length === 1 ? "Din annonce er gemt." : `Dine ${createdRooms.length} annoncer er gemt.`);
+
+        displaySuccessMessage(message, 7000);
+        if (createdCount > 0) {
+            showListingSuccessModal(getRoomId(createdRooms[0]), createdRooms.length);
+        }
+    } catch (error) {
+        console.error("Kunne ikke oprette værelse-annonce:", error);
+        displayErrorMessage(error.message || "Kunne ikke oprette annoncen lige nu.");
+    } finally {
+        setRentRoomSubmitBusy(submitButton, false, form);
+    }
+}
+
+function showListingSuccessModal(roomId, createdCount = 1, wasUpdate = false) {
+    if (!roomId) return;
+
+    const modalElement = document.getElementById("listingSuccessModal");
+    const copyButton = document.getElementById("btn-copy-listing-link");
+    const goButton = document.getElementById("btn-go-to-listing");
+    const intro = document.getElementById("listingSuccessModalIntro");
+    if (!modalElement || !copyButton || !goButton) return;
+
+    const roomParams = new URLSearchParams({id: roomId});
+    const liveUrl = `${window.location.origin}/vaerelse?${roomParams.toString()}`;
+    const modal = bootstrap.Modal.getOrCreateInstance(modalElement);
+
+    if (intro) {
+        const verb = wasUpdate ? "opdateret" : "oprettet";
+        intro.innerHTML = createdCount === 1
+            ? `Dit værelse er nu ${verb} og <span class="fw-bold text-success">synligt for boligsøgende</span>.`
+            : `Dine ${createdCount} værelser er nu ${verb} og <span class="fw-bold text-success">synlige for boligsøgende</span>.`;
+    }
+
+    copyButton.classList.remove("btn-success");
+    copyButton.classList.add("btn-primary-coral");
+    copyButton.innerHTML = '<i class="fa-solid fa-link me-2"></i>Kopier link til annonce';
+    copyButton.onclick = async () => {
+        try {
+            await navigator.clipboard.writeText(liveUrl);
+            copyButton.innerHTML = '<i class="fa-solid fa-check me-2"></i>Link kopieret!';
+            copyButton.classList.remove("btn-primary-coral");
+            copyButton.classList.add("btn-success");
+        } catch (error) {
+            console.error("Kunne ikke kopiere link:", error);
+            displayErrorMessage("Kunne ikke kopiere linket automatisk.");
+        }
+    };
+
+    goButton.onclick = () => {
+        modal.hide();
+        showView("room_detail", roomParams);
+    };
+
+    modal.show();
+}
+
+function getRoomId(room) {
+    return String(room?._id || room?.id || "");
+}
+
+function setRentRoomSubmitBusy(button, isBusy, form = null) {
+    if (!button) return;
+
+    if (isBusy) {
+        button.dataset.originalText = button.innerHTML;
+        button.disabled = true;
+        button.innerHTML = '<span class="spinner-border spinner-border-sm me-2" aria-hidden="true"></span>Opretter...';
+        return;
+    }
+
+    button.disabled = false;
+    if (form) {
+        updateRentRoomSubmitLabel(form);
+    } else {
+        button.innerHTML = button.dataset.originalText || '<i class="fa-solid fa-check me-2"></i>Opret opslag';
+    }
+}
+
+async function createRoomListings(listings) {
+    const createdRooms = [];
+
+    for (const listing of listings) {
+        const {backend_room_id: backendRoomId, ...payload} = listing;
+        const url = backendRoomId
+            ? `/roomies/rooms/${encodeURIComponent(backendRoomId)}`
+            : "/roomies/rooms";
+
+        const response = await authFetch(url, {
+            method: backendRoomId ? "PUT" : "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify(payload)
+        });
+
+        const body = await response.json().catch(() => ({}));
+        if (!response.ok) {
+            throw new Error(body.detail || body.message || `Serveren svarede med status ${response.status}.`);
+        }
+
+        createdRooms.push(body);
+    }
+
+    return createdRooms;
+}
+
+function mergeCreatedRoomsIntoCache(createdRooms) {
+    if (!Array.isArray(createdRooms) || createdRooms.length === 0) return;
+
+    if (Array.isArray(window.rooms)) {
+        const updatedIds = new Set(createdRooms.map(getRoomId).filter(Boolean));
+        window.rooms = [
+            ...createdRooms,
+            ...window.rooms.filter(room => !updatedIds.has(getRoomId(room)))
+        ];
+    } else {
+        window.rooms = [...createdRooms];
+    }
+}
+
+function hasPendingRoomImageUploads() {
+    return [...roomStates.values()].some(state => state.images.length > 0);
 }
 
 async function ensureProfilePhotoBeforePublishing() {
@@ -644,13 +848,13 @@ function promptForProfilePhotoUpload() {
             if (!file) return;
 
             if (!file.type.startsWith("image/")) {
-                showError("VÃ¦lg et billede i PNG, JPG eller WebP.");
+                showError("Vælg et billede i PNG, JPG eller WebP.");
                 fileInput.value = "";
                 return;
             }
 
             if (file.size > PROFILE_MAX_PHOTO_SIZE_BYTES) {
-                showError("Profilbilledet mÃ¥ hÃ¸jst vÃ¦re 3 MB.");
+                showError("Profilbilledet må højst være 3 MB.");
                 fileInput.value = "";
                 return;
             }
@@ -770,6 +974,135 @@ function readDraft() {
     }
 }
 
+async function getInitialRentRoomDraft() {
+    const localDraft = readDraft();
+    if (localDraft) {
+        return attachExistingRoomIdsToDraft(localDraft);
+    }
+
+    return buildDraftFromUserRooms();
+}
+
+async function attachExistingRoomIdsToDraft(draft) {
+    if (!draft || !Array.isArray(draft.rooms) || draft.rooms.every(room => room.backend_room_id)) {
+        return draft;
+    }
+
+    const userRooms = await getCurrentUserRoomsFromCache();
+    if (userRooms.length === 0) return draft;
+
+    return {
+        ...draft,
+        rooms: draft.rooms.map((room, index) => ({
+            ...room,
+            backend_room_id: room.backend_room_id || getRoomId(userRooms[index]) || null
+        }))
+    };
+}
+
+async function buildDraftFromUserRooms() {
+    if (!isLoggedIn()) return null;
+
+    try {
+        const userRooms = await getCurrentUserRoomsFromCache();
+
+        if (userRooms.length === 0) return null;
+
+        return buildDraftFromRooms(userRooms);
+    } catch (error) {
+        console.warn("Kunne ikke udfylde udlej-værelse formularen fra eksisterende værelser:", error);
+        return null;
+    }
+}
+
+async function getCurrentUserRoomsFromCache() {
+    if (!isLoggedIn()) return [];
+
+    const user = await ensureCurrentUserLoaded();
+    const userId = getCurrentUserId(user);
+    if (!userId) return [];
+
+    const rooms = await preloadRooms();
+    return Array.isArray(rooms)
+        ? rooms
+            .filter(room => String(room?.created_by || "") === userId)
+            .filter(room => room?.available !== false && room?.deleted !== true)
+            .sort((a, b) => Number(a?.created || 0) - Number(b?.created || 0))
+        : [];
+}
+
+function getCurrentUserId(user = currentUser) {
+    return String(user?._id || user?.id || "");
+}
+
+function buildDraftFromRooms(rooms) {
+    const firstRoom = rooms[0] || {};
+    const addressData = buildDraftAddressData(firstRoom);
+
+    return {
+        listing_type: "room_rental_collection",
+        address: [firstRoom.street_name, firstRoom.house_number].filter(Boolean).join(" "),
+        postal: [firstRoom.postal_number, firstRoom.postal_name].filter(Boolean).join(" "),
+        floor: firstRoom.floor || "",
+        address_data: addressData,
+        aconto_monthly: firstRoom.acconto_monthly_price ?? null,
+        registration_allowed: firstRoom.cpr_registration_allowed === true,
+        pets_allowed: firstRoom.pets_allowed === true,
+        preferred_gender: firstRoom.preferred_gender || null,
+        preferred_age_min: firstRoom.preferred_age_min ?? null,
+        preferred_age_max: firstRoom.preferred_age_max ?? null,
+        vibes: Array.isArray(firstRoom.vibes) ? firstRoom.vibes : [],
+        rooms: rooms.map(buildRoomDraftFromBackendRoom),
+        saved_at: new Date().toISOString()
+    };
+}
+
+function buildDraftAddressData(room) {
+    return {
+        dataforsyningen_id: room.datafordeler_id || null,
+        full_address: room.address || "",
+        street_name: room.street_name || "",
+        house_number: room.house_number || "",
+        floor: room.floor || null,
+        door: room.floor_side || null,
+        postal_number: room.postal_number || null,
+        postal_name: room.postal_name || null,
+        municipality_code: null,
+        municipality_name: room.city || null,
+        coordinates: Array.isArray(room.location?.coordinates) ? room.location.coordinates : null
+    };
+}
+
+function buildRoomDraftFromBackendRoom(room) {
+    return {
+        id: createRoomId(),
+        backend_room_id: getRoomId(room),
+        title: room.title || "",
+        description: room.description || "",
+        available_from: epochToDateInput(room.available_from),
+        rental_period_months: room.rental_period_months ?? null,
+        monthly_rent: room.monthly_price ?? null,
+        deposit: room.deposit ?? null,
+        prepaid_rent: room.prepaid_rent ?? null,
+        size: room.square_meters ?? null,
+        furnished: room.furnished === true,
+        image_names: Array.isArray(room.images) ? [...room.images] : []
+    };
+}
+
+function epochToDateInput(epoch) {
+    const number = Number(epoch);
+    if (!Number.isFinite(number) || number <= 0) return "";
+
+    const date = new Date(number * 1000);
+    if (Number.isNaN(date.getTime())) return "";
+
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+    return `${year}-${month}-${day}`;
+}
+
 function restoreSharedDraft(form, draft) {
     if (!draft) return;
 
@@ -818,6 +1151,7 @@ function normalizeDraftRooms(draft) {
     if (draft && ROOM_FIELDS.some(field => draft[field] != null)) {
         return [{
             id: createRoomId(),
+            backend_room_id: draft.backend_room_id || null,
             title: draft.title || "",
             description: draft.description || "",
             available_from: draft.available_from || null,
@@ -863,6 +1197,7 @@ function buildRoomDraft(roomElement) {
 
     return {
         id: roomId,
+        backend_room_id: roomElement.dataset.backendRoomId || null,
         title: getRoomString(roomElement, "title") || generateRoomTitle(roomElement),
         description: getRoomString(roomElement, "description"),
         available_from: getRoomString(roomElement, "available_from") || null,
@@ -872,10 +1207,7 @@ function buildRoomDraft(roomElement) {
         prepaid_rent: getRoomNumber(roomElement, "prepaid_rent"),
         size: getRoomNumber(roomElement, "size"),
         furnished: getRoomCheckbox(roomElement, "furnished"),
-        image_names: [
-            ...(state?.savedImageNames || []),
-            ...(state?.images || []).map(image => image.file.name)
-        ]
+        image_names: [...(state?.savedImageNames || [])]
     };
 }
 
@@ -894,33 +1226,61 @@ function generateRoomTitle(roomElement) {
 }
 
 function buildIndependentListingPayloads(draft, profilePhoto = null) {
+    const addressData = draft.address_data || {};
     const sharedData = {
-        address: draft.address,
-        postal: draft.postal,
-        floor: draft.floor,
-        address_data: draft.address_data,
+        datafordeler_id: addressData.dataforsyningen_id || null,
+        location: buildRoomLocation(addressData),
+        postal_number: toNullableNumber(addressData.postal_number),
+        postal_name: addressData.postal_name || null,
+        street_name: addressData.street_name || null,
+        house_number: addressData.house_number || null,
+        city: addressData.municipality_name || addressData.postal_name || null,
+        address: addressData.full_address || draft.address || null,
+        floor: addressData.floor || draft.floor || null,
+        floor_side: addressData.door || null,
         profile_photo: profilePhoto,
-        utilities_included: false,
-        aconto_monthly: draft.aconto_monthly,
-        registration_allowed: draft.registration_allowed,
+        acconto_monthly_price: draft.aconto_monthly,
+        cpr_registration_allowed: draft.registration_allowed,
         pets_allowed: draft.pets_allowed,
-        privacy_focused: draft.privacy_focused,
         preferred_gender: draft.preferred_gender,
         preferred_age_min: draft.preferred_age_min,
         preferred_age_max: draft.preferred_age_max,
-        vibes: draft.vibes
+        vibes: draft.vibes,
+        available: true,
+        marketing_package: "free"
     };
 
     return draft.rooms.map(room => {
-        const {id, available_from, ...roomListingData} = room;
-
         return {
-            listing_type: "room_rental",
+            backend_room_id: room.backend_room_id || null,
+            title: room.title,
+            description: room.description,
+            monthly_price: room.monthly_rent,
+            available_from: dateInputToEpoch(room.available_from),
+            rental_period_months: room.rental_period_months,
+            deposit: room.deposit,
+            prepaid_rent: room.prepaid_rent,
+            square_meters: room.size,
+            images: room.image_names,
+            furnished: room.furnished,
             ...sharedData,
-            ...roomListingData,
-            available_from: dateInputToEpoch(available_from)
         };
     });
+}
+
+function buildRoomLocation(addressData = {}) {
+    const coordinates = Array.isArray(addressData.coordinates) ? addressData.coordinates : null;
+    if (!coordinates) return null;
+
+    return {
+        type: "Point",
+        coordinates
+    };
+}
+
+function toNullableNumber(value) {
+    const number = Number(value);
+    return Number.isFinite(number) ? number : null;
 }
 
 function hasSelectedOfficialAddress() {

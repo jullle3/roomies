@@ -25,6 +25,7 @@ import {
     renderSearchAgentEdit,
     renderSearchAgentOverview
 } from "../roomie_agent/roomie_agent.js";
+import {preloadMyRooms} from "../rooms/room_cache.js";
 
 // Setup click events for all views
 const views = {
@@ -412,6 +413,15 @@ async function loadViewData(view, viewParams) {
         case "room_detail":
             await renderRoomDetail(viewParams.get("id"));
             break;
+        case "soeg_vaerelse":
+            await preloadMyRooms();
+            break;
+        case "udlej_vaerelse": {
+            const module = await import("../udlej_vaerelse/udlej_vaerelse.js");
+            await module.setupRentRoomView();
+            await module.refreshRentRoomFormFromOwnerRooms();
+            break;
+        }
         case "seller_profile":
             await loadSellerProfile(viewParams.get("id"))
             break;

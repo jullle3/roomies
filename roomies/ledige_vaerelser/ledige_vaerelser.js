@@ -109,7 +109,11 @@ function getFilteredRooms(cachedRooms) {
     const maxRent = Number(data.get("max_rent")) || Infinity;
     const minSize = Number(data.get("min_size")) || 0;
 
-    const rooms = cachedRooms.map(normalizeRoomListing).filter(room => {
+    const rooms = cachedRooms
+        .filter(room => room?.visible !== false)
+        .filter(room => room?.available !== false)
+        .map(normalizeRoomListing)
+        .filter(room => {
         const searchableLocation = getNormalizedText(`${room.postal} ${room.area}`);
         const locationMatches = selectedAreaId
             ? roomMatchesSelectedArea(room, selectedAreaId)
@@ -121,7 +125,7 @@ function getFilteredRooms(cachedRooms) {
             && (!data.has("furnished") || room.furnished)
             && (!data.has("registration_allowed") || room.registrationAllowed)
             && (!data.has("utilities_included") || room.utilitiesIncluded);
-    });
+        });
 
     return rooms.sort((a, b) => {
         switch (data.get("sort")) {

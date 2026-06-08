@@ -1,4 +1,4 @@
-import {getCachedRooms, getRoomById} from "../rooms/room_cache.js";
+import {getCachedRooms, getRoomById, mergeRoomsIntoCaches} from "../rooms/room_cache.js";
 import {displayErrorMessage, displaySuccessMessage, ensureCurrentUserLoaded, isLoggedIn, updateMetaTags} from "../utils.js";
 import {authFetch} from "../auth/auth.js";
 import {s3Url} from "../config/config.js";
@@ -196,7 +196,7 @@ function setupRoomOwnerControls(container, room, isOwner) {
     const handler = async event => {
         const editButton = event.target.closest("[data-owner-edit-room]");
         if (editButton) {
-            window.location.href = "/udlej-vaerelse";
+            await openRentRoomEditView();
             return;
         }
 
@@ -213,7 +213,7 @@ function setupRoomOwnerControls(container, room, isOwner) {
                 ? {visible: room.visible === false}
                 : {available: room.available === false};
             const updatedRoom = await updateRoomStatus(room, patch);
-            updateCachedRoom(updatedRoom);
+            mergeRoomsIntoCaches(updatedRoom);
             displaySuccessMessage(getRoomStatusSuccessMessage(updatedRoom, patch));
             await renderRoomDetail(getRoomId(updatedRoom));
         } catch (error) {
@@ -225,6 +225,17 @@ function setupRoomOwnerControls(container, room, isOwner) {
 
     container.__roomOwnerClickHandler = handler;
     container.addEventListener("click", handler);
+}
+
+async function openRentRoomEditView() {
+    if (typeof window.showView === "function") {
+        await window.showView("udlej_vaerelse");
+        const module = await import("../udlej_vaerelse/udlej_vaerelse.js");
+        await module.refreshRentRoomFormFromOwnerRooms?.();
+        return;
+    }
+
+    window.location.href = "/udlej-vaerelse";
 }
 
 async function updateRoomStatus(room, patch) {
@@ -249,12 +260,6 @@ function getRoomStatusSuccessMessage(room, patch) {
     }
 
     return room.available === false ? "Opslaget er markeret som udlejet." : "Opslaget er åbent for henvendelser igen.";
-}
-
-function updateCachedRoom(updatedRoom) {
-    if (!Array.isArray(window.rooms)) return;
-    const updatedId = getRoomId(updatedRoom);
-    window.rooms = window.rooms.map(room => getRoomId(room) === updatedId ? updatedRoom : room);
 }
 
 function getRoomId(room) {

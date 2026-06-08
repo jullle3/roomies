@@ -1,28 +1,28 @@
-- Create a new PATCH endpoint which can be used to update if a listing is available. It should update the field "available" of the specified rooms. The user must only update one room per request
-
-- .I recommend placing the controls only on the Detail View (#room_detail), but using a clever trick: The "Owner's View."Here is exactly how that flow works:1. The Profile is just a Router. In your #profile view, you already have a button built for this: <div id="btn-my-listing">.
-  When the user clicks this button, it does not open a special editing dashboard. It simply redirects them to the standard #room_detail page for their room.  2. The Detail View (Owner vs. Seeker)When the #room_detail view loads, your JavaScript checks one simple thing: Is the logged-in user the person who created this room? (currentUser.id === room.created_by).  If it is a normal room-seeker: They just see the pictures, the rent, and the "Kontakt udlejer" button.If it is the owner: You use JavaScript to inject that "Admin Dashboard" HTML block at the very top of the page. You also change the "Kontakt udlejer" button to "Rediger opslag" which redirects them to the udlej-vaerelse view .Why this is the best UX By putting the visibility controls on the actual detail page, the landlord sees exactly what the rest of the world sees right before they pause or delete it. It gives them total context. It also keeps your #profile view clean and strictly focused on account settings, rather than turning it into a complex content management system.
-In addition to the above brainstorm with gemini, the profile should list all rooms that the user has available for rent
-
-I also want a similar (or perhaps the same, up to you) admin panel in the udlej-vaerelse view before "Opret dit værelse", it should be simple and easy to use for the user.
-
-- Delete endpoint in backend which doesnt actually delete, but prefixes created_by with "deleted" use this as inspiration
-  @router.delete("/advertisement/{_id}")
-  def delete_advertisement(_id, jwt=Depends(is_authenticated)):
-  db.read_and_update(
-  {"_id": _id, "created_by": jwt.sub},
-  {
-  "$set": {
-  "deleted": True,
-  "deleted_at": int(time.time()),
-  "visible": False,
-  "created_by": f"deleted_{jwt.sub}",
-  }
-  },
-  )
 
 
-- Popup prompting their user if theyre sure they want to delete the room. Use the "genericConfirmationModal" HTML and draw inspiration from this implementation
+Popup prompting their user if theyre sure they want to delete the room. Use the "genericConfirmationModal" HTML and draw inspiration from this implementation
+
+<div class="modal fade" id="deleteRoomModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 shadow-lg rounded-4 p-4">
+            <div class="text-center mb-4">
+                <div class="d-inline-flex align-items-center justify-content-center bg-danger bg-opacity-10 text-danger rounded-circle mb-3" style="width: 64px; height: 64px;">
+                    <i class="fa-solid fa-triangle-exclamation fs-2"></i>
+                </div>
+                <h3 class="fw-bold">Slet annonce?</h3>
+                <p class="text-muted mb-0">Er du sikker på, at du vil slette denne annonce? Dette kan ikke fortrydes, og alle billeder og beskrivelser vil gå tabt.</p>
+                <p class="small text-muted mt-2">Tip: Hvis værelset er udlejet, anbefaler vi at bruge "Markér som udlejet" i stedet.</p>
+            </div>
+            <div class="d-flex gap-2">
+                <button type="button" class="btn btn-light rounded-pill w-50 fw-bold" data-bs-dismiss="modal">Annuller</button>
+                <button type="button" class="btn btn-danger rounded-pill w-50 fw-bold" id="btn-confirm-delete-room">
+                    <i class="fa-solid fa-trash-can me-2"></i>Slet permanent
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
 function getDeleteHousingModalHtml() {
 const isReserved = usersCurrentActiveHousing?.reserved === true;
 const isSold = usersCurrentActiveHousing?.sold === true;

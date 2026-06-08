@@ -7,7 +7,7 @@ import {
 } from "../utils.js";
 import {authFetch} from "../auth/auth.js";
 import {s3Url} from "../config/config.js";
-import {getCachedRooms, preloadRooms} from "../rooms/room_cache.js";
+import {getCachedMyRooms, mergeRoomsIntoCaches, preloadMyRooms} from "../rooms/room_cache.js";
 import {displayLoginModal, showView} from "../views/viewManager.js";
 
 const RENT_ROOM_DRAFT_KEY = "roomies_rent_room_draft";
@@ -52,13 +52,30 @@ export async function setupRentRoomView() {
     form.addEventListener("submit", handleRentRoomSubmit);
 }
 
+export async function refreshRentRoomFormFromOwnerRooms() {
+    const form = document.getElementById("form-rent-room");
+    if (!form) return;
+
+    await renderRentRoomOwnerPanel();
+    const draft = await buildDraftFromUserRooms();
+    if (!draft) return;
+
+    restoreSharedDraft(form, draft);
+    populateRoomEditor(form, draft);
+    updateAllRoomTotalRents(form);
+    updateRentRoomSubmitLabel(form);
+    saveDraft(form);
+}
+
 function setupRoomEditor(form, draft) {
     const roomList = document.getElementById("rent-room-list");
     const addButton = document.getElementById("rent-room-add-button");
     if (!roomList || !addButton) return;
 
-    const rooms = normalizeDraftRooms(draft);
-    rooms.forEach(room => addRoom(form, room));
+    populateRoomEditor(form, draft);
+
+    if (roomList.dataset.editorBound === "1") return;
+    roomList.dataset.editorBound = "1";
 
     addButton.addEventListener("click", () => {
         const roomElement = addRoom(form);
@@ -84,6 +101,21 @@ function setupRoomEditor(form, draft) {
         saveDraft(form);
     });
 
+    updateRoomHeadings();
+    updateRentRoomSubmitLabel(form);
+}
+
+function populateRoomEditor(form, draft) {
+    const roomList = document.getElementById("rent-room-list");
+    if (!roomList) return;
+
+    roomStates.forEach(state => {
+        state.images.forEach(image => URL.revokeObjectURL(image.previewUrl));
+    });
+    roomStates.clear();
+    roomList.innerHTML = "";
+
+    normalizeDraftRooms(draft).forEach(room => addRoom(form, room));
     updateRoomHeadings();
     updateRentRoomSubmitLabel(form);
 }
@@ -772,17 +804,7 @@ async function createRoomListings(listings) {
 }
 
 function mergeCreatedRoomsIntoCache(createdRooms) {
-    if (!Array.isArray(createdRooms) || createdRooms.length === 0) return;
-
-    if (Array.isArray(window.rooms)) {
-        const updatedIds = new Set(createdRooms.map(getRoomId).filter(Boolean));
-        window.rooms = [
-            ...createdRooms,
-            ...window.rooms.filter(room => !updatedIds.has(getRoomId(room)))
-        ];
-    } else {
-        window.rooms = [...createdRooms];
-    }
+    mergeRoomsIntoCaches(createdRooms);
 }
 
 function hasPendingRoomImageUploads() {
@@ -1020,23 +1042,22 @@ async function buildDraftFromUserRooms() {
 }
 
 async function getCurrentUserRoomsFromCache() {
-    return getCurrentUserOwnedRoomsFromCache({onlyActive: true});
+    return getCurrentUserOwnedRoomsFromCache();
 }
 
-async function getCurrentUserOwnedRoomsFromCache({onlyActive = false} = {}) {
+async function getCurrentUserOwnedRoomsFromCache() {
     if (!isLoggedIn()) return [];
 
     const user = await ensureCurrentUserLoaded();
     const userId = getCurrentUserId(user);
     if (!userId) return [];
 
-    await preloadRooms();
-    const rooms = getCachedRooms();
+    await preloadMyRooms();
+    const rooms = getCachedMyRooms();
     return Array.isArray(rooms)
         ? rooms
             .filter(room => String(room?.created_by || "") === userId)
             .filter(room => room?.deleted !== true)
-            .filter(room => !onlyActive || (room?.available !== false && room?.visible !== false))
             .sort((a, b) => Number(a?.created || 0) - Number(b?.created || 0))
         : [];
 }
@@ -1057,6 +1078,7 @@ async function renderRentRoomOwnerPanel() {
         <div class="rent-room-owner-panel-head">
             <span><i class="fa-solid fa-key"></i> Dine værelser</span>
             <h3>Administrer dine værelser</h3>
+            <p>Pause skjuler annoncen fra søgning. Udlejet viser den stadig, men slår kontakt fra.</p>
         </div>
         <div class="rent-room-owner-grid">
             ${rooms.map(renderRentRoomOwnerCard).join("")}

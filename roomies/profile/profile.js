@@ -4,7 +4,7 @@ import {s3Url} from "../config/config.js";
 import {displayErrorMessage, displaySuccessMessage, decodeJwt, currentUser, setCurrentUser} from "../utils.js";
 import {showView} from "../views/viewManager.js";
 import {invalidateSearchAgentCache} from "../roomie_agent/roomie_agent.js";
-import {getCachedRooms, preloadRooms} from "../rooms/room_cache.js";
+import {getCachedMyRooms, preloadMyRooms} from "../rooms/room_cache.js";
 
 const PROFILE_MAX_PHOTO_SIZE_BYTES = 3 * 1024 * 1024;
 const PROFILE_INTEREST_LIMIT = 5;
@@ -86,8 +86,8 @@ async function renderProfileRoomListings(userId) {
 }
 
 async function getProfileRooms(userId) {
-    await preloadRooms();
-    const rooms = getCachedRooms();
+    await preloadMyRooms();
+    const rooms = getCachedMyRooms();
     return Array.isArray(rooms)
         ? rooms
             .filter(room => String(room?.created_by || '') === String(userId))

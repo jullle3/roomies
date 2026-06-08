@@ -7,7 +7,7 @@ import {
 } from "../utils.js";
 import {authFetch} from "../auth/auth.js";
 import {s3Url} from "../config/config.js";
-import {preloadRooms} from "../rooms/room_cache.js";
+import {getCachedRooms, preloadRooms} from "../rooms/room_cache.js";
 import {displayLoginModal, showView} from "../views/viewManager.js";
 
 const RENT_ROOM_DRAFT_KEY = "roomies_rent_room_draft";
@@ -33,7 +33,11 @@ const roomStates = new Map();
 
 export async function setupRentRoomView() {
     const form = document.getElementById("form-rent-room");
-    if (!form || form.dataset.bound) return;
+    if (!form) return;
+
+    await renderRentRoomOwnerPanel();
+
+    if (form.dataset.bound) return;
 
     form.dataset.bound = "1";
 
@@ -1016,19 +1020,181 @@ async function buildDraftFromUserRooms() {
 }
 
 async function getCurrentUserRoomsFromCache() {
+    return getCurrentUserOwnedRoomsFromCache({onlyActive: true});
+}
+
+async function getCurrentUserOwnedRoomsFromCache({onlyActive = false} = {}) {
     if (!isLoggedIn()) return [];
 
     const user = await ensureCurrentUserLoaded();
     const userId = getCurrentUserId(user);
     if (!userId) return [];
 
-    const rooms = await preloadRooms();
+    await preloadRooms();
+    const rooms = getCachedRooms();
     return Array.isArray(rooms)
         ? rooms
             .filter(room => String(room?.created_by || "") === userId)
-            .filter(room => room?.available !== false && room?.deleted !== true)
+            .filter(room => room?.deleted !== true)
+            .filter(room => !onlyActive || room?.available !== false)
             .sort((a, b) => Number(a?.created || 0) - Number(b?.created || 0))
         : [];
+}
+
+async function renderRentRoomOwnerPanel() {
+    const panel = document.getElementById("rent-room-owner-panel");
+    if (!panel) return;
+
+    const rooms = await getCurrentUserOwnedRoomsFromCache();
+    if (!rooms.length) {
+        panel.classList.add("d-none");
+        panel.innerHTML = "";
+        return;
+    }
+
+    panel.classList.remove("d-none");
+    panel.innerHTML = `
+        <div class="rent-room-owner-panel-head">
+            <span><i class="fa-solid fa-key"></i> Dine opslag</span>
+            <h3>Administrer dine værelsesannoncer</h3>
+            <p>Ret formularen herunder, eller pause et opslag hvis værelset ikke længere skal vises som ledigt.</p>
+        </div>
+        <div class="rent-room-owner-grid">
+            ${rooms.map(renderRentRoomOwnerCard).join("")}
+        </div>
+    `;
+
+    panel.onclick = async event => {
+        const viewButton = event.target.closest("[data-rent-room-owner-view]");
+        if (viewButton) {
+            event.preventDefault();
+            showView("room_detail", new URLSearchParams({id: viewButton.dataset.rentRoomOwnerView}));
+            return;
+        }
+
+        const editButton = event.target.closest("[data-rent-room-owner-edit]");
+        if (editButton) {
+            event.preventDefault();
+            document.getElementById("form-rent-room")?.scrollIntoView({behavior: "smooth", block: "start"});
+            return;
+        }
+
+        const toggleButton = event.target.closest("[data-rent-room-owner-toggle]");
+        if (!toggleButton) return;
+
+        event.preventDefault();
+        const roomId = toggleButton.dataset.rentRoomOwnerToggle;
+        const room = rooms.find(candidate => getRoomId(candidate) === roomId);
+        if (!room) return;
+
+        toggleButton.disabled = true;
+        toggleButton.innerHTML = '<span class="spinner-border spinner-border-sm me-2" aria-hidden="true"></span>Gemmer...';
+
+        try {
+            const updatedRoom = await updateRentRoomAvailability(room, room.available === false);
+            mergeCreatedRoomsIntoCache([updatedRoom]);
+            displaySuccessMessage(updatedRoom.available === false ? "Opslaget er sat på pause." : "Opslaget er aktivt igen.");
+            await renderRentRoomOwnerPanel();
+        } catch (error) {
+            console.error("Kunne ikke opdatere opslag:", error);
+            displayErrorMessage(error.message || "Kunne ikke opdatere opslaget lige nu.");
+            toggleButton.disabled = false;
+        }
+    };
+}
+
+function renderRentRoomOwnerCard(room) {
+    const roomId = getRoomId(room);
+    const isPaused = room.available === false;
+    const status = isPaused ? "På pause" : "Aktiv";
+    const toggleLabel = isPaused ? "Gør aktiv" : "Sæt på pause";
+    const toggleIcon = isPaused ? "fa-play" : "fa-pause";
+    const address = [
+        [room.street_name, room.house_number].filter(Boolean).join(" "),
+        [room.postal_number, room.postal_name].filter(Boolean).join(" ")
+    ].filter(Boolean).join(", ");
+
+    return `
+        <article class="rent-room-owner-card">
+            <span class="rent-room-owner-status ${isPaused ? "is-paused" : "is-active"}">${status}</span>
+            <h4>${escapeHtml(room.title || "Værelse uden titel")}</h4>
+            <p>${escapeHtml(address || "Adresse ikke angivet")}</p>
+            <div class="rent-room-owner-card-actions">
+                <button class="btn btn-light rounded-pill fw-bold" type="button" data-rent-room-owner-view="${escapeAttribute(roomId)}">
+                    <i class="fa-regular fa-eye me-2"></i>Se annonce
+                </button>
+                <button class="btn btn-light rounded-pill fw-bold" type="button" data-rent-room-owner-edit>
+                    <i class="fa-solid fa-pen me-2"></i>Rediger her
+                </button>
+                <button class="btn btn-primary-coral rounded-pill fw-bold" type="button" data-rent-room-owner-toggle="${escapeAttribute(roomId)}">
+                    <i class="fa-solid ${toggleIcon} me-2"></i>${toggleLabel}
+                </button>
+            </div>
+        </article>
+    `;
+}
+
+async function updateRentRoomAvailability(room, available) {
+    const roomId = getRoomId(room);
+    const response = await authFetch(`/roomies/rooms/${encodeURIComponent(roomId)}`, {
+        method: "PUT",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify(buildBackendRoomUpdatePayload(room, {available}))
+    });
+
+    const body = await response.json().catch(() => ({}));
+    if (!response.ok) {
+        throw new Error(body.detail || body.message || `Serveren svarede med status ${response.status}.`);
+    }
+
+    return body;
+}
+
+function buildBackendRoomUpdatePayload(room, overrides = {}) {
+    return {
+        title: room.title || "",
+        description: room.description || "",
+        monthly_price: room.monthly_price ?? null,
+        acconto_monthly_price: room.acconto_monthly_price ?? null,
+        available_from: room.available_from ?? null,
+        rental_period_months: room.rental_period_months ?? null,
+        deposit: room.deposit ?? null,
+        prepaid_rent: room.prepaid_rent ?? null,
+        square_meters: room.square_meters ?? null,
+        images: normalizeBackendImageNames(room.images),
+        profile_photo: room.profile_photo || null,
+        datafordeler_id: room.datafordeler_id || null,
+        location: room.location || null,
+        postal_number: room.postal_number ?? null,
+        postal_name: room.postal_name || null,
+        street_name: room.street_name || null,
+        house_number: room.house_number || null,
+        city: room.city || null,
+        address: room.address || null,
+        floor: room.floor || null,
+        floor_side: room.floor_side || null,
+        pets_allowed: room.pets_allowed ?? null,
+        cpr_registration_allowed: room.cpr_registration_allowed ?? null,
+        furnished: room.furnished ?? null,
+        preferred_gender: room.preferred_gender || null,
+        preferred_age_min: room.preferred_age_min ?? null,
+        preferred_age_max: room.preferred_age_max ?? null,
+        vibes: Array.isArray(room.vibes) ? room.vibes : [],
+        available: room.available !== false,
+        marketing_package: room.marketing_package || "free",
+        ...overrides
+    };
+}
+
+function normalizeBackendImageNames(images) {
+    if (!Array.isArray(images)) return [];
+    return images
+        .map(image => {
+            if (typeof image === "string") return image;
+            if (image && typeof image === "object") return image.name || image.thumbnail_name || "";
+            return "";
+        })
+        .filter(Boolean);
 }
 
 function getCurrentUserId(user = currentUser) {
@@ -1086,7 +1252,7 @@ function buildRoomDraftFromBackendRoom(room) {
         prepaid_rent: room.prepaid_rent ?? null,
         size: room.square_meters ?? null,
         furnished: room.furnished === true,
-        image_names: Array.isArray(room.images) ? [...room.images] : []
+        image_names: normalizeBackendImageNames(room.images)
     };
 }
 
@@ -1388,4 +1554,14 @@ function dateInputToEpoch(value) {
 
 function createRoomId() {
     return globalThis.crypto?.randomUUID?.() || `room-${Date.now()}-${Math.random().toString(16).slice(2)}`;
+}
+
+function escapeHtml(value) {
+    const div = document.createElement("div");
+    div.textContent = String(value ?? "");
+    return div.innerHTML;
+}
+
+function escapeAttribute(value) {
+    return escapeHtml(value).replace(/"/g, "&quot;");
 }

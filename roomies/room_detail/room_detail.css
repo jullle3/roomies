@@ -33,6 +33,73 @@
     box-shadow: var(--shadow-hover);
 }
 
+.room-owner-panel {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.25rem;
+    margin-bottom: 1.25rem;
+    padding: 1.25rem;
+    border: 1px solid rgba(255, 107, 107, 0.22);
+    border-radius: var(--radius-xl);
+    background: rgba(255, 255, 255, 0.96);
+    box-shadow: var(--shadow-soft);
+}
+
+.room-owner-panel span,
+.room-owner-panel h2,
+.room-owner-panel p {
+    display: block;
+}
+
+.room-owner-panel > div:first-child > span {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    margin-bottom: 0.35rem;
+    color: var(--color-primary);
+    font-size: 0.8rem;
+    font-weight: 900;
+}
+
+.room-owner-panel h2 {
+    margin: 0 0 0.25rem;
+    color: var(--text-main);
+    font-size: 1.1rem;
+    font-weight: 900;
+}
+
+.room-owner-panel p {
+    margin: 0;
+    color: var(--text-muted);
+    font-weight: 600;
+}
+
+.room-owner-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.7rem;
+    flex-wrap: wrap;
+}
+
+.room-owner-status {
+    padding: 0.55rem 0.8rem;
+    border-radius: var(--radius-pill);
+    font-size: 0.8rem;
+    font-weight: 900;
+}
+
+.room-owner-status.is-active {
+    background: rgba(34, 197, 94, 0.12);
+    color: #16a34a;
+}
+
+.room-owner-status.is-paused {
+    background: rgba(107, 114, 128, 0.12);
+    color: var(--text-muted);
+}
+
 .room-detail-gallery {
     position: relative;
     display: grid;
@@ -613,6 +680,21 @@
 @media (max-width: 767.98px) {
     #room_detail {
         margin-top: -24px;
+    }
+
+    .room-owner-panel {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .room-owner-actions {
+        justify-content: stretch;
+    }
+
+    .room-owner-actions .btn,
+    .room-owner-status {
+        width: 100%;
+        text-align: center;
     }
 
     .room-detail-page {

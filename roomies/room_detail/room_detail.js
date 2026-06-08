@@ -1,5 +1,6 @@
 import {getCachedRooms, getRoomById} from "../rooms/room_cache.js";
-import {updateMetaTags} from "../utils.js";
+import {displayErrorMessage, displaySuccessMessage, ensureCurrentUserLoaded, isLoggedIn, updateMetaTags} from "../utils.js";
+import {authFetch} from "../auth/auth.js";
 import {s3Url} from "../config/config.js";
 
 export async function renderRoomDetail(roomId) {
@@ -19,10 +20,13 @@ export async function renderRoomDetail(roomId) {
         return;
     }
 
-    const viewModel = normalizeRoomDetail(room);
+    const user = isLoggedIn() ? await ensureCurrentUserLoaded() : null;
+    const isOwner = Boolean(user && String(user?._id || user?.id || "") === String(room.created_by || ""));
+    const viewModel = normalizeRoomDetail(room, isOwner);
     removeExistingPhotoViewer();
     container.innerHTML = renderRoomDetailHtml(viewModel);
     setupRoomPhotoViewer(container);
+    setupRoomOwnerControls(container, room, isOwner);
     updateMetaTags(
         `${viewModel.title} | roomies`,
         viewModel.description || `Ledigt værelse i ${viewModel.area}. Se pris, størrelse og hverdagen i hjemmet.`,
@@ -30,7 +34,7 @@ export async function renderRoomDetail(roomId) {
     );
 }
 
-function normalizeRoomDetail(room) {
+function normalizeRoomDetail(room, isOwner = false) {
     const postal = [room.postal_number, room.postal_name || room.city].filter(Boolean).join(" ");
     const streetAddress = [
         room.street_name,
@@ -55,6 +59,8 @@ function normalizeRoomDetail(room) {
         rentalPeriod: formatRentalPeriod(readRentalPeriodMonths(room)),
         created: room.created || null,
         available: room.available !== false,
+        isOwner,
+        raw: room,
         images: getRoomImages(room),
         householdFeatures: getHouseholdFeatures(room),
         similarRooms: getSimilarRooms(room)
@@ -72,6 +78,8 @@ function renderRoomDetailHtml(room) {
                     <i class="fa-solid fa-arrow-left"></i>
                     <span>Tilbage til søgning</span>
                 </a>
+
+                ${renderOwnerPanel(room)}
 
                 <div class="room-detail-top-grid">
                     <div class="room-detail-media-column">
@@ -139,6 +147,143 @@ function renderGalleryHint(room) {
             <span>${room.images.length} billeder</span>
         </button>
     `;
+}
+
+function renderOwnerPanel(room) {
+    if (!room.isOwner) return "";
+
+    const availableText = room.available ? "Aktiv annonce" : "Sat på pause";
+    const toggleText = room.available ? "Sæt på pause" : "Gør aktiv igen";
+    const toggleIcon = room.available ? "fa-pause" : "fa-play";
+
+    return `
+        <section class="room-owner-panel">
+            <div>
+                <span><i class="fa-solid fa-key"></i> Ejerens visning</span>
+                <h2>Administrer dit opslag</h2>
+                <p>Du ser annoncen, som boligsøgende ser den. Her kan du hurtigt rette eller pause den.</p>
+            </div>
+            <div class="room-owner-actions">
+                <span class="room-owner-status ${room.available ? "is-active" : "is-paused"}">${availableText}</span>
+                <button class="btn btn-light rounded-pill fw-bold" type="button" data-owner-edit-room>
+                    <i class="fa-solid fa-pen me-2"></i>Rediger opslag
+                </button>
+                <button class="btn btn-primary-coral rounded-pill fw-bold" type="button" data-owner-toggle-room>
+                    <i class="fa-solid ${toggleIcon} me-2"></i>${toggleText}
+                </button>
+            </div>
+        </section>
+    `;
+}
+
+function setupRoomOwnerControls(container, room, isOwner) {
+    if (container.__roomOwnerClickHandler) {
+        container.removeEventListener("click", container.__roomOwnerClickHandler);
+        container.__roomOwnerClickHandler = null;
+    }
+
+    if (!isOwner) return;
+
+    const handler = async event => {
+        const editButton = event.target.closest("[data-owner-edit-room]");
+        if (editButton) {
+            window.location.href = "/udlej-vaerelse";
+            return;
+        }
+
+        const toggleButton = event.target.closest("[data-owner-toggle-room]");
+        if (!toggleButton) return;
+
+        toggleButton.disabled = true;
+        toggleButton.innerHTML = '<span class="spinner-border spinner-border-sm me-2" aria-hidden="true"></span>Gemmer...';
+
+        try {
+            const updatedRoom = await updateRoomAvailability(room, room.available === false);
+            updateCachedRoom(updatedRoom);
+            displaySuccessMessage(updatedRoom.available === false ? "Opslaget er sat på pause." : "Opslaget er aktivt igen.");
+            await renderRoomDetail(getRoomId(updatedRoom));
+        } catch (error) {
+            console.error("Kunne ikke opdatere opslag:", error);
+            displayErrorMessage(error.message || "Kunne ikke opdatere opslaget lige nu.");
+            toggleButton.disabled = false;
+        }
+    };
+
+    container.__roomOwnerClickHandler = handler;
+    container.addEventListener("click", handler);
+}
+
+async function updateRoomAvailability(room, available) {
+    const roomId = getRoomId(room);
+    const response = await authFetch(`/roomies/rooms/${encodeURIComponent(roomId)}`, {
+        method: "PUT",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify(buildRoomUpdatePayload(room, {available}))
+    });
+
+    const body = await response.json().catch(() => ({}));
+    if (!response.ok) {
+        throw new Error(body.detail || body.message || `Serveren svarede med status ${response.status}.`);
+    }
+
+    return body;
+}
+
+function buildRoomUpdatePayload(room, overrides = {}) {
+    return {
+        title: room.title || "",
+        description: room.description || "",
+        monthly_price: room.monthly_price ?? null,
+        acconto_monthly_price: room.acconto_monthly_price ?? null,
+        available_from: room.available_from ?? null,
+        rental_period_months: room.rental_period_months ?? null,
+        deposit: room.deposit ?? null,
+        prepaid_rent: room.prepaid_rent ?? null,
+        square_meters: room.square_meters ?? null,
+        images: normalizeBackendImageNames(room.images),
+        profile_photo: room.profile_photo || null,
+        datafordeler_id: room.datafordeler_id || null,
+        location: room.location || null,
+        postal_number: room.postal_number ?? null,
+        postal_name: room.postal_name || null,
+        street_name: room.street_name || null,
+        house_number: room.house_number || null,
+        city: room.city || null,
+        address: room.address || null,
+        floor: room.floor || null,
+        floor_side: room.floor_side || null,
+        pets_allowed: room.pets_allowed ?? null,
+        cpr_registration_allowed: room.cpr_registration_allowed ?? null,
+        furnished: room.furnished ?? null,
+        preferred_gender: room.preferred_gender || null,
+        preferred_age_min: room.preferred_age_min ?? null,
+        preferred_age_max: room.preferred_age_max ?? null,
+        vibes: Array.isArray(room.vibes) ? room.vibes : [],
+        available: room.available !== false,
+        marketing_package: room.marketing_package || "free",
+        ...overrides
+    };
+}
+
+function updateCachedRoom(updatedRoom) {
+    if (!Array.isArray(window.rooms)) return;
+    const updatedId = getRoomId(updatedRoom);
+    window.rooms = window.rooms.map(room => getRoomId(room) === updatedId ? updatedRoom : room);
+}
+
+function normalizeBackendImageNames(images) {
+    if (!Array.isArray(images)) return [];
+    return images
+        .map(image => {
+            if (typeof image === "string") return image;
+            if (image && typeof image === "object") return image.name || image.thumbnail_name || "";
+            return "";
+        })
+        .filter(Boolean);
+}
+
+function getRoomId(room) {
+    return String(room?._id || room?.id || "");
 }
 
 function renderPhotoViewer(room) {
@@ -214,16 +359,18 @@ function removeExistingPhotoViewer() {
 
 function renderInlineContactCta(room) {
     const unavailable = room.available === false;
-    const buttonText = unavailable ? "Værelset er ikke ledigt" : "Kontakt udlejer";
+    const buttonText = room.isOwner ? "Rediger opslag" : (unavailable ? "Værelset er ikke ledigt" : "Kontakt udlejer");
+    const buttonAttrs = room.isOwner ? "data-owner-edit-room" : (unavailable ? "disabled" : "");
+    const buttonIcon = room.isOwner ? "fa-solid fa-pen" : "fa-regular fa-message";
 
     return `
         <div class="room-detail-inline-cta">
             <div>
-                <strong>Er værelset noget for dig?</strong>
-                <span>Send en besked og hør mere om hjemmet.</span>
+                <strong>${room.isOwner ? "Vil du rette noget?" : "Er værelset noget for dig?"}</strong>
+                <span>${room.isOwner ? "Opdater tekst, pris, billeder eller ledighed." : "Send en besked og hør mere om hjemmet."}</span>
             </div>
-            <button class="btn btn-primary-coral rounded-pill px-4 py-3 fw-bold" type="button" ${unavailable ? "disabled" : ""}>
-                <i class="fa-regular fa-message me-2"></i>${buttonText}
+            <button class="btn btn-primary-coral rounded-pill px-4 py-3 fw-bold" type="button" ${buttonAttrs}>
+                <i class="${buttonIcon} me-2"></i>${buttonText}
             </button>
         </div>
     `;
@@ -265,7 +412,9 @@ function renderSimilarRoomCard(room) {
 
 function renderContactCard(room) {
     const unavailable = room.available === false;
-    const contactText = unavailable ? "Værelset er ikke ledigt" : "Kontakt udlejer";
+    const contactText = room.isOwner ? "Rediger opslag" : (unavailable ? "Værelset er ikke ledigt" : "Kontakt udlejer");
+    const buttonAttrs = room.isOwner ? "data-owner-edit-room" : (unavailable ? "disabled" : "");
+    const buttonIcon = room.isOwner ? "fa-solid fa-pen" : "fa-regular fa-message";
 
     return `
         <div class="room-detail-contact-card">
@@ -279,8 +428,8 @@ function renderContactCard(room) {
                 <p><span>Lejeperiode</span><b>${escapeHtml(room.rentalPeriod)}</b></p>
                 <p><span>Størrelse</span><b>${room.size ? `${formatNumber(room.size)} m²` : "-"}</b></p>
             </div>
-            <button class="btn btn-primary-coral rounded-pill w-100 py-3 fw-bold" type="button" ${unavailable ? "disabled" : ""}>
-                <i class="fa-regular fa-message me-2"></i>${contactText}
+            <button class="btn btn-primary-coral rounded-pill w-100 py-3 fw-bold" type="button" ${buttonAttrs}>
+                <i class="${buttonIcon} me-2"></i>${contactText}
             </button>
             <p class="room-detail-created small text-muted text-center mb-0 mt-3">${formatCreatedDate(room.created)}</p>
             <p class="small text-muted text-center mb-0 mt-3">Kontaktflow kobles på backend, når endpointet er klar.</p>
@@ -398,7 +547,7 @@ function normalizeSimilarRoom(room) {
 }
 
 function getImageUrl(image) {
-    if (typeof image === "string") return image;
+    if (typeof image === "string") return buildS3ImageUrl(image);
     if (image?.name) return buildS3ImageUrl(image.name);
     return image?.url || image?.src || image?.image_url || image?.cloudflare_url || "";
 }

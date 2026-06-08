@@ -83,6 +83,112 @@
     padding: clamp(1.25rem, 4vw, 2.5rem);
 }
 
+.rent-room-owner-panel {
+    margin-bottom: 1.25rem;
+    padding: clamp(1rem, 3vw, 1.35rem);
+    border: 1px solid rgba(255, 107, 107, 0.2);
+    border-radius: var(--radius-xl);
+    background: rgba(255, 255, 255, 0.96);
+    box-shadow: var(--shadow-soft);
+}
+
+.rent-room-owner-panel-head {
+    margin-bottom: 1rem;
+}
+
+.rent-room-owner-panel-head span {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    margin-bottom: 0.35rem;
+    color: var(--color-primary);
+    font-size: 0.8rem;
+    font-weight: 900;
+}
+
+.rent-room-owner-panel-head h3 {
+    margin: 0 0 0.25rem;
+    color: var(--text-main);
+    font-size: 1.15rem;
+    font-weight: 900;
+}
+
+.rent-room-owner-panel-head p {
+    max-width: 680px;
+    margin: 0;
+    color: var(--text-muted);
+    font-weight: 600;
+}
+
+.rent-room-owner-grid {
+    display: grid;
+    gap: 0.8rem;
+}
+
+.rent-room-owner-card {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 0.25rem 1rem;
+    padding: 1rem;
+    border: 1px solid #eef0f3;
+    border-radius: 18px;
+    background: #fff;
+}
+
+.rent-room-owner-card h4,
+.rent-room-owner-card p {
+    min-width: 0;
+}
+
+.rent-room-owner-card h4 {
+    margin: 0;
+    color: var(--text-main);
+    font-size: 1rem;
+    font-weight: 900;
+}
+
+.rent-room-owner-card p {
+    margin: 0;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.rent-room-owner-status {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+    align-self: start;
+    padding: 0.45rem 0.7rem;
+    border-radius: var(--radius-pill);
+    font-size: 0.76rem;
+    font-weight: 900;
+}
+
+.rent-room-owner-status.is-active {
+    background: rgba(34, 197, 94, 0.12);
+    color: #16a34a;
+}
+
+.rent-room-owner-status.is-paused {
+    background: rgba(107, 114, 128, 0.12);
+    color: var(--text-muted);
+}
+
+.rent-room-owner-card-actions {
+    grid-column: 1 / -1;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.55rem;
+    margin-top: 0.8rem;
+}
+
+.rent-room-owner-card-actions .btn {
+    min-height: 42px;
+    padding-left: 0.9rem;
+    padding-right: 0.9rem;
+    font-size: 0.88rem;
+}
+
 .rent-room-stepper {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -496,6 +602,21 @@
     }
 
     .rent-room-step-actions .btn {
+        width: 100%;
+    }
+
+    .rent-room-owner-card {
+        grid-template-columns: 1fr;
+    }
+
+    .rent-room-owner-status {
+        grid-column: 1;
+        grid-row: auto;
+        width: fit-content;
+        margin-bottom: 0.35rem;
+    }
+
+    .rent-room-owner-card-actions .btn {
         width: 100%;
     }
 

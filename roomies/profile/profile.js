@@ -1,9 +1,10 @@
 import {authFetch} from "../auth/auth.js";
 import {areaAutocompleteOptions} from "../config/hardcoded_data.js";
 import {s3Url} from "../config/config.js";
-import {displayErrorMessage, displaySuccessMessage, decodeJwt, currentUser, getHousingById, setCurrentUser} from "../utils.js";
+import {displayErrorMessage, displaySuccessMessage, decodeJwt, currentUser, setCurrentUser} from "../utils.js";
 import {showView} from "../views/viewManager.js";
 import {invalidateSearchAgentCache} from "../roomie_agent/roomie_agent.js";
+import {getCachedRooms, preloadRooms} from "../rooms/room_cache.js";
 
 const PROFILE_MAX_PHOTO_SIZE_BYTES = 3 * 1024 * 1024;
 const PROFILE_INTEREST_LIMIT = 5;
@@ -38,33 +39,86 @@ export async function loadProfileView() {
             }
         }
 
-        // 2b. Find user's own listing from the global housing cache (loaded on startup)
-        try {
-            const listing = await getHousingById(userId, 'created_by');
-            if (listing && listing._id) {
-                const listingBtn = document.getElementById('btn-my-listing');
-                const listingSubtitle = document.getElementById('btn-my-listing-subtitle');
-                if (listingBtn) {
-                    if (listingSubtitle && listing.address) {
-                        listingSubtitle.textContent = listing.address;
-                    }
-                    listingBtn.classList.remove('d-none');
-
-                    const newListingBtn = listingBtn.cloneNode(true);
-                    listingBtn.parentNode.replaceChild(newListingBtn, listingBtn);
-
-                    newListingBtn.addEventListener('click', (e) => {
-                        e.preventDefault();
-//                        showView('detail', new URLSearchParams({ id: listing._id }));
-                        showView('create');
-                        window.scrollTo(0, 0);
-                    });
-                }
-            }
-        } catch (err) {
-            console.warn("Could not find user listing in housing cache.", err);
-        }
+        await renderProfileRoomListings(userId);
     }
+}
+
+async function renderProfileRoomListings(userId) {
+    const listingBtn = document.getElementById('btn-my-listing');
+    if (!listingBtn) return;
+
+    const rooms = await getProfileRooms(userId);
+    if (!rooms.length) {
+        listingBtn.classList.add('d-none');
+        document.getElementById('profile-room-list')?.remove();
+        return;
+    }
+
+    const listingSubtitle = document.getElementById('btn-my-listing-subtitle');
+    if (listingSubtitle) {
+        listingSubtitle.textContent = rooms.length === 1
+            ? "Se og administrer din værelsesannonce"
+            : `Se og administrer dine ${rooms.length} værelsesannoncer`;
+    }
+
+    listingBtn.classList.remove('d-none');
+    replaceElementWithClone(listingBtn).addEventListener('click', event => {
+        event.preventDefault();
+        showView('room_detail', new URLSearchParams({id: getRoomId(rooms[0])}));
+    });
+
+    let list = document.getElementById('profile-room-list');
+    if (!list) {
+        list = document.createElement('div');
+        list.id = 'profile-room-list';
+        list.className = 'profile-room-list';
+        document.getElementById('btn-my-listing')?.insertAdjacentElement('afterend', list);
+    }
+
+    list.innerHTML = rooms.map(renderProfileRoomCard).join('');
+    list.onclick = event => {
+        const viewButton = event.target.closest('[data-profile-room-view]');
+        if (!viewButton) return;
+
+        event.preventDefault();
+        showView('room_detail', new URLSearchParams({id: viewButton.dataset.profileRoomView}));
+    };
+}
+
+async function getProfileRooms(userId) {
+    await preloadRooms();
+    const rooms = getCachedRooms();
+    return Array.isArray(rooms)
+        ? rooms
+            .filter(room => String(room?.created_by || '') === String(userId))
+            .filter(room => room?.deleted !== true)
+            .sort((a, b) => Number(a?.created || 0) - Number(b?.created || 0))
+        : [];
+}
+
+function renderProfileRoomCard(room) {
+    const roomId = getRoomId(room);
+    const status = room.available === false ? "På pause" : "Aktiv";
+    const statusClass = room.available === false ? "is-paused" : "is-active";
+    const address = [room.street_name, room.house_number, room.postal_name].filter(Boolean).join(", ");
+
+    return `
+        <button type="button" class="profile-room-card" data-profile-room-view="${escapeAttribute(roomId)}">
+            <span class="profile-room-status ${statusClass}">${status}</span>
+            <strong>${escapeHtml(room.title || "Værelse uden titel")}</strong>
+            <small>${escapeHtml(address || "Adresse ikke angivet")}</small>
+        </button>
+    `;
+}
+
+function replaceElementWithClone(element) {
+    const clone = element.cloneNode(true);
+    element.parentNode.replaceChild(clone, element);
+    return clone;
+}
+
+function getRoomId(room) {
+    return String(room?._id || room?.id || "");
 }
 
 function setupProfileSettingsHandlers() {

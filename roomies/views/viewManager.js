@@ -463,7 +463,7 @@ async function loadViewData(view, viewParams) {
             await renderConversations(viewParams.get("besked_id") || viewParams.get("id"));
             break;
         case "agent":
-            await renderSearchAgentOverview();
+            renderSearchAgentOverview();
             break;
         case "agent_create":
             await renderSearchAgentCreate();

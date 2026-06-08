@@ -3,11 +3,12 @@ import {
     displayErrorMessage,
     displaySuccessMessage,
     ensureCurrentUserLoaded,
-    isLoggedIn
+    isLoggedIn,
+    showConfirmationModal
 } from "../utils.js";
 import {authFetch} from "../auth/auth.js";
 import {s3Url} from "../config/config.js";
-import {getCachedMyRooms, mergeRoomsIntoCaches, preloadMyRooms} from "../rooms/room_cache.js";
+import {getCachedMyRooms, mergeRoomsIntoCaches, preloadMyRooms, removeRoomsFromCaches} from "../rooms/room_cache.js";
 import {displayLoginModal, showView} from "../views/viewManager.js";
 
 const RENT_ROOM_DRAFT_KEY = "roomies_rent_room_draft";
@@ -58,13 +59,26 @@ export async function refreshRentRoomFormFromOwnerRooms() {
 
     await renderRentRoomOwnerPanel();
     const draft = await buildDraftFromUserRooms();
-    if (!draft) return;
+    if (!draft) {
+        resetRentRoomFormToEmpty(form);
+        return;
+    }
 
     restoreSharedDraft(form, draft);
     populateRoomEditor(form, draft);
     updateAllRoomTotalRents(form);
     updateRentRoomSubmitLabel(form);
     saveDraft(form);
+}
+
+function resetRentRoomFormToEmpty(form) {
+    localStorage.removeItem(RENT_ROOM_DRAFT_KEY);
+    selectedAddress = null;
+    form.reset();
+    clearAddressDerivedFields();
+    populateRoomEditor(form, null);
+    updateAllRoomTotalRents(form);
+    updateRentRoomSubmitLabel(form);
 }
 
 function setupRoomEditor(form, draft) {
@@ -1100,6 +1114,17 @@ async function renderRentRoomOwnerPanel() {
             return;
         }
 
+        const deleteButton = event.target.closest("[data-rent-room-delete]");
+        if (deleteButton) {
+            event.preventDefault();
+            const roomId = deleteButton.dataset.rentRoomDelete;
+            const room = rooms.find(candidate => getRoomId(candidate) === roomId);
+            if (room) {
+                openRentRoomDeleteConfirmation(room);
+            }
+            return;
+        }
+
         const visibilityButton = event.target.closest("[data-rent-room-visibility-toggle]");
         const availabilityButton = event.target.closest("[data-rent-room-availability-toggle]");
         const toggleButton = visibilityButton || availabilityButton;
@@ -1162,6 +1187,9 @@ function renderRentRoomOwnerCard(room) {
                 <button class="btn btn-primary-coral rounded-pill fw-bold" type="button" data-rent-room-availability-toggle="${escapeAttribute(roomId)}">
                     <i class="fa-solid ${availabilityToggleIcon} me-2"></i>${availabilityToggleLabel}
                 </button>
+                <button class="btn btn-light rounded-pill fw-bold text-danger" type="button" data-rent-room-delete="${escapeAttribute(roomId)}">
+                    <i class="fa-solid fa-trash-can me-2"></i>Slet
+                </button>
             </div>
         </article>
     `;
@@ -1189,6 +1217,101 @@ function getRentRoomStatusSuccessMessage(room, patch) {
     }
 
     return room.available === false ? "Opslaget er markeret som udlejet." : "Opslaget er åbent for henvendelser igen.";
+}
+
+function openRentRoomDeleteConfirmation(room) {
+    showConfirmationModal(
+        "Slet annonce?",
+        getRentRoomDeleteModalHtml(room),
+        () => {
+            deleteRentRoom(room)
+                .then(async () => {
+                    displaySuccessMessage("Annoncen er slettet.");
+                    await renderRentRoomOwnerPanel();
+                    await refreshRentRoomFormFromOwnerRooms();
+                })
+                .catch(error => {
+                    console.error("Kunne ikke slette opslag:", error);
+                    displayErrorMessage(error.message || "Kunne ikke slette annoncen lige nu.");
+                });
+        },
+        "btn-danger"
+    );
+
+    const confirmButton = document.getElementById("confirmActionButton");
+    if (confirmButton) {
+        confirmButton.innerHTML = '<i class="fa-solid fa-trash-can me-2"></i>Slet permanent';
+    }
+
+    document.getElementById("delete-rent-room-pause-btn")?.addEventListener("click", async () => {
+        try {
+            const updatedRoom = await updateRentRoomStatus(room, {visible: false});
+            mergeRoomsIntoCaches(updatedRoom);
+            hideGenericConfirmationModal();
+            displaySuccessMessage("Opslaget er sat på pause og skjult fra søgning.");
+            await renderRentRoomOwnerPanel();
+            await refreshRentRoomFormFromOwnerRooms();
+        } catch (error) {
+            console.error("Kunne ikke pause opslag:", error);
+            displayErrorMessage(error.message || "Kunne ikke pause opslaget lige nu.");
+        }
+    });
+
+    document.getElementById("delete-rent-room-rented-btn")?.addEventListener("click", async () => {
+        try {
+            const updatedRoom = await updateRentRoomStatus(room, {available: false});
+            mergeRoomsIntoCaches(updatedRoom);
+            hideGenericConfirmationModal();
+            displaySuccessMessage("Opslaget er markeret som udlejet.");
+            await renderRentRoomOwnerPanel();
+            await refreshRentRoomFormFromOwnerRooms();
+        } catch (error) {
+            console.error("Kunne ikke markere opslag som udlejet:", error);
+            displayErrorMessage(error.message || "Kunne ikke opdatere opslaget lige nu.");
+        }
+    });
+}
+
+function getRentRoomDeleteModalHtml(room) {
+    const isHidden = room.visible === false;
+    const isRented = room.available === false;
+
+    return `
+        <p class="mb-0">Er du sikker på, at du vil slette denne annonce? Det kan ikke fortrydes, og billeder samt beskrivelser fjernes fra dine opslag.</p>
+        <p class="small text-muted mt-2 mb-0">Tip: Hvis værelset er udlejet, anbefaler vi at bruge "Markér som udlejet" i stedet.</p>
+        <div class="d-grid gap-2 mt-4 text-start">
+            <button type="button" class="btn rounded-pill py-3 fw-bold shadow-sm d-flex align-items-center justify-content-center gap-2 delete-room-soft-action" id="delete-rent-room-pause-btn" ${isHidden ? "disabled" : ""}>
+                <i class="fa-solid fa-pause"></i><span>${isHidden ? "Allerede sat på pause" : "Sæt på pause i stedet"}</span>
+            </button>
+            <button type="button" class="btn rounded-pill py-3 fw-bold shadow-sm d-flex align-items-center justify-content-center gap-2 delete-room-rented-action" id="delete-rent-room-rented-btn" ${isRented ? "disabled" : ""}>
+                <i class="fa-solid fa-handshake"></i><span>${isRented ? "Allerede markeret som udlejet" : "Markér som udlejet i stedet"}</span>
+            </button>
+        </div>
+        <p class="small text-muted mt-4 mb-0">Slet kun annoncen, hvis den skal fjernes permanent.</p>
+    `;
+}
+
+async function deleteRentRoom(room) {
+    const roomId = getRoomId(room);
+    const response = await authFetch(`/roomies/rooms/${encodeURIComponent(roomId)}`, {method: "DELETE"});
+    const body = await response.json().catch(() => ({}));
+    if (!response.ok) {
+        throw new Error(body.detail || body.message || `Serveren svarede med status ${response.status}.`);
+    }
+
+    removeRoomsFromCaches(roomId);
+    return body;
+}
+
+function hideGenericConfirmationModal() {
+    const modalElement = document.getElementById("genericConfirmationModal");
+    const modal = modalElement ? window.bootstrap?.Modal?.getInstance(modalElement) : null;
+    if (modal) {
+        modal.hide();
+        return;
+    }
+
+    $("#genericConfirmationModal").modal("hide");
 }
 
 function normalizeBackendImageNames(images) {

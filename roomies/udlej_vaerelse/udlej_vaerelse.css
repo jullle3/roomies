@@ -564,6 +564,29 @@
     object-fit: cover;
 }
 
+.delete-room-soft-action {
+    border: 1px solid rgba(107, 114, 128, 0.18);
+    background: #f3f4f6;
+    color: var(--text-main);
+}
+
+.delete-room-soft-action:not(:disabled):hover {
+    border-color: rgba(255, 107, 107, 0.35);
+    background: rgba(255, 107, 107, 0.08);
+    color: var(--color-primary);
+}
+
+.delete-room-rented-action {
+    border: 1px solid rgba(79, 70, 229, 0.18);
+    background: rgba(79, 70, 229, 0.08);
+    color: var(--color-premium-start);
+}
+
+.delete-room-rented-action:not(:disabled):hover {
+    border-color: rgba(79, 70, 229, 0.35);
+    background: rgba(79, 70, 229, 0.14);
+}
+
 @media (max-width: 991.98px) {
     .rent-room-hero {
         text-align: center;

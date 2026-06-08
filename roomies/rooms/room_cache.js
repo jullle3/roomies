@@ -86,6 +86,17 @@ export function mergeRoomsIntoCaches(updatedRooms) {
     dispatchMyRoomsLoaded(window.myRooms || []);
 }
 
+export function removeRoomsFromCaches(roomIds) {
+    const ids = new Set((Array.isArray(roomIds) ? roomIds : [roomIds]).map(String).filter(Boolean));
+    if (!ids.size) return;
+
+    window.rooms = removeRoomsFromList(window.rooms, ids);
+    window.myRooms = removeRoomsFromList(window.myRooms, ids);
+
+    dispatchRoomsLoaded(window.rooms || []);
+    dispatchMyRoomsLoaded(window.myRooms || []);
+}
+
 export async function getRoomById(roomId) {
     if (!roomId) return null;
 
@@ -174,4 +185,9 @@ function mergeRoomList(existingRooms, updatedRooms) {
 
 function getRoomId(room) {
     return String(room?._id || room?.id || "");
+}
+
+function removeRoomsFromList(existingRooms, ids) {
+    if (!Array.isArray(existingRooms)) return existingRooms;
+    return existingRooms.filter(room => !ids.has(getRoomId(room)));
 }

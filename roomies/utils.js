@@ -244,6 +244,7 @@ export function showConfirmationModal(title, message, onConfirm, confirmButtonCl
 
     // 3. Reset and Apply Button Classes
     $confirmButton.removeClass('btn-danger btn-primary btn-success btn-warning action-button');
+    $confirmButton.text('Bekræft');
     $confirmButton.addClass(confirmButtonClass);
     $modal.removeClass('confirmation-intent-danger confirmation-intent-info');
 

@@ -1,5 +1,12 @@
-import {getCachedRooms, getRoomById, mergeRoomsIntoCaches} from "../rooms/room_cache.js";
-import {displayErrorMessage, displaySuccessMessage, ensureCurrentUserLoaded, isLoggedIn, updateMetaTags} from "../utils.js";
+import {getCachedRooms, getRoomById, mergeRoomsIntoCaches, removeRoomsFromCaches} from "../rooms/room_cache.js";
+import {
+    displayErrorMessage,
+    displaySuccessMessage,
+    ensureCurrentUserLoaded,
+    isLoggedIn,
+    showConfirmationModal,
+    updateMetaTags
+} from "../utils.js";
 import {authFetch} from "../auth/auth.js";
 import {s3Url} from "../config/config.js";
 
@@ -180,6 +187,9 @@ function renderOwnerPanel(room) {
                 <button class="btn btn-primary-coral rounded-pill fw-bold" type="button" data-owner-toggle-availability>
                     <i class="fa-solid ${availabilityIcon} me-2"></i>${availabilityText}
                 </button>
+                <button class="btn btn-light rounded-pill fw-bold text-danger" type="button" data-owner-delete-room>
+                    <i class="fa-solid fa-trash-can me-2"></i>Slet
+                </button>
             </div>
         </section>
     `;
@@ -197,6 +207,20 @@ function setupRoomOwnerControls(container, room, isOwner) {
         const editButton = event.target.closest("[data-owner-edit-room]");
         if (editButton) {
             await openRentRoomEditView();
+            return;
+        }
+
+        const deleteButton = event.target.closest("[data-owner-delete-room]");
+        if (deleteButton) {
+            openDeleteRoomConfirmation(room, {
+                onDeleted: () => {
+                    if (typeof window.showView === "function") {
+                        window.showView("soeg_vaerelse");
+                    } else {
+                        window.location.href = "/ledige-vaerelser";
+                    }
+                }
+            });
             return;
         }
 
@@ -260,6 +284,101 @@ function getRoomStatusSuccessMessage(room, patch) {
     }
 
     return room.available === false ? "Opslaget er markeret som udlejet." : "Opslaget er åbent for henvendelser igen.";
+}
+
+function openDeleteRoomConfirmation(room, {onDeleted = null} = {}) {
+    const roomId = getRoomId(room);
+    if (!roomId) return;
+
+    showConfirmationModal(
+        "Slet annonce?",
+        getDeleteRoomModalHtml(room),
+        () => {
+            deleteRoom(room)
+                .then(() => {
+                    displaySuccessMessage("Annoncen er slettet.");
+                    onDeleted?.();
+                })
+                .catch(error => {
+                    console.error("Kunne ikke slette opslag:", error);
+                    displayErrorMessage(error.message || "Kunne ikke slette annoncen lige nu.");
+                });
+        },
+        "btn-danger"
+    );
+
+    const confirmButton = document.getElementById("confirmActionButton");
+    if (confirmButton) {
+        confirmButton.innerHTML = '<i class="fa-solid fa-trash-can me-2"></i>Slet permanent';
+    }
+
+    document.getElementById("delete-room-pause-btn")?.addEventListener("click", async () => {
+        try {
+            const updatedRoom = await updateRoomStatus(room, {visible: false});
+            mergeRoomsIntoCaches(updatedRoom);
+            hideGenericConfirmationModal();
+            displaySuccessMessage("Opslaget er sat på pause og skjult fra søgning.");
+            await renderRoomDetail(getRoomId(updatedRoom));
+        } catch (error) {
+            console.error("Kunne ikke pause opslag:", error);
+            displayErrorMessage(error.message || "Kunne ikke pause opslaget lige nu.");
+        }
+    });
+
+    document.getElementById("delete-room-rented-btn")?.addEventListener("click", async () => {
+        try {
+            const updatedRoom = await updateRoomStatus(room, {available: false});
+            mergeRoomsIntoCaches(updatedRoom);
+            hideGenericConfirmationModal();
+            displaySuccessMessage("Opslaget er markeret som udlejet.");
+            await renderRoomDetail(getRoomId(updatedRoom));
+        } catch (error) {
+            console.error("Kunne ikke markere opslag som udlejet:", error);
+            displayErrorMessage(error.message || "Kunne ikke opdatere opslaget lige nu.");
+        }
+    });
+}
+
+function getDeleteRoomModalHtml(room) {
+    const isHidden = room.visible === false;
+    const isRented = room.available === false;
+
+    return `
+        <p class="mb-0">Er du sikker på, at du vil slette denne annonce? Det kan ikke fortrydes, og billeder samt beskrivelser fjernes fra dine opslag.</p>
+        <p class="small text-muted mt-2 mb-0">Tip: Hvis værelset er udlejet, anbefaler vi at bruge "Markér som udlejet" i stedet.</p>
+        <div class="d-grid gap-2 mt-4 text-start">
+            <button type="button" class="btn rounded-pill py-3 fw-bold shadow-sm d-flex align-items-center justify-content-center gap-2 delete-room-soft-action" id="delete-room-pause-btn" ${isHidden ? "disabled" : ""}>
+                <i class="fa-solid fa-pause"></i><span>${isHidden ? "Allerede sat på pause" : "Sæt på pause i stedet"}</span>
+            </button>
+            <button type="button" class="btn rounded-pill py-3 fw-bold shadow-sm d-flex align-items-center justify-content-center gap-2 delete-room-rented-action" id="delete-room-rented-btn" ${isRented ? "disabled" : ""}>
+                <i class="fa-solid fa-handshake"></i><span>${isRented ? "Allerede markeret som udlejet" : "Markér som udlejet i stedet"}</span>
+            </button>
+        </div>
+        <p class="small text-muted mt-4 mb-0">Slet kun annoncen, hvis den skal fjernes permanent.</p>
+    `;
+}
+
+async function deleteRoom(room) {
+    const roomId = getRoomId(room);
+    const response = await authFetch(`/roomies/rooms/${encodeURIComponent(roomId)}`, {method: "DELETE"});
+    const body = await response.json().catch(() => ({}));
+    if (!response.ok) {
+        throw new Error(body.detail || body.message || `Serveren svarede med status ${response.status}.`);
+    }
+
+    removeRoomsFromCaches(roomId);
+    return body;
+}
+
+function hideGenericConfirmationModal() {
+    const modalElement = document.getElementById("genericConfirmationModal");
+    const modal = modalElement ? window.bootstrap?.Modal?.getInstance(modalElement) : null;
+    if (modal) {
+        modal.hide();
+        return;
+    }
+
+    $("#genericConfirmationModal").modal("hide");
 }
 
 function getRoomId(room) {

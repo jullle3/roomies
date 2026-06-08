@@ -37,7 +37,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
     <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
     <!--    Custom Merged css files -->
-    <link rel="stylesheet" href="roomies/mergedStyles.css?roomies_version=839">
+    <link rel="stylesheet" href="roomies/mergedStyles.css?roomies_version=841">
     <style>
         .nav-auth-btn:active,
         .nav-auth-btn:focus,
@@ -56,7 +56,7 @@
             color: #ffffff !important;
         }
     </style>
-    <script defer type="module" src="roomies/mergedJS.js?roomies_version=839"></script>
+    <script defer type="module" src="roomies/mergedJS.js?roomies_version=841"></script>
 
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18047412076"></script>
@@ -1425,12 +1425,12 @@
                             <section class="rent-room-form-block rent-room-step d-none" data-rent-room-step="1">
                                 <h3><i class="fa-solid fa-house-user text-primary-coral"></i> Hjemmet</h3>
                                 <div class="row g-3">
-                                    <div class="col-md-6" id="rent-room-aconto-wrapper">
-                                        <label for="rent_room_aconto_monthly" class="form-label">Aconto pr. måned</label>
-                                        <div class="input-group">
-                                            <input class="form-control" id="rent_room_aconto_monthly" name="aconto_monthly" type="number" inputmode="numeric" min="0" placeholder="fx 500">
-                                            <span class="input-group-text">kr.</span>
-                                        </div>
+                                    <div class="col-md-6">
+                                        <input class="facility-check-input" type="checkbox" id="rent_room_pets_allowed" name="pets_allowed">
+                                        <label class="facility-card rent-room-toggle-card" for="rent_room_pets_allowed">
+                                            <i class="fa-solid fa-paw"></i>
+                                            <span class="facility-text">Kæledyr tilladt</span>
+                                        </label>
                                     </div>
                                     <div class="col-md-6">
                                         <input class="facility-check-input" type="checkbox" id="rent_room_registration" name="registration_allowed">
@@ -1438,6 +1438,13 @@
                                             <i class="fa-solid fa-address-card"></i>
                                             <span class="facility-text">CPR-adresse er mulig</span>
                                         </label>
+                                    </div>
+                                    <div class="col-md-6" id="rent-room-aconto-wrapper">
+                                        <label for="rent_room_aconto_monthly" class="form-label">Aconto pr. måned</label>
+                                        <div class="input-group">
+                                            <input class="form-control" id="rent_room_aconto_monthly" name="aconto_monthly" type="number" inputmode="numeric" min="0" placeholder="fx 500">
+                                            <span class="input-group-text">kr.</span>
+                                        </div>
                                     </div>
                                     <div class="col-md-6">
                                         <label for="rent_room_preferred_gender" class="form-label">Foretrukket roomie</label>
@@ -1476,8 +1483,8 @@
                                     <input type="checkbox" id="vibe_dinner" name="vibes" value="Vegan">
                                     <label for="vibe_dinner">☕ Fællesspisning</label>
 
-                                    <input type="checkbox" id="vibe_pets" name="vibes" value="Kæledyr">
-                                    <label for="vibe_pets">🐾 Kæledyr</label>
+                                    <input type="checkbox" id="vibe_privacy" name="privacy" value="Privatliv Respekteres">
+                                    <label for="vibe_privacy">🎧 Privatliv respekteres</label>
                                 </div>
                                 <div class="rent-room-step-actions">
                                     <button class="btn btn-light rounded-pill px-4 py-3 fw-bold" type="button" data-rent-room-prev>

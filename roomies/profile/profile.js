@@ -98,8 +98,7 @@ async function getProfileRooms(userId) {
 
 function renderProfileRoomCard(room) {
     const roomId = getRoomId(room);
-    const status = room.available === false ? "På pause" : "Aktiv";
-    const statusClass = room.available === false ? "is-paused" : "is-active";
+    const {status, statusClass} = getProfileRoomStatus(room);
     const address = [room.street_name, room.house_number, room.postal_name].filter(Boolean).join(", ");
 
     return `
@@ -109,6 +108,18 @@ function renderProfileRoomCard(room) {
             <small>${escapeHtml(address || "Adresse ikke angivet")}</small>
         </button>
     `;
+}
+
+function getProfileRoomStatus(room) {
+    if (room.visible === false) {
+        return {status: "På pause", statusClass: "is-paused"};
+    }
+
+    if (room.available === false) {
+        return {status: "Udlejet", statusClass: "is-rented"};
+    }
+
+    return {status: "Aktiv", statusClass: "is-active"};
 }
 
 function replaceElementWithClone(element) {

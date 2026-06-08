@@ -1036,7 +1036,7 @@ async function getCurrentUserOwnedRoomsFromCache({onlyActive = false} = {}) {
         ? rooms
             .filter(room => String(room?.created_by || "") === userId)
             .filter(room => room?.deleted !== true)
-            .filter(room => !onlyActive || room?.available !== false)
+            .filter(room => !onlyActive || (room?.available !== false && room?.visible !== false))
             .sort((a, b) => Number(a?.created || 0) - Number(b?.created || 0))
         : [];
 }
@@ -1078,11 +1078,13 @@ async function renderRentRoomOwnerPanel() {
             return;
         }
 
-        const toggleButton = event.target.closest("[data-rent-room-owner-toggle]");
+        const visibilityButton = event.target.closest("[data-rent-room-visibility-toggle]");
+        const availabilityButton = event.target.closest("[data-rent-room-availability-toggle]");
+        const toggleButton = visibilityButton || availabilityButton;
         if (!toggleButton) return;
 
         event.preventDefault();
-        const roomId = toggleButton.dataset.rentRoomOwnerToggle;
+        const roomId = visibilityButton?.dataset.rentRoomVisibilityToggle || availabilityButton?.dataset.rentRoomAvailabilityToggle;
         const room = rooms.find(candidate => getRoomId(candidate) === roomId);
         if (!room) return;
 
@@ -1090,9 +1092,12 @@ async function renderRentRoomOwnerPanel() {
         toggleButton.innerHTML = '<span class="spinner-border spinner-border-sm me-2" aria-hidden="true"></span>Gemmer...';
 
         try {
-            const updatedRoom = await updateRentRoomAvailability(room, room.available === false);
+            const patch = visibilityButton
+                ? {visible: room.visible === false}
+                : {available: room.available === false};
+            const updatedRoom = await updateRentRoomStatus(room, patch);
             mergeCreatedRoomsIntoCache([updatedRoom]);
-            displaySuccessMessage(updatedRoom.available === false ? "Opslaget er sat på pause." : "Opslaget er aktivt igen.");
+            displaySuccessMessage(getRentRoomStatusSuccessMessage(updatedRoom, patch));
             await renderRentRoomOwnerPanel();
         } catch (error) {
             console.error("Kunne ikke opdatere opslag:", error);
@@ -1104,10 +1109,14 @@ async function renderRentRoomOwnerPanel() {
 
 function renderRentRoomOwnerCard(room) {
     const roomId = getRoomId(room);
-    const isPaused = room.available === false;
-    const status = isPaused ? "På pause" : "Aktiv";
-    const toggleLabel = isPaused ? "Gør aktiv" : "Sæt på pause";
-    const toggleIcon = isPaused ? "fa-play" : "fa-pause";
+    const isHidden = room.visible === false;
+    const isRented = room.available === false && room.visible !== false;
+    const status = isHidden ? "På pause (skjult)" : (isRented ? "Udlejet" : "Aktiv");
+    const statusClass = isHidden ? "is-paused" : (isRented ? "is-rented" : "is-active");
+    const visibilityToggleLabel = isHidden ? "Gør aktiv" : "Sæt på pause";
+    const visibilityToggleIcon = isHidden ? "fa-play" : "fa-pause";
+    const availabilityToggleLabel = isRented ? "Mangler roomie igen" : "Markér som udlejet";
+    const availabilityToggleIcon = isRented ? "fa-rotate-left" : "fa-handshake";
     const address = [
         [room.street_name, room.house_number].filter(Boolean).join(" "),
         [room.postal_number, room.postal_name].filter(Boolean).join(" ")
@@ -1115,7 +1124,7 @@ function renderRentRoomOwnerCard(room) {
 
     return `
         <article class="rent-room-owner-card">
-            <span class="rent-room-owner-status ${isPaused ? "is-paused" : "is-active"}">${status}</span>
+            <span class="rent-room-owner-status ${statusClass}">${status}</span>
             <h4>${escapeHtml(room.title || "Værelse uden titel")}</h4>
             <p>${escapeHtml(address || "Adresse ikke angivet")}</p>
             <div class="rent-room-owner-card-actions">
@@ -1123,22 +1132,25 @@ function renderRentRoomOwnerCard(room) {
                     <i class="fa-regular fa-eye me-2"></i>Se annonce
                 </button>
                 <button class="btn btn-light rounded-pill fw-bold" type="button" data-rent-room-owner-edit>
-                    <i class="fa-solid fa-pen me-2"></i>Rediger her
+                    <i class="fa-solid fa-pen me-2"></i>Rediger
                 </button>
-                <button class="btn btn-primary-coral rounded-pill fw-bold" type="button" data-rent-room-owner-toggle="${escapeAttribute(roomId)}">
-                    <i class="fa-solid ${toggleIcon} me-2"></i>${toggleLabel}
+                <button class="btn btn-outline-secondary rounded-pill fw-bold" type="button" data-rent-room-visibility-toggle="${escapeAttribute(roomId)}">
+                    <i class="fa-solid ${visibilityToggleIcon} me-2"></i>${visibilityToggleLabel}
+                </button>
+                <button class="btn btn-primary-coral rounded-pill fw-bold" type="button" data-rent-room-availability-toggle="${escapeAttribute(roomId)}">
+                    <i class="fa-solid ${availabilityToggleIcon} me-2"></i>${availabilityToggleLabel}
                 </button>
             </div>
         </article>
     `;
 }
 
-async function updateRentRoomAvailability(room, available) {
+async function updateRentRoomStatus(room, patch) {
     const roomId = getRoomId(room);
     const response = await authFetch(`/roomies/rooms/${encodeURIComponent(roomId)}`, {
         method: "PATCH",
         headers: {"Content-Type": "application/json"},
-        body: JSON.stringify({available})
+        body: JSON.stringify(patch)
     });
 
     const body = await response.json().catch(() => ({}));
@@ -1147,6 +1159,14 @@ async function updateRentRoomAvailability(room, available) {
     }
 
     return body;
+}
+
+function getRentRoomStatusSuccessMessage(room, patch) {
+    if (Object.prototype.hasOwnProperty.call(patch, "visible")) {
+        return room.visible === false ? "Opslaget er sat på pause og skjult fra søgning." : "Opslaget er aktivt igen.";
+    }
+
+    return room.available === false ? "Opslaget er markeret som udlejet." : "Opslaget er åbent for henvendelser igen.";
 }
 
 function normalizeBackendImageNames(images) {

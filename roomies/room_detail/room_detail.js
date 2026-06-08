@@ -59,6 +59,7 @@ function normalizeRoomDetail(room, isOwner = false) {
         rentalPeriod: formatRentalPeriod(readRentalPeriodMonths(room)),
         created: room.created || null,
         available: room.available !== false,
+        visible: room.visible !== false,
         isOwner,
         raw: room,
         images: getRoomImages(room),
@@ -152,24 +153,32 @@ function renderGalleryHint(room) {
 function renderOwnerPanel(room) {
     if (!room.isOwner) return "";
 
-    const availableText = room.available ? "Aktiv annonce" : "Sat på pause";
-    const toggleText = room.available ? "Sæt på pause" : "Gør aktiv igen";
-    const toggleIcon = room.available ? "fa-pause" : "fa-play";
+    const isHidden = room.visible === false;
+    const isRented = room.available === false && room.visible !== false;
+    const statusText = isHidden ? "På pause (skjult)" : (isRented ? "Udlejet" : "Aktiv");
+    const statusClass = isHidden ? "is-paused" : (isRented ? "is-rented" : "is-active");
+    const visibilityText = isHidden ? "Gør aktiv" : "Sæt på pause";
+    const visibilityIcon = isHidden ? "fa-play" : "fa-pause";
+    const availabilityText = isRented ? "Mangler roomie igen" : "Markér som udlejet";
+    const availabilityIcon = isRented ? "fa-rotate-left" : "fa-handshake";
 
     return `
         <section class="room-owner-panel">
             <div>
                 <span><i class="fa-solid fa-key"></i> Ejerens visning</span>
                 <h2>Administrer dit opslag</h2>
-                <p>Du ser annoncen, som boligsøgende ser den. Her kan du hurtigt rette eller pause den.</p>
+                <p>Pause skjuler annoncen fra søgning. Udlejet viser den stadig, men slår kontakt fra.</p>
             </div>
             <div class="room-owner-actions">
-                <span class="room-owner-status ${room.available ? "is-active" : "is-paused"}">${availableText}</span>
+                <span class="room-owner-status ${statusClass}">${statusText}</span>
                 <button class="btn btn-light rounded-pill fw-bold" type="button" data-owner-edit-room>
                     <i class="fa-solid fa-pen me-2"></i>Rediger opslag
                 </button>
-                <button class="btn btn-primary-coral rounded-pill fw-bold" type="button" data-owner-toggle-room>
-                    <i class="fa-solid ${toggleIcon} me-2"></i>${toggleText}
+                <button class="btn btn-outline-secondary rounded-pill fw-bold" type="button" data-owner-toggle-visibility>
+                    <i class="fa-solid ${visibilityIcon} me-2"></i>${visibilityText}
+                </button>
+                <button class="btn btn-primary-coral rounded-pill fw-bold" type="button" data-owner-toggle-availability>
+                    <i class="fa-solid ${availabilityIcon} me-2"></i>${availabilityText}
                 </button>
             </div>
         </section>
@@ -191,16 +200,21 @@ function setupRoomOwnerControls(container, room, isOwner) {
             return;
         }
 
-        const toggleButton = event.target.closest("[data-owner-toggle-room]");
+        const visibilityButton = event.target.closest("[data-owner-toggle-visibility]");
+        const availabilityButton = event.target.closest("[data-owner-toggle-availability]");
+        const toggleButton = visibilityButton || availabilityButton;
         if (!toggleButton) return;
 
         toggleButton.disabled = true;
         toggleButton.innerHTML = '<span class="spinner-border spinner-border-sm me-2" aria-hidden="true"></span>Gemmer...';
 
         try {
-            const updatedRoom = await updateRoomAvailability(room, room.available === false);
+            const patch = visibilityButton
+                ? {visible: room.visible === false}
+                : {available: room.available === false};
+            const updatedRoom = await updateRoomStatus(room, patch);
             updateCachedRoom(updatedRoom);
-            displaySuccessMessage(updatedRoom.available === false ? "Opslaget er sat på pause." : "Opslaget er aktivt igen.");
+            displaySuccessMessage(getRoomStatusSuccessMessage(updatedRoom, patch));
             await renderRoomDetail(getRoomId(updatedRoom));
         } catch (error) {
             console.error("Kunne ikke opdatere opslag:", error);
@@ -213,12 +227,12 @@ function setupRoomOwnerControls(container, room, isOwner) {
     container.addEventListener("click", handler);
 }
 
-async function updateRoomAvailability(room, available) {
+async function updateRoomStatus(room, patch) {
     const roomId = getRoomId(room);
     const response = await authFetch(`/roomies/rooms/${encodeURIComponent(roomId)}`, {
         method: "PATCH",
         headers: {"Content-Type": "application/json"},
-        body: JSON.stringify({available})
+        body: JSON.stringify(patch)
     });
 
     const body = await response.json().catch(() => ({}));
@@ -227,6 +241,14 @@ async function updateRoomAvailability(room, available) {
     }
 
     return body;
+}
+
+function getRoomStatusSuccessMessage(room, patch) {
+    if (Object.prototype.hasOwnProperty.call(patch, "visible")) {
+        return room.visible === false ? "Opslaget er sat på pause og skjult fra søgning." : "Opslaget er aktivt igen.";
+    }
+
+    return room.available === false ? "Opslaget er markeret som udlejet." : "Opslaget er åbent for henvendelser igen.";
 }
 
 function updateCachedRoom(updatedRoom) {
@@ -311,8 +333,9 @@ function removeExistingPhotoViewer() {
 }
 
 function renderInlineContactCta(room) {
-    const unavailable = room.available === false;
-    const buttonText = room.isOwner ? "Rediger opslag" : (unavailable ? "Værelset er ikke ledigt" : "Kontakt udlejer");
+    const unavailable = room.available === false || room.visible === false;
+    const unavailableText = room.visible === false ? "Annoncen er sat på pause" : "Værelset er ikke ledigt";
+    const buttonText = room.isOwner ? "Rediger opslag" : (unavailable ? unavailableText : "Kontakt udlejer");
     const buttonAttrs = room.isOwner ? "data-owner-edit-room" : (unavailable ? "disabled" : "");
     const buttonIcon = room.isOwner ? "fa-solid fa-pen" : "fa-regular fa-message";
 
@@ -364,8 +387,9 @@ function renderSimilarRoomCard(room) {
 }
 
 function renderContactCard(room) {
-    const unavailable = room.available === false;
-    const contactText = room.isOwner ? "Rediger opslag" : (unavailable ? "Værelset er ikke ledigt" : "Kontakt udlejer");
+    const unavailable = room.available === false || room.visible === false;
+    const unavailableText = room.visible === false ? "Annoncen er sat på pause" : "Værelset er ikke ledigt";
+    const contactText = room.isOwner ? "Rediger opslag" : (unavailable ? unavailableText : "Kontakt udlejer");
     const buttonAttrs = room.isOwner ? "data-owner-edit-room" : (unavailable ? "disabled" : "");
     const buttonIcon = room.isOwner ? "fa-solid fa-pen" : "fa-regular fa-message";
 
@@ -391,9 +415,14 @@ function renderContactCard(room) {
 }
 
 function renderStatusBadge(room) {
-    if (room.available === false) {
-        return `<span class="room-detail-status room-detail-status-unavailable"><i class="fa-solid fa-circle-xmark"></i>Ikke ledigt</span>`;
+    if (room.visible === false) {
+        return `<span class="room-detail-status room-detail-status-hidden"><i class="fa-solid fa-eye-slash"></i>På pause</span>`;
     }
+
+    if (room.available === false) {
+        return `<span class="room-detail-status room-detail-status-unavailable"><i class="fa-solid fa-handshake"></i>Udlejet</span>`;
+    }
+
     return "";
 }
 
@@ -471,6 +500,7 @@ function getSimilarRooms(currentRoom) {
     const currentId = String(currentRoom._id || currentRoom.id || "");
     const candidates = rooms
         .filter(room => String(room?._id || room?.id || "") !== currentId)
+        .filter(room => room?.visible !== false)
         .filter(room => room?.available !== false)
         .map(normalizeSimilarRoom)
         .filter(room => room.id);

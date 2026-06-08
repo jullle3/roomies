@@ -100,6 +100,11 @@
     color: var(--text-muted);
 }
 
+.room-owner-status.is-rented {
+    background: rgba(79, 70, 229, 0.12);
+    color: var(--color-premium-start);
+}
+
 .room-detail-gallery {
     position: relative;
     display: grid;
@@ -163,7 +168,11 @@
 }
 
 .room-detail-status-unavailable {
-    color: #dc3545;
+    color: var(--color-premium-start);
+}
+
+.room-detail-status-hidden {
+    color: var(--text-muted);
 }
 
 .room-detail-gallery-single {

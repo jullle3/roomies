@@ -216,9 +216,9 @@ function setupRoomOwnerControls(container, room, isOwner) {
 async function updateRoomAvailability(room, available) {
     const roomId = getRoomId(room);
     const response = await authFetch(`/roomies/rooms/${encodeURIComponent(roomId)}`, {
-        method: "PUT",
+        method: "PATCH",
         headers: {"Content-Type": "application/json"},
-        body: JSON.stringify(buildRoomUpdatePayload(room, {available}))
+        body: JSON.stringify({available})
     });
 
     const body = await response.json().catch(() => ({}));
@@ -229,57 +229,10 @@ async function updateRoomAvailability(room, available) {
     return body;
 }
 
-function buildRoomUpdatePayload(room, overrides = {}) {
-    return {
-        title: room.title || "",
-        description: room.description || "",
-        monthly_price: room.monthly_price ?? null,
-        acconto_monthly_price: room.acconto_monthly_price ?? null,
-        available_from: room.available_from ?? null,
-        rental_period_months: room.rental_period_months ?? null,
-        deposit: room.deposit ?? null,
-        prepaid_rent: room.prepaid_rent ?? null,
-        square_meters: room.square_meters ?? null,
-        images: normalizeBackendImageNames(room.images),
-        profile_photo: room.profile_photo || null,
-        datafordeler_id: room.datafordeler_id || null,
-        location: room.location || null,
-        postal_number: room.postal_number ?? null,
-        postal_name: room.postal_name || null,
-        street_name: room.street_name || null,
-        house_number: room.house_number || null,
-        city: room.city || null,
-        address: room.address || null,
-        floor: room.floor || null,
-        floor_side: room.floor_side || null,
-        pets_allowed: room.pets_allowed ?? null,
-        cpr_registration_allowed: room.cpr_registration_allowed ?? null,
-        furnished: room.furnished ?? null,
-        preferred_gender: room.preferred_gender || null,
-        preferred_age_min: room.preferred_age_min ?? null,
-        preferred_age_max: room.preferred_age_max ?? null,
-        vibes: Array.isArray(room.vibes) ? room.vibes : [],
-        available: room.available !== false,
-        marketing_package: room.marketing_package || "free",
-        ...overrides
-    };
-}
-
 function updateCachedRoom(updatedRoom) {
     if (!Array.isArray(window.rooms)) return;
     const updatedId = getRoomId(updatedRoom);
     window.rooms = window.rooms.map(room => getRoomId(room) === updatedId ? updatedRoom : room);
-}
-
-function normalizeBackendImageNames(images) {
-    if (!Array.isArray(images)) return [];
-    return images
-        .map(image => {
-            if (typeof image === "string") return image;
-            if (image && typeof image === "object") return image.name || image.thumbnail_name || "";
-            return "";
-        })
-        .filter(Boolean);
 }
 
 function getRoomId(room) {

@@ -1055,9 +1055,8 @@ async function renderRentRoomOwnerPanel() {
     panel.classList.remove("d-none");
     panel.innerHTML = `
         <div class="rent-room-owner-panel-head">
-            <span><i class="fa-solid fa-key"></i> Dine opslag</span>
-            <h3>Administrer dine værelsesannoncer</h3>
-            <p>Ret formularen herunder, eller pause et opslag hvis værelset ikke længere skal vises som ledigt.</p>
+            <span><i class="fa-solid fa-key"></i> Dine værelser</span>
+            <h3>Administrer dine værelser</h3>
         </div>
         <div class="rent-room-owner-grid">
             ${rooms.map(renderRentRoomOwnerCard).join("")}
@@ -1137,9 +1136,9 @@ function renderRentRoomOwnerCard(room) {
 async function updateRentRoomAvailability(room, available) {
     const roomId = getRoomId(room);
     const response = await authFetch(`/roomies/rooms/${encodeURIComponent(roomId)}`, {
-        method: "PUT",
+        method: "PATCH",
         headers: {"Content-Type": "application/json"},
-        body: JSON.stringify(buildBackendRoomUpdatePayload(room, {available}))
+        body: JSON.stringify({available})
     });
 
     const body = await response.json().catch(() => ({}));
@@ -1148,42 +1147,6 @@ async function updateRentRoomAvailability(room, available) {
     }
 
     return body;
-}
-
-function buildBackendRoomUpdatePayload(room, overrides = {}) {
-    return {
-        title: room.title || "",
-        description: room.description || "",
-        monthly_price: room.monthly_price ?? null,
-        acconto_monthly_price: room.acconto_monthly_price ?? null,
-        available_from: room.available_from ?? null,
-        rental_period_months: room.rental_period_months ?? null,
-        deposit: room.deposit ?? null,
-        prepaid_rent: room.prepaid_rent ?? null,
-        square_meters: room.square_meters ?? null,
-        images: normalizeBackendImageNames(room.images),
-        profile_photo: room.profile_photo || null,
-        datafordeler_id: room.datafordeler_id || null,
-        location: room.location || null,
-        postal_number: room.postal_number ?? null,
-        postal_name: room.postal_name || null,
-        street_name: room.street_name || null,
-        house_number: room.house_number || null,
-        city: room.city || null,
-        address: room.address || null,
-        floor: room.floor || null,
-        floor_side: room.floor_side || null,
-        pets_allowed: room.pets_allowed ?? null,
-        cpr_registration_allowed: room.cpr_registration_allowed ?? null,
-        furnished: room.furnished ?? null,
-        preferred_gender: room.preferred_gender || null,
-        preferred_age_min: room.preferred_age_min ?? null,
-        preferred_age_max: room.preferred_age_max ?? null,
-        vibes: Array.isArray(room.vibes) ? room.vibes : [],
-        available: room.available !== false,
-        marketing_package: room.marketing_package || "free",
-        ...overrides
-    };
 }
 
 function normalizeBackendImageNames(images) {

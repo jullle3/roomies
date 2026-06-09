@@ -58,7 +58,12 @@ h1, h2, h3, h4, h5, h6, .view-title {
    (the original landscape photo crops the outer people on narrow screens) */
 @media (max-width: 768px) {
     .landing-hero {
+        /* Near-square crop, shown in full (contain) so no faces get cropped on
+           narrow screens; the dark fill covers the area around the photo band */
         background-image: url('/pics/landing2_mobile.png');
+        background-size: contain;
+        background-position: center top;
+        background-color: #1F2937;
     }
 }
 

@@ -615,10 +615,15 @@
     .rent-room-hero {
         padding-top: 96px;
         padding-bottom: 56px;
-        /* Swap to the near-square crop so faces stay in frame on narrow screens */
+        /* Near-square crop shown in full (contain) so no faces get cropped on
+           narrow screens; dark fill covers the area around the photo band */
         background-image:
             linear-gradient(135deg, rgba(31, 41, 55, 0.9), rgba(31, 41, 55, 0.66)),
             url('/pics/landing2_mobile.png');
+        background-size: cover, contain;
+        background-position: center, center top;
+        background-repeat: no-repeat, no-repeat;
+        background-color: #1F2937;
     }
 
     .rent-room-stepper {

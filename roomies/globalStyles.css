@@ -54,6 +54,14 @@ h1, h2, h3, h4, h5, h6, .view-title {
     z-index: -1;
 }
 
+/* On mobile, swap to a near-square crop so the faces stay in frame
+   (the original landscape photo crops the outer people on narrow screens) */
+@media (max-width: 768px) {
+    .landing-hero {
+        background-image: url('/pics/landing2_mobile.png');
+    }
+}
+
 /* =========================================
    Hero Intro Badge (Glassmorphism)
 ========================================= */

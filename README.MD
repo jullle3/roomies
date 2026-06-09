@@ -1,8 +1,4 @@
 - Jeg skriver gratis lidt for ofte og mange steder
-- Remove the "favorite" button on room cards, dont need the feature atm. 
-- Keep the easy flow to create an user. 
-  After users have created an account, thank them and send them an email to remind them of filling their roomie_profile.
-  Plan https://gemini.google.com/gem/c9297fa0daa6/438200f96cb01b5e
 - Brug ansigt billede fremfor bolig billede i chat view. Hav default billede hvis intet billede
 - login med google?
 - Seo optimer alt
@@ -17,6 +13,10 @@ Remove this, not needed in this project
 - Implementer også denne smarte router løsning i andelsboligbasen? og academy
 - Få reklamer på roomies siden 
 ‘andelsbolig basen, den nemmeste vej til en andelsbolig’
+- Keep the easy flow to create an user.
+  After users have created an account, thank them and send them an email to remind them of filling their roomie_profile.
+  Plan https://gemini.google.com/gem/c9297fa0daa6/438200f96cb01b5e
+
 - Freemium, se freemium_ideas.txt
 - Slug på roomies fremfor bare ID. Det giver bedre SEO
 - Skriv simpelt "vilkaar" view 

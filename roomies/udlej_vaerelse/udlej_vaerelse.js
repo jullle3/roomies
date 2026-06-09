@@ -56,12 +56,17 @@ export async function setupRentRoomView() {
     form.addEventListener("submit", handleRentRoomSubmit);
 }
 
-export async function refreshRentRoomFormFromOwnerRooms() {
+export async function refreshRentRoomFormFromOwnerRooms(options = {}) {
     const form = document.getElementById("form-rent-room");
     if (!form) return;
 
     await renderRentRoomOwnerPanel();
-    const draft = await buildDraftFromUserRooms();
+
+    // On view (re)entry, prefer a locally saved draft so in-progress input survives
+    // logging in mid-creation. Delete flows pass nothing, forcing a fresh backend load.
+    const draft = options.preferLocalDraft
+        ? await getInitialRentRoomDraft()
+        : await buildDraftFromUserRooms();
     if (!draft) {
         resetRentRoomFormToEmpty(form);
         return;

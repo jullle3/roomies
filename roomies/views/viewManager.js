@@ -85,6 +85,10 @@ export function getCurrentView() {
     return currentView;
 }
 
+export function getCurrentViewParams() {
+    return new URLSearchParams(currentViewParams.toString());
+}
+
 // All views that require login
 const loginRequiredViews = ["login", "seller_profile", "successful_redirect", "login", "conversations", "agent_create", "agent_edit"];
 const payWalledViews = ["seller_profile", "successful_redirect", "login"];
@@ -419,7 +423,7 @@ async function loadViewData(view, viewParams) {
         case "udlej_vaerelse": {
             const module = await import("../udlej_vaerelse/udlej_vaerelse.js");
             await module.setupRentRoomView();
-            await module.refreshRentRoomFormFromOwnerRooms();
+            await module.refreshRentRoomFormFromOwnerRooms({preferLocalDraft: true});
             break;
         }
         case "seller_profile":

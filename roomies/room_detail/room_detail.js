@@ -68,6 +68,8 @@ function normalizeRoomDetail(room, isOwner = false) {
         available: room.available !== false,
         visible: room.visible !== false,
         isOwner,
+        host: room.host_name || "",
+        avatar: room.profile_photo ? buildS3ImageUrl(room.profile_photo) : "",
         raw: room,
         images: getRoomImages(room),
         householdFeatures: getHouseholdFeatures(room),
@@ -456,12 +458,33 @@ function removeExistingPhotoViewer() {
     });
 }
 
-function renderInlineContactCta(room) {
+function getFirstName(name) {
+    return String(name || "").trim().split(/\s+/)[0] || "";
+}
+
+// Inner HTML for the room's primary action button across all three states.
+// Contact state shows "Kontakt {firstName}" with the owner's avatar inside the button.
+function renderRoomActionButtonInner(room) {
+    if (room.isOwner) {
+        return '<i class="fa-solid fa-pen me-2"></i>Rediger opslag';
+    }
+
     const unavailable = room.available === false || room.visible === false;
-    const unavailableText = room.visible === false ? "Annoncen er sat på pause" : "Værelset er ikke ledigt";
-    const buttonText = room.isOwner ? "Rediger opslag" : (unavailable ? unavailableText : "Kontakt udlejer");
-    const buttonAttrs = room.isOwner ? "data-owner-edit-room" : (unavailable ? "disabled" : "");
-    const buttonIcon = room.isOwner ? "fa-solid fa-pen" : "fa-regular fa-message";
+    if (unavailable) {
+        const text = room.visible === false ? "Annoncen er sat på pause" : "Værelset er ikke ledigt";
+        return `<i class="fa-regular fa-message me-2"></i>${text}`;
+    }
+
+    const firstName = getFirstName(room.host);
+    const label = firstName ? `Kontakt ${escapeHtml(firstName)}` : "Kontakt udlejer";
+    if (room.avatar) {
+        return `${label}<img class="room-detail-contact-avatar ms-2" src="${room.avatar}" alt="" loading="lazy">`;
+    }
+    return `<i class="fa-regular fa-message me-2"></i>${label}`;
+}
+
+function renderInlineContactCta(room) {
+    const buttonAttrs = room.isOwner ? "data-owner-edit-room" : (room.available === false || room.visible === false ? "disabled" : "");
 
     return `
         <div class="room-detail-inline-cta">
@@ -469,8 +492,8 @@ function renderInlineContactCta(room) {
                 <strong>${room.isOwner ? "Vil du rette noget?" : "Er værelset noget for dig?"}</strong>
                 <span>${room.isOwner ? "Opdater tekst, pris, billeder eller ledighed." : "Send en besked og hør mere om hjemmet."}</span>
             </div>
-            <button class="btn btn-primary-coral rounded-pill px-4 py-3 fw-bold" type="button" ${buttonAttrs}>
-                <i class="${buttonIcon} me-2"></i>${buttonText}
+            <button class="btn btn-primary-coral rounded-pill px-4 py-3 fw-bold d-inline-flex align-items-center justify-content-center" type="button" ${buttonAttrs}>
+                ${renderRoomActionButtonInner(room)}
             </button>
         </div>
     `;
@@ -511,11 +534,7 @@ function renderSimilarRoomCard(room) {
 }
 
 function renderContactCard(room) {
-    const unavailable = room.available === false || room.visible === false;
-    const unavailableText = room.visible === false ? "Annoncen er sat på pause" : "Værelset er ikke ledigt";
-    const contactText = room.isOwner ? "Rediger opslag" : (unavailable ? unavailableText : "Kontakt udlejer");
-    const buttonAttrs = room.isOwner ? "data-owner-edit-room" : (unavailable ? "disabled" : "");
-    const buttonIcon = room.isOwner ? "fa-solid fa-pen" : "fa-regular fa-message";
+    const buttonAttrs = room.isOwner ? "data-owner-edit-room" : (room.available === false || room.visible === false ? "disabled" : "");
 
     return `
         <div class="room-detail-contact-card">
@@ -529,8 +548,8 @@ function renderContactCard(room) {
                 <p><span>Lejeperiode</span><b>${escapeHtml(room.rentalPeriod)}</b></p>
                 <p><span>Størrelse</span><b>${room.size ? `${formatNumber(room.size)} m²` : "-"}</b></p>
             </div>
-            <button class="btn btn-primary-coral rounded-pill w-100 py-3 fw-bold" type="button" ${buttonAttrs}>
-                <i class="${buttonIcon} me-2"></i>${contactText}
+            <button class="btn btn-primary-coral rounded-pill w-100 py-3 fw-bold d-inline-flex align-items-center justify-content-center" type="button" ${buttonAttrs}>
+                ${renderRoomActionButtonInner(room)}
             </button>
             <p class="room-detail-created small text-muted text-center mb-0 mt-3">${formatCreatedDate(room.created)}</p>
             <p class="small text-muted text-center mb-0 mt-3">Kontaktflow kobles på backend, når endpointet er klar.</p>

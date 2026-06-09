@@ -169,7 +169,7 @@ function renderLandingRoomCard(room) {
                     <span class="room-search-available badge bg-white text-dark rounded-pill shadow-sm">
                         <i class="fa-regular fa-calendar me-1 text-primary"></i>${formatLandingAvailableDate(room.available_from)}
                     </span>
-                    <img class="avatar-overlap" src="${avatar}" alt="${escapeHtml(host)}" loading="lazy">
+                    ${avatar ? `<img class="avatar-overlap" src="${avatar}" alt="${escapeHtml(host)}" loading="lazy">` : ""}
                 </div>
 
                 <div class="card-body p-4 pt-4 mt-2 d-flex flex-column">
@@ -207,12 +207,10 @@ function getLandingRoomVibes(room) {
 }
 
 function getLandingRoomAvatar(room) {
-    // Show the room owner's profile photo when present, so people see who they'd live with
+    // Only show a real owner photo. No placeholder avatar — we don't want fake faces.
     const photo = typeof room.profile_photo === "string" ? room.profile_photo.trim() : "";
-    if (photo) {
-        return /^https?:\/\//i.test(photo) ? photo : `${s3Url}/${photo.replace(/^\/+/, "")}`;
-    }
-    return room.avatar || room.user_avatar || `${basePath}/pics/community-young-woman-1.png`;
+    if (!photo) return "";
+    return /^https?:\/\//i.test(photo) ? photo : `${s3Url}/${photo.replace(/^\/+/, "")}`;
 }
 
 function getLandingRoomImage(room) {

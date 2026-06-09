@@ -580,6 +580,15 @@
     opacity: 1;
 }
 
+/* Owner avatar shown inside the "Kontakt {navn}" button */
+.room-detail-contact-avatar {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid rgba(255, 255, 255, 0.85);
+}
+
 .room-detail-inline-cta {
     display: flex;
     align-items: center;

@@ -1,10 +1,6 @@
 import {getCachedRooms, onRoomsLoaded} from "../rooms/room_cache.js";
 import {s3Url} from "../config/config.js";
 
-const FAVORITES_KEY = "roomies_room_favorites";
-
-let roomFavorites = readFavorites();
-
 export function setupRoomSearchView() {
     const form = document.getElementById("room-search-form");
     const results = document.getElementById("room-search-results");
@@ -28,16 +24,6 @@ export function setupRoomSearchView() {
     document.getElementById("room-search-reset")?.addEventListener("click", resetRoomSearch);
     document.querySelector("[data-reset-room-search]")?.addEventListener("click", resetRoomSearch);
     onRoomsLoaded(renderRoomListings);
-
-    results.addEventListener("click", event => {
-        const button = event.target.closest("[data-room-favorite]");
-        if (button) {
-            toggleFavorite(button.dataset.roomFavorite);
-            renderRoomListings();
-            event.preventDefault();
-            event.stopPropagation();
-        }
-    });
 
     window.openRoomSearch = openRoomSearch;
     renderRoomListings();
@@ -207,11 +193,11 @@ function buildS3ImageUrl(imageName) {
 }
 
 function getRoomAvatar(room) {
-    // Show the room owner's profile photo when present, so people see who they'd live with
+    // Only show a real owner photo. No placeholder avatar — we don't want fake faces.
     if (typeof room.profile_photo === "string" && room.profile_photo.trim()) {
         return buildS3ImageUrl(room.profile_photo.trim());
     }
-    return room.avatar || room.user_avatar || "/pics/community-young-woman-1.png";
+    return "";
 }
 
 function formatCreatedDate(value) {
@@ -223,9 +209,6 @@ function formatCreatedDate(value) {
 }
 
 function renderRoomCard(room) {
-    const isFavorite = roomFavorites.has(room.id);
-    const favoriteLabel = isFavorite ? "Fjern fra gemte værelser" : "Gem værelse";
-    const favoriteIcon = isFavorite ? "fa-solid" : "fa-regular";
     const detailUrl = `/vaerelse?id=${encodeURIComponent(room.id)}`;
 
     return `
@@ -234,13 +217,10 @@ function renderRoomCard(room) {
                 <a class="room-card-detail-link" href="${detailUrl}" data-room-detail-id="${room.id}" aria-label="Se detaljer for ${escapeHtml(room.title)}"></a>
                 <div class="room-thumb-wrapper">
                     <img class="room-photo" src="${room.image}" alt="${escapeHtml(room.title)}" loading="lazy">
-                    <button class="room-search-favorite" type="button" data-room-favorite="${room.id}" aria-label="${favoriteLabel}" title="${favoriteLabel}">
-                        <i class="${favoriteIcon} fa-heart"></i>
-                    </button>
                     <span class="room-search-available badge bg-white text-dark rounded-pill shadow-sm">
                         <i class="fa-regular fa-calendar me-1 text-primary"></i>${formatAvailableDate(room.availableFrom)}
                     </span>
-                    <img class="avatar-overlap" src="${room.avatar}" alt="${escapeHtml(room.host)}" loading="lazy">
+                    ${room.avatar ? `<img class="avatar-overlap" src="${room.avatar}" alt="${escapeHtml(room.host)}" loading="lazy">` : ""}
                 </div>
                 <div class="card-body p-4 pt-4 mt-2 d-flex flex-column">
                     <h3 class="h5 fw-bold mb-2">${escapeHtml(room.title)}</h3>
@@ -367,25 +347,6 @@ function updateNativeSliderFill(sliderId) {
     const value = Number(range.value);
     const percent = ((value - min) / (max - min)) * 100;
     range.style.setProperty("--room-search-range-progress", `${Math.max(0, Math.min(100, percent))}%`);
-}
-
-function toggleFavorite(roomId) {
-    if (roomFavorites.has(roomId)) {
-        roomFavorites.delete(roomId);
-    } else {
-        roomFavorites.add(roomId);
-    }
-
-    localStorage.setItem(FAVORITES_KEY, JSON.stringify([...roomFavorites]));
-}
-
-function readFavorites() {
-    try {
-        const favorites = JSON.parse(localStorage.getItem(FAVORITES_KEY) || "[]");
-        return new Set(Array.isArray(favorites) ? favorites : []);
-    } catch {
-        return new Set();
-    }
 }
 
 function formatAvailableDate(value) {

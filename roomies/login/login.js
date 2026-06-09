@@ -2,6 +2,8 @@ import {authFetch} from "../auth/auth.js";
 import {
     clearPostOnboardingContext,
     displayLoginModal,
+    getCurrentView,
+    getCurrentViewParams,
     getPostOnboardingContext,
     getPostOnboardingReturnUrl,
     rememberPostOnboardingContext,
@@ -442,6 +444,10 @@ export async function updateAfterLogin(jwt, modalToHideID) {
     }
 
     if (viewAfterLogin === null) {
+        // No explicit post-login destination (e.g. generic navbar login). Re-show the
+        // current view so its logged-in load logic runs (e.g. the udlej-værelse form
+        // populates from the user's existing listings) without a full page refresh.
+        await showView(getCurrentView(), getCurrentViewParams(), false);
         return;
     }
 

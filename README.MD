@@ -1,9 +1,8 @@
 - Jeg skriver gratis lidt for ofte og mange steder
-- Find god måde at få folks profilbilleder vist på room listings, det giver tillid.
 - Remove the "favorite" button on room cards, dont need the feature atm. 
-- Keep the easy flow to create an user. However we should expand the profile view a bit. Users must be able to fill out a profile with their interests, and a short desccription about them, their gender (optional) 
-and a photo of them. This is important for the site since its all about human connection in the end. After users have created an account, thank them and send them an email to remind them of filling this.
-Plan https://gemini.google.com/gem/c9297fa0daa6/438200f96cb01b5e
+- Keep the easy flow to create an user. 
+  After users have created an account, thank them and send them an email to remind them of filling their roomie_profile.
+  Plan https://gemini.google.com/gem/c9297fa0daa6/438200f96cb01b5e
 - Brug ansigt billede fremfor bolig billede i chat view. Hav default billede hvis intet billede
 - login med google?
 - Seo optimer alt

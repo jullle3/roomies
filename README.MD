@@ -1,9 +1,4 @@
-- Billedet vist på landing og udlej-vaerelse er godt på desktop men ikke mobil, da man ikke kan se menneskerne der
-- It seems theres a blocking request when accesing view "boligovervaagning", please dont block the entering of the view as its bad UX, perhaps show a loading spinner on the view or similar instead so the site doesnt feel laggy for the user
-- Mangler frontend optimering, eller backend? 
-- Upload af billede skal trigger en update mod backend med det samme, uden at behøve at klikke gem. Man skal også kunne vælge et billede ved at klikke på sit profilbillede
 - Jeg skriver gratis lidt for ofte og mange steder
-- When the user wants to create an SøgeAgent, in case they have NOT filled out their roomie profile (read local cache), show a popup prompting them to do so. It should link them to the profile page directly to  roomie-profile section
 - Find god måde at få folks profilbilleder vist på room listings, det giver tillid.
 - Remove the "favorite" button on room cards, dont need the feature atm. 
 - Keep the easy flow to create an user. However we should expand the profile view a bit. Users must be able to fill out a profile with their interests, and a short desccription about them, their gender (optional) 

@@ -212,61 +212,6 @@
     padding: clamp(1.25rem, 4vw, 2rem);
 }
 
-.roomie-agent-profile-warning {
-    display: flex;
-    gap: 0.85rem;
-    align-items: flex-start;
-    margin-bottom: 1.5rem;
-    padding: 1rem 1.1rem;
-    border: 1px solid rgba(255, 107, 107, 0.22);
-    border-radius: var(--radius-xl);
-    background: rgba(255, 107, 107, 0.07);
-    color: var(--text-main);
-}
-
-.roomie-agent-profile-warning > i {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 34px;
-    height: 34px;
-    flex: 0 0 34px;
-    border-radius: 50%;
-    background: #fff;
-    color: var(--color-primary);
-    box-shadow: var(--shadow-soft);
-}
-
-.roomie-agent-profile-warning strong,
-.roomie-agent-profile-warning p,
-.roomie-agent-profile-warning a {
-    display: block;
-}
-
-.roomie-agent-profile-warning strong {
-    margin-bottom: 0.2rem;
-    font-weight: 800;
-}
-
-.roomie-agent-profile-warning p {
-    margin: 0 0 0.45rem;
-    color: var(--text-muted);
-    font-size: 0.92rem;
-    font-weight: 600;
-}
-
-.roomie-agent-profile-warning a {
-    color: var(--color-primary);
-    font-weight: 800;
-    text-decoration: none;
-}
-
-.roomie-agent-profile-warning a:hover,
-.roomie-agent-profile-warning a:focus {
-    color: var(--color-primary-hover);
-    text-decoration: underline;
-}
-
 .roomie-agent-form-block {
     padding-bottom: 1.5rem;
     margin-bottom: 1.5rem;

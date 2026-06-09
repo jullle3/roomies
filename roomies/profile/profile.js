@@ -175,6 +175,16 @@ function setupHumanProfileHandlers() {
     const photoInput = document.getElementById('profile-photo-input');
     if (photoInput) {
         photoInput.addEventListener('change', handleProfilePhotoSelected);
+
+        // Let users open the file picker by clicking their profile picture
+        [
+            document.getElementById('profile-photo-preview'),
+            document.getElementById('profile-photo-placeholder')
+        ].forEach(element => {
+            if (!element) return;
+            element.style.cursor = 'pointer';
+            element.addEventListener('click', () => photoInput.click());
+        });
     }
 
     const description = document.getElementById('profile-description');
@@ -351,7 +361,7 @@ function enforceInterestLimit(changedInput) {
     displayErrorMessage(`Vælg højst ${PROFILE_INTEREST_LIMIT} roomie-vibes.`);
 }
 
-function handleProfilePhotoSelected(event) {
+async function handleProfilePhotoSelected(event) {
     const file = event.target.files?.[0];
     if (!file) return;
 
@@ -367,13 +377,27 @@ function handleProfilePhotoSelected(event) {
         return;
     }
 
+    const previousPhotoName = profilePhotoName;
     pendingProfilePhotoFile = file;
 
+    // Show an instant local preview while the upload runs
     const reader = new FileReader();
     reader.onload = () => {
         updateProfilePhotoPreview(String(reader.result || ''));
     };
     reader.readAsDataURL(file);
+
+    // Persist immediately so the photo is saved without needing the "Gem" button
+    try {
+        await uploadPendingProfilePhoto();
+        displaySuccessMessage('Profilbilledet er gemt.');
+    } catch (error) {
+        console.error('Could not upload profile photo:', error);
+        displayErrorMessage(error.message || 'Kunne ikke uploade profilbilledet.');
+        pendingProfilePhotoFile = null;
+        event.target.value = '';
+        updateProfilePhotoPreview(buildProfilePhotoUrl(previousPhotoName));
+    }
 }
 
 async function uploadPendingProfilePhoto() {
@@ -395,6 +419,13 @@ async function uploadPendingProfilePhoto() {
     profilePhotoName = body.profile_photo || body.name || null;
     pendingProfilePhotoFile = null;
     updateProfilePhotoPreview(buildProfilePhotoUrl(profilePhotoName));
+
+    if (currentUser && profilePhotoName) {
+        currentUser.roomie_profile = {
+            ...(currentUser.roomie_profile || {}),
+            profile_photo: profilePhotoName
+        };
+    }
 
     const photoInput = document.getElementById('profile-photo-input');
     if (photoInput) photoInput.value = '';

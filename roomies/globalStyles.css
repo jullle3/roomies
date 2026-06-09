@@ -235,7 +235,6 @@ h1, h2, h3, h4, h5, h6, .view-title {
     padding-bottom: 65%; /* 3:2 Aspect Ratio */
     border-top-left-radius: var(--radius-xl);
     border-top-right-radius: var(--radius-xl);
-    overflow: hidden;
     background-color: #f3f4f6;
 }
 
@@ -246,6 +245,10 @@ h1, h2, h3, h4, h5, h6, .view-title {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    /* Round the photo itself so the wrapper needs no overflow:hidden,
+       which would otherwise clip the overlapping avatar below it */
+    border-top-left-radius: var(--radius-xl);
+    border-top-right-radius: var(--radius-xl);
 }
 
 .avatar-overlap {

@@ -207,6 +207,11 @@ function getLandingRoomVibes(room) {
 }
 
 function getLandingRoomAvatar(room) {
+    // Show the room owner's profile photo when present, so people see who they'd live with
+    const photo = typeof room.profile_photo === "string" ? room.profile_photo.trim() : "";
+    if (photo) {
+        return /^https?:\/\//i.test(photo) ? photo : `${s3Url}/${photo.replace(/^\/+/, "")}`;
+    }
     return room.avatar || room.user_avatar || `${basePath}/pics/community-young-woman-1.png`;
 }
 

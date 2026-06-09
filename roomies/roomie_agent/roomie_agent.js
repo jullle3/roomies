@@ -8,6 +8,11 @@ const MAX_AREA_SUGGESTIONS = 4;
 const AGENTS_API_BASE = "/roomies/agents";
 const AREA_LOOKUP = new Map(areaAutocompleteOptions.map(area => [String(area.id), area]));
 
+// Identity fields that signal a genuinely filled-out roomie profile. The search
+// fields (monthly_price_max, areas) are excluded since they belong to the agent.
+const MEANINGFUL_PROFILE_FIELDS = ["profile_photo", "age", "gender", "occupation", "interests", "description"];
+const MIN_FILLED_PROFILE_FIELDS = 3;
+
 let cachedAgents = null;
 let overviewBound = false;
 let formBound = false;
@@ -86,7 +91,12 @@ function updateOverviewEmptyStateCopy({title, text, cta}) {
 
 export async function renderSearchAgentCreate() {
     const user = await ensureCurrentUserLoaded();
-    renderAgentForm({mode: "create", user});
+    renderAgentForm({mode: "create"});
+
+    // Inform (don't block) users who haven't filled out their roomie profile yet
+    if (!hasFilledRoomieProfile(user)) {
+        showRoomieProfilePromptModal();
+    }
 }
 
 export async function renderSearchAgentEdit(agentId) {
@@ -169,13 +179,13 @@ function bindFormContainers() {
     });
 }
 
-function renderAgentForm({mode, agent = null, user = null}) {
+function renderAgentForm({mode, agent = null}) {
     const viewId = mode === "edit" ? "agent_edit" : "agent_create";
     const mount = getFormMount(viewId);
     if (!mount) return;
 
     selectedAreas = normalizeAreaIds(agent?.criteria?.areas);
-    mount.innerHTML = renderFormMarkup(mode, agent, user);
+    mount.innerHTML = renderFormMarkup(mode, agent);
     renderSelectedAreas();
     renderAreaSuggestions("");
 
@@ -356,11 +366,10 @@ function renderErrorCard(message) {
     `;
 }
 
-function renderFormMarkup(mode, agent, user = null) {
+function renderFormMarkup(mode, agent) {
     const criteria = agent?.criteria || {};
     const isEdit = mode === "edit";
     const agentId = getAgentId(agent);
-    const profileWarning = !isEdit && !hasFilledRoomieProfile(user) ? renderRoomieProfileWarning() : "";
 
     return `
         <section class="roomie-agent-form-shell">
@@ -374,7 +383,7 @@ function renderFormMarkup(mode, agent, user = null) {
                             <div class="roomie-agent-mini-icon"><i class="fa-solid fa-bell"></i></div>
                             <div>
                                 <strong>Vi holder øje for dig</strong>
-                                <span>Områder og maks husleje samlet ét sted.</span>
+                                <span>Dit budget. Dit nabolag. Dit hjem.</span>
                             </div>
                         </div>
                     </div>
@@ -382,7 +391,6 @@ function renderFormMarkup(mode, agent, user = null) {
 
                 <div class="col-lg-7">
                     <form id="roomie-agent-form" class="roomie-agent-form-card" data-mode="${mode}" data-agent-id="${escapeHtml(agentId)}" novalidate>
-                        ${profileWarning}
                         <div class="roomie-agent-form-block">
                             <label for="roomie-agent-name" class="form-label">Navn på din SøgeAgent</label>
                             <input id="roomie-agent-name" name="name" type="text" maxlength="200" class="form-control" value="${escapeAttribute(agent?.name || "")}" placeholder="F.eks. Nørrebro under 6.000 kr.">
@@ -417,30 +425,70 @@ function hasFilledRoomieProfile(user) {
     const profile = user?.roomie_profile;
     if (!profile || typeof profile !== "object") return false;
 
-    return Boolean(
-        profile.profile_photo ||
-        profile.age ||
-        profile.gender ||
-        profile.occupation ||
-        profile.description ||
-        profile.monthly_price_max ||
-        profile.move_in_date ||
-        (Array.isArray(profile.interests) && profile.interests.length > 0) ||
-        (Array.isArray(profile.areas) && profile.areas.length > 0)
-    );
+    // The profile object always exists with empty defaults, so we judge genuine
+    // effort by how many identity fields the user actually filled in.
+    const filledCount = MEANINGFUL_PROFILE_FIELDS.filter(field => {
+        const value = profile[field];
+        return Array.isArray(value) ? value.length > 0 : value != null && String(value).trim() !== "";
+    }).length;
+
+    return filledCount >= MIN_FILLED_PROFILE_FIELDS;
 }
 
-function renderRoomieProfileWarning() {
-    return `
-        <div class="roomie-agent-profile-warning">
-            <i class="fa-solid fa-circle-info"></i>
-            <div>
-                <strong>Din roomie-profil er tom</strong>
-                <p>Udfyld din profil, så udlejere hurtigere kan mærke hvem du er, når du skriver.</p>
-                <a href="/profil" data-view="profile">Udfyld profil</a>
+function showRoomieProfilePromptModal() {
+    const modalElement = ensureRoomieProfilePromptModal();
+    bootstrap.Modal.getOrCreateInstance(modalElement).show();
+}
+
+function ensureRoomieProfilePromptModal() {
+    const existing = document.getElementById("roomieProfilePromptModal");
+    if (existing) return existing;
+
+    const modal = document.createElement("div");
+    modal.className = "modal fade";
+    modal.id = "roomieProfilePromptModal";
+    modal.tabIndex = -1;
+    modal.setAttribute("aria-labelledby", "roomieProfilePromptModalLabel");
+    modal.setAttribute("aria-hidden", "true");
+    modal.innerHTML = `
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 shadow-lg">
+                <div class="modal-body p-4 p-md-5 text-center">
+                    <div class="mb-3"><i class="fa-regular fa-id-badge fa-3x text-primary-coral"></i></div>
+                    <h2 class="h4 fw-bold mb-3" id="roomieProfilePromptModalLabel">Gør din roomie-profil klar 👋</h2>
+                    <p class="text-muted mb-4">
+                        Du er ved at oprette en SøgeAgent. Udfyld din roomie-profil, så udlejere hurtigere kan mærke, hvem du er, når du skriver til dem.
+                    </p>
+                    <div class="d-grid gap-2">
+                        <button class="btn btn-primary-coral rounded-pill py-3 fw-bold" type="button" data-roomie-profile-prompt-go>
+                            <i class="fa-solid fa-user-pen me-2"></i>Udfyld din profil
+                        </button>
+                        <button class="btn btn-light rounded-pill py-3 fw-bold" type="button" data-bs-dismiss="modal">
+                            Måske senere
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
     `;
+    document.body.appendChild(modal);
+
+    modal.querySelector("[data-roomie-profile-prompt-go]")?.addEventListener("click", async () => {
+        bootstrap.Modal.getOrCreateInstance(modal).hide();
+        await showView("profile");
+        scrollToRoomieProfileSection();
+    });
+
+    return modal;
+}
+
+function scrollToRoomieProfileSection() {
+    const scrollToForm = () => {
+        document.getElementById("profileHumanForm")?.scrollIntoView({behavior: "auto", block: "start"});
+    };
+    requestAnimationFrame(scrollToForm);
+    setTimeout(scrollToForm, 150);
+    setTimeout(scrollToForm, 500);
 }
 
 function renderAreaSuggestions(query) {

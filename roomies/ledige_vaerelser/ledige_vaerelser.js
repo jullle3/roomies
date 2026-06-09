@@ -207,6 +207,10 @@ function buildS3ImageUrl(imageName) {
 }
 
 function getRoomAvatar(room) {
+    // Show the room owner's profile photo when present, so people see who they'd live with
+    if (typeof room.profile_photo === "string" && room.profile_photo.trim()) {
+        return buildS3ImageUrl(room.profile_photo.trim());
+    }
     return room.avatar || room.user_avatar || "/pics/community-young-woman-1.png";
 }
 

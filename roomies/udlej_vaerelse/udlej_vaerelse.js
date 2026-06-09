@@ -16,6 +16,9 @@ const ADDRESS_AUTOCOMPLETE_URL = "https://api.dataforsyningen.dk/adresser/autoco
 const MAX_IMAGES = 8;
 const MAX_IMAGE_SIZE_BYTES = 12 * 1024 * 1024;
 const PROFILE_MAX_PHOTO_SIZE_BYTES = 3 * 1024 * 1024;
+const PROFILE_SOURCE_MAX_PHOTO_SIZE_BYTES = 12 * 1024 * 1024;
+const IMAGE_OPTIMIZATION_MAX_EDGE = 1200;
+const IMAGE_OPTIMIZATION_QUALITY = 0.8;
 const ROOM_FIELDS = [
     "title",
     "description",
@@ -593,7 +596,8 @@ async function addImages(roomId, files, previewContainer, form) {
         renderImagePreviews(roomId, previewContainer);
 
         try {
-            const uploadedImage = await uploadRoomImage(file);
+            const optimizedFile = await optimizeImageForUpload(file);
+            const uploadedImage = await uploadRoomImage(optimizedFile);
             state.savedImageNames.push(uploadedImage.name);
             state.images = state.images.filter(image => image !== uploadingImage);
             URL.revokeObjectURL(uploadingImage.previewUrl);
@@ -628,6 +632,93 @@ async function uploadRoomImage(file) {
     }
 
     return body;
+}
+
+function optimizeImageForUpload(file) {
+    if (!file?.type?.startsWith("image/")) {
+        return Promise.resolve(file);
+    }
+
+    if (file.type === "image/svg+xml") {
+        return Promise.resolve(file);
+    }
+
+    return new Promise(resolve => {
+        const image = new Image();
+        const objectUrl = URL.createObjectURL(file);
+
+        const finish = optimizedFile => {
+            URL.revokeObjectURL(objectUrl);
+            resolve(optimizedFile || file);
+        };
+
+        image.onload = () => {
+            try {
+                const {width, height} = getOptimizedImageDimensions(image.width, image.height);
+                const canvas = document.createElement("canvas");
+                canvas.width = width;
+                canvas.height = height;
+
+                const context = canvas.getContext("2d");
+                if (!context) {
+                    finish(file);
+                    return;
+                }
+
+                context.imageSmoothingEnabled = true;
+                context.imageSmoothingQuality = "high";
+                context.drawImage(image, 0, 0, width, height);
+
+                canvas.toBlob(blob => {
+                    canvas.width = 0;
+                    canvas.height = 0;
+
+                    if (!blob || blob.type !== "image/webp" || blob.size >= file.size) {
+                        finish(file);
+                        return;
+                    }
+
+                    finish(new File([blob], getOptimizedImageFileName(file), {
+                        type: blob.type || "image/webp",
+                        lastModified: Date.now()
+                    }));
+                }, "image/webp", IMAGE_OPTIMIZATION_QUALITY);
+            } catch (error) {
+                console.warn("Kunne ikke optimere billede i browseren. Bruger originalfil.", error);
+                finish(file);
+            }
+        };
+
+        image.onerror = () => finish(file);
+        image.src = objectUrl;
+    });
+}
+
+function getOptimizedImageDimensions(width, height) {
+    if (!width || !height) {
+        return {width, height};
+    }
+
+    if (width <= IMAGE_OPTIMIZATION_MAX_EDGE && height <= IMAGE_OPTIMIZATION_MAX_EDGE) {
+        return {width, height};
+    }
+
+    if (width >= height) {
+        return {
+            width: IMAGE_OPTIMIZATION_MAX_EDGE,
+            height: Math.max(1, Math.round((height / width) * IMAGE_OPTIMIZATION_MAX_EDGE))
+        };
+    }
+
+    return {
+        width: Math.max(1, Math.round((width / height) * IMAGE_OPTIMIZATION_MAX_EDGE)),
+        height: IMAGE_OPTIMIZATION_MAX_EDGE
+    };
+}
+
+function getOptimizedImageFileName(file) {
+    const baseName = String(file.name || "billede").replace(/\.[^/.]+$/, "");
+    return `${baseName}.webp`;
 }
 
 function renderImagePreviews(roomId, container) {
@@ -893,8 +984,8 @@ function promptForProfilePhotoUpload() {
                 return;
             }
 
-            if (file.size > PROFILE_MAX_PHOTO_SIZE_BYTES) {
-                showError("Profilbilledet må højst være 3 MB.");
+            if (file.size > PROFILE_SOURCE_MAX_PHOTO_SIZE_BYTES) {
+                showError("Profilbilledet må højst være 12 MB før optimering.");
                 fileInput.value = "";
                 return;
             }
@@ -906,7 +997,12 @@ function promptForProfilePhotoUpload() {
             setBusy(true);
 
             try {
-                const profilePhoto = await uploadProfilePhoto(file);
+                const optimizedFile = await optimizeImageForUpload(file);
+                if (optimizedFile.size > PROFILE_MAX_PHOTO_SIZE_BYTES) {
+                    throw new Error("Profilbilledet er stadig for stort efter optimering. Vælg et mindre billede.");
+                }
+
+                const profilePhoto = await uploadProfilePhoto(optimizedFile);
                 URL.revokeObjectURL(previewUrl);
                 finish(profilePhoto);
             } catch (error) {

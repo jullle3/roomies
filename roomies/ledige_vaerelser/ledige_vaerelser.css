@@ -436,7 +436,7 @@
     color: var(--color-primary);
 }
 
-#room-search-results .room-card {
+.room-card {
     position: relative;
     overflow: visible;
     cursor: pointer;
@@ -449,7 +449,7 @@
     border-radius: inherit;
 }
 
-#room-search-results .room-card h3 {
+.room-card h3 {
     min-height: 2.8em;
     line-height: 1.4;
 }
@@ -541,7 +541,7 @@
         margin-top: 0.35rem;
     }
 
-    #room-search-results .room-card h3 {
+    .room-card h3 {
         min-height: auto;
     }
 

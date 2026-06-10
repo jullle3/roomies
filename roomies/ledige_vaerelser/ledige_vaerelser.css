@@ -458,18 +458,6 @@
     line-height: 1.4;
 }
 
-.room-search-available {
-    position: absolute;
-    z-index: 2;
-    left: 1rem;
-    top: 1rem;
-    padding: 0.65rem 0.85rem;
-    border: 1px solid rgba(255, 255, 255, 0.7);
-    background: rgba(255, 255, 255, 0.92) !important;
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-}
-
 .room-search-own {
     position: absolute;
     z-index: 2;
@@ -501,19 +489,6 @@
 }
 
 .room-search-facts i {
-    color: var(--color-primary);
-}
-
-/* "Bo med {navn}" caption sitting just under the owner avatar */
-.room-card-host-caption {
-    align-self: flex-end;
-    margin: -0.35rem 0 0.6rem;
-    font-size: 0.78rem;
-    font-weight: 600;
-    color: var(--text-muted);
-}
-
-.room-card-host-caption i {
     color: var(--color-primary);
 }
 

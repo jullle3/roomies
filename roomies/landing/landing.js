@@ -1,5 +1,6 @@
 import {authFetch} from "../auth/auth.js";
 import {basePath, s3Url} from "../config/config.js";
+import {renderRoomCard as renderSharedRoomCard} from "../rooms/roomCard.js";
 import {areaAutocompleteOptions} from "../config/hardcoded_data.js";
 import {displayErrorMessage} from "../utils.js";
 import {preloadRooms} from "../rooms/room_cache.js";
@@ -149,61 +150,22 @@ function renderLandingRoomsEmptyState() {
 }
 
 function renderLandingRoomCard(room) {
-    const id = room._id || room.id || "";
-    const title = room.title || "Ledigt værelse";
-    const area = formatLandingRoomArea(room);
-    const image = getLandingRoomImage(room);
-    const avatar = getLandingRoomAvatar(room);
-    const host = room.host_name || room.created_by_name || "en roomie";
-    const price = Number(room.monthly_price ?? room.price ?? 0);
-    const size = Number(room.square_meters ?? 0);
-    const detailUrl = `/vaerelse?id=${encodeURIComponent(id)}`;
-    const vibes = getLandingRoomVibes(room);
-
-    return `
-        <div class="col-12 col-md-6 col-lg-4">
-            <article class="card room-card h-100">
-                <a class="room-card-detail-link" href="${detailUrl}" aria-label="Se detaljer for ${escapeHtml(title)}"></a>
-                <div class="room-thumb-wrapper">
-                    <img class="room-photo" src="${image}" alt="${escapeHtml(title)}" loading="lazy">
-                    <span class="room-search-available badge bg-white text-dark rounded-pill shadow-sm">
-                        <i class="fa-regular fa-calendar me-1 text-primary"></i>${formatLandingAvailableDate(room.available_from)}
-                    </span>
-                    ${avatar ? `<img class="avatar-overlap" src="${avatar}" alt="${escapeHtml(host)}" loading="lazy">` : ""}
-                </div>
-
-                <div class="card-body p-4 pt-4 mt-2 d-flex flex-column">
-                    <div class="d-flex justify-content-between align-items-start mb-2">
-                        <div>
-                            <h3 class="h5 fw-bold mb-2">${escapeHtml(title)}</h3>
-                            <p class="text-muted small mb-0"><i class="fa-solid fa-location-dot me-1"></i>${escapeHtml(area)}</p>
-                        </div>
-                    </div>
-
-                    <strong class="room-search-price d-block mb-3">${formatLandingRoomNumber(price)} <span>kr./md</span></strong>
-
-                    <div class="d-flex flex-wrap gap-2 mb-4">
-                        ${vibes.map(vibe => `<span class="vibe-tag">${escapeHtml(vibe)}</span>`).join("")}
-                    </div>
-
-                    <div class="room-search-facts d-flex justify-content-between align-items-center small text-muted fw-medium mt-auto pt-3 border-top">
-                        <span><i class="fa-regular fa-calendar me-1"></i>${formatLandingRoomCreated(room.created)}</span>
-                        <span>${size ? `${formatLandingRoomNumber(size)} m²` : "Størrelse ikke angivet"}</span>
-                    </div>
-                </div>
-            </article>
-        </div>
-    `;
-}
-
-function getLandingRoomVibes(room) {
-    const vibes = [];
-    if (room.furnished) vibes.push("Møbleret");
-    if (room.cpr_registration_allowed) vibes.push("CPR muligt");
-    if (room.cleaning_plan) vibes.push("Rengøringsplan");
-    if (room.communal_dinners) vibes.push("Fællesspisning");
-    if (room.pets_allowed) vibes.push("Kæledyr");
-    return vibes.length ? vibes.slice(0, 3) : ["Roomie"];
+    return renderSharedRoomCard({
+        id: room._id || room.id || "",
+        title: room.title || "Ledigt værelse",
+        image: getLandingRoomImage(room),
+        location: formatLandingRoomArea(room),
+        price: Number(room.monthly_price ?? room.price ?? 0),
+        size: Number(room.square_meters ?? 0),
+        availableFrom: room.available_from ?? null,
+        furnished: Boolean(room.furnished),
+        cprAllowed: Boolean(room.cpr_registration_allowed),
+        petsAllowed: Boolean(room.pets_allowed),
+        vibes: Array.isArray(room.vibes) ? room.vibes : [],
+        avatar: getLandingRoomAvatar(room),
+        host: room.host_name || room.created_by_name || "en roomie",
+        isOwn: false
+    });
 }
 
 function getLandingRoomAvatar(room) {
@@ -226,27 +188,6 @@ function formatLandingRoomArea(room) {
     return postal || room.address || "Område ikke angivet";
 }
 
-function formatLandingRoomCreated(value) {
-    if (!value) return "Ny annonce";
-
-    const date = new Date(Number(value) * 1000);
-    if (Number.isNaN(date.getTime())) return "Ny annonce";
-
-    return `Oprettet ${new Intl.DateTimeFormat("da-DK", {day: "numeric", month: "short"}).format(date)}`;
-}
-
-function formatLandingAvailableDate(value) {
-    if (!value) return "aftale";
-
-    const date = new Date(Number(value) * 1000);
-    if (Number.isNaN(date.getTime())) return "aftale";
-
-    return new Intl.DateTimeFormat("da-DK", {day: "numeric", month: "short"}).format(date);
-}
-
-function formatLandingRoomNumber(value) {
-    return new Intl.NumberFormat("da-DK").format(Number(value || 0));
-}
 
 export function loadScannerHighlightedListings(advertisementData) {
     const section = document.getElementById("scanner-highlighted-section");

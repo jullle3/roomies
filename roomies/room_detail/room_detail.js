@@ -572,7 +572,7 @@ function renderContactCard(room) {
             <strong>${formatNumber(room.price)} kr./md</strong>
             <div class="room-detail-price-lines">
                 <p><span>Depositum</span><b>${formatMoneyOrDash(room.deposit)}</b></p>
-                <p><span>Forudbetalt leje</span><b>${formatMoneyOrDash(room.prepaidRent)}</b></p>
+                ${room.prepaidRent ? `<p><span>Forudbetalt leje</span><b>${formatMoneyOrDash(room.prepaidRent)}</b></p>` : ""}
                 <p><span>Ledig fra</span><b>${formatAvailableDate(room.availableFrom)}</b></p>
                 <p><span>Lejeperiode</span><b>${escapeHtml(room.rentalPeriod)}</b></p>
                 <p><span>Størrelse</span><b>${room.size ? `${formatNumber(room.size)} m²` : "-"}</b></p>

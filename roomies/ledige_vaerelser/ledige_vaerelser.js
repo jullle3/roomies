@@ -1,5 +1,6 @@
 import {getCachedRooms, onRoomsLoaded} from "../rooms/room_cache.js";
 import {s3Url} from "../config/config.js";
+import {renderRoomCard as renderSharedRoomCard} from "../rooms/roomCard.js";
 import {decodeJwt} from "../utils.js";
 
 export function setupRoomSearchView() {
@@ -151,9 +152,10 @@ function normalizeRoomListing(room) {
         availableFrom: room.available_from ?? null,
         furnished: Boolean(room.furnished),
         registrationAllowed: Boolean(room.cpr_registration_allowed),
+        petsAllowed: Boolean(room.pets_allowed),
         utilitiesIncluded: Boolean(room.utilities_included),
         roommates: Number(room.current_roomies ?? room.rooms ?? 0),
-        vibes: getRoomVibes(room),
+        vibes: Array.isArray(room.vibes) ? room.vibes : [],
         image: getRoomImage(room),
         avatar: getRoomAvatar(room),
         host: room.host_name || room.created_by_name || "en roomie",
@@ -175,16 +177,6 @@ function roomMatchesSelectedArea(room, areaId) {
     return String(postalNumber) === id;
 }
 
-function getRoomVibes(room) {
-    const vibes = [];
-    if (room.communal_dinners) vibes.push("Socialt");
-    if (room.cleaning_plan) vibes.push("Rengøringsplan");
-    if (room.pets_allowed) vibes.push("Kæledyr");
-    if (room.privacy_focused) vibes.push("Stille");
-    if (room.furnished) vibes.push("Møbleret");
-    return vibes.length ? vibes : ["Roomie"];
-}
-
 function getRoomImage(room) {
     const firstImage = Array.isArray(room.images) ? room.images[0] : null;
     if (typeof firstImage === "string" && firstImage) return firstImage;
@@ -200,10 +192,6 @@ function buildS3ImageUrl(imageName) {
     if (!imageName) return "";
     if (/^https?:\/\//i.test(imageName)) return imageName;
     return `${s3Url}/${String(imageName).replace(/^\/+/, "")}`;
-}
-
-function getFirstName(name) {
-    return String(name || "").trim().split(/\s+/)[0] || "en roomie";
 }
 
 function getRoomAvatar(room) {
@@ -223,42 +211,22 @@ function formatCreatedDate(value) {
 }
 
 function renderRoomCard(room) {
-    const detailUrl = `/vaerelse?id=${encodeURIComponent(room.id)}`;
-
-    return `
-        <div class="col-12 col-md-6 col-xl-4">
-            <article class="card room-card h-100">
-                <a class="room-card-detail-link" href="${detailUrl}" data-room-detail-id="${room.id}" aria-label="Se detaljer for ${escapeHtml(room.title)}"></a>
-                <div class="room-thumb-wrapper">
-                    <img class="room-photo" src="${room.image}" alt="${escapeHtml(room.title)}" loading="lazy">
-                    <span class="room-search-available badge bg-white text-dark rounded-pill shadow-sm">
-                        <i class="fa-regular fa-calendar me-1 text-primary"></i>${formatAvailableDate(room.availableFrom)}
-                    </span>
-                    ${room.isOwn ? `<span class="room-search-own badge rounded-pill shadow-sm"><i class="fa-solid fa-user-check me-1"></i>Din annonce</span>` : ""}
-                    ${room.avatar ? `<img class="avatar-overlap" src="${room.avatar}" alt="${escapeHtml(room.host)}" loading="lazy">` : ""}
-                </div>
-                <div class="card-body p-4 pt-4 mt-2 d-flex flex-column">
-                    ${room.avatar ? `<span class="room-card-host-caption"><i class="fa-regular fa-face-smile me-1"></i>Bo med ${escapeHtml(getFirstName(room.host))}</span>` : ""}
-                    <h3 class="h5 fw-bold mb-2">${escapeHtml(room.title)}</h3>
-                    <p class="text-muted small mb-3">
-                        <i class="fa-solid fa-location-dot me-1"></i>${escapeHtml(room.postal)}
-                    </p>
-                    <div class="d-flex align-items-end justify-content-between gap-3 mb-3">
-                        <strong class="room-search-price">${formatNumber(room.rent)} <span>kr./md</span></strong>
-                        <span class="text-muted fw-bold">${room.size} m²</span>
-                    </div>
-                    <div class="d-flex flex-wrap gap-2 mb-4">
-                        ${room.vibes.map(vibe => `<span class="vibe-tag">${getVibeEmoji(vibe)} ${escapeHtml(vibe)}</span>`).join("")}
-                    </div>
-                    <div class="room-search-facts d-flex flex-wrap gap-3 mt-auto pt-3 border-top">
-                        <span><i class="fa-regular fa-user me-1"></i>${room.roommates} roomie${room.roommates === 1 ? "" : "s"}</span>
-                        ${room.furnished ? '<span><i class="fa-solid fa-couch me-1"></i>Møbleret</span>' : ""}
-                        ${room.utilitiesIncluded ? '<span><i class="fa-solid fa-bolt me-1"></i>Forbrug inkl.</span>' : ""}
-                    </div>
-                </div>
-            </article>
-        </div>
-    `;
+    return renderSharedRoomCard({
+        id: room.id,
+        title: room.title,
+        image: room.image,
+        location: room.postal,
+        price: room.rent,
+        size: room.size,
+        availableFrom: room.availableFrom,
+        furnished: room.furnished,
+        cprAllowed: room.registrationAllowed,
+        petsAllowed: room.petsAllowed,
+        vibes: room.vibes,
+        avatar: room.avatar,
+        host: room.host,
+        isOwn: room.isOwn
+    });
 }
 
 function resetRoomSearch() {
@@ -364,44 +332,12 @@ function updateNativeSliderFill(sliderId) {
     range.style.setProperty("--room-search-range-progress", `${Math.max(0, Math.min(100, percent))}%`);
 }
 
-function formatAvailableDate(value) {
-    const date = parseDateValue(value);
-    if (Number.isNaN(date.getTime())) return "Efter aftale";
-    return new Intl.DateTimeFormat("da-DK", {day: "numeric", month: "short"}).format(date);
-}
-
-function parseDateValue(value) {
-    if (!value) return new Date(NaN);
-
-    const numericValue = Number(value);
-    if (Number.isFinite(numericValue) && String(value).trim() !== "") {
-        return new Date(numericValue < 10000000000 ? numericValue * 1000 : numericValue);
-    }
-
-    if (typeof value === "string" && /^\d{4}-\d{2}-\d{2}$/.test(value)) {
-        return new Date(`${value}T00:00:00`);
-    }
-
-    return new Date(value);
-}
-
 function formatNumber(value) {
     return new Intl.NumberFormat("da-DK").format(value);
 }
 
 function getNormalizedText(value) {
     return String(value || "").trim().toLocaleLowerCase("da-DK");
-}
-
-function getVibeEmoji(vibe) {
-    return {
-        "Socialt": "🍻",
-        "Rengøringsplan": "🧹",
-        "Studievenligt": "🎓",
-        "Kæledyr": "🐾",
-        "Stille": "🤫",
-        "Vegan": "🌿"
-    }[vibe] || "✨";
 }
 
 function escapeHtml(value) {

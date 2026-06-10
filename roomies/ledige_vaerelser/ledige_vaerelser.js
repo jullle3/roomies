@@ -1,5 +1,6 @@
 import {getCachedRooms, onRoomsLoaded} from "../rooms/room_cache.js";
 import {s3Url} from "../config/config.js";
+import {decodeJwt} from "../utils.js";
 
 export function setupRoomSearchView() {
     const form = document.getElementById("room-search-form");
@@ -113,7 +114,15 @@ function getFilteredRooms(cachedRooms) {
             && (!data.has("utilities_included") || room.utilitiesIncluded);
         });
 
+    const currentUserId = decodeJwt()?.sub || "";
+    rooms.forEach(room => {
+        room.isOwn = Boolean(currentUserId && room.createdBy === currentUserId);
+    });
+
     return rooms.sort((a, b) => {
+        // The user's own listings always float to the top.
+        if (a.isOwn !== b.isOwn) return a.isOwn ? -1 : 1;
+
         switch (data.get("sort")) {
             case "rent_asc":
                 return a.rent - b.rent;
@@ -132,6 +141,7 @@ function normalizeRoomListing(room) {
 
     return {
         id: room._id || room.id || crypto.randomUUID(),
+        createdBy: String(room.created_by || ""),
         title: room.title || "Ledigt værelse",
         postalNumber: Number(room.postal_number),
         postal: postal || room.address || "Adresse ikke angivet",
@@ -192,6 +202,10 @@ function buildS3ImageUrl(imageName) {
     return `${s3Url}/${String(imageName).replace(/^\/+/, "")}`;
 }
 
+function getFirstName(name) {
+    return String(name || "").trim().split(/\s+/)[0] || "en roomie";
+}
+
 function getRoomAvatar(room) {
     // Only show a real owner photo. No placeholder avatar — we don't want fake faces.
     if (typeof room.profile_photo === "string" && room.profile_photo.trim()) {
@@ -220,9 +234,11 @@ function renderRoomCard(room) {
                     <span class="room-search-available badge bg-white text-dark rounded-pill shadow-sm">
                         <i class="fa-regular fa-calendar me-1 text-primary"></i>${formatAvailableDate(room.availableFrom)}
                     </span>
+                    ${room.isOwn ? `<span class="room-search-own badge rounded-pill shadow-sm"><i class="fa-solid fa-user-check me-1"></i>Din annonce</span>` : ""}
                     ${room.avatar ? `<img class="avatar-overlap" src="${room.avatar}" alt="${escapeHtml(room.host)}" loading="lazy">` : ""}
                 </div>
                 <div class="card-body p-4 pt-4 mt-2 d-flex flex-column">
+                    ${room.avatar ? `<span class="room-card-host-caption"><i class="fa-regular fa-face-smile me-1"></i>Bo med ${escapeHtml(getFirstName(room.host))}</span>` : ""}
                     <h3 class="h5 fw-bold mb-2">${escapeHtml(room.title)}</h3>
                     <p class="text-muted small mb-3">
                         <i class="fa-solid fa-location-dot me-1"></i>${escapeHtml(room.postal)}
@@ -239,7 +255,6 @@ function renderRoomCard(room) {
                         ${room.furnished ? '<span><i class="fa-solid fa-couch me-1"></i>Møbleret</span>' : ""}
                         ${room.utilitiesIncluded ? '<span><i class="fa-solid fa-bolt me-1"></i>Forbrug inkl.</span>' : ""}
                     </div>
-                    <p class="room-search-host small mb-0 mt-3"><i class="fa-regular fa-face-smile me-1"></i> Bo med <strong>${escapeHtml(room.host)}</strong></p>
                 </div>
             </article>
         </div>

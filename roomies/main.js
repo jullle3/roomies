@@ -18,7 +18,6 @@ import {
     initDynamicScrapedCount,
     initDynamicUserCount,
     loadLandingNewRooms,
-    loadFeaturedHousings,
     loadScannerHighlightedListings,
     setupLandingRoomSearchAutocomplete
 } from "./landing/landing.js";
@@ -146,8 +145,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         const url = new URL(window.location.href);
 
         const isSimpleLanding = (url.pathname === '/');
-        const normalizedPath = url.pathname.replace(/\/+$/, '') || '/';
-        const isDetailPath = normalizedPath === '/detaljer';
         const isPseoPath = (
             url.pathname.startsWith('/tilsalg') ||
             url.pathname.startsWith('/bytte') ||
@@ -155,7 +152,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             url.pathname.startsWith('/alle-boliger')
         );
 
-        if (isSimpleLanding || isPseoPath || isDetailPath) {
+        if (isSimpleLanding || isPseoPath) {
             // Non-blocking: Load user in background so the UI renders immediately
             loadUser()
                 .then(() => {
@@ -164,7 +161,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 })
                 .catch(err => console.error("User load failed (bg)", err));
         } else {
-            // For app-views (e.g., /detaljer, /profil) we must await the user state
+            // For app-views (e.g., /vaerelse, /profil) we must await the user state
             await loadUser();
             startGlobalConversationUnreadPolling();
             preloadCreateHousingDataInBackground();
@@ -189,7 +186,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         const advertisementData = await fetchAdvertisementData();
         if (advertisementData) {
             loadScannerHighlightedListings(advertisementData);
-            loadFeaturedHousings(advertisementData);
             loadHousingStats(advertisementData);
             initDynamicUserCount(advertisementData.total_users);
             initDynamicScrapedCount(advertisementData.total_scraped);
@@ -232,16 +228,4 @@ function removeAppLoader() {
 
 function startBackgroundJobs() {
     preloadRooms();
-
-    // Initialize global state for housings to null (indicating 'loading')
-    window.housings = null;
-
-    if (typeof fetchAllAdvertisements !== 'function') {
-        window.housingFetchPromise = Promise.resolve([]);
-        return;
-    }
-
-    // Start fetching advertisements in the BACKGROUND (Non-blocking).
-    // FIXED: We now assign this to window.housingFetchPromise so getHousingById can await it!
-    window.housingFetchPromise = fetchAllAdvertisements().catch(err => console.error("Failed to fetch ads in background", err));
 }

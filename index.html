@@ -37,7 +37,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
     <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
     <!--    Custom Merged css files -->
-    <link rel="stylesheet" href="roomies/mergedStyles.css?roomies_version=877">
+    <link rel="stylesheet" href="roomies/mergedStyles.css?roomies_version=890">
     <style>
         .nav-auth-btn:active,
         .nav-auth-btn:focus,
@@ -56,7 +56,7 @@
             color: #ffffff !important;
         }
     </style>
-    <script defer type="module" src="roomies/mergedJS.js?roomies_version=877"></script>
+    <script defer type="module" src="roomies/mergedJS.js?roomies_version=890"></script>
 
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18047412076"></script>
@@ -270,7 +270,7 @@
                                             <h6 class="fw-bold mb-1">Få besked før andre</h6>
                                             <span class="small text-muted">Opret en gratis SøgeAgent, så holder vi øje med nye værelser for dig.</span>
                                         </div>
-                                        <a href="/boligovervaagning-opret" data-view="agent_create" class="btn btn-primary-coral rounded-pill px-4 px-md-5 py-3 fw-bold shadow-sm flex-shrink-0 text-nowrap">
+                                        <a href="/boligovervaagning" data-view="agent" class="btn btn-primary-coral rounded-pill px-4 px-md-5 py-3 fw-bold shadow-sm flex-shrink-0 text-nowrap">
                                             Opret SøgeAgent
                                         </a>
                                     </div>
@@ -1528,7 +1528,7 @@
                                     <div class="row g-3">
                                         <div class="col-12">
                                             <label class="form-label" data-label-for="title">Overskrift</label>
-                                            <input class="form-control form-control-lg" data-room-field="title" type="text" placeholder="Vi foreslår en overskrift, hvis du lader feltet stå tomt">
+                                            <input class="form-control form-control-lg" data-room-field="title" type="text" required maxlength="200" placeholder="fx Lyst værelse på Nørrebro 🚲">
                                         </div>
                                         <div class="col-12">
                                             <label class="form-label" data-label-for="description">Beskrivelse</label>
@@ -1594,7 +1594,12 @@
                                                 <i class="fa-solid fa-plus me-2"></i>Tilføj forudbetalt leje
                                             </button>
                                             <div class="mt-3 d-none" data-prepaid-rent-panel>
-                                                <label class="form-label" data-label-for="prepaid_rent">Forudbetalt leje</label>
+                                                <div class="d-flex align-items-center justify-content-between mb-1">
+                                                    <label class="form-label mb-0" data-label-for="prepaid_rent">Forudbetalt leje</label>
+                                                    <button class="btn btn-link text-muted fw-semibold p-0 text-decoration-none" type="button" data-prepaid-rent-remove>
+                                                        <i class="fa-solid fa-xmark me-1"></i>Fjern
+                                                    </button>
+                                                </div>
                                                 <div class="input-group">
                                                     <input class="form-control" data-room-field="prepaid_rent" type="number" inputmode="numeric" min="0" placeholder="fx 0">
                                                     <span class="input-group-text">kr.</span>
@@ -1955,7 +1960,7 @@
                     <i class="fa-regular fa-comments me-2"></i>Din roomie-indbakke
                 </span>
                 <h1 class="fw-bold company-dark mb-2">Mine beskeder</h1>
-                <p class="text-muted mb-0">Skriv trygt med andre unge om værelser, hverdagsvaner og roomie-vibes.</p>
+                <p class="text-muted mb-0">Skriv direkte med udlejere og kommende roomies – og find det helt rette match.</p>
             </div>
 
             <div id="conversations-loading" class="text-center py-5">

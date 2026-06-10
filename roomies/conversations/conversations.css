@@ -335,6 +335,25 @@
     box-shadow: var(--shadow-soft);
 }
 
+/* Circular avatar of the person you are chatting with (chat header). */
+.chat-person-avatar {
+    width: 56px;
+    height: 56px;
+    border: 3px solid #fff;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: var(--shadow-soft);
+}
+
+.chat-person-avatar--fallback {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 107, 107, 0.12);
+    color: var(--color-primary, #FF6B6B);
+    font-size: 24px;
+}
+
 .chat-thumb-stack {
     position: relative;
     width: 66px;

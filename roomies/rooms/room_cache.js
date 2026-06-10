@@ -116,6 +116,21 @@ export async function getRoomById(roomId) {
     return getRoomByIdFromOwnerCache(roomId);
 }
 
+export async function getRoomByCreatedBy(userId) {
+    if (!userId) return null;
+
+    const cached = findRoomByCreatedBy(getCachedRooms(), userId);
+    if (cached) return cached;
+
+    await preloadRooms();
+    return findRoomByCreatedBy(getCachedRooms(), userId);
+}
+
+function findRoomByCreatedBy(rooms, userId) {
+    if (!Array.isArray(rooms)) return null;
+    return rooms.find(room => String(room?.created_by || "") === String(userId) && room?.deleted !== true) || null;
+}
+
 export function onRoomsLoaded(callback) {
     document.addEventListener(ROOM_CACHE_EVENT, event => callback(event.detail.rooms));
 }

@@ -1,5 +1,5 @@
 import {
-    displayErrorMessage, getHousingById,
+    displayErrorMessage,
     isLoggedIn,
     prepareStripeBuyButton,
     isSubscribed,
@@ -38,8 +38,6 @@ const views = {
     housing_map: document.getElementById('housing_map'),
     // Hack to redirect users to that page when completing login
     login: document.getElementById('housing_list'),  // popup
-    detail: document.getElementById('detail'),
-    create: document.getElementById('create'),
     profile: document.getElementById('profile'),
     conversations: document.getElementById('conversations'),
     agent: document.getElementById('agent'),
@@ -408,12 +406,6 @@ export function displayLoginModal(requestedView, viewParams) {
 // Load content for a given view
 async function loadViewData(view, viewParams) {
     switch (view) {
-        case "create": // Garanter data indlæses når 'Sælg andelsbolig selv' viewet åbnes
-            await ensureHousingDataLoaded();
-            break;
-        case "detail":
-            await loadHousingDetail(viewParams.get("id"), viewParams)
-            break;
         case "room_detail":
             await renderRoomDetail(viewParams.get("id"));
             break;
@@ -464,7 +456,10 @@ async function loadViewData(view, viewParams) {
             await loadProfileView();
             break;
         case "conversations":
-            await renderConversations(viewParams.get("besked_id") || viewParams.get("id"));
+            await renderConversations(viewParams.get("besked_id") || viewParams.get("id"), {
+                draftReceiverId: viewParams.get("modtager"),
+                draftRoomId: viewParams.get("room"),
+            });
             break;
         case "agent":
             renderSearchAgentOverview();
@@ -913,29 +908,6 @@ export async function handleRouting() {
     }
 
     let v = pathToView(url.pathname);
-
-    // ---------------------------------------------------------
-    // 🔄 Backwards Compatibility: Legacy Social Media Links
-    // ---------------------------------------------------------
-    // Detects old format: https://roomies.dk/?id=...&view=detail
-    // If we are on the landing page (pathname '/') and see 'view=detail', we redirect.
-    if ((!v || v === 'landing') && url.searchParams.get('view') === 'detail') {
-        // Remove the legacy 'view' param.
-        // When showView() calls history.pushState, it will generate the
-        // new, clean URL (e.g., /detaljer?id=...) automatically.
-        url.searchParams.delete('view');
-
-        // Ensure we actually have an ID to show
-        const id = url.searchParams.get('id');
-        if (id) {
-            const housing = await getHousingById(id)
-            if (housing) {
-                v = 'detail';
-            } else {
-                displayErrorMessage("Boligen er desværre solgt");
-            }
-        }
-    }
 
     // Default to landing if view is still unknown
     v = v || 'landing';

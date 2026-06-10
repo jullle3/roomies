@@ -248,34 +248,6 @@ function formatLandingRoomNumber(value) {
     return new Intl.NumberFormat("da-DK").format(Number(value || 0));
 }
 
-export function loadFeaturedHousings(advertisementData) {
-    const container = document.getElementById("featured-housings-container");
-    if(!container) return;
-    if (typeof generateHousingCard !== "function") {
-        document.getElementById('featured-section')?.classList.add('d-none');
-        return;
-    }
-
-    // We can use the specific metrics provided by backend
-    // TODO: These are actually very misleading names.
-    //  The correct order is, newest, VIP2, VIP2
-    const housings = [
-        advertisementData.most_expensive,
-        advertisementData.cheapest,
-        advertisementData.lowest_monthly,
-    ].filter(Boolean); // Remove nulls
-
-    if (housings.length === 0) {
-        document.getElementById('featured-section').style.display = 'none';
-        return;
-    }
-
-    // Map to HTML using the shared card generator
-    container.innerHTML = housings
-        .map(housing => generateHousingCard(housing, "landing-featured-card"))
-        .join('');
-}
-
 export function loadScannerHighlightedListings(advertisementData) {
     const section = document.getElementById("scanner-highlighted-section");
     const track = document.getElementById("scanner-highlighted-track");

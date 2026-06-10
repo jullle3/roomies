@@ -8,10 +8,13 @@ import {
 } from "../utils.js";
 import {authFetch} from "../auth/auth.js";
 import {s3Url} from "../config/config.js";
-import {getCachedMyRooms, mergeRoomsIntoCaches, preloadMyRooms, removeRoomsFromCaches} from "../rooms/room_cache.js";
+import {getCachedRooms, mergeRoomsIntoCaches, preloadRooms, removeRoomsFromCaches} from "../rooms/room_cache.js";
 import {displayLoginModal, showView} from "../views/viewManager.js";
 
 const RENT_ROOM_DRAFT_KEY = "roomies_rent_room_draft";
+// Tracks which user a saved draft belongs to, so one user's draft (and their backend
+// room ids) never leaks into another user's session in the same browser.
+const RENT_ROOM_DRAFT_OWNER_KEY = "roomies_rent_room_draft_owner";
 const ADDRESS_AUTOCOMPLETE_URL = "https://api.dataforsyningen.dk/adresser/autocomplete";
 const MAX_IMAGES = 8;
 const MAX_IMAGE_SIZE_BYTES = 12 * 1024 * 1024;
@@ -80,7 +83,7 @@ export async function refreshRentRoomFormFromOwnerRooms(options = {}) {
 }
 
 function resetRentRoomFormToEmpty(form) {
-    localStorage.removeItem(RENT_ROOM_DRAFT_KEY);
+    clearRentRoomDraft();
     selectedAddress = null;
     form.reset();
     clearAddressDerivedFields();
@@ -348,6 +351,10 @@ function setupPrepaidRentToggle(roomElement) {
         }
         sync(true);
         input.focus();
+    });
+
+    roomElement.querySelector("[data-prepaid-rent-remove]")?.addEventListener("click", () => {
+        sync(false);
     });
 }
 
@@ -802,7 +809,7 @@ async function handleRentRoomSubmit(event) {
     try {
         const createdRooms = await createRoomListings(listings);
         mergeCreatedRoomsIntoCache(createdRooms);
-        localStorage.removeItem(RENT_ROOM_DRAFT_KEY);
+        clearRentRoomDraft();
         const updatedCount = listings.filter(listing => listing.backend_room_id).length;
         const createdCount = listings.length - updatedCount;
 
@@ -1097,9 +1104,15 @@ async function uploadProfilePhoto(file) {
 function saveDraft(form) {
     try {
         localStorage.setItem(RENT_ROOM_DRAFT_KEY, JSON.stringify(buildRentRoomDraft(form)));
+        localStorage.setItem(RENT_ROOM_DRAFT_OWNER_KEY, isLoggedIn() ? getCurrentUserId() : "");
     } catch (error) {
         console.warn("Kunne ikke gemme værelseskladde:", error);
     }
+}
+
+function clearRentRoomDraft() {
+    localStorage.removeItem(RENT_ROOM_DRAFT_KEY);
+    localStorage.removeItem(RENT_ROOM_DRAFT_OWNER_KEY);
 }
 
 function readDraft() {
@@ -1118,10 +1131,47 @@ function readDraft() {
 async function getInitialRentRoomDraft() {
     const localDraft = readDraft();
     if (localDraft) {
-        return attachExistingRoomIdsToDraft(localDraft);
+        // A draft saved by a different user must not carry over (it would leak their
+        // listing text and, worse, their backend room ids — turning "Opret" into a
+        // failing "Opdater" against a room this user doesn't own).
+        if (await draftBelongsToDifferentUser()) {
+            clearRentRoomDraft();
+            return buildDraftFromUserRooms();
+        }
+
+        return sanitizeDraftBackendRoomIds(await attachExistingRoomIdsToDraft(localDraft));
     }
 
     return buildDraftFromUserRooms();
+}
+
+async function draftBelongsToDifferentUser() {
+    const draftOwnerId = localStorage.getItem(RENT_ROOM_DRAFT_OWNER_KEY) || "";
+    // Anonymous drafts (started before logging in) intentionally carry over to whoever
+    // logs in next — that's the "fill the form, then sign up" flow.
+    if (!draftOwnerId || !isLoggedIn()) return false;
+
+    const user = await ensureCurrentUserLoaded();
+    return draftOwnerId !== getCurrentUserId(user);
+}
+
+// Defensive backstop (also covers legacy drafts saved before owner tracking): never keep
+// a backend_room_id the current user does not actually own, so we never PUT another
+// user's room. An unowned id is dropped, making that room a fresh "Opret" instead.
+async function sanitizeDraftBackendRoomIds(draft) {
+    if (!draft || !Array.isArray(draft.rooms) || !draft.rooms.some(room => room.backend_room_id)) {
+        return draft;
+    }
+
+    const ownedRoomIds = new Set((await getCurrentUserOwnedRoomsFromCache()).map(getRoomId));
+    return {
+        ...draft,
+        rooms: draft.rooms.map(room => (
+            room.backend_room_id && !ownedRoomIds.has(room.backend_room_id)
+                ? {...room, backend_room_id: null}
+                : room
+        ))
+    };
 }
 
 async function attachExistingRoomIdsToDraft(draft) {
@@ -1167,8 +1217,11 @@ async function getCurrentUserOwnedRoomsFromCache() {
     const userId = getCurrentUserId(user);
     if (!userId) return [];
 
-    await preloadMyRooms();
-    const rooms = getCachedMyRooms();
+    // Derive the user's rooms by filtering the shared all-rooms cache on created_by.
+    // This is always correct per-user (no stale per-user cache to leak across logins).
+    // Await preloadRooms() in case the startup fetch is still in flight.
+    await preloadRooms();
+    const rooms = getCachedRooms();
     return Array.isArray(rooms)
         ? rooms
             .filter(room => String(room?.created_by || "") === userId)
@@ -1593,7 +1646,7 @@ function buildRoomDraft(roomElement) {
     return {
         id: roomId,
         backend_room_id: roomElement.dataset.backendRoomId || null,
-        title: getRoomString(roomElement, "title") || generateRoomTitle(roomElement),
+        title: getRoomString(roomElement, "title"),
         description: getRoomString(roomElement, "description"),
         available_from: getRoomString(roomElement, "available_from") || null,
         rental_period_months: getRoomNumber(roomElement, "rental_period_months"),
@@ -1604,20 +1657,6 @@ function buildRoomDraft(roomElement) {
         furnished: getRoomCheckbox(roomElement, "furnished"),
         image_names: [...(state?.savedImageNames || [])]
     };
-}
-
-function generateRoomTitle(roomElement) {
-    const size = getRoomNumber(roomElement, "size");
-    const city = selectedAddress?.postal_name || selectedAddress?.municipality_name || selectedAddress?.postal_number || "området";
-    const vibes = [...document.querySelectorAll('#form-rent-room input[name="vibes"]:checked')].map(input => input.value);
-    const vibeText = vibes.includes("Socialt")
-        ? "socialt hjem"
-        : vibes.includes("Stille")
-            ? "roligt hjem"
-            : "hyggeligt hjem";
-
-    const sizeText = size ? `${size} m²` : "Ledigt";
-    return `${sizeText} værelse i ${vibeText} i ${city}`;
 }
 
 function buildIndependentListingPayloads(draft, profilePhoto = null) {

@@ -69,6 +69,7 @@ function normalizeRoomDetail(room, isOwner = false) {
         available: room.available !== false,
         visible: room.visible !== false,
         isOwner,
+        ownerId: room.created_by || "",
         host: room.host_name || "",
         avatar: room.profile_photo ? buildS3ImageUrl(room.profile_photo) : "",
         raw: room,
@@ -263,17 +264,22 @@ function setupRoomContactControls(container) {
         if (!contactButton) return;
 
         event.preventDefault();
-        openConversationsView();
+        openConversationsView(contactButton.dataset.ownerId, contactButton.dataset.roomId);
     });
 }
 
-function openConversationsView() {
+function openConversationsView(ownerId, roomId) {
+    const params = new URLSearchParams();
+    if (ownerId) params.set("modtager", ownerId);
+    if (roomId) params.set("room", roomId);
+
     if (typeof window.showView === "function") {
-        window.showView("conversations");
+        window.showView("conversations", params);
         return;
     }
 
-    window.location.href = "/beskeder";
+    const query = params.toString();
+    window.location.href = query ? `/beskeder?${query}` : "/beskeder";
 }
 
 async function openRentRoomEditView() {
@@ -507,7 +513,7 @@ function renderRoomActionButtonInner(room) {
 }
 
 function renderInlineContactCta(room) {
-    const buttonAttrs = room.isOwner ? "data-owner-edit-room" : (room.available === false || room.visible === false ? "disabled" : "data-contact-owner");
+    const buttonAttrs = room.isOwner ? "data-owner-edit-room" : (room.available === false || room.visible === false ? "disabled" : `data-contact-owner data-owner-id="${escapeHtml(room.ownerId)}" data-room-id="${escapeHtml(room.id)}"`);
 
     return `
         <div class="room-detail-inline-cta">
@@ -557,7 +563,7 @@ function renderSimilarRoomCard(room) {
 }
 
 function renderContactCard(room) {
-    const buttonAttrs = room.isOwner ? "data-owner-edit-room" : (room.available === false || room.visible === false ? "disabled" : "data-contact-owner");
+    const buttonAttrs = room.isOwner ? "data-owner-edit-room" : (room.available === false || room.visible === false ? "disabled" : `data-contact-owner data-owner-id="${escapeHtml(room.ownerId)}" data-room-id="${escapeHtml(room.id)}"`);
 
     return `
         <div class="room-detail-contact-card">
@@ -575,7 +581,6 @@ function renderContactCard(room) {
                 ${renderRoomActionButtonInner(room)}
             </button>
             <p class="room-detail-created small text-muted text-center mb-0 mt-3">${formatCreatedDate(room.created)}</p>
-            <p class="small text-muted text-center mb-0 mt-3">Kontaktflow kobles på backend, når endpointet er klar.</p>
         </div>
     `;
 }

@@ -1,6 +1,7 @@
 import {authFetch} from "../auth/auth.js";
 import {basePath, s3Url} from "../config/config.js";
-import {decodeJwt, displayErrorMessage, displaySuccessMessage, getHousingById, isLoggedIn} from "../utils.js";
+import {decodeJwt, displayErrorMessage, displaySuccessMessage, isLoggedIn} from "../utils.js";
+import {getRoomById, getRoomByCreatedBy} from "../rooms/room_cache.js";
 
 let conversations = [];
 let activeConversationId = null;
@@ -13,6 +14,11 @@ let mobileConversationMode = 'list';
 
 const CONVERSATION_POLL_INTERVAL_MS = 15 * 60 * 1000;
 const GLOBAL_UNREAD_POLL_INTERVAL_MS = 15 * 60 * 1000;
+
+// Local-only placeholder id for a conversation that has not been created in the
+// backend yet (opened via "Kontakt" but no message sent). It becomes a real
+// conversation the moment the first message is posted.
+const DRAFT_CONVERSATION_ID = '__draft__';
 
 /**
  * Wires inbox row selection and reply submission for the conversations view.
@@ -72,6 +78,25 @@ export async function renderConversations(targetConversationId = null, options =
         const rawConversations = await response.json();
         conversations = await enrichConversations(rawConversations);
         conversations.sort((a, b) => Number(b.updated || 0) - Number(a.updated || 0));
+
+        // Opened from "Kontakt": focus an existing thread with this user, or spin up
+        // a local draft so they can write the first message (which creates it server-side).
+        const draftReceiverId = options.draftReceiverId || null;
+        if (draftReceiverId && draftReceiverId !== getCurrentUserId()) {
+            const existing = conversations.find(conversation =>
+                (conversation.participant_ids || []).includes(draftReceiverId));
+            if (existing) {
+                targetConversationId = existing._id;
+            } else {
+                const draft = await buildDraftConversation(draftReceiverId, options.draftRoomId);
+                conversations.unshift(draft);
+                activeConversationId = draft._id;
+                activeConversationWasExplicitlySelected = true;
+                if (isMobileConversationLayout()) {
+                    mobileConversationMode = 'thread';
+                }
+            }
+        }
 
         if (conversations.length === 0) {
             if (!silent) {
@@ -354,7 +379,15 @@ async function sendConversationReply(event) {
         }
 
         const updatedConversation = await response.json();
+        // If this was a draft (no server-side conversation yet), the POST just created it.
+        // Drop the local draft and carry its room context onto the real conversation.
+        const previousContext = activeConversation._uiContext || null;
+        conversations = conversations.filter(conversation => !conversation._isDraft);
         upsertConversation(updatedConversation);
+        const storedConversation = conversations.find(conversation => conversation._id === updatedConversation._id);
+        if (storedConversation && !storedConversation._uiContext) {
+            storedConversation._uiContext = previousContext;
+        }
         activeConversationId = updatedConversation._id;
         markActiveConversationRead({render: false});
         if (input) input.value = '';
@@ -445,7 +478,7 @@ function renderActiveConversation() {
     }
 
     if (imageContainer) {
-        imageContainer.innerHTML = renderHeaderThumbnail(context);
+        imageContainer.innerHTML = renderPersonAvatar(getOtherParticipantProfile(conversation, currentUserId));
     }
 
     if (actionContainer) {
@@ -496,7 +529,27 @@ function getOtherParticipantName(conversation, currentUserId) {
 function getParticipantDisplayName(conversation, participantId, currentUserId, fallback = 'Modpart') {
     if (!participantId) return fallback;
     if (participantId === currentUserId) return 'Dig';
-    return conversation._participantNames?.[participantId] || fallback;
+    // Prefer the live profile name, fall back to the snapshot stored on the conversation.
+    return conversation._participantProfiles?.[participantId]?.full_name
+        || conversation._participantNames?.[participantId]
+        || fallback;
+}
+
+function getOtherParticipantProfile(conversation, currentUserId) {
+    const otherParticipantId = getOtherParticipantId(conversation, currentUserId);
+    return conversation._participantProfiles?.[otherParticipantId] || null;
+}
+
+/**
+ * Renders the chat counterpart's circular avatar, falling back to an icon when they
+ * have no profile photo.
+ */
+function renderPersonAvatar(profile) {
+    const photo = profile?.profile_photo;
+    if (photo) {
+        return `<img src="${escapeHtml(`${s3Url}/${photo}`)}" class="chat-person-avatar" alt="Profilbillede" loading="lazy">`;
+    }
+    return `<div class="chat-person-avatar chat-person-avatar--fallback"><i class="fa-solid fa-user"></i></div>`;
 }
 
 function getConversationTitle(conversation, currentUserId) {
@@ -552,6 +605,7 @@ function upsertConversation(updatedConversation) {
     const existingConversation = index === -1 ? null : conversations[index];
     updatedConversation._uiContext = existingConversation?._uiContext || null;
     updatedConversation._participantNames = updatedConversation.participant_names || {};
+    updatedConversation._participantProfiles = updatedConversation.participant_profiles || {};
 
     if (index === -1) {
         conversations.unshift(updatedConversation);
@@ -561,11 +615,48 @@ function upsertConversation(updatedConversation) {
     conversations.sort((a, b) => Number(b.updated || 0) - Number(a.updated || 0));
 }
 
+/**
+ * Builds a local-only draft conversation with a target user, used when the inbox is
+ * opened from a room's "Kontakt" button before any message has been sent.
+ */
+async function buildDraftConversation(receiverId, roomId = null) {
+    const currentUserId = getCurrentUserId();
+    const draft = {
+        _id: DRAFT_CONVERSATION_ID,
+        _isDraft: true,
+        participant_ids: [currentUserId, receiverId].filter(Boolean),
+        participant_names: {},
+        messages: [],
+        read_message_count_by_user: {},
+        updated: Math.floor(Date.now() / 1000),
+    };
+
+    // Seed the counterpart's name + photo from the room we came from. The room carries
+    // a server-synced snapshot of the owner's profile, so it's fresh and lets the draft
+    // show who you're writing to before any message exists.
+    const ownerRoom = (roomId && await getRoomById(roomId))
+        || await getRoomByCreatedBy(receiverId);
+    if (ownerRoom?.host_name) {
+        draft.participant_names[receiverId] = ownerRoom.host_name;
+    }
+
+    draft._participantNames = draft.participant_names;
+    draft._participantProfiles = {
+        [receiverId]: {
+            full_name: ownerRoom?.host_name || '',
+            profile_photo: ownerRoom?.profile_photo || null,
+        },
+    };
+    draft._uiContext = await buildConversationContext(draft, currentUserId);
+    return draft;
+}
+
 async function enrichConversations(rawConversations) {
     const currentUserId = getCurrentUserId();
     return Promise.all((rawConversations || []).map(async conversation => {
         conversation._uiContext = await buildConversationContext(conversation, currentUserId);
         conversation._participantNames = conversation.participant_names || {};
+        conversation._participantProfiles = conversation.participant_profiles || {};
         return conversation;
     }));
 }
@@ -578,7 +669,7 @@ async function buildConversationContext(conversation, currentUserId) {
     const participantProperties = (await Promise.all(
         participantIds.map(async participantId => ({
             participantId,
-            property: await getHousingById(participantId, 'created_by'),
+            property: await getRoomByCreatedBy(participantId),
         }))
     )).filter(item => item.property);
 
@@ -626,29 +717,6 @@ function renderInboxThumbnail(context) {
 }
 
 /**
- * Creates the active chat header thumbnail, including dual images for exchanges.
- */
-function renderHeaderThumbnail(context) {
-    if (context?.isExchange) {
-        const properties = getExchangeProperties(context);
-        return `
-            <div class="chat-thumb-exchange-header">
-                <img src="${escapeHtml(getPropertyImageUrl(properties[0]))}" alt="Værelse 1">
-                <div class="chat-exchange-icon" aria-hidden="true">
-                    <i class="fa-solid fa-arrow-right-arrow-left"></i>
-                </div>
-                <img src="${escapeHtml(getPropertyImageUrl(properties[1]))}" alt="Værelse 2">
-            </div>
-        `;
-    }
-
-    const property = getPrimaryProperty(context);
-    return `
-        <img src="${escapeHtml(getPropertyImageUrl(property))}" class="chat-thumb-single" alt="Værelse">
-    `;
-}
-
-/**
  * Creates the listing navigation action for the selected conversation.
  */
 function renderHeaderAction(context, currentUserId) {
@@ -657,7 +725,7 @@ function renderHeaderAction(context, currentUserId) {
 
     const label = context?.isExchange ? 'Se deres værelse' : 'Se værelse';
     return `
-        <a href="/detaljer?id=${encodeURIComponent(property._id)}"
+        <a href="/vaerelse?id=${encodeURIComponent(property._id)}"
            class="btn btn-light rounded-pill fw-bold shadow-sm hover-lift conversation-listing-link">
             <i class="fa-solid fa-arrow-up-right-from-square me-2"></i>${escapeHtml(label)}
         </a>

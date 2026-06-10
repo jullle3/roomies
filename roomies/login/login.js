@@ -423,11 +423,6 @@ export async function updateAfterLogin(jwt, modalToHideID) {
         }
     }
 
-    // FIX: Pass `true` to force a clean fetch, overriding any stale data
-    try {
-        await ensureHousingDataLoaded(true);
-    } catch (e) { console.error("Could not ensure housing data", e); }
-
     const redirectUrl = localStorage.getItem('postLoginRedirect');
     if (redirectUrl) {
         localStorage.removeItem('postLoginRedirect');
@@ -527,10 +522,6 @@ function getRoomIdFromOTPParams(params, email) {
     const pathname = window.location.pathname.replace(/\/+$/, "") || "/";
 
     if (view === "room_detail" || view === "vaerelse" || pathname === "/vaerelse") {
-        return id;
-    }
-
-    if (view === "detail" && email) {
         return id;
     }
 

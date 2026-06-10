@@ -1,4 +1,3 @@
-- Brug ansigt billede fremfor bolig billede i chat view. Hav default billede hvis intet billede
 - login med google?
 - Seo optimer alt
 - Få AI til at dobbelttjek at alle frontend kald ryger til endpoints med /roomies prefix

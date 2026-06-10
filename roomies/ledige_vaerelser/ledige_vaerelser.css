@@ -477,11 +477,22 @@
 }
 
 .room-search-facts {
+    /* Lock the chip row to a single line: chips that don't fit wrap to a
+       second (clipped) line, so only the ones with room actually show. */
     min-height: 48px;
+    max-height: 48px;
+    overflow: hidden;
+    align-content: flex-start;
     border-color: rgba(107, 114, 128, 0.12) !important;
     color: var(--text-muted);
     font-size: 0.76rem;
     font-weight: 700;
+}
+
+/* Each chip stays whole — never shrinks or breaks across lines. */
+.room-search-facts > span {
+    flex: 0 0 auto;
+    white-space: nowrap;
 }
 
 .room-search-facts i {

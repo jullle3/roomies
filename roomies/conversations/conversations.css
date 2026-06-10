@@ -335,6 +335,26 @@
     box-shadow: var(--shadow-soft);
 }
 
+/* Circular avatar of the other person, shown in each inbox row. */
+.chat-inbox-avatar {
+    width: 50px;
+    height: 50px;
+    flex-shrink: 0;
+    border: 3px solid #fff;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: var(--shadow-soft);
+}
+
+.chat-inbox-avatar--fallback {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 107, 107, 0.12);
+    color: var(--color-primary, #FF6B6B);
+    font-size: 22px;
+}
+
 /* Circular avatar of the person you are chatting with (chat header). */
 .chat-person-avatar {
     width: 56px;

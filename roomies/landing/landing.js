@@ -178,7 +178,7 @@ function getLandingRoomAvatar(room) {
 function getLandingRoomImage(room) {
     const image = Array.isArray(room.images) ? room.images[0] : null;
     const imageName = typeof image === "string" ? image : image?.name || image?.url || image?.src || image?.image_url || image?.cloudflare_url;
-    if (!imageName) return `${basePath}/pics/udlej-vaerelse-example-room.png`;
+    if (!imageName) return `${basePath}/pics/room_default1.webp`;
     if (/^https?:\/\//i.test(imageName)) return imageName;
     return `${s3Url}/${String(imageName).replace(/^\/+/, "")}`;
 }

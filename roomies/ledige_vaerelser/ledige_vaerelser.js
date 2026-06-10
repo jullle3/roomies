@@ -179,13 +179,13 @@ function roomMatchesSelectedArea(room, areaId) {
 
 function getRoomImage(room) {
     const firstImage = Array.isArray(room.images) ? room.images[0] : null;
-    if (typeof firstImage === "string" && firstImage) return firstImage;
+    if (typeof firstImage === "string" && firstImage) return buildS3ImageUrl(firstImage);
     if (firstImage?.name) return buildS3ImageUrl(firstImage.name);
     if (firstImage?.url) return firstImage.url;
     if (firstImage?.src) return firstImage.src;
     if (firstImage?.image_url) return firstImage.image_url;
     if (firstImage?.cloudflare_url) return firstImage.cloudflare_url;
-    return "/pics/udlej-vaerelse-example-room.png";
+    return "/pics/room_default1.webp";
 }
 
 function buildS3ImageUrl(imageName) {

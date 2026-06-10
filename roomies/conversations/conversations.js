@@ -134,6 +134,12 @@ export async function renderConversations(targetConversationId = null, options =
         renderConversationPanelsForViewport();
         updateConversationUnreadBadgeFromConversations(conversations);
         startConversationPolling();
+
+        // Opened via "Kontakt": bring the chat thread into view (mobile shows the
+        // thread panel, desktop scrolls the thread column into view).
+        if (options.draftReceiverId) {
+            scrollToConversationThread();
+        }
     } catch (error) {
         console.error('Failed to load conversations', error);
         if (silent) return;
@@ -286,6 +292,21 @@ function scrollConversationsIntoView() {
     });
 }
 
+// Brings the chat thread into view after opening from "Kontakt". On mobile the
+// thread takes over the screen, so we scroll to the top of the view; on desktop
+// we center the thread column (with its prefilled message) in the viewport.
+function scrollToConversationThread() {
+    const mobile = isMobileConversationLayout();
+    const target = mobile
+        ? document.getElementById('conversations')
+        : document.getElementById('conversation-thread-column');
+    if (!target) return;
+
+    window.requestAnimationFrame(() => {
+        target.scrollIntoView({behavior: 'smooth', block: mobile ? 'start' : 'center'});
+    });
+}
+
 function markActiveConversationRead({render = true} = {}) {
     if (!activeConversationId) return;
     markConversationRead(activeConversationId, {render});
@@ -369,6 +390,7 @@ async function sendConversationReply(event) {
             body: JSON.stringify({
                 receiver_id: receiverId,
                 text,
+                room_id: activeConversation.room_id || null,
             }),
         });
 
@@ -429,7 +451,7 @@ function renderConversationList() {
                     class="conversation-list-item ${activeClass} ${unreadClass}"
                     data-conversation-id="${escapeHtml(conversation._id)}">
                 <div class="d-flex align-items-center gap-3">
-                    ${renderInboxThumbnail(context)}
+                    ${renderInboxThumbnail(conversation, currentUserId)}
                     <div class="min-width-0 flex-grow-1">
                         <div class="d-flex align-items-baseline justify-content-between gap-3">
                             <div class="fw-bold company-dark conversation-title">
@@ -501,6 +523,20 @@ function renderActiveConversation() {
     }).join('');
 
     messagesContainer.scrollTop = messagesContainer.scrollHeight;
+
+    prefillDraftMessage(conversation);
+}
+
+// Prefill the personalized opener for a fresh "Kontakt" draft (once, never
+// clobbering anything the user has typed).
+function prefillDraftMessage(conversation) {
+    const input = document.getElementById('conversation-reply-text');
+    if (!input || !conversation?._isDraft) return;
+
+    if (conversation._prefillText && !conversation._prefilled && !input.value.trim()) {
+        input.value = conversation._prefillText;
+        conversation._prefilled = true;
+    }
 }
 
 function getActiveConversation() {
@@ -544,12 +580,12 @@ function getOtherParticipantProfile(conversation, currentUserId) {
  * Renders the chat counterpart's circular avatar, falling back to an icon when they
  * have no profile photo.
  */
-function renderPersonAvatar(profile) {
+function renderPersonAvatar(profile, baseClass = 'chat-person-avatar') {
     const photo = profile?.profile_photo;
     if (photo) {
-        return `<img src="${escapeHtml(`${s3Url}/${photo}`)}" class="chat-person-avatar" alt="Profilbillede" loading="lazy">`;
+        return `<img src="${escapeHtml(`${s3Url}/${photo}`)}" class="${baseClass}" alt="Profilbillede" loading="lazy">`;
     }
-    return `<div class="chat-person-avatar chat-person-avatar--fallback"><i class="fa-solid fa-user"></i></div>`;
+    return `<div class="${baseClass} ${baseClass}--fallback"><i class="fa-solid fa-user"></i></div>`;
 }
 
 function getConversationTitle(conversation, currentUserId) {
@@ -625,6 +661,7 @@ async function buildDraftConversation(receiverId, roomId = null) {
         _id: DRAFT_CONVERSATION_ID,
         _isDraft: true,
         participant_ids: [currentUserId, receiverId].filter(Boolean),
+        room_id: roomId || null,
         participant_names: {},
         messages: [],
         read_message_count_by_user: {},
@@ -647,8 +684,18 @@ async function buildDraftConversation(receiverId, roomId = null) {
             profile_photo: ownerRoom?.profile_photo || null,
         },
     };
+
+    // Personalized first-message opener, prefilled when the draft thread opens.
+    const ownerFirstName = (ownerRoom?.host_name || '').trim().split(/\s+/)[0];
+    draft._prefillText = buildContactOpener(ownerFirstName);
+
     draft._uiContext = await buildConversationContext(draft, currentUserId);
     return draft;
+}
+
+function buildContactOpener(firstName) {
+    const greeting = firstName ? `Hej ${firstName} 👋` : 'Hej 👋';
+    return `${greeting} Jeg så din annonce og er meget interesseret. Kan jeg komme og se værelset?`;
 }
 
 async function enrichConversations(rawConversations) {
@@ -678,6 +725,9 @@ async function buildConversationContext(conversation, currentUserId) {
     const initialReceiverId = participantIds.find(participantId => participantId !== firstSenderId) || null;
     const initialReceiverProperty = participantProperties.find(item => item.participantId === initialReceiverId)?.property || null;
     const firstAvailableProperty = participantProperties[0]?.property || null;
+    // The exact listing the thread started from (pinned on the conversation), so
+    // "Se værelse" stays correct even when the owner has multiple listings.
+    const explicitProperty = conversation.room_id ? await getRoomById(conversation.room_id) : null;
     const hasExchangeContext = participantProperties.some(item => isExchangeOnlyProperty(item.property));
     const isExchange = hasExchangeContext && participantProperties.length > 0;
 
@@ -691,7 +741,7 @@ async function buildConversationContext(conversation, currentUserId) {
 
     return {
         isExchange: false,
-        properties: [initialReceiverProperty || ownProperty || firstAvailableProperty].filter(Boolean),
+        properties: [explicitProperty || initialReceiverProperty || ownProperty || firstAvailableProperty].filter(Boolean),
         propertyEntries: participantProperties,
     };
 }
@@ -699,7 +749,9 @@ async function buildConversationContext(conversation, currentUserId) {
 /**
  * Creates the compact inbox thumbnail, including stacked images for exchanges.
  */
-function renderInboxThumbnail(context) {
+function renderInboxThumbnail(conversation, currentUserId) {
+    const context = conversation._uiContext;
+
     if (context?.isExchange) {
         const properties = getExchangeProperties(context);
         return `
@@ -710,10 +762,7 @@ function renderInboxThumbnail(context) {
         `;
     }
 
-    const property = getPrimaryProperty(context);
-    return `
-        <img src="${escapeHtml(getPropertyImageUrl(property))}" class="chat-thumb-single flex-shrink-0" alt="Værelse">
-    `;
+    return renderPersonAvatar(getOtherParticipantProfile(conversation, currentUserId), 'chat-inbox-avatar');
 }
 
 /**
@@ -775,12 +824,8 @@ function getConversationSubtitle(context, conversation = null, currentUserId = n
     }
 
     const property = getPrimaryProperty(context);
-    if (!property) {
+    if (!property || !property.price) {
         return otherParticipantName || 'Samtale';
-    }
-
-    if (!property.price) {
-        return [otherParticipantName, 'Pris ikke angivet'].filter(Boolean).join(' · ');
     }
 
     return [otherParticipantName, `${Number(property.price).toLocaleString('da-DK')} kr.`].filter(Boolean).join(' · ');

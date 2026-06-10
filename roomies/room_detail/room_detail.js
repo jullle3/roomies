@@ -661,7 +661,7 @@ function getRoomImages(room) {
         ? room.images.map(getImageUrl).filter(Boolean)
         : [];
 
-    return images.length ? images : ["/pics/udlej-vaerelse-example-room.png"];
+    return images.length ? images : ["/pics/room_default1.webp"];
 }
 
 function getSimilarRooms(currentRoom) {

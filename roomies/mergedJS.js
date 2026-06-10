@@ -1040,7 +1040,7 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
 </footer>
     `)}xe();fe();var Fp="/pics/room_default1.webp";var Lp={"Roligt hjem":"\u{1F92B}",Socialt:"\u{1F37B}",Reng\u00F8ringsplan:"\u{1F9F9}",Studievenligt:"\u{1F393}",F\u00E6llesspisning:"\u2615","Lukket d\xF8r er okay":"\u{1F3A7}"};function pn(e){return`
         <div class="col-12 col-md-6 col-xl-4">
-            <article class="card room-card h-100">
+            <article class="card room-card">
                 <a class="room-card-detail-link" href="${`/vaerelse?id=${encodeURIComponent(e.id)}`}" data-room-detail-id="${Op(e.id)}" aria-label="Se detaljer for ${lt(e.title)}"></a>
                 <div class="room-thumb-wrapper">
                     <img class="room-photo" src="${e.image||Fp}" alt="${lt(e.title)}" loading="lazy">

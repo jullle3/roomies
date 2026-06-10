@@ -449,10 +449,6 @@
     border-radius: inherit;
 }
 
-#room-search-results .room-card .card-body {
-    min-height: 340px;
-}
-
 #room-search-results .room-card h3 {
     min-height: 2.8em;
     line-height: 1.4;
@@ -543,10 +539,6 @@
 
     .room-search-slider-label {
         margin-top: 0.35rem;
-    }
-
-    #room-search-results .room-card .card-body {
-        min-height: auto;
     }
 
     #room-search-results .room-card h3 {

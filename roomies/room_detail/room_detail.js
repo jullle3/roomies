@@ -34,6 +34,7 @@ export async function renderRoomDetail(roomId) {
     container.innerHTML = renderRoomDetailHtml(viewModel);
     setupRoomPhotoViewer(container);
     setupRoomOwnerControls(container, room, isOwner);
+    setupRoomContactControls(container);
     updateMetaTags(
         `${viewModel.title} | roomies`,
         viewModel.description || `Ledigt værelse i ${viewModel.area}. Se pris, størrelse og hverdagen i hjemmet.`,
@@ -251,6 +252,28 @@ function setupRoomOwnerControls(container, room, isOwner) {
 
     container.__roomOwnerClickHandler = handler;
     container.addEventListener("click", handler);
+}
+
+function setupRoomContactControls(container) {
+    if (container.dataset.contactBound) return;
+    container.dataset.contactBound = "1";
+
+    container.addEventListener("click", event => {
+        const contactButton = event.target.closest("[data-contact-owner]");
+        if (!contactButton) return;
+
+        event.preventDefault();
+        openConversationsView();
+    });
+}
+
+function openConversationsView() {
+    if (typeof window.showView === "function") {
+        window.showView("conversations");
+        return;
+    }
+
+    window.location.href = "/beskeder";
 }
 
 async function openRentRoomEditView() {
@@ -484,7 +507,7 @@ function renderRoomActionButtonInner(room) {
 }
 
 function renderInlineContactCta(room) {
-    const buttonAttrs = room.isOwner ? "data-owner-edit-room" : (room.available === false || room.visible === false ? "disabled" : "");
+    const buttonAttrs = room.isOwner ? "data-owner-edit-room" : (room.available === false || room.visible === false ? "disabled" : "data-contact-owner");
 
     return `
         <div class="room-detail-inline-cta">
@@ -534,7 +557,7 @@ function renderSimilarRoomCard(room) {
 }
 
 function renderContactCard(room) {
-    const buttonAttrs = room.isOwner ? "data-owner-edit-room" : (room.available === false || room.visible === false ? "disabled" : "");
+    const buttonAttrs = room.isOwner ? "data-owner-edit-room" : (room.available === false || room.visible === false ? "disabled" : "data-contact-owner");
 
     return `
         <div class="room-detail-contact-card">

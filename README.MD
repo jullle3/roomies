@@ -1,4 +1,4 @@
-- Jeg skriver gratis lidt for ofte og mange steder
+- Great. I have som code to handle the chat view, can 
 - Brug ansigt billede fremfor bolig billede i chat view. Hav default billede hvis intet billede
 - login med google?
 - Seo optimer alt

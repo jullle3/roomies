@@ -745,7 +745,18 @@ function renderMissingState() {
 function formatAvailableDate(value) {
     const date = parseDateValue(value);
     if (Number.isNaN(date.getTime())) return "Efter aftale";
+    // Already available (date today or in the past) reads as "Ledig fra: Nu".
+    if (isTodayOrPast(date)) return "Nu";
     return new Intl.DateTimeFormat("da-DK", {day: "numeric", month: "long", year: "numeric"}).format(date);
+}
+
+// True when the given date falls on or before today (compared by calendar day).
+function isTodayOrPast(date) {
+    const startOfToday = new Date();
+    startOfToday.setHours(0, 0, 0, 0);
+    const startOfDate = new Date(date);
+    startOfDate.setHours(0, 0, 0, 0);
+    return startOfDate <= startOfToday;
 }
 
 function formatCreatedDate(value) {

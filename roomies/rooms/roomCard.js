@@ -10,13 +10,15 @@ const EXAMPLE_ROOM_IMAGE = "/pics/room_default1.webp";
 // Max number of fact chips shown at the bottom of the card.
 const MAX_FACT_CHIPS = 3;
 
-const VIBE_EMOJI = {
-    "Roligt hjem": "🤫",
-    "Socialt": "🍻",
-    "Rengøringsplan": "🧹",
-    "Studievenligt": "🎓",
-    "Fællesspisning": "☕",
-    "Lukket dør er okay": "🎧"
+// Keyed by the value stored in the backend (see the create-listing form in
+// index.html), each mapping to its display emoji + human-readable label.
+const VIBE_META = {
+    "Stille": {emoji: "🤫", label: "Roligt hjem"},
+    "Socialt": {emoji: "🍻", label: "Socialt"},
+    "Rengøringsplan": {emoji: "🧹", label: "Rengøringsplan"},
+    "Studievenligt": {emoji: "🎓", label: "Studievenligt"},
+    "Fællesspisning": {emoji: "☕", label: "Fællesspisning"},
+    "Lukket_dør_okay": {emoji: "🎧", label: "Lukket dør er okay"}
 };
 
 export function renderRoomCard(model) {
@@ -61,20 +63,22 @@ function buildFactChips(model) {
 
     const candidates = [];
     if (hasVibe("Studievenligt")) candidates.push(vibeChip("Studievenligt"));
-    if (hasVibe("Roligt hjem")) candidates.push(vibeChip("Roligt hjem"));
+    if (hasVibe("Stille")) candidates.push(vibeChip("Stille"));
     if (model.furnished) candidates.push(facilityChip("fa-solid fa-couch", "Møbleret"));
     if (model.cprAllowed) candidates.push(facilityChip("fa-solid fa-address-card", "CPR muligt"));
     if (model.petsAllowed) candidates.push(facilityChip("fa-solid fa-paw", "Kæledyr"));
     // Remaining vibes (anything not already prioritized above), in stored order
     vibes
-        .filter(vibe => vibe !== "Studievenligt" && vibe !== "Roligt hjem")
+        .filter(vibe => vibe !== "Studievenligt" && vibe !== "Stille")
         .forEach(vibe => candidates.push(vibeChip(vibe)));
 
     return chips.concat(candidates).slice(0, MAX_FACT_CHIPS);
 }
 
 function vibeChip(vibe) {
-    return `<span>${getVibeEmoji(vibe)} ${escapeHtml(vibe)}</span>`;
+    const meta = VIBE_META[vibe];
+    const label = meta ? meta.label : vibe;
+    return `<span>${getVibeEmoji(vibe)} ${escapeHtml(label)}</span>`;
 }
 
 function facilityChip(icon, label) {
@@ -82,7 +86,8 @@ function facilityChip(icon, label) {
 }
 
 export function getVibeEmoji(vibe) {
-    return VIBE_EMOJI[vibe] || "✨";
+    const meta = VIBE_META[vibe];
+    return meta ? meta.emoji : "✨";
 }
 
 function formatAvailableDate(value) {
@@ -94,7 +99,18 @@ function formatAvailableDate(value) {
         : new Date(value);
 
     if (Number.isNaN(date.getTime())) return "Efter aftale";
+    // Already available (date today or in the past) reads as "Ledig nu".
+    if (isTodayOrPast(date)) return "nu";
     return new Intl.DateTimeFormat("da-DK", {day: "numeric", month: "short"}).format(date);
+}
+
+// True when the given date falls on or before today (compared by calendar day).
+function isTodayOrPast(date) {
+    const startOfToday = new Date();
+    startOfToday.setHours(0, 0, 0, 0);
+    const startOfDate = new Date(date);
+    startOfDate.setHours(0, 0, 0, 0);
+    return startOfDate <= startOfToday;
 }
 
 function formatNumber(value) {

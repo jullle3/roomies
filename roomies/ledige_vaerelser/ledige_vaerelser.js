@@ -70,10 +70,15 @@ const debouncedRenderRoomListings = debounce(renderRoomListings, 300);
 
 function debounce(fn, delay) {
     let timer = null;
-    return (...args) => {
+    const debounced = (...args) => {
         clearTimeout(timer);
         timer = setTimeout(() => fn(...args), delay);
     };
+    debounced.cancel = () => {
+        clearTimeout(timer);
+        timer = null;
+    };
+    return debounced;
 }
 
 function renderRoomSearchResults({animate = false} = {}) {
@@ -311,6 +316,7 @@ function resetRoomSearch() {
     if (locationInput) locationInput.dataset.areaId = "";
     hideRoomAreaSuggestions();
     setRoomSearchSliderValue("room-search-rent-slider", 10000);
+    debouncedRenderRoomListings.cancel();
     renderRoomListings();
 }
 

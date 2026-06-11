@@ -295,11 +295,11 @@
 
 .roomie-agent-area-suggestions button {
     display: grid;
-    grid-template-columns: auto minmax(0, 1fr);
-    gap: 0 0.65rem;
+    grid-template-columns: 34px minmax(0, 1fr);
+    gap: 0.65rem;
     align-items: center;
-    min-height: 62px;
-    padding: 0.75rem;
+    min-height: 48px;
+    padding: 0.5rem 0.7rem;
     border: 1px solid #eef0f3;
     border-radius: 16px;
     background: #fff;
@@ -314,12 +314,17 @@
 }
 
 .roomie-agent-area-suggestions i {
-    grid-row: span 2;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: rgba(255, 107, 107, 0.1);
     color: var(--color-primary);
 }
 
-.roomie-agent-area-suggestions span,
-.roomie-agent-area-suggestions small {
+.roomie-agent-area-suggestions span {
     min-width: 0;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -327,12 +332,8 @@
 }
 
 .roomie-agent-area-suggestions span {
-    font-weight: 800;
-}
-
-.roomie-agent-area-suggestions small {
-    color: var(--text-muted);
-    font-weight: 600;
+    font-size: 0.92rem;
+    font-weight: 900;
 }
 
 .roomie-agent-submit {

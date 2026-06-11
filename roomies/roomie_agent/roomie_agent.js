@@ -505,7 +505,6 @@ function renderAreaSuggestions(query) {
         <button type="button" data-agent-area-option="${escapeAttribute(area.id)}">
             <i class="${area.icon}"></i>
             <span>${escapeHtml(area.label)}</span>
-            <small>${escapeHtml(area.description)}</small>
         </button>
     `).join("");
 }

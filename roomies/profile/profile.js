@@ -551,7 +551,6 @@ function renderProfileAreaSuggestions(query) {
         <button type="button" data-profile-area-option="${escapeAttribute(area.id)}">
             <i class="${area.icon}"></i>
             <span>${escapeHtml(area.label)}</span>
-            <small>${escapeHtml(area.description)}</small>
         </button>
     `).join("");
 }

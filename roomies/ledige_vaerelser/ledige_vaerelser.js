@@ -140,7 +140,7 @@ function getFilteredRooms(cachedRooms) {
     const location = getNormalizedText(data.get("location"));
     const selectedAreaId = document.getElementById("room-search-location")?.dataset.areaId || "";
     const maxRent = Number(data.get("max_rent")) || Infinity;
-    const minSize = Number(data.get("min_size")) || 0;
+    const availableBefore = parseAvailableBefore(data.get("available_before"));
 
     const rooms = cachedRooms
         .filter(room => room?.visible !== false)
@@ -152,12 +152,17 @@ function getFilteredRooms(cachedRooms) {
             ? roomMatchesSelectedArea(room, selectedAreaId)
             : (!location || searchableLocation.includes(location));
 
+        // Rooms without an available_from are treated as "available now" so the
+        // move-in filter never hides listings that simply lack the date.
+        const availableInTime = availableBefore === Infinity
+            || !room.availableFrom
+            || Number(room.availableFrom) <= availableBefore;
+
         return locationMatches
             && room.rent <= maxRent
-            && room.size >= minSize
+            && availableInTime
             && (!data.has("furnished") || room.furnished)
-            && (!data.has("registration_allowed") || room.registrationAllowed)
-            && (!data.has("utilities_included") || room.utilitiesIncluded);
+            && (!data.has("registration_allowed") || room.registrationAllowed);
         });
 
     const currentUserId = decodeJwt()?.sub || "";
@@ -172,8 +177,6 @@ function getFilteredRooms(cachedRooms) {
         switch (data.get("sort")) {
             case "rent_asc":
                 return a.rent - b.rent;
-            case "size_desc":
-                return b.size - a.size;
             default:
                 return new Date(b.created) - new Date(a.created);
         }
@@ -198,7 +201,6 @@ function normalizeRoomListing(room) {
         furnished: Boolean(room.furnished),
         registrationAllowed: Boolean(room.cpr_registration_allowed),
         petsAllowed: Boolean(room.pets_allowed),
-        utilitiesIncluded: Boolean(room.utilities_included),
         roommates: Number(room.current_roomies ?? room.rooms ?? 0),
         vibes: Array.isArray(room.vibes) ? room.vibes : [],
         image: getRoomImage(room),
@@ -279,7 +281,6 @@ function resetRoomSearch() {
     const locationInput = document.getElementById("room-search-location");
     if (locationInput) locationInput.dataset.areaId = "";
     setRoomSearchSliderValue("room-search-rent-slider", 10000);
-    setRoomSearchSliderValue("room-search-size-slider", 5);
     renderRoomListings();
 }
 
@@ -295,18 +296,6 @@ function setupRoomSearchSliders() {
         openLabel: "Alle priser",
         formatValue: value => `${formatNumber(value)} kr.`
     });
-
-    setupRoomSearchSlider({
-        sliderId: "room-search-size-slider",
-        inputId: "room-search-min-size",
-        outputId: "room-search-size-value",
-        start: 5,
-        range: {min: 5, max: 30},
-        step: 1,
-        isOpenEnd: value => value <= 5,
-        openLabel: "Alle størrelser",
-        formatValue: value => `${formatNumber(value)} m²`
-    });
 }
 
 function setupRoomSearchFilterDropdown() {
@@ -319,7 +308,7 @@ function setupRoomSearchFilterDropdown() {
 }
 
 function refreshRoomSearchSliders() {
-    ["room-search-rent-slider", "room-search-size-slider"].forEach(updateNativeSliderFill);
+    ["room-search-rent-slider"].forEach(updateNativeSliderFill);
 }
 
 function setupRoomSearchSlider(config) {
@@ -383,6 +372,14 @@ function formatNumber(value) {
 
 function getNormalizedText(value) {
     return String(value || "").trim().toLocaleLowerCase("da-DK");
+}
+
+// "Indflytning senest" date (YYYY-MM-DD) → end-of-day epoch seconds, or Infinity
+// when unset so the filter is a no-op. Matches room.available_from (epoch seconds).
+function parseAvailableBefore(value) {
+    if (!value) return Infinity;
+    const epoch = Math.floor(new Date(`${value}T23:59:59`).getTime() / 1000);
+    return Number.isFinite(epoch) ? epoch : Infinity;
 }
 
 function escapeHtml(value) {

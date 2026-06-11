@@ -1,4 +1,3 @@
-- Få AI til at dobbelttjek at alle frontend kald ryger til endpoints med /roomies prefix
 - Opdater vilkaar til siden
 - Reklame sektion i bunden ligesom TrustMRR
 - Seo optimer alt

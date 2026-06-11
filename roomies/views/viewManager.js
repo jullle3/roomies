@@ -798,8 +798,8 @@ function optimizeSEOMetadata(view) {
     else if (view === 'terms_and_conditions') {
         // Fokusord: Vilkår, betingelser, regler for roomies
         updateMetaTags(
-            'Vilkår og Betingelser | roomies',
-            'Læs de gældende vilkår og betingelser for brug af roomies. Få overblik over betingelser for annoncering, abonnement og persondatahåndtering.',
+            'Vilkår og betingelser | roomies',
+            'Læs vilkår for brug af roomies på roomiedanmark.dk, herunder profiler, værelsesannoncer, beskeder, SøgeAgent og persondata.',
             `${baseUrl}/vilkaar`
         );
     }

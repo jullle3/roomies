@@ -23,7 +23,7 @@ if (window.location.hostname === 'localhost' || window.location.hostname === '12
     stripe_buy_button_id = "buy_btn_1RFXuQRwMNhLL1Z9c9QTJ8Hk";
     stripe_buy_button_publishable_key = "pk_test_51PhrGIRwMNhLL1Z9dUFZqpxKIZrfZr64BTyUmHwWdEUjWjm3XulkLuozpbOuFT7dmkzKYAQ1ePD2cV2HLEnD1yMC00Q95j5SB1";
     google_auth_redirect_url = "https://hidden-slice-416812.ew.r.appspot.com/roomies/login/google/callback"
-} else if (window.location.hostname === 'dev.roomies.dk') {
+} else if (window.location.hostname === 'roomies-15m.pages.dev') {
     environment = 'dev';
     // Dev routed through cloudflare
     // Cloud Run

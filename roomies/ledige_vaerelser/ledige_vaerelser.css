@@ -176,6 +176,13 @@
     min-width: 0;
 }
 
+/* Max price slider sits inline beside location in the always-visible toolbar.
+   Bounded width on desktop so it doesn't stretch the full card. */
+.room-search-rent-inline {
+    flex: 0 0 260px;
+    padding: 0 0.25rem;
+}
+
 .room-search-filter-toggle {
     display: inline-flex;
     align-items: center;
@@ -581,6 +588,28 @@
         margin-bottom: 24px;
         padding: 20px;
         transform: translateY(-24px);
+    }
+
+    /* Stack: location + filter button on row 1, price slider full width on row 2 */
+    .room-search-simple-row {
+        flex-wrap: wrap;
+    }
+
+    /* basis 0 so the input shrinks to share row 1 with the filter button
+       instead of claiming its content width and bumping the button down */
+    .room-search-main-input {
+        flex: 1 1 0;
+    }
+
+    .room-search-simple-row > .dropdown {
+        order: 2;
+    }
+
+    .room-search-rent-inline {
+        order: 3;
+        flex: 1 1 100%;
+        margin-top: 0.5rem;
+        padding: 0;
     }
 
     .room-search-toolbar .btn-outline-secondary {

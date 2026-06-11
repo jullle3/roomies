@@ -37,7 +37,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
     <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
     <!--    Custom Merged css files -->
-    <link rel="stylesheet" href="roomies/mergedStyles.css?roomies_version=934">
+    <link rel="stylesheet" href="roomies/mergedStyles.css?roomies_version=940">
     <style>
         .nav-auth-btn:active,
         .nav-auth-btn:focus,
@@ -56,7 +56,7 @@
             color: #ffffff !important;
         }
     </style>
-    <script defer type="module" src="roomies/mergedJS.js?roomies_version=934"></script>
+    <script defer type="module" src="roomies/mergedJS.js?roomies_version=940"></script>
 
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18047412076"></script>
@@ -1015,6 +1015,15 @@
                             <input id="room-search-location" class="form-control" name="location" type="search" placeholder="Søg efter område, postnummer eller by">
                         </div>
 
+                        <div class="room-search-rent-inline">
+                            <div class="room-search-slider-label d-flex align-items-center justify-content-between gap-2">
+                                <label class="form-label mb-0" for="room-search-rent-slider">Maks. husleje</label>
+                                <output id="room-search-rent-value" for="room-search-rent-slider">Alle priser</output>
+                            </div>
+                            <div id="room-search-rent-slider" class="room-search-slider" aria-label="Maksimal månedlig husleje"></div>
+                            <input id="room-search-max-rent" name="max_rent" type="hidden" value="">
+                        </div>
+
                         <div class="dropdown">
                             <button class="btn room-search-filter-toggle" id="room-search-filter-toggle" type="button" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false" aria-label="Vis filtre">
                                 <i class="fa-solid fa-sliders"></i>
@@ -1023,15 +1032,6 @@
                                 <div class="room-search-filter-heading">
                                     <h2 class="h6 fw-bold mb-1">Find dit match</h2>
                                     <p class="small text-muted mb-0">Juster filtrene, indtil det føles rigtigt.</p>
-                                </div>
-
-                                <div class="room-search-filter-block">
-                                    <div class="room-search-slider-label d-flex align-items-center justify-content-between gap-2">
-                                        <label class="form-label mb-0" for="room-search-rent-slider">Maks. husleje</label>
-                                        <output id="room-search-rent-value" for="room-search-rent-slider">Alle priser</output>
-                                    </div>
-                                    <div id="room-search-rent-slider" class="room-search-slider" aria-label="Maksimal månedlig husleje"></div>
-                                    <input id="room-search-max-rent" name="max_rent" type="hidden" value="">
                                 </div>
 
                                 <div class="room-search-filter-block">

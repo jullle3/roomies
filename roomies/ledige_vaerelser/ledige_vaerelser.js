@@ -26,7 +26,7 @@ export function setupRoomSearchView() {
     form.addEventListener("change", renderRoomListings);
     document.getElementById("room-search-location")?.addEventListener("input", event => {
         event.currentTarget.dataset.areaId = "";
-        renderRoomListings();
+        debouncedRenderRoomListings();
     });
     document.getElementById("room-search-reset")?.addEventListener("click", resetRoomSearch);
     document.querySelector("[data-reset-room-search]")?.addEventListener("click", resetRoomSearch);
@@ -54,6 +54,18 @@ function openRoomSearch() {
 function renderRoomListings() {
     roomSearchVisible = ROOMS_PER_BATCH;
     renderRoomSearchResults();
+}
+
+// Coalesce high-frequency inputs (slider drag, location typing) so we only
+// re-filter/re-render once the user pauses, instead of on every event.
+const debouncedRenderRoomListings = debounce(renderRoomListings, 300);
+
+function debounce(fn, delay) {
+    let timer = null;
+    return (...args) => {
+        clearTimeout(timer);
+        timer = setTimeout(() => fn(...args), delay);
+    };
 }
 
 function renderRoomSearchResults() {
@@ -340,7 +352,7 @@ function setupRoomSearchSlider(config) {
         input.value = isOpenEnd ? "" : String(value);
         output.value = isOpenEnd ? config.openLabel : config.formatValue(value);
         updateNativeSliderFill(config.sliderId);
-        renderRoomListings();
+        debouncedRenderRoomListings();
     };
 
     range.addEventListener("input", syncValue);

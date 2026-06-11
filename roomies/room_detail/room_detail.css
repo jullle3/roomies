@@ -573,6 +573,79 @@
     color: var(--text-main);
 }
 
+/* Expandable "Indflytningspris" line — styled to sit in .room-detail-price-lines */
+.room-detail-movein {
+    border-bottom: 1px solid #eef0f3;
+}
+
+.room-detail-movein > summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+    padding: 0.85rem 0;
+    color: var(--text-muted);
+    cursor: pointer;
+    list-style: none;
+}
+
+.room-detail-movein > summary::-webkit-details-marker {
+    display: none;
+}
+
+.room-detail-movein > summary > span {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.room-detail-movein > summary > span i {
+    font-size: 0.7rem;
+    transition: transform 0.2s ease;
+}
+
+.room-detail-movein[open] > summary > span i {
+    transform: rotate(180deg);
+}
+
+.room-detail-movein > summary b {
+    color: var(--text-main);
+    white-space: nowrap;
+}
+
+.room-detail-movein-breakdown {
+    padding: 0.25rem 0 0.85rem;
+}
+
+.room-detail-movein-breakdown p {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+    margin: 0;
+    padding: 0.4rem 0;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+.room-detail-movein-breakdown p > span {
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
+}
+
+.room-detail-movein-breakdown small {
+    font-size: 0.72rem;
+    font-weight: 600;
+    opacity: 0.85;
+}
+
+.room-detail-movein-breakdown b {
+    color: var(--text-main);
+    white-space: nowrap;
+}
+
 .room-detail-contact-card .btn:disabled {
     border-color: #d6d9de;
     background: #d6d9de;

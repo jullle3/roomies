@@ -37,7 +37,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
     <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
     <!--    Custom Merged css files -->
-    <link rel="stylesheet" href="roomies/mergedStyles.css?roomies_version=928">
+    <link rel="stylesheet" href="roomies/mergedStyles.css?roomies_version=933">
     <style>
         .nav-auth-btn:active,
         .nav-auth-btn:focus,
@@ -56,7 +56,7 @@
             color: #ffffff !important;
         }
     </style>
-    <script defer type="module" src="roomies/mergedJS.js?roomies_version=928"></script>
+    <script defer type="module" src="roomies/mergedJS.js?roomies_version=933"></script>
 
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18047412076"></script>
@@ -1444,6 +1444,20 @@
                                             <span class="facility-text">CPR-adresse er mulig</span>
                                         </label>
                                     </div>
+                                    <div class="col-md-6">
+                                        <input class="facility-check-input" type="checkbox" id="rent_room_washing_machine" name="washing_machine">
+                                        <label class="facility-card rent-room-toggle-card" for="rent_room_washing_machine">
+                                            <i class="fa-solid fa-soap"></i>
+                                            <span class="facility-text">Vaskemaskine</span>
+                                        </label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input class="facility-check-input" type="checkbox" id="rent_room_dishwasher" name="dishwasher">
+                                        <label class="facility-card rent-room-toggle-card" for="rent_room_dishwasher">
+                                            <i class="fa-solid fa-sink"></i>
+                                            <span class="facility-text">Opvaskemaskine</span>
+                                        </label>
+                                    </div>
                                     <div class="col-md-6" id="rent-room-aconto-wrapper">
                                         <label for="rent_room_aconto_monthly" class="form-label">Aconto pr. måned</label>
                                         <div class="input-group">
@@ -1573,7 +1587,7 @@
                                             </select>
                                         </div>
                                         <div class="col-md-4">
-                                            <label class="form-label" data-label-for="monthly_rent">Husleje pr. måned</label>
+                                            <label class="form-label" data-label-for="monthly_rent">Husleje inkl. forbrug</label>
                                             <div class="input-group">
                                                 <input class="form-control" data-room-field="monthly_rent" type="number" inputmode="numeric" min="0" required placeholder="fx 5200">
                                                 <span class="input-group-text">kr.</span>

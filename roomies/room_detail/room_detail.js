@@ -62,6 +62,9 @@ function normalizeRoomDetail(room, isOwner = false) {
         area: room.postal_name || room.city || postal || "Område ikke angivet",
         fullAddress: [address || "Adresse ikke angivet", postal].filter(Boolean).join(", "),
         price: Number(room.monthly_price ?? room.price ?? 0),
+        // Backend computes total_monthly_price (husleje + aconto). Fall back to
+        // summing locally for rooms not yet re-saved or scraped without the field.
+        totalMonthlyPrice: Number(room.total_monthly_price ?? (Number(room.monthly_price ?? room.price ?? 0) + Number(room.acconto_monthly_price ?? 0))),
         deposit: Number(room.deposit ?? 0),
         prepaidRent: Number(room.prepaid_rent ?? 0),
         size: Number(room.square_meters ?? 0),
@@ -589,11 +592,10 @@ function renderContactCard(room) {
     return `
         <div class="room-detail-contact-card">
             ${renderStatusBadge(room)}
-            <span>Husleje</span>
-            <strong>${formatNumber(room.price)} kr./md</strong>
+            <span>Husleje inkl. forbrug</span>
+            <strong>${formatNumber(room.totalMonthlyPrice)} kr./md</strong>
             <div class="room-detail-price-lines">
-                <p><span>Depositum</span><b>${formatMoneyOrDash(room.deposit)}</b></p>
-                ${room.prepaidRent ? `<p><span>Forudbetalt leje</span><b>${formatMoneyOrDash(room.prepaidRent)}</b></p>` : ""}
+                ${renderMoveInPriceLine(room)}
                 <p><span>Ledig fra</span><b>${formatAvailableDate(room.availableFrom)}</b></p>
                 <p><span>Lejeperiode</span><b>${escapeHtml(room.rentalPeriod)}</b></p>
                 <p><span>Størrelse</span><b>${room.size ? `${formatNumber(room.size)} m²` : "-"}</b></p>
@@ -654,6 +656,18 @@ function getHouseholdFeatures(room) {
     ];
 
     const positiveOnlyFeatures = [
+        {
+            icon: "fa-solid fa-soap",
+            label: "Vaskemaskine",
+            text: "Der er vaskemaskine i hjemmet",
+            active: room.washing_machine === true
+        },
+        {
+            icon: "fa-solid fa-sink",
+            label: "Opvaskemaskine",
+            text: "Der er opvaskemaskine i hjemmet",
+            active: room.dishwasher === true
+        },
         {
             icon: "fa-solid fa-broom",
             label: "Rengøring",
@@ -837,6 +851,56 @@ function formatMonthCount(value) {
 
 function readRentalPeriodMonths(room) {
     return room.rental_period_months ?? room.rentalPeriodMonths ?? null;
+}
+
+// One-time move-in capital shown as a single price line. Tapping it expands the
+// breakdown so the total is the primary signal, the math is one click away.
+// Hidden when there is nothing up-front to pay (e.g. many scraped ads have no
+// deposit/prepaid data), where the total would just equal the monthly rent.
+function renderMoveInPriceLine(room) {
+    const deposit = Number(room.deposit) || 0;
+    const prepaidRent = Number(room.prepaidRent) || 0;
+    const price = Number(room.price) || 0;
+    if (!deposit && !prepaidRent) return "";
+
+    const total = deposit + prepaidRent + price;
+    const depositHint = describeDepositMonths(deposit, price);
+    const prepaidHint = describePrepaidMonths(prepaidRent, price);
+
+    return `
+        <details class="room-detail-movein">
+            <summary>
+                <span>Indflytningspris<i class="fa-solid fa-chevron-down"></i></span>
+                <b>${formatNumber(total)} kr.</b>
+            </summary>
+            <div class="room-detail-movein-breakdown">
+                ${deposit ? `<p><span>Depositum${depositHint ? `<small>${depositHint}</small>` : ""}</span><b>${formatMoneyOrDash(deposit)}</b></p>` : ""}
+                ${prepaidRent ? `<p><span>Forudbetalt leje${prepaidHint ? `<small>${prepaidHint}</small>` : ""}</span><b>${formatMoneyOrDash(prepaidRent)}</b></p>` : ""}
+                ${price ? `<p><span>Første måneds husleje</span><b>${formatMoneyOrDash(price)}</b></p>` : ""}
+            </div>
+        </details>
+    `;
+}
+
+// "ca. 3 måneders husleje" hint — only shown when the amount divides cleanly into
+// the monthly rent (within 15%), so we never display a misleading fraction.
+function describeDepositMonths(deposit, price) {
+    const months = monthsOfRent(deposit, price);
+    if (!months) return "";
+    return months === 1 ? "1 måneds husleje" : `${formatNumber(months)} måneders husleje`;
+}
+
+function describePrepaidMonths(prepaidRent, price) {
+    const months = monthsOfRent(prepaidRent, price);
+    return months ? formatMonthCount(months) : "";
+}
+
+function monthsOfRent(amount, price) {
+    if (!amount || !price) return 0;
+    const months = Math.round(amount / price);
+    if (months < 1) return 0;
+    if (Math.abs(amount - months * price) > price * 0.15) return 0;
+    return months;
 }
 
 function formatMoneyOrDash(value) {

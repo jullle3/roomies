@@ -198,7 +198,7 @@
 
 .conversation-thread-header {
     flex-wrap: wrap;
-    padding: 1.1rem 1.25rem;
+    padding: 0.7rem 1.25rem;
     border-bottom: 1px solid #eef0f3;
     background: rgba(255, 255, 255, 0.76);
 }
@@ -297,6 +297,10 @@
 .conversation-message-text {
     white-space: pre-wrap;
     line-height: 1.6;
+    /* Break long unbreakable strings (e.g. URLs) so they wrap instead of
+       forcing a horizontal scrollbar inside the bubble. */
+    overflow-wrap: anywhere;
+    word-break: break-word;
 }
 
 .conversation-reply {
@@ -433,6 +437,21 @@
     .conversation-mobile-menu-badge {
         display: none !important;
     }
+
+    /* Keep the chat pinned in view while the (potentially long) conversation list
+       scrolls beside it. The panel fills the viewport height and only the messages
+       scroll inside it, so the header and composer stay reachable. */
+    #conversation-thread-column {
+        position: sticky;
+        top: 92px;                     /* clears the floating nav (floats at top:20px) */
+        align-self: flex-start;        /* stop the flex row from stretching it to full height */
+        height: calc(100vh - 120px);
+    }
+
+    .conversation-thread-panel {
+        height: 100%;
+        min-height: 0;
+    }
 }
 
 @media (max-width: 991.98px) {
@@ -451,10 +470,20 @@
 
     .conversation-thread-panel {
         min-height: calc(100vh - 140px);
+        /* overflow:hidden (base) breaks position:sticky on the children below,
+           so allow the header/composer to stick relative to the page scroll. */
+        overflow: visible;
     }
 
     .conversation-thread-header {
-        align-items: flex-start !important;
+        /* Keep the header (with "Tilbage") pinned just below the floating navbar
+           so only the messages scroll. Opaque bg so messages scroll under cleanly. */
+        position: sticky;
+        top: 64px;
+        z-index: 5;
+        background: #fff;
+        border-top-left-radius: var(--radius-xl);
+        border-top-right-radius: var(--radius-xl);
     }
 
     .conversation-mobile-back {
@@ -465,6 +494,16 @@
     .conversation-messages {
         max-height: none;
         min-height: 45vh;
+    }
+
+    .conversation-reply {
+        /* Keep the composer ("Skriv en besked") pinned to the bottom of the
+           viewport so it stays reachable while scrolling the thread. */
+        position: sticky;
+        bottom: 0;
+        z-index: 5;
+        border-bottom-left-radius: var(--radius-xl);
+        border-bottom-right-radius: var(--radius-xl);
     }
 }
 

@@ -135,10 +135,10 @@ export async function renderConversations(targetConversationId = null, options =
         updateConversationUnreadBadgeFromConversations(conversations);
         startConversationPolling();
 
-        // Opened via "Kontakt": bring the chat thread into view (mobile shows the
-        // thread panel, desktop scrolls the thread column into view).
+        // Opened via "Kontakt": land at the bottom of the thread, ready to reply
+        // (mobile shows the thread panel; desktop focuses the prefilled composer).
         if (options.draftReceiverId) {
-            scrollToConversationThread();
+            revealConversationComposer();
         }
     } catch (error) {
         console.error('Failed to load conversations', error);
@@ -249,14 +249,14 @@ function openConversation(conversationId) {
     renderConversationList();
     renderActiveConversation();
     renderConversationPanelsForViewport();
-    scrollConversationsIntoView();
+    revealConversationComposer();
     updateConversationUnreadBadgeFromConversations(conversations);
 }
 
 function showMobileConversationList() {
     mobileConversationMode = 'list';
     renderConversationPanelsForViewport();
-    scrollConversationsIntoView();
+    scrollActiveConversationIntoView();
 }
 
 function renderConversationPanelsForViewport() {
@@ -283,28 +283,64 @@ function isMobileConversationLayout() {
     return window.matchMedia('(max-width: 991.98px)').matches;
 }
 
-function scrollConversationsIntoView() {
-    const view = document.getElementById('conversations');
-    if (!view || !isMobileConversationLayout()) return;
+/**
+ * When returning to the mobile inbox via "Tilbage", scrolls the conversation the user
+ * was just viewing back into view so they keep their place in a long list.
+ */
+function scrollActiveConversationIntoView() {
+    if (!isMobileConversationLayout()) return;
+
+    const activeItem = document.querySelector('#conversation-list .conversation-list-item.active');
+    const fallback = document.getElementById('conversations');
 
     window.requestAnimationFrame(() => {
-        view.scrollIntoView({block: 'start'});
+        if (activeItem) {
+            activeItem.scrollIntoView({behavior: 'smooth', block: 'center'});
+        } else {
+            fallback?.scrollIntoView({block: 'start'});
+        }
     });
 }
 
-// Brings the chat thread into view after opening from "Kontakt". On mobile the
-// thread takes over the screen, so we scroll to the top of the view; on desktop
-// we center the thread column (with its prefilled message) in the viewport.
-function scrollToConversationThread() {
-    const mobile = isMobileConversationLayout();
-    const target = mobile
-        ? document.getElementById('conversations')
-        : document.getElementById('conversation-thread-column');
-    if (!target) return;
+/**
+ * After a conversation opens, scrolls to the latest message so the user lands at the
+ * bottom of the thread, ready to reply. On desktop we also place the cursor in the
+ * textarea; on mobile we skip auto-focus so the on-screen keyboard doesn't cover the
+ * thread.
+ */
+function revealConversationComposer() {
+    const messages = document.getElementById('conversation-messages');
+    const replyForm = document.getElementById('conversation-reply-form');
+    if (!messages || !replyForm) return;
+
+    const replyInput = document.getElementById('conversation-reply-text');
+    const isMobile = isMobileConversationLayout();
 
     window.requestAnimationFrame(() => {
-        target.scrollIntoView({behavior: 'smooth', block: mobile ? 'start' : 'center'});
+        scrollActiveThreadToLatest(messages, replyForm, isMobile);
+
+        if (!isMobile) {
+            replyInput?.focus({preventScroll: true});
+        }
     });
+}
+
+/**
+ * Scrolls the thread so the most recent message is visible at the bottom.
+ * Desktop scrolls inside the fixed-height messages panel; mobile scrolls the page,
+ * since there the composer is sticky to the viewport bottom (scrolling it into view
+ * would be a no-op) and the page itself is the scroll container.
+ */
+function scrollActiveThreadToLatest(messages, replyForm, isMobile) {
+    if (!isMobile) {
+        messages.scrollTop = messages.scrollHeight;
+        return;
+    }
+
+    const messagesBottom = window.scrollY + messages.getBoundingClientRect().bottom;
+    const composerHeight = replyForm?.offsetHeight || 0;
+    const target = messagesBottom - window.innerHeight + composerHeight;
+    window.scrollTo({top: Math.max(0, target), behavior: 'smooth'});
 }
 
 function markActiveConversationRead({render = true} = {}) {

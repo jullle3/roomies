@@ -83,9 +83,7 @@ export function getCurrentView() {
     return currentView;
 }
 
-// The view navigated away from when entering the current one. Lets a detail view
-// know it came from search, so "back" can restore scroll via history instead of
-// jumping to the top.
+// The view navigated away from when entering the current one.
 export function getPreviousView() {
     return previousView;
 }
@@ -287,11 +285,6 @@ export async function showView(view, viewParams = new URLSearchParams(), updateU
     // Save the outgoing page before switching views. Fresh SPA navigation starts
     // at top, but browser back/forward can restore this saved position.
     saveScrollPosition(currentView, currentScrollKey);
-    if (currentView === 'housing_list') {
-        // Also save the pagination depth when leaving the list view, so all
-        // loaded pages exist before we restore the old scroll position.
-        persistListScrollState();
-    }
 
     ensureViewVisibility(view);
     previousView = currentView;
@@ -534,8 +527,7 @@ function saveScrollPosition(viewName, scrollKey = currentScrollKey) {
     const root = getScrollRoot();
     scrollPositions[scrollKey] = {
         view: viewName,
-        top: root.scrollTop,
-        anchor: captureVisibleScrollAnchor(viewName)
+        top: root.scrollTop
     };
 }
 
@@ -573,7 +565,7 @@ function getSavedScrollState(viewName, scrollKey = currentScrollKey) {
     const state = scrollPositions[scrollKey];
 
     if (typeof state === 'number') {
-        return {view: viewName, top: state, anchor: null};
+        return {view: viewName, top: state};
     }
 
     if (!state || typeof state.top !== 'number') {
@@ -589,56 +581,12 @@ function getSavedScrollState(viewName, scrollKey = currentScrollKey) {
 
 function applySavedScrollPosition(viewName, state) {
     const root = getScrollRoot();
-    let targetTop = state.top;
-
-    const anchorId = state.anchor?.id;
-    if (anchorId && views[viewName]) {
-        const anchorEl = views[viewName].querySelector(`[data-scroll-anchor-id="${anchorId}"]`);
-        if (anchorEl) {
-            targetTop = root.scrollTop + anchorEl.getBoundingClientRect().top - state.anchor.topOffset;
-        }
-    }
 
     const previousScrollBehavior = root.style.scrollBehavior;
     root.style.scrollBehavior = 'auto';
-    root.scrollTop = clampScrollTop(targetTop);
+    root.scrollTop = clampScrollTop(state.top);
     root.style.scrollBehavior = previousScrollBehavior;
     return true;
-}
-
-function captureVisibleScrollAnchor(viewName) {
-    if (viewName !== 'housing_list') {
-        return null;
-    }
-
-    const viewEl = views[viewName];
-    if (!viewEl) return null;
-
-    const anchors = Array.from(viewEl.querySelectorAll('[data-scroll-anchor-id]'));
-    if (anchors.length === 0) return null;
-
-    const viewportHeight = window.visualViewport?.height || window.innerHeight || document.documentElement.clientHeight;
-    let fallbackAnchor = null;
-
-    for (const anchor of anchors) {
-        const rect = anchor.getBoundingClientRect();
-        if (rect.bottom <= 0 || rect.top >= viewportHeight) {
-            continue;
-        }
-
-        const candidate = {
-            id: anchor.getAttribute('data-scroll-anchor-id'),
-            topOffset: rect.top
-        };
-
-        if (rect.top >= 0) {
-            return candidate;
-        }
-
-        fallbackAnchor = candidate;
-    }
-
-    return fallbackAnchor;
 }
 
 function clampScrollTop(value) {

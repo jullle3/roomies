@@ -1,7 +1,5 @@
-- Opdater vilkaar til siden
 - Reklame sektion i bunden ligesom TrustMRR
 - Seo optimer alt
-- Theres a bug when i click one of the elements in the dropdown in "<!-- Auth / Bruger Menu (Right aligned) -->" the buttons background color seems to turn blue and stay blue? Thats weird, no need for this at all. The buttons already animate a little when hovered/clicked and thats enough
 - Cache endpointet "/rooms/all" i CF
 - Vigtigt jeg får folk til at oprettet en profil med billede, både købere og sælgere, det er det menneskelige der skal drive siden rundt.
 - "The existing housing_list anchor/pagination restoration still works."

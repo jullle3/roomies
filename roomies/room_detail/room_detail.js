@@ -9,6 +9,7 @@ import {
 } from "../utils.js";
 import {authFetch} from "../auth/auth.js";
 import {s3Url} from "../config/config.js";
+import {getPreviousView} from "../views/viewManager.js";
 
 export async function renderRoomDetail(roomId) {
     const container = document.getElementById("room-detail-content");
@@ -35,6 +36,7 @@ export async function renderRoomDetail(roomId) {
     setupRoomPhotoViewer(container);
     setupRoomOwnerControls(container, room, isOwner);
     setupRoomContactControls(container);
+    setupRoomBackControl(container);
     updateMetaTags(
         `${viewModel.title} | roomies`,
         viewModel.description || `Ledigt værelse i ${viewModel.area}. Se pris, størrelse og hverdagen i hjemmet.`,
@@ -253,6 +255,25 @@ function setupRoomOwnerControls(container, room, isOwner) {
 
     container.__roomOwnerClickHandler = handler;
     container.addEventListener("click", handler);
+}
+
+function setupRoomBackControl(container) {
+    if (container.dataset.backBound) return;
+    container.dataset.backBound = "1";
+
+    container.addEventListener("click", event => {
+        const backLink = event.target.closest(".room-detail-back");
+        if (!backLink) return;
+
+        // Arrived here from the search view → step back in history so its scroll
+        // position and loaded "Vis mere" batches are restored, instead of the SPA
+        // link handler navigating fresh to the top of the list.
+        if (getPreviousView() === "soeg_vaerelse" && window.history.length > 1) {
+            event.preventDefault();
+            event.stopPropagation();
+            window.history.back();
+        }
+    });
 }
 
 function setupRoomContactControls(container) {

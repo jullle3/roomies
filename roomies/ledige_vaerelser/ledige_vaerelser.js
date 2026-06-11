@@ -3,6 +3,11 @@ import {s3Url} from "../config/config.js";
 import {renderRoomCard as renderSharedRoomCard} from "../rooms/roomCard.js";
 import {decodeJwt} from "../utils.js";
 
+// Client-side "load more" pagination: all rooms loaded and filtered locally, then
+// shown in batches. 18 keeps clean rows across the 1/2/3-column responsive grid.
+const ROOMS_PER_BATCH = 18;
+let roomSearchVisible = ROOMS_PER_BATCH;
+
 export function setupRoomSearchView() {
     const form = document.getElementById("room-search-form");
     const results = document.getElementById("room-search-results");
@@ -25,6 +30,7 @@ export function setupRoomSearchView() {
     });
     document.getElementById("room-search-reset")?.addEventListener("click", resetRoomSearch);
     document.querySelector("[data-reset-room-search]")?.addEventListener("click", resetRoomSearch);
+    document.getElementById("room-search-load-more")?.addEventListener("click", handleLoadMore);
     onRoomsLoaded(renderRoomListings);
 
     window.openRoomSearch = openRoomSearch;
@@ -44,16 +50,24 @@ function openRoomSearch() {
     renderRoomListings();
 }
 
+// Entry point for any filter/search change: results change, so reset to first batch.
 function renderRoomListings() {
+    roomSearchVisible = ROOMS_PER_BATCH;
+    renderRoomSearchResults();
+}
+
+function renderRoomSearchResults() {
     const results = document.getElementById("room-search-results");
     const empty = document.getElementById("room-search-empty");
     const count = document.getElementById("room-search-count");
+    const loadMore = document.getElementById("room-search-load-more");
     if (!results || !empty || !count) return;
 
     const cachedRooms = getCachedRooms();
     if (cachedRooms === null) {
         results.innerHTML = "";
         empty.classList.add("d-none");
+        renderRoomSearchLoadMore(loadMore, 0, 0);
         count.textContent = "Indlæser værelser...";
         return;
     }
@@ -61,9 +75,40 @@ function renderRoomListings() {
     const rooms = getFilteredRooms(cachedRooms);
     updateRoomSearchEmptyState(cachedRooms.length === 0);
 
-    results.innerHTML = rooms.map(renderRoomCard).join("");
+    roomSearchVisible = Math.min(Math.max(roomSearchVisible, ROOMS_PER_BATCH), Math.max(rooms.length, ROOMS_PER_BATCH));
+    const shown = Math.min(roomSearchVisible, rooms.length);
+    const pageRooms = rooms.slice(0, shown);
+
+    results.innerHTML = pageRooms.map(renderRoomCard).join("");
     empty.classList.toggle("d-none", rooms.length > 0);
-    count.textContent = rooms.length === 1 ? "1 ledigt værelse" : `${rooms.length} ledige værelser`;
+    count.textContent = getRoomCountLabel(rooms.length);
+    renderRoomSearchLoadMore(loadMore, shown, rooms.length);
+}
+
+function getRoomCountLabel(total) {
+    if (total === 0) return "Ingen ledige værelser";
+    if (total === 1) return "1 ledigt værelse";
+    return `${formatNumber(total)} ledige værelser`;
+}
+
+function handleLoadMore() {
+    roomSearchVisible += ROOMS_PER_BATCH;
+    renderRoomSearchResults();
+}
+
+function renderRoomSearchLoadMore(container, shown, total) {
+    if (!container) return;
+
+    const remaining = total - shown;
+    if (remaining <= 0) {
+        container.classList.add("d-none");
+        container.disabled = true;
+        return;
+    }
+
+    container.classList.remove("d-none");
+    container.disabled = false;
+    container.innerHTML = `<i class="fa-solid fa-arrow-down me-2"></i>Vis mere`;
 }
 
 function updateRoomSearchEmptyState(hasNoFetchedRooms) {

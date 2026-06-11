@@ -77,10 +77,18 @@ const routeToView = {
 
 // Starting view
 let currentView = 'landing';
+let previousView = null;
 let currentViewParams = new URLSearchParams();
 
 export function getCurrentView() {
     return currentView;
+}
+
+// The view navigated away from when entering the current one. Lets a detail view
+// know it came from search, so "back" can restore scroll via history instead of
+// jumping to the top.
+export function getPreviousView() {
+    return previousView;
 }
 
 export function getCurrentViewParams() {
@@ -287,6 +295,7 @@ export async function showView(view, viewParams = new URLSearchParams(), updateU
     }
 
     ensureViewVisibility(view);
+    previousView = currentView;
     currentView = view;
     currentViewParams = new URLSearchParams(viewParams.toString());
 

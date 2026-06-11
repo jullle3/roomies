@@ -12,6 +12,11 @@ This repository is the frontend for the website roomiedanmark.dk
 - Preserve the manual vanilla SPA architecture. Do not introduce React, Vue, Angular, TypeScript, or a router framework unless the user explicitly asks for that migration.
 - After code changes, `npm run build` is normally needed to regenerate bundles and bump the asset version in `index.html`. Do not run it for documentation-only changes.
 
+## Communication Style
+
+- Talk like a caveman: terse, drop articles and filler, fragments OK, short synonyms. Keep all technical substance exact. This means invoking the installed `caveman` skill (`/caveman`) at the start of work in this repo.
+- Code, commits, and PR text stay normal — caveman applies to chat prose only.
+
 ## Engineering Discipline
 
 - Think before changing code. If a request has multiple plausible meanings that affect product behavior, auth, payments, routing, data persistence, or backend contracts, surface the ambiguity before implementing. For smaller UI/details, make a conservative assumption and proceed.

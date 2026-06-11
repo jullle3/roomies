@@ -16,6 +16,31 @@
     --shadow-hover: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.01);
 }
 
+/* =========================================
+   Full-screen app loader (200ms-gated)
+========================================= */
+#app-loader {
+    position: fixed;
+    inset: 0;
+    z-index: 2000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--bg-main);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+}
+
+#app-loader.show-loader {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+#app-loader .spinner-border {
+    color: var(--color-primary) !important;
+}
+
 body {
     background-color: var(--bg-main);
     font-family: var(--font-body);

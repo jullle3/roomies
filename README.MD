@@ -1,4 +1,3 @@
-- login med google?
 - Seo optimer alt
 - Opdater vilkaar til siden
 - Få AI til at dobbelttjek at alle frontend kald ryger til endpoints med /roomies prefix
@@ -16,6 +15,11 @@ Remove this, not needed in this project
   After users have created an account, thank them and send them an email to remind them of filling their roomie_profile.
   Plan https://gemini.google.com/gem/c9297fa0daa6/438200f96cb01b5e
 
+
+- login med google?
+Kan først når vi er live i prod, med /vilkaar side
+  https://console.cloud.google.com/auth/branding;showIssues=null?project=roomiedanmark
+- 
 - Freemium, se freemium_ideas.txt
 - Slug på roomies fremfor bare ID. Det giver bedre SEO
 - Skriv simpelt "vilkaar" view 

@@ -37,7 +37,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
     <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
     <!--    Custom Merged css files -->
-    <link rel="stylesheet" href="roomies/mergedStyles.css?roomies_version=946">
+    <link rel="stylesheet" href="roomies/mergedStyles.css?roomies_version=949">
     <style>
         .nav-auth-btn:active,
         .nav-auth-btn:focus,
@@ -56,7 +56,7 @@
             color: #ffffff !important;
         }
     </style>
-    <script defer type="module" src="roomies/mergedJS.js?roomies_version=946"></script>
+    <script defer type="module" src="roomies/mergedJS.js?roomies_version=949"></script>
 
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18047412076"></script>
@@ -1010,9 +1010,12 @@
                 <form id="room-search-form" class="room-search-toolbar" role="search">
                     <div class="room-search-simple-row">
                         <label class="visually-hidden" for="room-search-location">Område</label>
-                        <div class="input-group input-group-lg room-search-main-input">
-                            <span class="input-group-text"><i class="fa-solid fa-magnifying-glass"></i></span>
-                            <input id="room-search-location" class="form-control" name="location" type="search" placeholder="Søg efter område, postnummer eller by">
+                        <div class="room-search-location-field">
+                            <div class="input-group input-group-lg room-search-main-input">
+                                <span class="input-group-text"><i class="fa-solid fa-magnifying-glass"></i></span>
+                                <input id="room-search-location" class="form-control" name="location" type="search" placeholder="Søg efter område, postnummer eller by" autocomplete="off" aria-autocomplete="list" aria-controls="room-search-area-suggestions">
+                            </div>
+                            <div id="room-search-area-suggestions" class="room-search-area-suggestions" role="listbox" aria-label="Område-forslag"></div>
                         </div>
 
                         <div class="room-search-rent-inline">

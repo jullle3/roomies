@@ -2,10 +2,13 @@ import {getCachedRooms, onRoomsLoaded} from "../rooms/room_cache.js";
 import {s3Url} from "../config/config.js";
 import {renderRoomCard as renderSharedRoomCard} from "../rooms/roomCard.js";
 import {decodeJwt} from "../utils.js";
+import {areaAutocompleteOptions} from "../config/hardcoded_data.js";
 
 // Client-side "load more" pagination: all rooms loaded and filtered locally, then
 // shown in batches. 18 keeps clean rows across the 1/2/3-column responsive grid.
 const ROOMS_PER_BATCH = 18;
+const AREA_SUGGESTION_LIMIT = 6;
+const AREA_LOOKUP = new Map(areaAutocompleteOptions.map(area => [String(area.id), area]));
 let roomSearchVisible = ROOMS_PER_BATCH;
 
 export function setupRoomSearchView() {
@@ -30,10 +33,7 @@ export function setupRoomSearchView() {
         if (event.target.matches(".room-search-native-range, #room-search-location")) return;
         renderRoomListings();
     });
-    document.getElementById("room-search-location")?.addEventListener("input", event => {
-        event.currentTarget.dataset.areaId = "";
-        debouncedRenderRoomListings();
-    });
+    setupRoomAreaAutocomplete();
     document.getElementById("room-search-reset")?.addEventListener("click", resetRoomSearch);
     document.querySelector("[data-reset-room-search]")?.addEventListener("click", resetRoomSearch);
     document.getElementById("room-search-load-more")?.addEventListener("click", handleLoadMore);
@@ -309,8 +309,124 @@ function resetRoomSearch() {
     document.getElementById("room-search-form")?.reset();
     const locationInput = document.getElementById("room-search-location");
     if (locationInput) locationInput.dataset.areaId = "";
+    hideRoomAreaSuggestions();
     setRoomSearchSliderValue("room-search-rent-slider", 10000);
     renderRoomListings();
+}
+
+function setupRoomAreaAutocomplete() {
+    const input = document.getElementById("room-search-location");
+    const suggestions = document.getElementById("room-search-area-suggestions");
+    if (!input || !suggestions || input.dataset.areaAutocompleteBound === "1") return;
+
+    input.dataset.areaAutocompleteBound = "1";
+
+    input.addEventListener("input", () => {
+        input.dataset.areaId = "";
+        renderRoomAreaSuggestions(input.value);
+        debouncedRenderRoomListings();
+    });
+
+    input.addEventListener("focus", () => {
+        renderRoomAreaSuggestions(input.value);
+    });
+
+    input.addEventListener("keydown", event => {
+        const options = [...suggestions.querySelectorAll("[data-room-area-option]")];
+        if (!options.length) return;
+
+        const currentIndex = options.findIndex(option => option.classList.contains("is-active"));
+
+        if (event.key === "ArrowDown") {
+            event.preventDefault();
+            setActiveRoomAreaOption(options, currentIndex + 1);
+        } else if (event.key === "ArrowUp") {
+            event.preventDefault();
+            setActiveRoomAreaOption(options, currentIndex - 1);
+        } else if (event.key === "Enter") {
+            const active = suggestions.querySelector("[data-room-area-option].is-active") || options[0];
+            if (active) {
+                event.preventDefault();
+                selectRoomArea(active.dataset.roomAreaOption);
+            }
+        } else if (event.key === "Escape") {
+            hideRoomAreaSuggestions();
+        }
+    });
+
+    suggestions.addEventListener("mousedown", event => {
+        const option = event.target.closest("[data-room-area-option]");
+        if (!option) return;
+
+        event.preventDefault();
+        selectRoomArea(option.dataset.roomAreaOption);
+    });
+
+    document.addEventListener("click", event => {
+        if (event.target === input || suggestions.contains(event.target)) return;
+        hideRoomAreaSuggestions();
+    });
+}
+
+function renderRoomAreaSuggestions(rawQuery = "") {
+    const suggestions = document.getElementById("room-search-area-suggestions");
+    if (!suggestions) return;
+
+    const query = normalizeAreaSearchText(rawQuery);
+    const matches = areaAutocompleteOptions
+        .filter(area => !query || normalizeAreaSearchText(area.searchText || area.label).includes(query))
+        .slice(0, AREA_SUGGESTION_LIMIT);
+
+    if (!matches.length) {
+        suggestions.innerHTML = `
+            <div class="room-search-area-empty">
+                <i class="fa-regular fa-face-smile me-2"></i>Prøv et postnummer eller område
+            </div>
+        `;
+        suggestions.classList.add("is-open");
+        return;
+    }
+
+    suggestions.innerHTML = matches.map((area, index) => `
+        <button type="button"
+                class="room-search-area-option ${index === 0 ? "is-active" : ""}"
+                data-room-area-option="${escapeHtml(area.id)}"
+                role="option"
+                aria-selected="${index === 0 ? "true" : "false"}">
+            <i class="${escapeHtml(area.icon || "fa-solid fa-location-dot")}"></i>
+            <span>${escapeHtml(area.label)}</span>
+        </button>
+    `).join("");
+    suggestions.classList.add("is-open");
+}
+
+function selectRoomArea(areaId) {
+    const input = document.getElementById("room-search-location");
+    const area = AREA_LOOKUP.get(String(areaId));
+    if (!input || !area) return;
+
+    input.value = area.label;
+    input.dataset.areaId = String(area.id);
+    hideRoomAreaSuggestions();
+    renderRoomListings();
+}
+
+function setActiveRoomAreaOption(options, nextIndex) {
+    const boundedIndex = (nextIndex + options.length) % options.length;
+    options.forEach((option, index) => {
+        const isActive = index === boundedIndex;
+        option.classList.toggle("is-active", isActive);
+        option.setAttribute("aria-selected", String(isActive));
+        if (isActive) option.scrollIntoView({block: "nearest"});
+    });
+}
+
+function hideRoomAreaSuggestions() {
+    const suggestions = document.getElementById("room-search-area-suggestions");
+    if (!suggestions) return;
+
+    suggestions.classList.remove("is-open");
+    suggestions.innerHTML = "";
 }
 
 function setupRoomSearchSliders() {
@@ -401,6 +517,15 @@ function formatNumber(value) {
 
 function getNormalizedText(value) {
     return String(value || "").trim().toLocaleLowerCase("da-DK");
+}
+
+function normalizeAreaSearchText(value) {
+    return getNormalizedText(value)
+        .replaceAll("æ", "ae")
+        .replaceAll("ø", "oe")
+        .replaceAll("å", "aa")
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "");
 }
 
 // "Indflytning senest" date (YYYY-MM-DD) → end-of-day epoch seconds, or Infinity

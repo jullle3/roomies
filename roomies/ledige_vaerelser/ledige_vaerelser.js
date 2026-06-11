@@ -23,7 +23,13 @@ export function setupRoomSearchView() {
         renderRoomListings();
     });
 
-    form.addEventListener("change", renderRoomListings);
+    form.addEventListener("change", event => {
+        // The slider and location field have their own debounced input handlers.
+        // Ignore their trailing "change" events (slider release, input blur) so
+        // results don't render — and animate — a second time.
+        if (event.target.matches(".room-search-native-range, #room-search-location")) return;
+        renderRoomListings();
+    });
     document.getElementById("room-search-location")?.addEventListener("input", event => {
         event.currentTarget.dataset.areaId = "";
         debouncedRenderRoomListings();
@@ -53,7 +59,9 @@ function openRoomSearch() {
 // Entry point for any filter/search change: results change, so reset to first batch.
 function renderRoomListings() {
     roomSearchVisible = ROOMS_PER_BATCH;
-    renderRoomSearchResults();
+    // animate: a filter/search changed the result set — nudge the grid so the
+    // (instant, client-side) update is perceptible. "Load more" stays silent.
+    renderRoomSearchResults({animate: true});
 }
 
 // Coalesce high-frequency inputs (slider drag, location typing) so we only
@@ -68,7 +76,7 @@ function debounce(fn, delay) {
     };
 }
 
-function renderRoomSearchResults() {
+function renderRoomSearchResults({animate = false} = {}) {
     const results = document.getElementById("room-search-results");
     const empty = document.getElementById("room-search-empty");
     const count = document.getElementById("room-search-count");
@@ -95,6 +103,15 @@ function renderRoomSearchResults() {
     empty.classList.toggle("d-none", rooms.length > 0);
     count.textContent = getRoomCountLabel(rooms.length);
     renderRoomSearchLoadMore(loadMore, shown, rooms.length);
+
+    // Re-arm the staggered card-in animation only when a filter/search changed
+    // the set. Removing first (and forcing a reflow) restarts it on each change;
+    // "load more" leaves it off so appended cards don't re-animate.
+    results.classList.remove("room-search-results-animate");
+    if (animate) {
+        void results.offsetWidth;
+        results.classList.add("room-search-results-animate");
+    }
 }
 
 function getRoomCountLabel(total) {

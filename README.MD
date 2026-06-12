@@ -1,3 +1,4 @@
+- Roomie Reddit og FB Opslag - https://gemini.google.com/gem/c9297fa0daa6/f6fccd4db7de4739?hl=da
 - Generel oprydning i viewmanager?
 - Reklame sektion i bunden ligesom TrustMRR
 - Cache endpointet "/rooms/all" i CF

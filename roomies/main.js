@@ -183,13 +183,14 @@ document.addEventListener('DOMContentLoaded', async () => {
     try {
         await loadLandingNewRooms();
 
-        const advertisementData = await fetchAdvertisementData();
-        if (advertisementData) {
-            loadScannerHighlightedListings(advertisementData);
-            loadHousingStats(advertisementData);
-            initDynamicUserCount(advertisementData.total_users);
-            initDynamicScrapedCount(advertisementData.total_scraped);
-        }
+        // Temporarily disabled — not needed right now, keep for future use.
+        // const advertisementData = await fetchAdvertisementData();
+        // if (advertisementData) {
+        //     loadScannerHighlightedListings(advertisementData);
+        //     loadHousingStats(advertisementData);
+        //     initDynamicUserCount(advertisementData.total_users);
+        //     initDynamicScrapedCount(advertisementData.total_scraped);
+        // }
 
         setupMissingEmailHandler()
     } catch (err) {

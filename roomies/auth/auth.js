@@ -2,7 +2,7 @@ import {apiUrl, directApiUrl} from "../config/config.js";
 
 // Define exactly which endpoints should go through Cloudflare (Caching)
 const CACHEABLE_ENDPOINTS = [
-    '/roomies/advertisement',
+    '/roomies/rooms/all',
     '/roomies/advertisement_data'
 ];
 
@@ -38,7 +38,7 @@ export function authFetch(url, options = {}) {
 
     // ROUTING LOGIC:
     // Check if the endpoint is in our allowed list.
-    // If it is, use Cloudflare (apiUrl). Otherwise, use the direct Google backend (directApiUrl).
+    // If it is, use Cloudflare (apiUrl). Otherwise, use the direct Google backend (directApiUrl), since cloudflare seems to add 50-200 ms per request
     let base = directApiUrl;
 
     if (CACHEABLE_ENDPOINTS.includes(endpoint)) {

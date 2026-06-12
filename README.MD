@@ -1,5 +1,3 @@
-- Roomie Reddit og FB Opslag - https://gemini.google.com/gem/c9297fa0daa6/f6fccd4db7de4739?hl=da
-- Generel oprydning i viewmanager?
 - Reklame sektion i bunden ligesom TrustMRR
 - Cache endpointet "/rooms/all" i CF
 - Vigtigt jeg får folk til at oprettet en profil med billede, både købere og sælgere, det er det menneskelige der skal drive siden rundt.
@@ -7,6 +5,8 @@
 - Keep the easy flow to create an user.
   After users have created an account, thank them and send them an email to remind them of filling their roomie_profile.
   Plan https://gemini.google.com/gem/c9297fa0daa6/438200f96cb01b5e
+
+- Roomie Reddit og FB Opslag - https://gemini.google.com/gem/c9297fa0daa6/f6fccd4db7de4739?hl=da
 
 
 - login med google?

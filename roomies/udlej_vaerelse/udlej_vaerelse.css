@@ -5,7 +5,7 @@
     padding-bottom: 80px;
     background:
         linear-gradient(135deg, rgba(31, 41, 55, 0.9), rgba(31, 41, 55, 0.66)),
-        url('/pics/landing2.png') center/cover no-repeat;
+        url('/pics/landing2.webp') center/cover no-repeat;
 }
 
 .rent-room-hero-check {
@@ -619,7 +619,7 @@
            narrow screens; dark fill covers the area around the photo band */
         background-image:
             linear-gradient(135deg, rgba(31, 41, 55, 0.9), rgba(31, 41, 55, 0.66)),
-            url('/pics/landing2_mobile.png');
+            url('/pics/landing2_mobile.webp');
         background-size: cover, contain;
         background-position: center, center top;
         background-repeat: no-repeat, no-repeat;

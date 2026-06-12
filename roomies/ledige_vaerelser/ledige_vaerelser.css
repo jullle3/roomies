@@ -2,7 +2,7 @@
     position: relative;
     padding: 148px 0 76px;
     overflow: hidden;
-    background: url('/pics/landing2.png') center/cover no-repeat;
+    background: url('/pics/landing2.webp') center/cover no-repeat;
 }
 
 .room-search-header::before {

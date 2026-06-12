@@ -87,7 +87,7 @@ h1, h2, h3, h4, h5, h6, .view-title {
 ========================================= */
 .landing-hero {
     position: relative;
-    background-image: url('/pics/landing2.png');
+    background-image: url('/pics/landing2.webp');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -112,7 +112,7 @@ h1, h2, h3, h4, h5, h6, .view-title {
     .landing-hero {
         /* Near-square crop, shown in full (contain) so no faces get cropped on
            narrow screens; the dark fill covers the area around the photo band */
-        background-image: url('/pics/landing2_mobile.png');
+        background-image: url('/pics/landing2_mobile.webp');
         background-size: contain;
         background-position: center top;
         background-color: #1F2937;

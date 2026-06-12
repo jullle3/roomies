@@ -54,7 +54,7 @@ export function SetupFooter() {
 
       <div class="col-12 col-md-4 text-center order-1 order-md-2 mb-4 mb-md-0">
         <a href="/" class="d-inline-block hover-lift" style="transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);">
-          <img src="${basePath}/favicon/favicon_text.png" alt="roomiedanmark Logo" class=" " style="height: 50px; object-fit: contain;">
+          <img src="${basePath}/favicon/favicon_text.webp" alt="roomiedanmark Logo" class=" " style="height: 50px; object-fit: contain;">
         </a>
       </div>
 

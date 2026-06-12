@@ -1,7 +1,7 @@
+- Lav opengraph billede
 - Forbedre detail view
 - Reklame sektion i bunden ligesom TrustMRR
 Se ad-placement-ideas.md
-- At man tilgår et forkert URL skal ikke chrashe siden, send til home eller vis "Siden findes ikke :)"
 - Vigtigt jeg får folk til at oprettet en profil med billede, både købere og sælgere, det er det menneskelige der skal drive siden rundt.
 - Seo optimer alt
 - Keep the easy flow to create an user.

@@ -8,133 +8,57 @@ const CACHE_KEY = "ALL_ADVERTISEMENTS";
 // --- STATIC SEO MAP (Replicating viewManager.js metadata) ---
 const STATIC_SEO_ROUTES = {
     '/spoergsmaal-om-roomies': {
-        title: 'Ofte stillede spørgsmål | roomies',
-        desc: 'Få svar på alle dine spørgsmål om køb, salg og bytte af andelsboliger og læs mere om hvordan roomies fungerer her.',
-        jsonLd: {
-            "@context": "https://schema.org",
-            "@type": "FAQPage",
-            "mainEntity": [
-                {
-                    "@type": "Question",
-                    "name": "Hvordan fungerer konceptet?",
-                    "acceptedAnswer": {
-                        "@type": "Answer",
-                        "text": "I dag er andelsboligmarkedet spredt ud over hele internettet – på DBA, Boliga, i over 50 forskellige Facebook-grupper og mange andre steder. Det problem løser vi. Vi samler markedet ét sted og gør det skjulte marked synligt for alle. Det er 100% gratis at sælge eller bytte din andelsbolig via os, og vi sørger for at annoncere din bolig ud til mange tusinde købere."
-                    }
-                },
-                {
-                    "@type": "Question",
-                    "name": "Koster det penge at sælge min andelsbolig?",
-                    "acceptedAnswer": {
-                        "@type": "Answer",
-                        "text": "Nej, det er 100% gratis at oprette en salgs- eller bytteannonce på roomies. Vi har fjernet de dyre mellemled, så du trygt kan finde den rette køber uden at skulle have penge op af lommen."
-                    }
-                },
-                {
-                    "@type": "Question",
-                    "name": "Hvad koster det at kontakte en sælger?",
-                    "acceptedAnswer": {
-                        "@type": "Answer",
-                        "text": "For kun 99 kr. om måneden får du fuld adgang til at kontakte alle sælgere direkte og se de fulde adressedetaljer. Der er 0 skjulte gebyrer og absolut ingen binding – du kan afmelde dig præcis, når du vil. Vores pris er desuden over 75% billigere end lignende portaler."
-                    }
-                },
-                {
-                    "@type": "Question",
-                    "name": "Hvad er processen når jeg sælger selv?",
-                    "acceptedAnswer": {
-                        "@type": "Answer",
-                        "text": "Overordnet set er processen simpel: 1. Undersøg først, hvilke regler og processer der gælder i din specifikke andelsboligforening (f.eks. krav til vurderingsmand). 2. Opret en gratis annonce på roomies. Vi finder interesserede købere og du fremviser boligen. 3. Når du har fundet din køber, giver du besked til foreningens administrator, som herefter opretter overdragelsesaftalen og indhenter bestyrelsens godkendelse."
-                    }
-                },
-                {
-                    "@type": "Question",
-                    "name": "Hvordan fungerer BoligMatch?",
-                    "acceptedAnswer": {
-                        "@type": "Answer",
-                        "text": "Med BoligMatch overvåger vi markedet for dig helt automatisk. Du opretter dine kriterier (f.eks. pris, størrelse og område), og vi sender dig en e-mail i samme sekund, som en andelsbolig, der matcher dine drømme, bliver sat til salg."
-                    }
-                },
-                {
-                    "@type": "Question",
-                    "name": "Hvor kommer boligerne fra?",
-                    "acceptedAnswer": {
-                        "@type": "Answer",
-                        "text": "Boligerne på platformen kommer fra to primære kilder. Flere og flere andelshavere opretter selv deres salgs- og bytteannoncer direkte hos os, fordi det er gratis, og fordi vi hjælper med salget. For at hjælpe dig med at overvåge et ellers uoverskueligt marked, bruger vi derudover avanceret teknologi til automatisk at indsamle annoncer fra resten af internettet, herunder DBA, Boliga og diverse internetsider. På den måde behøver du kun at lede ét sted. Vi håber du finder drømmeboligen hos os 😊"
-                    }
-                }
-            ]
-        }
-    },
-    '/liste': {
-        title: 'Andelsboliger til salg i København, Aarhus og hele Danmark',
-        desc: 'Se alle aktuelle andelsboliger til salg her. Find din nye andelslejlighed i København (inkl. 2100 Østerbro), Amager, Frederiksberg, Aarhus. m.m.',
+        title: 'Spørgsmål og svar | roomies',
+        desc: 'Få svar på spørgsmål om at finde værelse, udleje et værelse, skrive med roomies og bruge roomies gratis.'
     },
     '/ledige-vaerelser': {
         title: 'Søg værelse og find din næste roomie | roomies',
-        desc: 'Find ledige værelser i København, Aarhus og resten af Danmark. Filtrér efter pris, størrelse og den hverdag, du gerne vil være en del af.',
+        desc: 'Find ledige værelser i København, Aarhus og resten af Danmark. Filtrér efter pris, indflytning og den hverdag, du gerne vil være en del af.'
     },
     '/vaerelse': {
-        title: 'Ledigt vÃ¦relse | roomies',
-        desc: 'Se detaljer om et ledigt vÃ¦relse pÃ¥ roomies, herunder husleje, stÃ¸rrelse, beliggenhed og hverdagen i hjemmet.',
+        title: 'Ledigt værelse | roomies',
+        desc: 'Se detaljer om et ledigt værelse på roomies, herunder husleje, størrelse, beliggenhed og hverdagen i hjemmet.'
+    },
+    '/udlej-vaerelse': {
+        title: 'Udlej værelse gratis | Find en roomie med roomies',
+        desc: 'Udlej dit værelse gratis på roomies. Opret en annonce, find en tryg roomie, og få kontakt med unge på boligjagt uden skjulte gebyrer.'
     },
     '/boligovervaagning': {
-        title: 'Køb andelsbolig | Få besked når andelsboliger sættes til salg',
-        desc: 'Gå ikke glip af drømmeboligen. Opret et gratis BoligMatch og få besked så snart, drømmebolien sættes til salg til salg.',
-    },
-    '/kort': {
-        title: 'Kort over andelsboliger til salg | Find andelsbolig nær dig',
-        desc: 'Søg efter andelsboliger til salg via vores kort. Find nemt en andelsbolig i indre København, Amager, Frederiksberg, Lyngby, Aarhus og resten af landet.',
+        title: 'SøgeAgent | Få besked om nye værelser',
+        desc: 'Opret en gratis SøgeAgent og få besked, når et værelse matcher dit budget og dine områder.'
     },
     '/vilkaar': {
-        title: 'Vilkår og Betingelser | roomies',
-        desc: 'Læs de gældende vilkår og betingelser for brug af roomies. Få overblik over regler for køb af andelsbolig, annoncering og persondatahåndtering.',
+        title: 'Vilkår og betingelser | roomies',
+        desc: 'Læs vilkår for brug af roomies på roomiedanmark.dk, herunder profiler, værelsesannoncer, beskeder, SøgeAgent og persondata.'
     },
-    '/om-os': {
-        title: 'Om roomies | Nem, billig og hurtig bolighandel',
-        desc: 'Læs historien bag roomies. Vi tilstræber at gøre det mere gennemsigtigt, billigt og nemt at købe, sælge og bytte andelsboliger i Danmark.',
+    '/beskeder': {
+        title: 'Beskeder | roomies',
+        desc: 'Se og svar på dine samtaler med roomies om værelser, fællesskab og næste hjem.'
+    },
+    '/profil': {
+        title: 'Profil | roomies',
+        desc: 'Udfyld din roomie-profil med billede, interesser og ønsker, så andre kan lære dig bedre at kende.'
     },
     '/blog': {
         title: 'Blog | roomies',
-        desc: 'Læs historier, tips og erfaringer fra andelsboligmarkedet. Få inspiration til boligjagten, selvsalg og BoligMatch.',
+        desc: 'Læs historier, tips og erfaringer om roomies, ledige værelser og et mere fair boligmarked uden betalingsmure.',
         jsonLd: {
             "@context": "https://schema.org",
             "@type": "Blog",
             "name": "roomies Blog",
-            "url": `${BASE_URL}/blog`,
-            "blogPost": [
-                {
-                    "@type": "BlogPosting",
-                    "headline": "Sådan fik jeg tilbudt 10 attraktive andelsboliger i København på under en måned",
-                    "url": `${BASE_URL}/blog?slug=saadan-fik-jeg-tilbudt-10-andelsboliger-i-koebenhavn`,
-                    "datePublished": "2026-05-13",
-                    "author": {
-                        "@type": "Person",
-                        "name": "Julian Køster"
-                    }
-                },
-                {
-                    "@type": "BlogPosting",
-                    "headline": "Historien bag roomies",
-                    "url": `${BASE_URL}/blog?slug=historien-bag-andelsbolig-basen`,
-                    "datePublished": "2026-04-30",
-                    "author": {
-                        "@type": "Person",
-                        "name": "Julian KÃ¸ster"
-                    }
-                }
-            ]
+            "url": `${BASE_URL}/blog`
         }
     },
-    '/blog?slug=saadan-fik-jeg-tilbudt-10-andelsboliger-i-koebenhavn': {
-        title: 'Sådan fik jeg tilbudt 10 attraktive andelsboliger i København på under en måned | roomies',
-        desc: 'Min personlige historie om forberedelse, hurtig kontakt og det flyer-trick, der hjalp mig med at finde en andelsbolig i København.',
+    '/blog?slug=hvorfor-det-er-gratis-at-finde-en-roomie': {
+        title: 'Hvorfor det ikke skal koste 400 kr. om måneden at finde en roomie i Danmark | roomies',
+        desc: 'Det danske lejemarked er brutalt, og boligportaler udnytter boligsøgende med tårnhøje betalingsmure. Her er grunden til, at roomies er gratis.',
         jsonLd: {
             "@context": "https://schema.org",
             "@type": "BlogPosting",
-            "headline": "Sådan fik jeg tilbudt 10 attraktive andelsboliger i København på under en måned",
-            "description": "Min personlige historie om forberedelse, hurtig kontakt og det flyer-trick, der hjalp mig med at finde en andelsbolig i København.",
-            "datePublished": "2026-05-13",
-            "dateModified": "2026-05-13",
+            "headline": "Hvorfor det ikke skal koste 400 kr. om måneden at finde en roomie i Danmark",
+            "description": "Det danske lejemarked er brutalt, og boligportaler udnytter boligsøgende med tårnhøje betalingsmure. Her er grunden til, at roomies er gratis.",
+            "datePublished": "2026-06-06",
+            "dateModified": "2026-06-06",
             "author": {
                 "@type": "Person",
                 "name": "Julian Køster"
@@ -147,37 +71,12 @@ const STATIC_SEO_ROUTES = {
                     "url": `${BASE_URL}/favicon/android-chrome-192x192.webp`
                 }
             },
-            "mainEntityOfPage": `${BASE_URL}/blog?slug=saadan-fik-jeg-tilbudt-10-andelsboliger-i-koebenhavn`
-        }
-    },
-    '/blog?slug=historien-bag-andelsbolig-basen': {
-        title: 'Historien bag roomies | roomies',
-        desc: 'Hvorfor jeg byggede roomies, og hvordan en frustrerende boligjagt blev til en billigere, nemmere og tryggere platform for andelsboliger.',
-        jsonLd: {
-            "@context": "https://schema.org",
-            "@type": "BlogPosting",
-            "headline": "Historien bag roomies",
-            "description": "Hvorfor jeg byggede roomies, og hvordan en frustrerende boligjagt blev til en billigere, nemmere og tryggere platform for andelsboliger.",
-            "datePublished": "2026-04-30",
-            "dateModified": "2026-04-30",
-            "author": {
-                "@type": "Person",
-                "name": "Julian KÃ¸ster"
-            },
-            "publisher": {
-                "@type": "Organization",
-                "name": "roomies",
-                "logo": {
-                    "@type": "ImageObject",
-                    "url": `${BASE_URL}/favicon/android-chrome-192x192.webp`
-                }
-            },
-            "mainEntityOfPage": `${BASE_URL}/blog?slug=historien-bag-andelsbolig-basen`
+            "mainEntityOfPage": `${BASE_URL}/blog?slug=hvorfor-det-er-gratis-at-finde-en-roomie`
         }
     },
     '/': {
-        title: 'Andelsboliger til salg | Køb, Salg & Bytte af andelsbolig',
-        desc: 'Danmarks nye portal for andelsboliger. Find andelsboliger til salg i København, Frederiksberg og Aarhus, eller sælg din andelsbolig selv – 100% gratis.',
+        title: 'roomies | Find værelse eller roomie i Danmark',
+        desc: 'Find dit næste værelse eller en ny roomie i Danmark. Opret annonce, skriv beskeder og brug SøgeAgent helt gratis.'
     }
 };
 

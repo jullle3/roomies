@@ -1,13 +1,8 @@
 import {
-    displayErrorMessage,
     isLoggedIn,
-    prepareStripeBuyButton,
-    isSubscribed,
     setupBootstrapTooltips,
     updateMetaTags
 } from "../utils.js";
-import {loadSellerProfile} from "../seller_profile/seller_profile.js";
-import {updateStripePaymentElements} from "../login/login.js";
 import {basePath} from "../config/config.js";
 import {loadProfileView} from "../profile/profile.js";
 import {renderConversations} from "../conversations/conversations.js";
@@ -29,21 +24,14 @@ import {
 // Setup click events for all views
 const views = {
     landing: document.getElementById('landing'),
-    sell_landing: document.getElementById('sell_landing'),
     soeg_vaerelse: document.getElementById('soeg_vaerelse'),
     room_detail: document.getElementById('room_detail'),
     udlej_vaerelse: document.getElementById('udlej_vaerelse'),
-    housing_list: document.getElementById('housing_list'),
-    housing_map: document.getElementById('housing_map'),
-    // Hack to redirect users to that page when completing login
-    login: document.getElementById('housing_list'),  // popup
     profile: document.getElementById('profile'),
     conversations: document.getElementById('conversations'),
     agent: document.getElementById('agent'),
     agent_create: document.getElementById('agent_create'),
     agent_edit: document.getElementById('agent_edit'),
-    seller_profile: document.getElementById('seller_profile'),
-    successful_redirect: document.getElementById('successful_redirect'),
     terms_and_conditions: document.getElementById('terms_and_conditions'),
     faq: document.getElementById('faq'),
     blog: document.getElementById('blog'),
@@ -66,11 +54,9 @@ const routeToView = {
     '/boligovervaagning-rediger': 'agent_edit',
     '/profil': 'profile',
     '/beskeder': 'conversations',
-    '/saelger': 'seller_profile',
-    '/redirect-success': 'successful_redirect',
     '/vilkaar': 'terms_and_conditions',
     '/blog': 'blog',
-    '/login': 'login',  // Hack to prompt users for login and payment, the view doesnt actually exist
+    '/login': 'login',
     '/spoergsmaal-om-roomies': 'faq',
 };
 
@@ -93,8 +79,7 @@ export function getCurrentViewParams() {
 }
 
 // All views that require login
-const loginRequiredViews = ["login", "seller_profile", "successful_redirect", "login", "conversations", "agent_create", "agent_edit"];
-const payWalledViews = ["seller_profile", "successful_redirect", "login"];
+const loginRequiredViews = ["login", "conversations", "agent_create", "agent_edit"];
 
 // Store requested view to remember redirects after login popup
 export let viewAfterLogin = null;
@@ -171,7 +156,7 @@ function ensureViewVisibility(viewName){
         v.classList.remove('active');
         v.style.display = 'none';
 
-        // SEO & Tilgængeligheds FIX:
+        // SEO and accessibility.
         v.setAttribute('aria-hidden', 'true');
         v.setAttribute('hidden', '');
     });
@@ -179,7 +164,7 @@ function ensureViewVisibility(viewName){
     if (views[viewName]) {
         views[viewName].style.display = 'block';
 
-        // Gør det aktive view synligt for crawlere:
+        // Make the active view visible for crawlers.
         views[viewName].removeAttribute('aria-hidden');
         views[viewName].removeAttribute('hidden');
     }
@@ -195,58 +180,14 @@ export async function showView(view, viewParams = new URLSearchParams(), updateU
     const requestedHash = normalizeLandingHash(view, options.hash);
     const shouldRestoreScroll = options.restoreScroll === true;
 
-    let popup = null;
-    let scrapedUrl = null;
-
     // 1. Check if login is required
     if (loginRequiredView(view) && !isLoggedIn()) {
-        // If user is in a housing detail view and tries to access a login
-        // protected view, remember the current URL, so we can redirect back
-        // after login (e.g. from login link in email).
-        if (currentView === 'detail' && (view === 'seller_profile' || view === 'successful_redirect')) {
-            localStorage.setItem('postLoginRedirect', window.location.href);
-        }
-
         displayLoginModal(view, viewParams);
-        return;
-    }
-
-    // 2. Check if subscription is required
-    if (payWalledView(view) && !(await isSubscribed())) {
-        rememberPostOnboardingContext({
-            view,
-            params: viewParams,
-            action: 'payment',
-            returnUrl: buildViewUrl(view, viewParams) || window.location.href
-        });
-        await prepareStripeBuyButton();
-        updateStripePaymentElements();
-
-        const el = document.getElementById('stripePayment');
-        const clientRefId = el?.getAttribute('client-reference-id')?.trim();
-
-        if (!clientRefId) {
-            console.error('Betaling afbrudt: mangler client-reference-id');
-            displayErrorMessage('Betalingen blev afbrudt, da vi ikke kunne identificere din bruger. Log ind og prøv igen.', 8000);
-            return;
-        }
-
-        new bootstrap.Modal('#paymentModal').show();
         return;
     }
 
     if (view === "login"){
         return;
-    }
-
-    // 3. ONLY open the tab if the user is logged in, subscribed, and the view is 'successful_redirect'
-    if (view === 'successful_redirect') {
-        scrapedUrl = viewParams.get('redirect_url')?.trim();
-        if (scrapedUrl) {
-            // Note: Since we awaited isSubscribed(), strict popup blockers might intervene here.
-            // However, this prevents the "flashing" behavior of opening/closing tabs prematurely.
-            popup = window.open('', '_blank');
-        }
     }
 
     if (!views[view]) {
@@ -261,19 +202,6 @@ export async function showView(view, viewParams = new URLSearchParams(), updateU
             viewParams = new URLSearchParams(restored);   // clone
             viewParamsAfterLogin = new URLSearchParams(); // clear after use
         }
-    }
-
-    // Handle redirects for view "successful_redirect"
-    if (scrapedUrl) {
-        if (popup) {
-            // allowed & popup is open → navigate it
-            popup.location.href = scrapedUrl;
-        } else {
-            // popup was blocked (or failed) → fall back to same‑tab navigation
-            window.location.href = scrapedUrl;
-        }
-        // Dont change views when users are redirected to realtors.
-        return;
     }
 
     // --------------------------------------------------
@@ -302,9 +230,6 @@ export async function showView(view, viewParams = new URLSearchParams(), updateU
     }
     // --------------------------------------------------
 
-    // Map/list/detail are activated before data loading so slow fetches do not
-    // leave users on an invisible view or app-level spinner, especially on mobile.
-    // Map still needs a visible container before initMap() + fitBounds().
     try {
             await loadViewData(view, viewParams);
             updateViewStatus(view);
@@ -347,10 +272,6 @@ function updateViewStatus(view) {
         v.style.display = 'none';
     });
 
-    if (view === 'housing_list' || view === 'housing_map') {
-        attachSearchComponentToView(view);
-    }
-
     const el = views[view];
     el.style.display = 'block';
     el.classList.remove('active');
@@ -379,14 +300,6 @@ function updateViewStatus(view) {
     closeNavbar();
 }
 
-function waitForNextPaint() {
-    return new Promise((resolve) => {
-        requestAnimationFrame(() => {
-            setTimeout(resolve, 0);
-        });
-    });
-}
-
 // Store values that will be needed after successful login
 export function displayLoginModal(requestedView, viewParams) {
     viewAfterLogin = requestedView;  // Remember the original view
@@ -394,9 +307,9 @@ export function displayLoginModal(requestedView, viewParams) {
 
     const subtitle = document.querySelector('#loginModal .modal-body .text-center p.text-secondary');
     if (subtitle) {
-        const isContactFlow = requestedView === 'detail' && viewParamsAfterLogin.get('contact') === '1';
+        const isContactFlow = requestedView === 'room_detail' && viewParamsAfterLogin.get('contact') === '1';
         subtitle.textContent = isContactFlow
-            ? 'Log ind for at kontakte sælger'
+            ? 'Log ind for at skrive til din nye roomie'
             : 'Log ind for at se detaljer';
     }
 
@@ -416,40 +329,6 @@ async function loadViewData(view, viewParams) {
             await module.refreshRentRoomFormFromOwnerRooms({preferLocalDraft: true});
             break;
         }
-        case "seller_profile":
-            await loadSellerProfile(viewParams.get("id"))
-            break;
-        // case "successful_redirect":
-        //     let redirect_url = viewParams.get("redirect_url")
-        //     if (typeof redirect_url === 'string' && redirect_url.trim() !== '') {
-        //         openInNewTab(redirect_url)
-        //     }
-        //     break;
-        case "housing_list":
-            await ensureHousingListRendered();
-            break;
-        case "housing_map":
-            // Load map only on entering the view, to save costs.
-            await initMap()
-            let housing_id = viewParams.get("id")
-            if (housing_id === null){
-                await sendSearchData('map', false, null)
-            } else {
-                await sendSearchData('map', false, [housing_id])
-            }
-            break;
-        // case "ai_analysis":
-        //     if (!isLoggedIn()) {
-        //         break;
-        //     }
-            // Fetch results since they're showed on the analysis view
-            // loadAIResults()
-            //
-            // break;
-        // case "ai_result":
-        //     cancelAIPolling()
-        //     await renderAIResult(viewParams.get("id"))
-        //     break;
         case "profile":
             await loadProfileView();
             break;
@@ -495,11 +374,6 @@ export function setupViews() {
 function loginRequiredView(viewName) {
     return loginRequiredViews.includes(viewName);
 }
-
-function payWalledView(viewName) {
-    return payWalledViews.includes(viewName);
-}
-
 
 function closeNavbar() {
     closeNavbarMenu();
@@ -632,119 +506,43 @@ function updateNavAriaCurrent(view) {
 }
 
 /**
- * Opdaterer SEO metadata baseret på det aktive view med data-drevne søgeord.
+ * Updates SEO metadata based on the active view.
  * @param {string} view - Det interne ID for viewet
  */
 function optimizeSEOMetadata(view) {
     const baseUrl = window.location.origin;
 
-    // Don't clear structured data for detail - managed by housing_detail.js
-    if (view !== 'detail') {
+    if (view !== 'room_detail') {
         setStructuredData(null);
-        // Clean up detail-specific schemas when navigating away
         const detailSchema = document.getElementById('schema-housing-detail');
         if (detailSchema) detailSchema.remove();
     }
 
-    if (view === 'create') {
-        // Fokusord: Sælg andelsbolig selv, salg af andelsbolig, gratis, bytte
+    if (view === 'faq') {
         updateMetaTags(
-            'Sælg andelsbolig selv – 100% gratis | Salg & Bytte',
-            'Sælg din andelsbolig selv og spar mægleren. Det er 100% gratis at oprette din annonce til salg eller bytte af andelsbolig.',
-            `${baseUrl}/saelg-andelsbolig`
-        );
-    }
-    else if (view === 'faq') {
-        // Fokusord: FAQ andelsbolig, ofte stillede spørgsmål, køb og salg
-        updateMetaTags(
-            'Ofte stillede spørgsmål | roomies',
-            'Få svar på alle dine spørgsmål om køb, salg og bytte af andelsboliger og læs mere om hvordan roomies fungerer her.',
+            'Spørgsmål og svar | roomies',
+            'Få svar på spørgsmål om at finde værelse, udleje et værelse, skrive med roomies og bruge roomies gratis.',
             `${baseUrl}/spoergsmaal-om-roomies`
         );
-
-        // Udfylder Schema markup baseret på din HTML FAQ struktur
-        setStructuredData({
-            "@context": "https://schema.org",
-            "@type": "FAQPage",
-            "mainEntity": [
-                {
-                    "@type": "Question",
-                    "name": "Hvordan fungerer konceptet?",
-                    "acceptedAnswer": {
-                        "@type": "Answer",
-                        "text": "I dag er andelsboligmarkedet spredt ud over hele internettet – på DBA, Boliga, i over 50 forskellige Facebook-grupper og mange andre steder. Det problem løser vi. Vi samler markedet ét sted og gør det skjulte marked synligt for alle. Det er 100% gratis at sælge eller bytte din andelsbolig via os, og vi sørger for at annoncere din bolig ud til mange tusinde købere."
-                    }
-                },
-                {
-                    "@type": "Question",
-                    "name": "Koster det penge at sælge min andelsbolig?",
-                    "acceptedAnswer": {
-                        "@type": "Answer",
-                        "text": "Nej, det er 100% gratis at oprette en salgs- eller bytteannonce på roomies. Vi har fjernet de dyre mellemled, så du trygt kan finde den rette køber uden at skulle have penge op af lommen."
-                    }
-                },
-                {
-                    "@type": "Question",
-                    "name": "Hvad koster det at kontakte en sælger?",
-                    "acceptedAnswer": {
-                        "@type": "Answer",
-                        "text": "For kun 99 kr. om måneden får du fuld adgang til at kontakte alle sælgere direkte og se de fulde adressedetaljer. Der er 0 skjulte gebyrer og absolut ingen binding – du kan afmelde dig præcis, når du vil. Vores pris er desuden over 75% billigere end lignende portaler."
-                    }
-                },
-                {
-                    "@type": "Question",
-                    "name": "Hvad er processen når jeg sælger selv?",
-                    "acceptedAnswer": {
-                        "@type": "Answer",
-                        "text": "Overordnet set er processen simpel: 1. Undersøg først, hvilke regler og processer der gælder i din specifikke andelsboligforening (f.eks. krav til vurderingsmand). 2. Opret en gratis annonce på roomies. Vi finder interesserede købere og du fremviser boligen. 3. Når du har fundet din køber, giver du besked til foreningens administrator, som herefter opretter overdragelsesaftalen og indhenter bestyrelsens godkendelse."
-                    }
-                },
-                {
-                    "@type": "Question",
-                    "name": "Hvordan fungerer BoligMatch?",
-                    "acceptedAnswer": {
-                        "@type": "Answer",
-                        "text": "Med BoligMatch overvåger vi markedet for dig helt automatisk. Du opretter dine kriterier (f.eks. pris, størrelse og område), og vi sender dig en e-mail i samme sekund, som en andelsbolig, der matcher dine drømme, bliver sat til salg."
-                    }
-                },
-                {
-                    "@type": "Question",
-                    "name": "Hvor kommer boligerne fra?",
-                    "acceptedAnswer": {
-                        "@type": "Answer",
-                        "text": "Boligerne på platformen kommer fra to primære kilder. Flere og flere andelshavere opretter selv deres salgs- og bytteannoncer direkte hos os, fordi det er gratis, og fordi vi hjælper med salget. For at hjælpe dig med at overvåge et ellers uoverskueligt marked, bruger vi derudover avanceret teknologi til automatisk at indsamle annoncer fra resten af internettet, herunder DBA, Boliga og diverse internetsider. På den måde behøver du kun at lede ét sted. Vi håber du finder drømmeboligen hos os 😊"
-                    }
-                }
-            ]
-        });
     }
     else if (view === 'soeg_vaerelse') {
         updateMetaTags(
             'Søg værelse og find din næste roomie | roomies',
-            'Find ledige værelser i København, Aarhus og resten af Danmark. Filtrér efter pris, størrelse og den hverdag, du gerne vil være en del af.',
+            'Find ledige værelser i København, Aarhus og resten af Danmark. Filtrér efter pris, indflytning og den hverdag, du gerne vil være en del af.',
             `${baseUrl}/ledige-vaerelser`
         );
     }
     else if (view === 'room_detail') {
         // The room detail renderer updates metadata once the cached room is loaded.
     }
-    else if (view === 'housing_list') {
-        // Fokusord: Andelsboliger til salg, andelslejlighed, køb andelsbolig
+    else if (view === 'udlej_vaerelse') {
         updateMetaTags(
-            'Andelsboliger til salg i København, Aarhus og hele Danmark',
-            'Se alle aktuelle andelsboliger til salg her. Find din nye andelslejlighed i København (inkl. 2100 Østerbro), Amager, Frederiksberg, Aarhus. m.m.',
-            `${baseUrl}/liste`
-        );
-    }
-    else if (view === 'housing_map') {
-        updateMetaTags(
-            'Kort over andelsboliger til salg | Find andelsbolig nær dig',
-            'Søg efter andelsboliger til salg via vores kort. Find nemt en andelsbolig i indre København, Amager, Frederiksberg, Lyngby, Aarhus og resten af landet.',
-            `${baseUrl}/kort`
+            'Udlej værelse gratis | Find en roomie med roomies',
+            'Udlej dit værelse gratis på roomies. Opret en annonce, find en tryg roomie, og få kontakt med unge på boligjagt uden skjulte gebyrer.',
+            `${baseUrl}/udlej-vaerelse`
         );
     }
     else if (view === 'terms_and_conditions') {
-        // Fokusord: Vilkår, betingelser, regler for roomies
         updateMetaTags(
             'Vilkår og betingelser | roomies',
             'Læs vilkår for brug af roomies på roomiedanmark.dk, herunder profiler, værelsesannoncer, beskeder, SøgeAgent og persondata.',
@@ -760,9 +558,16 @@ function optimizeSEOMetadata(view) {
     }
     else if (view === 'agent' || view === 'agent_create' || view === 'agent_edit') {
         updateMetaTags(
-            'SøgeAgent| Få besked om nye værelser',
-            'Opret en gratis SøgeAgentog få besked, når et værelse matcher dit budget og dine områder.',
+            'SøgeAgent | Få besked om nye værelser',
+            'Opret en gratis SøgeAgent og få besked, når et værelse matcher dit budget og dine områder.',
             `${baseUrl}/boligovervaagning`
+        );
+    }
+    else if (view === 'profile') {
+        updateMetaTags(
+            'Profil | roomies',
+            'Udfyld din roomie-profil med billede, interesser og ønsker, så andre kan lære dig bedre at kende.',
+            `${baseUrl}/profil`
         );
     }
     else if (view === 'blog') {
@@ -783,20 +588,14 @@ function optimizeSEOMetadata(view) {
             setStructuredData(getBlogStructuredData(baseUrl));
         }
     }
-    else if (view === 'detail') {
-        // Håndteres fortsat dynamisk af de specifikke controllere
-    }
     else {
-        // FORSIDEN (Fallback)
-        // Fokusord: Andelsbolig København/Aarhus, køb, salg, bytte
         updateMetaTags(
-            'Andelsboliger til salg | Køb, Salg & Bytte af andelsbolig',
-            'Danmarks nye portal for andelsboliger. Find andelsboliger til salg i København, Frederiksberg og Aarhus, eller sælg din andelsbolig selv – 100% gratis.',
+            'roomies | Find værelse eller roomie i Danmark',
+            'Find dit næste værelse eller en ny roomie i Danmark. Opret annonce, skriv beskeder og brug SøgeAgent helt gratis.',
             baseUrl
         );
     }
 }
-
 // --- reverse (view -> path) ---
 const viewToRoute = Object.fromEntries(
     Object.entries(routeToView).map(([p,v]) => [v,p])
@@ -850,8 +649,8 @@ export async function handleRouting() {
     const url = new URL(window.location.href);
     const path = url.pathname;
 
-// ---------------------------------------------------------
-    // 🛑 STATIC SEO CONTENT PROTECTION
+    // ---------------------------------------------------------
+    // STATIC SEO CONTENT PROTECTION
     // ---------------------------------------------------------
     if (isStaticSeoRoute(path)) {
         // --- FIX 2: HIDE APP ROOT ON LOAD ---
@@ -937,15 +736,15 @@ function isStaticSeoRoute(path) {
         path.includes('/omraader/');
 }
 
-// Hjælpefunktion til at håndtere JSON-LD
+// Helper for JSON-LD.
 function setStructuredData(jsonObj) {
-    // Fjern eksisterende JSON-LD scripts først
+    // Remove existing JSON-LD scripts first.
     let existingScript = document.querySelector('script[type="application/ld+json"]');
     if (existingScript) {
         existingScript.remove();
     }
 
-    // Tilføj nyt, hvis jsonObj er angivet
+    // Add new JSON-LD if provided.
     if (jsonObj) {
         const script = document.createElement('script');
         script.type = 'application/ld+json';

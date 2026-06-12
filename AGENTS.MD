@@ -20,6 +20,7 @@ This repository is the frontend for the website roomiedanmark.dk
 - Match the existing code style and architecture, even when a different style might be cleaner in isolation.
 - Do not refactor, reformat, rename, or “clean up” adjacent code unless it is necessary for the requested change. If unrelated issues are discovered, mention them instead of fixing them silently.
 - Remove unused imports, variables, functions, and comments only when they were made obsolete by your own changes.
+- On Windows, do not use raw PowerShell text writes as the source of truth for files containing Danish characters or other non-ASCII text. Prefer `apply_patch` for normal edits. For generated or whole-file text changes, use Node/Python with explicit UTF-8 reads/writes, and verify mojibake with a byte/content scan rather than trusting PowerShell console rendering.
 
 ## Project Snapshot
 

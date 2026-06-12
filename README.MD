@@ -1,5 +1,4 @@
 - Reklame sektion i bunden ligesom TrustMRR
-- Cache endpointet "/rooms/all" i CF
 - Vigtigt jeg får folk til at oprettet en profil med billede, både købere og sælgere, det er det menneskelige der skal drive siden rundt.
 - Seo optimer alt
 - Keep the easy flow to create an user.

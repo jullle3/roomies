@@ -236,7 +236,6 @@ function normalizeRoomListing(room) {
         registrationAllowed: Boolean(room.cpr_registration_allowed),
         petsAllowed: Boolean(room.pets_allowed),
         roommates: Number(room.current_roomies ?? room.rooms ?? 0),
-        vibes: Array.isArray(room.vibes) ? room.vibes : [],
         image: getRoomImage(room),
         avatar: getRoomAvatar(room),
         host: room.host_name || room.created_by_name || "en roomie",
@@ -303,7 +302,6 @@ function renderRoomCard(room) {
         furnished: room.furnished,
         cprAllowed: room.registrationAllowed,
         petsAllowed: room.petsAllowed,
-        vibes: room.vibes,
         avatar: room.avatar,
         host: room.host,
         isOwn: room.isOwn

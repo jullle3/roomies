@@ -108,7 +108,7 @@
 .room-detail-gallery {
     position: relative;
     display: grid;
-    grid-template-columns: minmax(0, 2fr) minmax(220px, 0.9fr);
+    grid-template-columns: 1fr;
     gap: 1rem;
     min-height: 520px;
 }
@@ -175,12 +175,7 @@
     color: var(--text-muted);
 }
 
-.room-detail-gallery-single {
-    grid-template-columns: 1fr;
-}
-
-.room-detail-main-image,
-.room-detail-side-gallery img {
+.room-detail-main-image {
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -205,11 +200,7 @@
 }
 
 .room-detail-main-photo-trigger {
-    min-height: 520px;
-}
-
-.room-detail-main-image {
-    min-height: 520px;
+    height: 520px;
 }
 
 .room-detail-top-grid {
@@ -226,19 +217,6 @@
 .room-detail-sidebar-column {
     min-width: 0;
     align-self: stretch;
-}
-
-.room-detail-side-gallery {
-    display: grid;
-    gap: 1rem;
-}
-
-.room-detail-side-gallery .room-detail-photo-trigger {
-    min-height: 128px;
-}
-
-.room-detail-side-gallery img {
-    min-height: 128px;
 }
 
 .room-detail-photo-modal {
@@ -554,6 +532,70 @@
     line-height: 1;
 }
 
+/* Expandable "Husleje inkl. forbrug" headline — keeps the big coral total as the
+   primary signal, with husleje + forbrug one tap away (mirrors .room-detail-movein). */
+.room-detail-total {
+    margin-bottom: 1.25rem;
+}
+
+.room-detail-total > summary {
+    display: block;
+    cursor: pointer;
+    list-style: none;
+}
+
+.room-detail-total > summary::-webkit-details-marker {
+    display: none;
+}
+
+.room-detail-total > summary > span {
+    display: block;
+    color: var(--text-muted);
+    font-size: 0.78rem;
+    font-weight: 800;
+}
+
+.room-detail-total > summary > strong {
+    display: flex;
+    align-items: baseline;
+    gap: 0.6rem;
+    margin: 0.25rem 0 0;
+    color: var(--color-primary);
+    font-size: 2rem;
+    line-height: 1;
+}
+
+.room-detail-total > summary > strong i {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    transition: transform 0.2s ease;
+}
+
+.room-detail-total[open] > summary > strong i {
+    transform: rotate(180deg);
+}
+
+.room-detail-total-breakdown {
+    margin-top: 0.85rem;
+}
+
+.room-detail-total-breakdown p {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+    margin: 0;
+    padding: 0.4rem 0;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+.room-detail-total-breakdown b {
+    color: var(--text-main);
+    white-space: nowrap;
+}
+
 .room-detail-price-lines {
     margin-bottom: 1.25rem;
     border-top: 1px solid #eef0f3;
@@ -758,14 +800,9 @@
         min-height: auto;
     }
 
-    .room-detail-main-image {
-        min-height: 360px;
+    .room-detail-main-photo-trigger {
+        height: 360px;
     }
-
-    .room-detail-side-gallery {
-        grid-template-columns: repeat(3, 1fr);
-    }
-
 }
 
 @media (max-width: 767.98px) {
@@ -792,12 +829,8 @@
         padding-top: 0;
     }
 
-    .room-detail-main-image {
-        min-height: 280px;
-    }
-
-    .room-detail-side-gallery {
-        display: none;
+    .room-detail-main-photo-trigger {
+        height: 280px;
     }
 
     .room-detail-feature-grid {

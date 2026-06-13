@@ -3,23 +3,12 @@
 // into the model shape below, so the HTML lives in exactly one place.
 //
 // model: { id, title, image, location, price, size, availableFrom,
-//          furnished, cprAllowed, petsAllowed, vibes: string[], avatar, host, isOwn }
+//          furnished, cprAllowed, petsAllowed, avatar, host, isOwn }
 
 const EXAMPLE_ROOM_IMAGE = "/pics/room_default1.webp";
 
 // Max number of fact chips shown at the bottom of the card.
 const MAX_FACT_CHIPS = 3;
-
-// Keyed by the value stored in the backend (see the create-listing form in
-// index.html), each mapping to its display emoji + human-readable label.
-const VIBE_META = {
-    "Stille": {emoji: "🤫", label: "Roligt hjem"},
-    "Socialt": {emoji: "🍻", label: "Socialt"},
-    "Rengøringsplan": {emoji: "🧹", label: "Rengøringsplan"},
-    "Studievenligt": {emoji: "🎓", label: "Studievenligt"},
-    "Fællesspisning": {emoji: "☕", label: "Fællesspisning"},
-    "Lukket_dør_okay": {emoji: "🎧", label: "Lukket dør er okay"}
-};
 
 export function renderRoomCard(model) {
     const detailUrl = `/vaerelse?id=${encodeURIComponent(model.id)}`;
@@ -58,36 +47,16 @@ function buildFactChips(model) {
         `<span><i class="fa-regular fa-calendar me-1"></i>Ledig ${formatAvailableDate(model.availableFrom)}</span>`
     ];
 
-    const vibes = Array.isArray(model.vibes) ? model.vibes : [];
-    const hasVibe = vibe => vibes.includes(vibe);
-
     const candidates = [];
-    if (hasVibe("Studievenligt")) candidates.push(vibeChip("Studievenligt"));
-    if (hasVibe("Stille")) candidates.push(vibeChip("Stille"));
     if (model.furnished) candidates.push(facilityChip("fa-solid fa-couch", "Møbleret"));
     if (model.cprAllowed) candidates.push(facilityChip("fa-solid fa-address-card", "CPR muligt"));
     if (model.petsAllowed) candidates.push(facilityChip("fa-solid fa-paw", "Kæledyr"));
-    // Remaining vibes (anything not already prioritized above), in stored order
-    vibes
-        .filter(vibe => vibe !== "Studievenligt" && vibe !== "Stille")
-        .forEach(vibe => candidates.push(vibeChip(vibe)));
 
     return chips.concat(candidates).slice(0, MAX_FACT_CHIPS);
 }
 
-function vibeChip(vibe) {
-    const meta = VIBE_META[vibe];
-    const label = meta ? meta.label : vibe;
-    return `<span>${getVibeEmoji(vibe)} ${escapeHtml(label)}</span>`;
-}
-
 function facilityChip(icon, label) {
     return `<span><i class="${icon} me-1"></i>${label}</span>`;
-}
-
-export function getVibeEmoji(vibe) {
-    const meta = VIBE_META[vibe];
-    return meta ? meta.emoji : "✨";
 }
 
 function formatAvailableDate(value) {

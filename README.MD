@@ -1,4 +1,3 @@
-- Forbedre detail view
 - Seo optimer alt
 
 - Roomie Reddit og FB Opslag - https://gemini.google.com/gem/c9297fa0daa6/f6fccd4db7de4739?hl=da
@@ -18,7 +17,6 @@ Kan først når vi er live i prod, med /vilkaar side
 Jeg har lavet det her til jer, det er 100% gratis og finansieret af mig til at starte med. Håber på at kunne indhente lidt fortjenste via målrettede
 reklamer der reelt gavner målgruppen
 - Efterfølgende opsæt evt FB scraber og så reklamer på reddit m.m.
-
 
 # Future
 - Reklamer? Se ad-placement-ideas.md

@@ -63,6 +63,7 @@ function normalizeRoomDetail(room, isOwner = false) {
         area: room.postal_name || room.city || postal || "Område ikke angivet",
         fullAddress: [address || "Adresse ikke angivet", postal].filter(Boolean).join(", "),
         price: Number(room.monthly_price ?? room.price ?? 0),
+        aconto: Number(room.acconto_monthly_price ?? 0),
         // Backend computes total_monthly_price (husleje + aconto). Fall back to
         // summing locally for rooms not yet re-saved or scraped without the field.
         totalMonthlyPrice: Number(room.total_monthly_price ?? (Number(room.monthly_price ?? room.price ?? 0) + Number(room.acconto_monthly_price ?? 0))),
@@ -87,7 +88,6 @@ function normalizeRoomDetail(room, isOwner = false) {
 
 function renderRoomDetailHtml(room) {
     const mainImage = room.images[0];
-    const secondaryImages = room.images.slice(1, 4);
 
     return `
         <section class="room-detail-page">
@@ -101,21 +101,12 @@ function renderRoomDetailHtml(room) {
 
                 <div class="room-detail-top-grid">
                     <div class="room-detail-media-column">
-                        <div class="room-detail-gallery ${secondaryImages.length ? "" : "room-detail-gallery-single"}">
+                        <div class="room-detail-gallery">
                             <button class="room-detail-photo-trigger room-detail-main-photo-trigger" type="button" data-room-photo-open="0" aria-label="Vis billede 1 i fuld størrelse">
                                 <img class="room-detail-main-image" src="${mainImage}" alt="${escapeHtml(room.title)}" loading="eager">
                             </button>
                             ${renderStatusBadge(room)}
                             ${renderGalleryHint(room)}
-                            ${secondaryImages.length ? `
-                                <div class="room-detail-side-gallery">
-                                    ${secondaryImages.map((image, index) => `
-                                        <button class="room-detail-photo-trigger" type="button" data-room-photo-open="${index + 1}" aria-label="Vis billede ${index + 2} i fuld størrelse">
-                                            <img src="${image}" alt="${escapeHtml(`${room.title} billede ${index + 2}`)}" loading="lazy">
-                                        </button>
-                                    `).join("")}
-                                </div>
-                            ` : ""}
                         </div>
 
                         <div class="room-detail-heading">
@@ -599,8 +590,7 @@ function renderContactCard(room) {
     return `
         <div class="room-detail-contact-card">
             ${renderStatusBadge(room)}
-            <span>Husleje inkl. forbrug</span>
-            <strong>${formatNumber(room.totalMonthlyPrice)} kr./md</strong>
+            ${renderTotalPriceBlock(room)}
             <div class="room-detail-price-lines">
                 ${renderMoveInPriceLine(room)}
                 <p><span>Ledig fra</span><b>${formatAvailableDate(room.availableFrom)}</b></p>
@@ -858,6 +848,35 @@ function formatMonthCount(value) {
 
 function readRentalPeriodMonths(room) {
     return room.rental_period_months ?? room.rentalPeriodMonths ?? null;
+}
+
+// Headline monthly price. When there is a separate consumption charge (aconto),
+// the total is expandable so users can see husleje + forbrug. Without an aconto
+// the total equals the rent, so there is nothing to break down — show it plain.
+function renderTotalPriceBlock(room) {
+    const total = Number(room.totalMonthlyPrice) || 0;
+    const rent = Number(room.price) || 0;
+    const aconto = Number(room.aconto) || 0;
+
+    if (aconto <= 0 || rent <= 0) {
+        return `
+            <span>Husleje inkl. forbrug</span>
+            <strong>${formatNumber(total)} kr./md</strong>
+        `;
+    }
+
+    return `
+        <details class="room-detail-total">
+            <summary>
+                <span>Husleje inkl. forbrug</span>
+                <strong>${formatNumber(total)} kr./md<i class="fa-solid fa-chevron-down"></i></strong>
+            </summary>
+            <div class="room-detail-total-breakdown">
+                <p><span>Husleje</span><b>${formatNumber(rent)} kr.</b></p>
+                <p><span>Forbrug (aconto)</span><b>${formatNumber(aconto)} kr.</b></p>
+            </div>
+        </details>
+    `;
 }
 
 // One-time move-in capital shown as a single price line. Tapping it expands the

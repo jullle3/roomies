@@ -1336,7 +1336,6 @@ function buildDraftFromRooms(rooms) {
         preferred_gender: firstRoom.preferred_gender || null,
         preferred_age_min: firstRoom.preferred_age_min ?? null,
         preferred_age_max: firstRoom.preferred_age_max ?? null,
-        vibes: Array.isArray(firstRoom.vibes) ? firstRoom.vibes : [],
         rooms: rooms.map(buildRoomDraftFromBackendRoom),
         saved_at: new Date().toISOString()
     };
@@ -1418,11 +1417,6 @@ function restoreSharedDraft(form, draft) {
         }
     });
 
-    const vibes = Array.isArray(draft.vibes) ? draft.vibes : [];
-    form.querySelectorAll('input[name="vibes"]').forEach(input => {
-        input.checked = vibes.includes(input.value);
-    });
-
     if (selectedAddress?.dataforsyningen_id) {
         const addressInput = document.getElementById("rent_room_address");
         if (addressInput) addressInput.value = getSelectedStreetAddressLabel();
@@ -1474,7 +1468,6 @@ function buildRentRoomDraft(form) {
         preferred_gender: getString(formData, "preferred_gender") || null,
         preferred_age_min: getNumber(formData, "preferred_age_min"),
         preferred_age_max: getNumber(formData, "preferred_age_max"),
-        vibes: formData.getAll("vibes").map(String),
         rooms: [...document.querySelectorAll("#rent-room-list [data-room-id]")].map(buildRoomDraft),
         saved_at: new Date().toISOString()
     };
@@ -1522,7 +1515,6 @@ function buildIndependentListingPayloads(draft, profilePhoto = null) {
         preferred_gender: draft.preferred_gender,
         preferred_age_min: draft.preferred_age_min,
         preferred_age_max: draft.preferred_age_max,
-        vibes: draft.vibes,
         available: true,
         marketing_package: "free"
     };

@@ -161,7 +161,6 @@ function renderLandingRoomCard(room) {
         furnished: Boolean(room.furnished),
         cprAllowed: Boolean(room.cpr_registration_allowed),
         petsAllowed: Boolean(room.pets_allowed),
-        vibes: Array.isArray(room.vibes) ? room.vibes : [],
         avatar: getLandingRoomAvatar(room),
         host: room.host_name || room.created_by_name || "en roomie",
         isOwn: false

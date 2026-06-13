@@ -1,0 +1,88 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg" role="img">
+<title>roomies – Find dit værelse og dine nye roomies. Danmarks gratis fællesskab.</title>
+<desc>OpenGraph cover for roomiedanmark.dk showing the headline and a sample room listing card with a roommate avatar.</desc>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&amp;family=Inter:wght@400;500;600;700&amp;display=swap');
+.h{font-family:'Poppins',sans-serif;}
+.b{font-family:'Inter',sans-serif;}
+</style>
+<defs>
+<linearGradient id="coral" x1="0" y1="0" x2="1" y2="1">
+<stop offset="0" stop-color="#FF8E72"/>
+<stop offset="1" stop-color="#FF6B6B"/>
+</linearGradient>
+<linearGradient id="premium" x1="0" y1="0" x2="1" y2="1">
+<stop offset="0" stop-color="#4f46e5"/>
+<stop offset="1" stop-color="#06b6d4"/>
+</linearGradient>
+<clipPath id="cardClip"><rect x="820" y="120" width="320" height="400" rx="24"/></clipPath>
+<filter id="cardShadow" x="-20%" y="-20%" width="140%" height="140%">
+<feDropShadow dx="0" dy="14" stdDeviation="22" flood-color="#1F2937" flood-opacity="0.16"/>
+</filter>
+</defs>
+
+<rect x="0" y="0" width="1200" height="630" fill="#FDFBF7"/>
+<circle cx="1150" cy="70" r="240" fill="#FF6B6B" opacity="0.09"/>
+<circle cx="90" cy="600" r="170" fill="#06b6d4" opacity="0.07"/>
+
+<g transform="translate(80,64)">
+<circle cx="30" cy="30" r="30" fill="url(#coral)"/>
+<path d="M16 31 L30 18 L44 31 M20 29 V44 H40 V29" fill="none" stroke="#ffffff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="76" y="42" class="h" font-size="40" font-weight="800" fill="#1F2937" letter-spacing="-0.5">Roomieanmark</text>
+</g>
+
+<text x="80" y="232" class="h" font-size="60" font-weight="800" fill="#1F2937" letter-spacing="-1.5">Find dit værelse</text>
+<text x="80" y="306" class="h" font-size="60" font-weight="800" fill="#1F2937" letter-spacing="-1.5">&amp; dine nye <tspan fill="#FF6B6B">roomies</tspan></text>
+
+<text x="80" y="372" class="b" font-size="27" font-weight="500" fill="#6B7280">Gratis fællesskab for værelser &amp; bofæller i Danmark</text>
+
+<g class="b" font-size="19" font-weight="600">
+<rect x="80" y="420" width="196" height="48" rx="24" fill="#ffffff" stroke="#F0E2D8" stroke-width="1.5"/>
+<text x="104" y="450" fill="#4B5563">💸 100% gratis</text>
+<rect x="288" y="420" width="186" height="48" rx="24" fill="#ffffff" stroke="#F0E2D8" stroke-width="1.5"/>
+<text x="312" y="450" fill="#4B5563">🛡️ Ingen scam</text>
+<rect x="486" y="420" width="178" height="48" rx="24" fill="#ffffff" stroke="#F0E2D8" stroke-width="1.5"/>
+<text x="510" y="450" fill="#4B5563">💬 Skriv frit</text>
+</g>
+
+<g transform="translate(80,548)">
+<circle cx="14" cy="9" r="14" fill="none" stroke="#FF6B6B" stroke-width="2.4"/>
+<path d="M0 9 H28 M14 -5 C5 0 5 18 14 23 M14 -5 C23 0 23 18 14 23" fill="none" stroke="#FF6B6B" stroke-width="2.4"/>
+<text x="42" y="17" class="h" font-size="24" font-weight="700" fill="#FF6B6B">roomiedanmark.dk</text>
+</g>
+
+<rect x="820" y="120" width="320" height="420" rx="24" fill="#ffffff" filter="url(#cardShadow)"/>
+<g clip-path="url(#cardClip)">
+<rect x="820" y="120" width="320" height="212" fill="url(#coral)"/>
+<circle cx="872" cy="178" r="26" fill="#FFD8A8" opacity="0.9"/>
+<g fill="#E85454">
+<rect x="848" y="246" width="52" height="86" rx="6"/>
+<rect x="912" y="214" width="62" height="118" rx="6"/>
+<rect x="986" y="262" width="46" height="70" rx="6"/>
+<rect x="1046" y="232" width="56" height="100" rx="6"/>
+</g>
+<g fill="#FFC9C9">
+<rect x="860" y="262" width="12" height="12" rx="2"/>
+<rect x="880" y="262" width="12" height="12" rx="2"/>
+<rect x="926" y="232" width="14" height="14" rx="2"/>
+<rect x="948" y="232" width="14" height="14" rx="2"/>
+<rect x="1060" y="252" width="12" height="12" rx="2"/>
+</g>
+</g>
+
+<circle cx="1098" cy="332" r="38" fill="#ffffff"/>
+<circle cx="1098" cy="332" r="32" fill="url(#premium)"/>
+<text x="1098" y="341" class="h" font-size="24" font-weight="700" fill="#ffffff" text-anchor="middle">MK</text>
+
+<text x="844" y="378" class="h" font-size="23" font-weight="700" fill="#1F2937">Værelse på Nørrebro</text>
+<text x="844" y="412" class="h" font-size="22" font-weight="700" fill="#FF6B6B">4.200 kr<tspan class="b" font-size="16" font-weight="500" fill="#6B7280"> / md</tspan></text>
+
+<g class="b" font-size="15" font-weight="600">
+<rect x="844" y="440" width="124" height="36" rx="18" fill="#F3F4F6"/>
+<text x="862" y="463" fill="#4B5563">🚲 Nørrebro</text>
+<rect x="978" y="440" width="124" height="36" rx="18" fill="#F3F4F6"/>
+<text x="996" y="463" fill="#4B5563">🌿 Vegan</text>
+<rect x="844" y="484" width="124" height="36" rx="18" fill="#F3F4F6"/>
+<text x="862" y="507" fill="#4B5563">🍻 Socialt</text>
+</g>
+</svg>

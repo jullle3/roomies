@@ -24,7 +24,7 @@ This repository is the frontend for the website roomiedanmark.dk
 
 ## Project Snapshot
 
-roomies is a Danish cooperative-housing platform for buying, selling, and swapping `andelsboliger`.
+roomiedanmark is a Danish cooperative-housing platform for buying, selling, and swapping `andelsboliger`.
 
 - Architecture: static vanilla JS SPA with route-like static SEO pages.
 - UI stack: HTML5, CSS, Bootstrap 5, jQuery, FontAwesome, Lottie, noUiSlider, Google Maps marker clustering.

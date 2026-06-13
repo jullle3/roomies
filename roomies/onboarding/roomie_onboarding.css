@@ -1,0 +1,279 @@
+/* =========================================
+   Roomie Onboarding Modal
+   One dynamic, 2-step modal (contact / publish / agent)
+========================================= */
+.roomie-onboarding-modal .modal-dialog {
+    max-width: 480px;
+}
+
+.roomie-onboarding-modal .modal-content {
+    position: relative;
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    border-radius: var(--radius-xl);
+    background: #fff;
+    box-shadow: var(--shadow-hover);
+    overflow: hidden;
+}
+
+.roomie-onboarding-modal .modal-body {
+    padding: clamp(1.5rem, 5vw, 2.5rem);
+}
+
+/* Softly blurred, warm overlay so the page behind stays visible */
+.roomie-onboarding-modal.modal {
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+}
+
+.roomie-onboarding-close {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    z-index: 2;
+    display: grid;
+    place-items: center;
+    width: 38px;
+    height: 38px;
+    border: 0;
+    border-radius: 50%;
+    background: #f3f4f6;
+    color: var(--text-muted);
+    font-size: 1rem;
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+.roomie-onboarding-close:hover {
+    background: #e5e7eb;
+    color: var(--text-main);
+}
+
+/* Progress dots */
+.roomie-onboarding-progress {
+    display: flex;
+    gap: 0.4rem;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+}
+
+.roomie-onboarding-progress span {
+    width: 32px;
+    height: 6px;
+    border-radius: var(--radius-pill);
+    background: #e5e7eb;
+    transition: background 0.3s ease;
+}
+
+.roomie-onboarding-progress span.is-active {
+    background: var(--color-primary);
+}
+
+.roomie-onboarding-head {
+    text-align: center;
+    margin-bottom: 1.75rem;
+}
+
+.roomie-onboarding-head h2 {
+    font-family: var(--font-heading);
+    font-weight: 800;
+    font-size: 1.4rem;
+    letter-spacing: -0.5px;
+    margin-bottom: 0.5rem;
+}
+
+.roomie-onboarding-head p {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    font-weight: 500;
+    margin: 0 auto;
+    max-width: 40ch;
+}
+
+/* Step container + slide/fade transition */
+.roomie-onboarding-step {
+    display: none;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.roomie-onboarding-step.is-active {
+    display: flex;
+    animation: roomie-onboarding-slide 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes roomie-onboarding-slide {
+    from {
+        opacity: 0;
+        transform: translateX(12px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.roomie-onboarding-field {
+    display: flex;
+    flex-direction: column;
+}
+
+.roomie-onboarding-modal .form-label {
+    margin-bottom: 0.5rem;
+    color: var(--text-main);
+    font-size: 0.86rem;
+    font-weight: 800;
+}
+
+.roomie-onboarding-help {
+    margin: -0.25rem 0 0.75rem;
+    color: var(--text-muted);
+    font-size: 0.82rem;
+    font-weight: 600;
+}
+
+.roomie-onboarding-modal .form-control {
+    min-height: 52px;
+    border: 1px solid #e5e7eb;
+    border-radius: 16px;
+    background: var(--bg-main);
+    box-shadow: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.roomie-onboarding-modal textarea.form-control {
+    min-height: 110px;
+    resize: vertical;
+}
+
+.roomie-onboarding-modal .form-control:focus {
+    border-color: rgba(255, 107, 107, 0.55);
+    box-shadow: 0 0 0 4px rgba(255, 107, 107, 0.12);
+}
+
+/* Photo drop-zone */
+.roomie-onboarding-photo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.roomie-onboarding-photo-drop {
+    position: relative;
+    display: grid;
+    place-items: center;
+    width: 120px;
+    height: 120px;
+    padding: 0;
+    border: 3px dashed #e5e7eb;
+    border-radius: 50%;
+    background: var(--bg-main);
+    overflow: hidden;
+    cursor: pointer;
+    transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.roomie-onboarding-photo-drop:hover {
+    border-color: var(--color-primary);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-soft);
+}
+
+.roomie-onboarding-photo-drop.is-busy {
+    opacity: 0.7;
+    pointer-events: none;
+}
+
+.roomie-onboarding-photo-placeholder {
+    display: grid;
+    place-items: center;
+    color: var(--color-primary);
+    font-size: 2rem;
+}
+
+.roomie-onboarding-photo-drop img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.roomie-onboarding-photo-label {
+    margin: 0.85rem 0 0.2rem;
+    font-weight: 800;
+    color: var(--text-main);
+}
+
+.roomie-onboarding-photo-help {
+    margin: 0;
+    color: var(--text-muted);
+    font-size: 0.82rem;
+    font-weight: 600;
+    max-width: 32ch;
+}
+
+.roomie-onboarding-error {
+    margin-top: 0.75rem;
+    padding: 0.6rem 0.85rem;
+    border-radius: 14px;
+    background: rgba(220, 38, 38, 0.08);
+    color: #b91c1c;
+    font-size: 0.82rem;
+    font-weight: 700;
+}
+
+/* Pills (gender) + vibe tags */
+.roomie-onboarding-pills,
+.roomie-onboarding-vibes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.55rem;
+}
+
+.roomie-onboarding-pill,
+.roomie-onboarding-vibes label {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    padding: 0.6rem 1.1rem;
+    border: 2px solid #f3f4f6;
+    border-radius: var(--radius-pill);
+    background: #fff;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.2s ease, border-color 0.2s ease, background-color 0.2s ease, color 0.2s ease;
+}
+
+.roomie-onboarding-pill:hover,
+.roomie-onboarding-vibes label:hover {
+    transform: translateY(-2px);
+    border-color: rgba(255, 107, 107, 0.34);
+    color: var(--text-main);
+}
+
+.roomie-onboarding-pills .btn-check:checked + .roomie-onboarding-pill,
+.roomie-onboarding-vibes .btn-check:checked + label {
+    border-color: var(--color-primary);
+    background: var(--color-primary);
+    color: #fff;
+}
+
+.roomie-onboarding-char-count {
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    font-weight: 800;
+}
+
+.roomie-onboarding-actions {
+    display: flex;
+    gap: 0.75rem;
+    align-items: stretch;
+}
+
+@media (max-width: 575.98px) {
+    .roomie-onboarding-pill,
+    .roomie-onboarding-vibes label {
+        flex: 1 1 auto;
+    }
+}

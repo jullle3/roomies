@@ -1,7 +1,7 @@
 const BACKEND_API_URL = "https://api2.roomies.dk/advertisement?page=0&size=10000";
 const IMAGE_BUCKET_URL = "https://images.roomies.dk";
-const DEFAULT_IMAGE = "https://roomies.dk/pics/opengraph.webp";
-const BASE_URL = "https://roomies.dk";
+const DEFAULT_IMAGE = "https://roomiedanmark.dk/pics/opengraph2.webp";
+const BASE_URL = "https://roomiedanmark.dk";
 const CACHE_TTL = 21600; // 6 hours in seconds
 const CACHE_KEY = "ALL_ADVERTISEMENTS";
 

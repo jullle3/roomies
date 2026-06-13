@@ -518,6 +518,83 @@
     display: none;
 }
 
+/* Tappable host strip — opens the owner's read-only roomie profile. */
+.room-detail-host {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    width: 100%;
+    margin-bottom: 1.25rem;
+    padding: 0.65rem 0.85rem;
+    border: 1px solid #eef0f3;
+    border-radius: var(--radius-pill);
+    background: #fff;
+    text-align: left;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.room-detail-host:hover,
+.room-detail-host:focus-visible {
+    border-color: rgba(255, 107, 107, 0.35);
+    background: rgba(255, 107, 107, 0.06);
+    box-shadow: var(--shadow-soft);
+    outline: none;
+}
+
+.room-detail-host-avatar img,
+.room-detail-host-avatar-fallback {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    object-fit: cover;
+    background: rgba(255, 107, 107, 0.1);
+    color: var(--color-primary);
+    flex-shrink: 0;
+}
+
+.room-detail-host-text {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+.room-detail-host-label {
+    color: var(--text-muted);
+    font-size: 0.72rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+}
+
+.room-detail-host-name {
+    color: var(--text-main);
+    font-size: 0.95rem;
+    font-weight: 900;
+    line-height: 1.2;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.room-detail-host-cue {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    flex-shrink: 0;
+    color: var(--color-primary);
+    font-size: 0.8rem;
+    font-weight: 800;
+}
+
+.room-detail-host-cue i {
+    font-size: 0.7rem;
+}
+
 .room-detail-contact-card > span {
     color: var(--text-muted);
     font-size: 0.78rem;

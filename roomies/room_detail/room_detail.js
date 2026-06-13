@@ -11,6 +11,7 @@ import {authFetch} from "../auth/auth.js";
 import {s3Url} from "../config/config.js";
 import {getPreviousView} from "../views/viewManager.js";
 import {ensureRoomieProfile} from "../onboarding/roomie_onboarding.js";
+import {openRoomieProfileModal} from "../profile/roomie_profile.js";
 
 export async function renderRoomDetail(roomId) {
     const container = document.getElementById("room-detail-content");
@@ -82,6 +83,7 @@ function normalizeRoomDetail(room, isOwner = false) {
         raw: room,
         images: getRoomImages(room),
         householdFeatures: getHouseholdFeatures(room),
+        preferences: getRoomiePreferences(room),
         similarRooms: getSimilarRooms(room)
     };
 }
@@ -130,6 +132,8 @@ function renderRoomDetailHtml(room) {
                                 ${room.householdFeatures.map(renderHouseholdFeature).join("")}
                             </div>
                         </div>
+
+                        ${renderRoomiePreferencesSection(room)}
 
                         ${renderInlineContactCta(room)}
 
@@ -276,6 +280,13 @@ function setupRoomContactControls(container) {
     container.dataset.contactBound = "1";
 
     container.addEventListener("click", async event => {
+        const hostButton = event.target.closest("[data-open-host-profile]");
+        if (hostButton) {
+            event.preventDefault();
+            openRoomieProfileModal(hostButton.dataset.ownerId);
+            return;
+        }
+
         const contactButton = event.target.closest("[data-contact-owner]");
         if (!contactButton) return;
 
@@ -584,11 +595,36 @@ function renderSimilarRoomCard(room) {
     `;
 }
 
+// Tappable "Udlejes af {navn}" strip that opens the host's read-only roomie profile.
+// Only for visitors (the owner already has the owner panel), and only when we know
+// who the owner is. An owner with no filled-out profile resolves to the modal's
+// friendly empty state, so no synchronous profile lookup is needed here.
+function renderHostStrip(room) {
+    if (room.isOwner || !room.ownerId) return "";
+
+    const name = room.host || "Udlejer";
+    const avatar = room.avatar
+        ? `<img src="${room.avatar}" alt="" loading="lazy">`
+        : `<span class="room-detail-host-avatar-fallback"><i class="fa-solid fa-user"></i></span>`;
+
+    return `
+        <button type="button" class="room-detail-host" data-open-host-profile data-owner-id="${escapeHtml(room.ownerId)}" aria-label="Se ${escapeHtml(name)}s profil">
+            <span class="room-detail-host-avatar">${avatar}</span>
+            <span class="room-detail-host-text">
+                <span class="room-detail-host-label">Udlejes af</span>
+                <strong class="room-detail-host-name">${escapeHtml(name)}</strong>
+            </span>
+            <span class="room-detail-host-cue">Se profil<i class="fa-solid fa-chevron-right"></i></span>
+        </button>
+    `;
+}
+
 function renderContactCard(room) {
     const buttonAttrs = room.isOwner ? "data-owner-edit-room" : (room.available === false || room.visible === false ? "disabled" : `data-contact-owner data-owner-id="${escapeHtml(room.ownerId)}" data-room-id="${escapeHtml(room.id)}"`);
 
     return `
         <div class="room-detail-contact-card">
+            ${renderHostStrip(room)}
             ${renderStatusBadge(room)}
             ${renderTotalPriceBlock(room)}
             <div class="room-detail-price-lines">
@@ -686,6 +722,72 @@ function getHouseholdFeatures(room) {
     ].filter(feature => feature.active);
 
     return [...alwaysShownFeatures, ...positiveOnlyFeatures];
+}
+
+// "Hvem leder vi efter" — the host's roomie preferences, rendered with the same
+// feature cards as the household facts. Section is hidden entirely when no
+// preference is set (common for scraped listings); within it, an unset
+// dimension reads as the friendly "open" default rather than disappearing.
+function renderRoomiePreferencesSection(room) {
+    const prefs = room.preferences;
+    if (!prefs || !prefs.hasAny) return "";
+
+    return `
+        <div class="room-detail-section">
+            <h2>Hvem leder vi efter 🕵️</h2>
+            <div class="room-detail-feature-grid">
+                <div class="room-detail-feature ${prefs.genderSpecified ? "is-active" : "is-muted"}">
+                    <i class="${prefs.gender.icon}"></i>
+                    <div>
+                        <strong>Køn</strong>
+                        <span>${escapeHtml(prefs.gender.text)}</span>
+                    </div>
+                </div>
+                <div class="room-detail-feature ${prefs.ageSpecified ? "is-active" : "is-muted"}">
+                    <i class="${prefs.age.icon}"></i>
+                    <div>
+                        <strong>Alder</strong>
+                        <span>${escapeHtml(prefs.age.text)}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+}
+
+function getRoomiePreferences(room) {
+    const gender = normalizeGenderPreference(room.preferred_gender);
+    const ageMin = Number(room.preferred_age_min) || 0;
+    const ageMax = Number(room.preferred_age_max) || 0;
+
+    const genderText = gender === "female" ? "Søger kvindelig roomie 👩"
+        : gender === "male" ? "Søger mandlig roomie 👨"
+            : "Alle køn er velkomne 🌈";
+    const genderIcon = gender === "female" ? "fa-solid fa-venus"
+        : gender === "male" ? "fa-solid fa-mars"
+            : "fa-solid fa-venus-mars";
+
+    let ageText = "Alder er underordnet";
+    if (ageMin && ageMax) ageText = `Mellem ${ageMin} og ${ageMax} år`;
+    else if (ageMin) ageText = `Fra ${ageMin} år`;
+    else if (ageMax) ageText = `Op til ${ageMax} år`;
+
+    return {
+        hasAny: Boolean(gender || ageMin || ageMax),
+        genderSpecified: Boolean(gender),
+        ageSpecified: Boolean(ageMin || ageMax),
+        gender: {text: genderText, icon: genderIcon},
+        age: {text: ageText, icon: "fa-solid fa-cake-candles"}
+    };
+}
+
+// preferred_gender is a free string; the live form sends female/male/"" but
+// seeded/scraped data may use Danish words, so normalize both to a known key.
+function normalizeGenderPreference(value) {
+    const normalized = String(value || "").trim().toLowerCase();
+    if (["female", "kvinde", "woman", "f", "k"].includes(normalized)) return "female";
+    if (["male", "mand", "man", "m"].includes(normalized)) return "male";
+    return "";
 }
 
 function getRoomImages(room) {

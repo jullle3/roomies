@@ -1,3 +1,53 @@
+- Show something instead of a very bare and empty feeling roomie profile when the user hasnt filled out much of their profile yet.
+
+For example this one {
+
+"_id": "6a2ddabfb909ab890d740e05",
+
+"created": 1781390015,
+
+"updated": 1781390015,
+
+"email": "s@gmail.com",
+
+"email_verified": true,
+
+"full_name": "Sabine",
+
+"phone_number": null,
+
+"roomie_profile": {
+
+    "profile_photo": "98960236c8f641429da042da11c64ed1.png",
+
+    "age": 26,
+
+    "gender": "mand",
+
+    "occupation": null,
+
+    "interests": [],
+
+    "description": null
+
+},
+
+"last_login": null,
+
+"email_notifications": true,
+
+"sms_notifications": true,
+
+"login_codes": [
+
+    "1"
+
+],
+
+"login_code_exp": 2096750015
+
+}
+- 
 - Seo optimer alt
 
 - Roomie Reddit og FB Opslag - https://gemini.google.com/gem/c9297fa0daa6/f6fccd4db7de4739?hl=da

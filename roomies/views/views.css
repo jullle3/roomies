@@ -341,6 +341,29 @@
     opacity: 1;
 }
 
+#loginModal .login-modal-or {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin: 1.25rem 0;
+    color: var(--text-muted);
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+#loginModal .login-modal-or::before,
+#loginModal .login-modal-or::after {
+    content: "";
+    flex: 1 1 auto;
+    height: 1px;
+    background: #eef0f3;
+}
+
+#loginModal .login-modal-or span {
+    padding: 0 0.85rem;
+}
+
 #loginModal .login-modal-footer {
     color: var(--text-muted);
     font-weight: 500;

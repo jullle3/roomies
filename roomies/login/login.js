@@ -70,6 +70,13 @@ export function setupLoginView() {
     const googleLoginBtn = document.getElementById('googleLoginBtn');
 
     if (googleLoginWrapper && googleLoginBtn) {
+        // Reveal the "eller" divider once we know we'll render a Google option
+        // (the button itself, or the in-app-browser notice that replaces it).
+        const loginModalOr = document.getElementById('loginModalOr');
+        if (loginModalOr) {
+            loginModalOr.classList.remove('d-none');
+        }
+
         // 1. Define the in-app browser check
         const isInAppBrowser = () => {
             const ua = navigator.userAgent || navigator.vendor || window.opera;

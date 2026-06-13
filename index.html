@@ -38,7 +38,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
     <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
     <!--    Custom Merged css files -->
-    <link rel="stylesheet" href="roomies/mergedStyles.css?roomies_version=962">
+    <link rel="stylesheet" href="roomies/mergedStyles.css?roomies_version=965">
     <style>
         .nav-auth-btn:active,
         .nav-auth-btn:focus,
@@ -57,7 +57,7 @@
             color: #ffffff !important;
         }
     </style>
-    <script defer type="module" src="roomies/mergedJS.js?roomies_version=962"></script>
+    <script defer type="module" src="roomies/mergedJS.js?roomies_version=965"></script>
 
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18047412076"></script>
@@ -1811,47 +1811,19 @@
                                         <textarea class="form-control" id="profile-description" name="description" rows="5" maxlength="500" placeholder="Fortæl lidt om din hverdag, hvad du laver i din fritid, og hvad du sætter pris på i et godt hjem."></textarea>
                                     </div>
 
-                                    <div class="profile-seeker-block">
-                                        <div class="profile-seeker-head">
-                                            <h6 class="profile-seeker-title">Leder du efter et værelse? 🔍</h6>
-                                            <p class="profile-seeker-intro">Udfyld kun hvis du selv søger et værelse. Så kan vi matche dig med nye værelser og give dig besked, når der dukker noget op. Lejer du selv ud, kan du roligt springe denne del over.</p>
-                                        </div>
-
-                                        <div class="row g-3">
-                                            <div class="col-md-6">
-                                                <label class="form-label" for="profile-budget">Maks budget pr. måned</label>
-                                                <div class="input-group">
-                                                    <input type="number" class="form-control" id="profile-budget" name="monthly_budget_max" min="0" step="100" placeholder="6500">
-                                                    <span class="input-group-text">kr.</span>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <label class="form-label" for="profile-move-in-date">Klar til indflytning fra</label>
-                                                <input type="date" class="form-control" id="profile-move-in-date" name="move_in_date">
-                                            </div>
-                                        </div>
-
-                                        <div class="profile-area-picker">
-                                            <label class="form-label" for="profile-area-search">Hvor vil du bo?</label>
-                                            <input id="profile-area-search" type="search" class="form-control" autocomplete="off" placeholder="Søg efter postnummer eller område">
-                                            <div id="profile-selected-areas" class="roomie-agent-selected-areas"></div>
-                                            <div id="profile-area-suggestions" class="roomie-agent-area-suggestions"></div>
-                                        </div>
-
-                                        <div class="profile-agent-cta">
-                                        <div>
-                                            <strong>Få besked om nye værelser</strong>
-                                            <span>Bruger dit budget og valgte områder til at oprette en SøgeAgent med ét klik.</span>
-                                        </div>
-                                        <button type="button" id="profile-create-agent" class="btn btn-primary-coral rounded-pill fw-bold px-4 py-3 shadow-sm hover-lift">
-                                            <i class="fa-regular fa-bell me-2"></i>Opret SøgeAgent
-                                        </button>
-                                        </div>
-                                    </div>
-
                                     <button type="submit" class="btn btn-primary-coral rounded-pill fw-bold py-3 px-4 shadow-sm hover-lift profile-human-submit">
                                         Gem roomie-profil
                                     </button>
+
+                                    <a href="/boligovervaagning-opret" data-view="agent_create" class="profile-agent-cta text-decoration-none">
+                                        <div>
+                                            <strong>Leder du efter et værelse? 🔍</strong>
+                                            <span>Opret en SøgeAgent og få besked om nye værelser, der matcher.</span>
+                                        </div>
+                                        <span class="btn btn-primary-coral rounded-pill fw-bold px-4 py-3 shadow-sm hover-lift flex-shrink-0">
+                                            <i class="fa-regular fa-bell me-2"></i>Opret SøgeAgent
+                                        </span>
+                                    </a>
                                 </form>
                             </div>
 

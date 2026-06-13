@@ -457,7 +457,7 @@ function ensureRoomieProfilePromptModal() {
                     <div class="mb-3"><i class="fa-regular fa-id-badge fa-3x text-primary-coral"></i></div>
                     <h2 class="h4 fw-bold mb-3" id="roomieProfilePromptModalLabel">Gør din roomie-profil klar 👋</h2>
                     <p class="text-muted mb-4">
-                        Du er ved at oprette en SøgeAgent. Udfyld din roomie-profil, så udlejere hurtigere kan mærke, hvem du er, når du skriver til dem.
+                        Du er ved at oprette en SøgeAgent. Udfyld din roomie-profil, så udlejere hurtigere kan se hvem du er, når du skriver til dem.
                     </p>
                     <div class="d-grid gap-2">
                         <button class="btn btn-primary-coral rounded-pill py-3 fw-bold" type="button" data-roomie-profile-prompt-go>

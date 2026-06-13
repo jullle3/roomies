@@ -249,37 +249,6 @@
     gap: 1.25rem;
 }
 
-.profile-seeker-block {
-    display: grid;
-    gap: 1.25rem;
-    margin-top: 0.5rem;
-    padding-top: 1.75rem;
-    border-top: 1px dashed rgba(107, 114, 128, 0.28);
-}
-
-.profile-seeker-head {
-    display: grid;
-    gap: 0.35rem;
-}
-
-.profile-seeker-title {
-    margin: 0;
-    color: var(--text-main);
-    font-family: var(--font-heading);
-    font-size: 1rem;
-    font-weight: 800;
-    letter-spacing: -0.3px;
-}
-
-.profile-seeker-intro {
-    margin: 0;
-    color: var(--text-muted);
-    font-size: 0.9rem;
-    font-weight: 600;
-    line-height: 1.5;
-    max-width: 56ch;
-}
-
 .profile-human-form .form-label {
     margin-bottom: 0.5rem;
     color: var(--text-main);
@@ -303,10 +272,6 @@
     resize: vertical;
 }
 
-.profile-area-picker .roomie-agent-area-suggestions {
-    margin-top: 0.85rem;
-}
-
 .profile-agent-cta {
     display: flex;
     align-items: center;
@@ -318,17 +283,17 @@
     background: rgba(255, 107, 107, 0.07);
 }
 
-.profile-agent-cta strong,
-.profile-agent-cta span {
+.profile-agent-cta > div strong,
+.profile-agent-cta > div span {
     display: block;
 }
 
-.profile-agent-cta strong {
+.profile-agent-cta > div strong {
     color: var(--text-main);
     font-weight: 900;
 }
 
-.profile-agent-cta span {
+.profile-agent-cta > div span {
     margin-top: 0.2rem;
     color: var(--text-muted);
     font-size: 0.88rem;
@@ -543,9 +508,5 @@
     .profile-pill-option,
     .profile-vibe-grid label {
         width: 100%;
-    }
-
-    .profile-area-picker .roomie-agent-area-suggestions {
-        grid-template-columns: 1fr;
     }
 }

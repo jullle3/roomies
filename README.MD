@@ -1,7 +1,3 @@
-- Lav opengraph billede
-- Forbedre detail view
-- Reklame sektion i bunden ligesom TrustMRR
-Se ad-placement-ideas.md
 - Vigtigt jeg får folk til at oprettet en profil med billede, både købere og sælgere, det er det menneskelige der skal drive siden rundt.
 Gode ideer https://gemini.google.com/gem/c9297fa0daa6/63c2a41818ee7989
 - Keep the easy flow to create an user.
@@ -15,8 +11,9 @@ Gode ideer https://gemini.google.com/gem/c9297fa0daa6/63c2a41818ee7989
 - login med google?
 Kan først når vi er live i prod, med /vilkaar side
   https://console.cloud.google.com/auth/branding;showIssues=null?project=roomiedanmark
+- Reklame sektion i bunden ligesom TrustMRR
+  Se ad-placement-ideas.md
  
-- Alle billeder skal være webp
 - Opret FB/Insta og link til dem i footer
 
 # Giga smoketest

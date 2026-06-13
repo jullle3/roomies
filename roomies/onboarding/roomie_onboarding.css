@@ -19,12 +19,6 @@
     padding: clamp(1.5rem, 5vw, 2.5rem);
 }
 
-/* Softly blurred, warm overlay so the page behind stays visible */
-.roomie-onboarding-modal.modal {
-    backdrop-filter: blur(4px);
-    -webkit-backdrop-filter: blur(4px);
-}
-
 .roomie-onboarding-close {
     position: absolute;
     top: 14px;

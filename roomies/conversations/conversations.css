@@ -539,3 +539,236 @@
         max-width: 88%;
     }
 }
+
+/* Clickable chat header (opens the other roomie's profile) */
+.conversation-active-person {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    padding: 0.35rem 0.5rem;
+    margin: -0.35rem -0.5rem;
+    border: 0;
+    background: transparent;
+    border-radius: var(--radius-xl);
+    cursor: pointer;
+    text-align: left;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.conversation-active-person:hover,
+.conversation-active-person:focus-visible {
+    background: rgba(255, 107, 107, 0.07);
+}
+
+.conversation-active-person:active {
+    transform: scale(0.99);
+}
+
+.conversation-active-person:hover #conversation-active-title,
+.conversation-active-person:focus-visible #conversation-active-title {
+    color: var(--color-primary);
+}
+
+.conversation-active-person-cue {
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.35rem 0.8rem;
+    border-radius: var(--radius-pill);
+    background: #f3f4f6;
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    font-weight: 700;
+    white-space: nowrap;
+    transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+
+.conversation-active-person-cue i {
+    font-size: 0.7rem;
+}
+
+.conversation-active-person:hover .conversation-active-person-cue,
+.conversation-active-person:focus-visible .conversation-active-person-cue {
+    background: rgba(255, 107, 107, 0.12);
+    color: var(--color-primary);
+    transform: translateX(2px);
+}
+
+@media (max-width: 575.98px) {
+    .conversation-active-person-cue-label {
+        display: none;
+    }
+
+    .conversation-active-person-cue {
+        gap: 0;
+        width: 30px;
+        height: 30px;
+        padding: 0;
+        justify-content: center;
+        border-radius: 50%;
+    }
+}
+
+/* Roomie profile modal */
+.roomie-profile-modal .modal-content {
+    border: 0;
+    border-radius: var(--radius-xl);
+    background: #fff;
+    box-shadow: var(--shadow-hover);
+    overflow: hidden;
+}
+
+.roomie-profile-modal .modal-body {
+    padding: clamp(1.5rem, 5vw, 2.5rem);
+}
+
+.roomie-profile-close {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    z-index: 2;
+    display: grid;
+    place-items: center;
+    width: 38px;
+    height: 38px;
+    border: 0;
+    border-radius: 50%;
+    background: #f3f4f6;
+    color: var(--text-muted);
+    font-size: 1rem;
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+.roomie-profile-close:hover {
+    background: #e5e7eb;
+    color: var(--text-main);
+}
+
+.roomie-profile-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1.5rem 0;
+    color: var(--text-muted);
+    font-weight: 600;
+    text-align: center;
+}
+
+.roomie-profile-state i {
+    font-size: 1.75rem;
+    color: var(--color-primary);
+}
+
+.roomie-profile-spinner {
+    width: 34px;
+    height: 34px;
+    border: 3px solid #f0e3e3;
+    border-top-color: var(--color-primary);
+    border-radius: 50%;
+    animation: roomie-profile-spin 0.7s linear infinite;
+}
+
+@keyframes roomie-profile-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.roomie-profile-head {
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.roomie-profile-avatar {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 0.9rem;
+}
+
+.roomie-profile-avatar-img {
+    width: 104px;
+    height: 104px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid #fff;
+    box-shadow: var(--shadow-soft);
+}
+
+.roomie-profile-avatar-img--fallback {
+    display: grid;
+    place-items: center;
+    background: var(--bg-main);
+    color: var(--color-primary);
+    font-size: 2.25rem;
+}
+
+.roomie-profile-head h2 {
+    font-family: var(--font-heading);
+    font-weight: 800;
+    font-size: 1.4rem;
+    letter-spacing: -0.5px;
+    margin-bottom: 0.35rem;
+    color: var(--text-main);
+}
+
+.roomie-profile-meta {
+    margin: 0;
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    font-weight: 600;
+}
+
+.roomie-profile-empty {
+    margin: 0.5rem 0 0;
+    padding: 1.1rem;
+    border-radius: var(--radius-xl);
+    background: var(--bg-main);
+    color: var(--text-muted);
+    font-weight: 600;
+    text-align: center;
+}
+
+.roomie-profile-empty p {
+    margin: 0;
+}
+
+.roomie-profile-section {
+    margin-top: 1.4rem;
+}
+
+.roomie-profile-label {
+    font-family: var(--font-body);
+    font-size: 0.82rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--text-muted);
+    margin-bottom: 0.65rem;
+}
+
+.roomie-profile-vibes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.roomie-profile-vibe {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.45rem 0.95rem;
+    border-radius: var(--radius-pill);
+    background: #f3f4f6;
+    color: var(--text-main);
+    font-size: 0.88rem;
+    font-weight: 600;
+}
+
+.roomie-profile-desc {
+    margin: 0;
+    color: var(--text-main);
+    font-size: 0.96rem;
+    line-height: 1.6;
+    white-space: pre-wrap;
+}

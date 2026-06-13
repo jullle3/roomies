@@ -38,7 +38,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
     <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
     <!--    Custom Merged css files -->
-    <link rel="stylesheet" href="roomies/mergedStyles.css?roomies_version=972">
+    <link rel="stylesheet" href="roomies/mergedStyles.css?roomies_version=975">
     <style>
         .nav-auth-btn:active,
         .nav-auth-btn:focus,
@@ -57,7 +57,7 @@
             color: #ffffff !important;
         }
     </style>
-    <script defer type="module" src="roomies/mergedJS.js?roomies_version=972"></script>
+    <script defer type="module" src="roomies/mergedJS.js?roomies_version=975"></script>
 
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18047412076"></script>
@@ -1935,11 +1935,17 @@
                             <button type="button" id="conversation-mobile-back" class="btn conversation-mobile-back">
                                 <i class="fa-solid fa-arrow-left me-2"></i>Tilbage
                             </button>
-                            <div id="conversation-active-image" class="flex-shrink-0"></div>
-                            <div class="min-width-0 flex-grow-1">
-                                <h2 id="conversation-active-title" class="h5 fw-bold company-dark mb-1 text-truncate">Samtale</h2>
-                                <div id="conversation-active-subtitle" class="text-muted small text-truncate"></div>
-                            </div>
+                            <button type="button" id="conversation-active-person" class="conversation-active-person flex-grow-1 min-width-0" aria-label="Se roomiens profil" title="Se profil">
+                                <div id="conversation-active-image" class="flex-shrink-0"></div>
+                                <div class="min-width-0 flex-grow-1 text-start">
+                                    <h2 id="conversation-active-title" class="h5 fw-bold company-dark mb-1 text-truncate">Samtale</h2>
+                                    <div id="conversation-active-subtitle" class="text-muted small text-truncate"></div>
+                                </div>
+                                <span class="conversation-active-person-cue" aria-hidden="true">
+                                    <span class="conversation-active-person-cue-label">Se profil</span>
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </span>
+                            </button>
                             <div id="conversation-active-action" class="conversation-header-action flex-shrink-0"></div>
                         </div>
 
@@ -2658,6 +2664,51 @@
                         </div>
                     </div>
                 </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Roomie Profile Modal (read-only view of the person you're chatting with) -->
+<div class="modal fade roomie-profile-modal" id="roomieProfileModal" tabindex="-1" aria-labelledby="roomieProfileHeading" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <button type="button" class="roomie-profile-close" data-bs-dismiss="modal" aria-label="Luk">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div class="modal-body">
+                <div class="roomie-profile-state roomie-profile-loading" data-rp-loading>
+                    <span class="roomie-profile-spinner" aria-hidden="true"></span>
+                    <p>Henter profil…</p>
+                </div>
+
+                <div class="roomie-profile-state roomie-profile-error d-none" data-rp-error>
+                    <i class="fa-regular fa-face-frown"></i>
+                    <p>Kunne ikke hente profilen. Prøv igen.</p>
+                </div>
+
+                <div class="roomie-profile-content d-none" data-rp-content>
+                    <div class="roomie-profile-head">
+                        <div class="roomie-profile-avatar" data-rp-avatar></div>
+                        <h2 id="roomieProfileHeading" data-rp-name>Roomie</h2>
+                        <p class="roomie-profile-meta" data-rp-meta></p>
+                    </div>
+
+                    <div class="roomie-profile-empty d-none" data-rp-empty>
+                        <p>Denne roomie har ikke udfyldt sin profil endnu 🙈</p>
+                    </div>
+
+                    <div class="roomie-profile-section d-none" data-rp-vibes-section>
+                        <h3 class="roomie-profile-label">Roomie-vibes</h3>
+                        <div class="roomie-profile-vibes" data-rp-vibes></div>
+                    </div>
+
+                    <div class="roomie-profile-section d-none" data-rp-desc-section>
+                        <h3 class="roomie-profile-label">Lidt om mig</h3>
+                        <p class="roomie-profile-desc" data-rp-desc></p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

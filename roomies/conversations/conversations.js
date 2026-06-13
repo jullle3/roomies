@@ -20,6 +20,30 @@ const GLOBAL_UNREAD_POLL_INTERVAL_MS = 15 * 60 * 1000;
 // conversation the moment the first message is posted.
 const DRAFT_CONVERSATION_ID = '__draft__';
 
+// Public roomie profiles (every user), loaded lazily the first time someone opens a
+// profile and cached for the session. Small dataset, so one fetch covers all the
+// people the user might inspect from their inbox.
+const roomieProfileCache = new Map();
+let roomieProfilesPromise = null;
+
+function loadRoomieProfiles() {
+    if (!roomieProfilesPromise) {
+        roomieProfilesPromise = authFetch('/roomies/users/profile')
+            .then(async (response) => {
+                if (!response.ok) throw new Error('Kunne ikke hente profiler');
+                const profiles = await response.json();
+                profiles.forEach(profile => roomieProfileCache.set(profile.id, profile));
+                return roomieProfileCache;
+            })
+            .catch((error) => {
+                // Allow a later retry instead of caching the failure.
+                roomieProfilesPromise = null;
+                throw error;
+            });
+    }
+    return roomieProfilesPromise;
+}
+
 /**
  * Wires inbox row selection and reply submission for the conversations view.
  */
@@ -39,6 +63,12 @@ export function setupConversationsView() {
 
     const replyForm = document.getElementById('conversation-reply-form');
     replyForm?.addEventListener('submit', sendConversationReply);
+
+    document.getElementById('conversation-active-person')?.addEventListener('click', () => {
+        const conversation = getActiveConversation();
+        if (!conversation) return;
+        openRoomieProfileModal(getOtherParticipantId(conversation, getCurrentUserId()));
+    });
 }
 
 /**
@@ -622,6 +652,79 @@ function renderPersonAvatar(profile, baseClass = 'chat-person-avatar') {
         return `<img src="${escapeHtml(`${s3Url}/${photo}`)}" class="${baseClass}" alt="Profilbillede" loading="lazy">`;
     }
     return `<div class="${baseClass} ${baseClass}--fallback"><i class="fa-solid fa-user"></i></div>`;
+}
+
+/**
+ * Opens the read-only profile of the roomie on the other side of the chat. Loads the
+ * (cached) public-profile dataset on first use, then renders from cache.
+ */
+async function openRoomieProfileModal(userId) {
+    const modalEl = document.getElementById('roomieProfileModal');
+    if (!modalEl || !userId) return;
+
+    const modal = window.bootstrap.Modal.getOrCreateInstance(modalEl);
+    setRoomieProfileModalState(modalEl, 'loading');
+    modal.show();
+
+    try {
+        await loadRoomieProfiles();
+        renderRoomieProfileCard(modalEl, roomieProfileCache.get(userId) || null);
+    } catch (error) {
+        setRoomieProfileModalState(modalEl, 'error');
+    }
+}
+
+function setRoomieProfileModalState(modalEl, state) {
+    modalEl.querySelector('[data-rp-loading]')?.classList.toggle('d-none', state !== 'loading');
+    modalEl.querySelector('[data-rp-error]')?.classList.toggle('d-none', state !== 'error');
+    modalEl.querySelector('[data-rp-content]')?.classList.toggle('d-none', state !== 'content');
+}
+
+function renderRoomieProfileCard(modalEl, profile) {
+    setRoomieProfileModalState(modalEl, 'content');
+
+    // A missing cache entry still resolves to a friendly card (deleted/unknown user).
+    const safeProfile = profile || {};
+    const interests = Array.isArray(safeProfile.interests) ? safeProfile.interests : [];
+
+    const avatar = modalEl.querySelector('[data-rp-avatar]');
+    if (avatar) avatar.innerHTML = renderPersonAvatar(safeProfile, 'roomie-profile-avatar-img');
+
+    const nameEl = modalEl.querySelector('[data-rp-name]');
+    if (nameEl) nameEl.textContent = safeProfile.full_name || 'Roomie';
+
+    const metaParts = [
+        safeProfile.age ? `${safeProfile.age} år` : null,
+        safeProfile.occupation || null,
+        capitalizeFirst(safeProfile.gender),
+    ].filter(Boolean);
+    const metaEl = modalEl.querySelector('[data-rp-meta]');
+    if (metaEl) metaEl.textContent = metaParts.join(' · ');
+
+    const vibesSection = modalEl.querySelector('[data-rp-vibes-section]');
+    const vibes = modalEl.querySelector('[data-rp-vibes]');
+    if (vibes) {
+        vibes.innerHTML = interests
+            .map(tag => `<span class="roomie-profile-vibe">${escapeHtml(tag)}</span>`)
+            .join('');
+    }
+    vibesSection?.classList.toggle('d-none', interests.length === 0);
+
+    const descSection = modalEl.querySelector('[data-rp-desc-section]');
+    const desc = modalEl.querySelector('[data-rp-desc]');
+    if (desc) desc.textContent = safeProfile.description || '';
+    descSection?.classList.toggle('d-none', !safeProfile.description);
+
+    const hasAnyDetails = Boolean(
+        safeProfile.profile_photo || safeProfile.age || safeProfile.occupation
+        || safeProfile.gender || interests.length || safeProfile.description
+    );
+    modalEl.querySelector('[data-rp-empty]')?.classList.toggle('d-none', hasAnyDetails);
+}
+
+function capitalizeFirst(value) {
+    if (!value) return null;
+    return value.charAt(0).toUpperCase() + value.slice(1);
 }
 
 function getConversationTitle(conversation, currentUserId) {

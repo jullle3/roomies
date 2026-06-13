@@ -2084,7 +2084,7 @@
 
                     <h5>1. Generelt</h5>
                     <p>Disse vilkår gælder for brugen af roomies på roomiedanmark.dk. Ved at oprette en bruger, oprette en annonce, skrive beskeder eller på anden måde bruge tjenesten accepterer du vilkårene. Hvis du ikke kan acceptere vilkårene, skal du undlade at bruge tjenesten.</p>
-                    <p>roomies drives under CVR 40606130. Du kan kontakte os på <a href="mailto:support@roomiedanmark.dk">support@roomiedanmark.dk</a>.</p>
+                    <p>roomies drives under CVR 40606130. Du kan kontakte os på <a href="mailto:support@andelsboligbasen.dk">support@andelsboligbasen.dk</a>.</p>
 
                     <h5>2. Hvad roomies er</h5>
                     <p>roomies er en platform, hvor personer, der leder efter et værelse, en roomie eller et bofællesskab, kan møde personer, der udlejer værelser. Tjenesten hjælper med profiler, værelsesannoncer, beskeder og SøgeAgent, men roomies er ikke part i aftaler, lejekontrakter eller betalinger mellem brugere.</p>
@@ -2133,7 +2133,7 @@
                         <li>Ret til dataportabilitet</li>
                         <li>Ret til at gøre indsigelse mod behandlingen</li>
                     </ul>
-                    <p>Du kan kontakte os på <a href="mailto:support@roomiedanmark.dk">support@roomiedanmark.dk</a>, hvis du ønsker indsigt, rettelse, sletning eller har spørgsmål til vores behandling af persondata.</p>
+                    <p>Du kan kontakte os på <a href="mailto:support@andelsboligbasen.dk">support@andelsboligbasen.dk</a>, hvis du ønsker indsigt, rettelse, sletning eller har spørgsmål til vores behandling af persondata.</p>
 
                     <h5>10. Opbevaring og sletning</h5>
                     <p>Vi opbevarer dine oplysninger, så længe de er nødvendige for at levere tjenesten, overholde lovgivning, håndtere sikkerhed eller dokumentere relevante forhold. Du kan anmode om at få din bruger og dine oplysninger slettet, medmindre vi har en saglig eller lovmæssig grund til at opbevare dem længere.</p>
@@ -2150,7 +2150,7 @@
 
                     <h5>14. Kontakt</h5>
                     <p>Ved spørgsmål til vilkår, persondata eller privatliv kan du kontakte os på:</p>
-                    <p><strong>Email:</strong> support@roomiedanmark.dk</p>
+                    <p><strong>Email:</strong> support@andelsboligbasen.dk</p>
                     <p><strong>CVR:</strong> 40606130</p>
                 </div>
             </div>
@@ -2243,6 +2243,28 @@
                     <p class="login-modal-copy text-secondary">Log ind for at se detaljer</p>
                 </div>
 
+                <div class="d-grid d-none" id="googleLoginWrapper">
+                    <button type="button" id="googleLoginBtn" class="btn login-modal-google rounded-pill py-3 d-flex align-items-center justify-content-center hover-lift position-relative">
+                        <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google" width="24" height="24" class="me-3">
+                        <span>Log ind med Google</span>
+                    </button>
+                </div>
+
+                <div class="in-app-browser-notice d-none" id="inAppBrowserNotice">
+                    <div class="in-app-browser-notice-icon">
+                        <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                    </div>
+                    <div class="in-app-browser-notice-body">
+                        <span class="in-app-browser-notice-title">Vil du logge ind med Google? 🚀</span>
+                        <span class="in-app-browser-notice-text">Google virker ikke i appens browser. Åbn siden i Chrome eller Safari, så kan du bruge Google-login.</span>
+                        <button type="button" class="in-app-browser-notice-btn rounded-pill" id="copyLinkBtn">
+                            <i class="fa-regular fa-copy me-2"></i><span>Kopiér link</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="login-modal-or d-none" id="loginModalOr"><span>eller</span></div>
+
                 <form id="modalLoginForm" novalidate>
                     <div class="mb-4">
                         <label class="login-modal-label form-label" for="modal-login-email">Email</label>
@@ -2267,18 +2289,11 @@
                     <div class="row justify-content-center">
                         <div class="col-12">
                             <button class="btn btn-primary-coral w-100 rounded-pill py-3 fw-bold shadow-sm hover-lift login-modal-submit" type="submit" id="loginModalSubmit">
-                                Log ind med email
+                                <i class="fa-regular fa-envelope me-2"></i>Log ind med email
                             </button>
                         </div>
                     </div>
                 </form>
-
-                <div class="d-grid mt-3 d-none" id="googleLoginWrapper">
-                    <button type="button" id="googleLoginBtn" class="btn login-modal-google rounded-pill py-3 d-flex align-items-center justify-content-center hover-lift position-relative">
-                        <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google" width="24" height="24" class="me-3">
-                        <span>Log ind med Google</span>
-                    </button>
-                </div>
 
                 <hr class="login-modal-divider">
 
@@ -2661,14 +2676,14 @@
                 </div>
 
                 <div class="d-grid gap-2 col-lg-10 mx-auto mb-4">
-                    <a href="mailto:support@roomiedanmark.dk" class="btn btn-primary-coral btn-lg rounded-pill py-3 fw-bold shadow-sm">
+                    <a href="mailto:support@andelsboligbasen.dk" class="btn btn-primary-coral btn-lg rounded-pill py-3 fw-bold shadow-sm">
                         <i class="fa-regular fa-envelope me-2"></i>Send mail direkte
                     </a>
                 </div>
 
                 <div class="feedback-modal-footer">
                     <p class="small mb-1">Eller skriv til:</p>
-                    <p class="fw-bold mb-2">support@roomiedanmark.dk</p>
+                    <p class="fw-bold mb-2">support@andelsboligbasen.dk</p>
                     <small>CVR 40606130</small>
                 </div>
 

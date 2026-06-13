@@ -70,6 +70,13 @@ export function setupLoginView() {
     const googleLoginBtn = document.getElementById('googleLoginBtn');
 
     if (googleLoginWrapper && googleLoginBtn) {
+        // Reveal the "eller" divider once we know we'll render a Google option
+        // (the button itself, or the in-app-browser notice that replaces it).
+        const loginModalOr = document.getElementById('loginModalOr');
+        if (loginModalOr) {
+            loginModalOr.classList.remove('d-none');
+        }
+
         // 1. Define the in-app browser check
         const isInAppBrowser = () => {
             const ua = navigator.userAgent || navigator.vendor || window.opera;
@@ -86,6 +93,55 @@ export function setupLoginView() {
                 e.preventDefault();
                 initiateGoogleLogin();
             });
+        } else {
+            // In-app browser (Facebook, Instagram, etc.): Google blocks OAuth here
+            // (disallowed_useragent). Show a notice nudging the user to open the
+            // site in a real browser, with a copy-link helper.
+            const inAppBrowserNotice = document.getElementById('inAppBrowserNotice');
+            const copyLinkBtn = document.getElementById('copyLinkBtn');
+
+            if (inAppBrowserNotice) {
+                inAppBrowserNotice.classList.remove('d-none');
+            }
+
+            if (copyLinkBtn) {
+                copyLinkBtn.addEventListener('click', async () => {
+                    const url = window.location.href;
+                    const label = copyLinkBtn.querySelector('span');
+                    const original = label ? label.textContent : '';
+
+                    const showCopied = () => {
+                        copyLinkBtn.classList.add('is-copied');
+                        if (label) label.textContent = 'Link kopieret!';
+                        setTimeout(() => {
+                            copyLinkBtn.classList.remove('is-copied');
+                            if (label) label.textContent = original;
+                        }, 2000);
+                    };
+
+                    try {
+                        await navigator.clipboard.writeText(url);
+                        showCopied();
+                    } catch (err) {
+                        // Fallback for older / restricted webviews
+                        const tmp = document.createElement('textarea');
+                        tmp.value = url;
+                        tmp.style.position = 'fixed';
+                        tmp.style.opacity = '0';
+                        document.body.appendChild(tmp);
+                        tmp.focus();
+                        tmp.select();
+                        try {
+                            document.execCommand('copy');
+                            showCopied();
+                        } catch (e2) {
+                            // Last resort: surface the URL so the user can copy manually
+                            window.prompt('Kopiér linket og åbn det i din browser:', url);
+                        }
+                        document.body.removeChild(tmp);
+                    }
+                });
+            }
         }
     }
 

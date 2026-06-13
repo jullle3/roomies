@@ -38,7 +38,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
     <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
     <!--    Custom Merged css files -->
-    <link rel="stylesheet" href="roomies/mergedStyles.css?roomies_version=961">
+    <link rel="stylesheet" href="roomies/mergedStyles.css?roomies_version=962">
     <style>
         .nav-auth-btn:active,
         .nav-auth-btn:focus,
@@ -57,7 +57,7 @@
             color: #ffffff !important;
         }
     </style>
-    <script defer type="module" src="roomies/mergedJS.js?roomies_version=961"></script>
+    <script defer type="module" src="roomies/mergedJS.js?roomies_version=962"></script>
 
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18047412076"></script>
@@ -2298,6 +2298,19 @@
                         <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google" width="24" height="24" class="me-3">
                         <span>Log ind med Google</span>
                     </button>
+                </div>
+
+                <div class="in-app-browser-notice mt-3 d-none" id="inAppBrowserNotice">
+                    <div class="in-app-browser-notice-icon">
+                        <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                    </div>
+                    <div class="in-app-browser-notice-body">
+                        <span class="in-app-browser-notice-title">Vil du logge ind med Google? 🚀</span>
+                        <span class="in-app-browser-notice-text">Google virker ikke i appens browser. Åbn siden i Chrome eller Safari, så kan du bruge Google-login.</span>
+                        <button type="button" class="in-app-browser-notice-btn rounded-pill" id="copyLinkBtn">
+                            <i class="fa-regular fa-copy me-2"></i><span>Kopiér link</span>
+                        </button>
+                    </div>
                 </div>
 
                 <hr class="login-modal-divider">

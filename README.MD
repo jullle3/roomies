@@ -1,5 +1,6 @@
 - Lav opengraph billede
 - Forbedre detail view
+- Brug andelsbolig mail til start
 - Reklame sektion i bunden ligesom TrustMRR
 Se ad-placement-ideas.md
 - Vigtigt jeg får folk til at oprettet en profil med billede, både købere og sælgere, det er det menneskelige der skal drive siden rundt.

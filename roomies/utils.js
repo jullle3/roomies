@@ -7,7 +7,7 @@ export let currentUser = null;
 let currentUserLoadPromise = null;
 let stripeScriptPromise = null;
 let stripeFallbackTimer = null;
-export const DEFAULT_OG_IMAGE = 'https://roomiedanmark.dk/pics/opengraph2.webp';
+export const DEFAULT_OG_IMAGE = 'https://roomiedanmark.dk/pics/opengraph3.webp';
 export const DEFAULT_OG_URL = 'https://roomiedanmark.dk';
 const DEV_ACCESS_GRANTED_KEY = 'roomies_dev_access_granted';
 const DEV_ACCESS_PASSWORD = '1';
@@ -541,13 +541,13 @@ function sharePage() {
  * @param {string} title - Sidens titel (bruges til <title>, Open Graph og Twitter)
  * @param {string} desc - Sidens meta-beskrivelse
  * @param {string} [url=window.location.href] - Den specifikke (kanoniske) URL for dette view
- * @param {string} [img='https://roomiedanmark.dk/pics/opengraph2.webp'] - Billede til social deling
+ * @param {string} [img='https://roomiedanmark.dk/pics/opengraph3.webp'] - Billede til social deling
  */
 export function updateMetaTags(
     title,
     desc,
     url = window.location.href, // Default til den nuværende URL
-    img = 'https://roomiedanmark.dk/pics/opengraph2.webp' // Dit standard OpenGraph billede
+    img = 'https://roomiedanmark.dk/pics/opengraph3.webp' // Dit standard OpenGraph billede
 ) {
     // 1. Page title and description
     document.title = title;

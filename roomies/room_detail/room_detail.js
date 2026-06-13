@@ -10,6 +10,7 @@ import {
 import {authFetch} from "../auth/auth.js";
 import {s3Url} from "../config/config.js";
 import {getPreviousView} from "../views/viewManager.js";
+import {ensureRoomieProfile} from "../onboarding/roomie_onboarding.js";
 
 export async function renderRoomDetail(roomId) {
     const container = document.getElementById("room-detail-content");
@@ -283,12 +284,18 @@ function setupRoomContactControls(container) {
     if (container.dataset.contactBound) return;
     container.dataset.contactBound = "1";
 
-    container.addEventListener("click", event => {
+    container.addEventListener("click", async event => {
         const contactButton = event.target.closest("[data-contact-owner]");
         if (!contactButton) return;
 
         event.preventDefault();
-        openConversationsView(contactButton.dataset.ownerId, contactButton.dataset.roomId);
+        const {ownerId, roomId} = contactButton.dataset;
+
+        // Logged-out users get routed through the login flow by the conversations
+        // view; only nudge a logged-in user to complete their profile first.
+        if (isLoggedIn() && !(await ensureRoomieProfile("contact"))) return;
+
+        openConversationsView(ownerId, roomId);
     });
 }
 

@@ -38,7 +38,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
     <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
     <!--    Custom Merged css files -->
-    <link rel="stylesheet" href="roomies/mergedStyles.css?roomies_version=965">
+    <link rel="stylesheet" href="roomies/mergedStyles.css?roomies_version=971">
     <style>
         .nav-auth-btn:active,
         .nav-auth-btn:focus,
@@ -57,7 +57,7 @@
             color: #ffffff !important;
         }
     </style>
-    <script defer type="module" src="roomies/mergedJS.js?roomies_version=965"></script>
+    <script defer type="module" src="roomies/mergedJS.js?roomies_version=971"></script>
 
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18047412076"></script>
@@ -222,7 +222,7 @@
                         </div>
 
                         <h1 class="display-4 fw-bolder mb-4 view-title">
-                            Find dit nye værelse og dine næste roomies ✌️
+                            Find dit nye værelse og din næste roomie ✌️
                         </h1>
                         <p class="lead text-muted mx-auto mb-5" style="max-width: 600px;">
                             Vær med i et ærligt fællesskab for værelser og bofæller i Danmark. Her koster det 0 kr. at være med. Opret en profil og hjælp os med at ændre markedet.
@@ -2554,6 +2554,111 @@
                 </button>
             </div>
 
+        </div>
+    </div>
+</div>
+
+<!-- Roomie Onboarding Modal (one dynamic modal, three happy paths: contact / publish / agent) -->
+<div class="modal fade roomie-onboarding-modal" id="roomieOnboardingModal" tabindex="-1" aria-labelledby="roomieOnboardingHeading" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <button type="button" class="roomie-onboarding-close" data-bs-dismiss="modal" aria-label="Luk">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div class="modal-body">
+                <div class="roomie-onboarding-progress" aria-hidden="true">
+                    <span class="is-active" data-ob-dot="0"></span>
+                    <span data-ob-dot="1"></span>
+                </div>
+
+                <header class="roomie-onboarding-head">
+                    <h2 id="roomieOnboardingHeading" data-ob-heading>Sæt ansigt på beskeden 👋</h2>
+                    <p data-ob-subtext>Udlejere svarer langt oftere, når de kan se hvem de skriver med.</p>
+                </header>
+
+                <form id="roomieOnboardingForm" novalidate>
+                    <!-- Step 1: Hvem er du? -->
+                    <div class="roomie-onboarding-step is-active" data-ob-step="0">
+                        <div class="roomie-onboarding-photo">
+                            <button type="button" class="roomie-onboarding-photo-drop" data-ob-photo-trigger aria-label="Vælg profilbillede">
+                                <img data-ob-photo-preview alt="Dit profilbillede" class="d-none">
+                                <span class="roomie-onboarding-photo-placeholder" data-ob-photo-placeholder>
+                                    <i class="fa-solid fa-camera"></i>
+                                </span>
+                            </button>
+                            <p class="roomie-onboarding-photo-label">Tilføj et profilbillede</p>
+                            <p class="roomie-onboarding-photo-help">Folk svarer 3x oftere, når de kan se hvem de skriver med.</p>
+                            <input type="file" class="d-none" accept="image/png,image/jpeg,image/webp" data-ob-photo-input>
+                            <div class="roomie-onboarding-error d-none" data-ob-photo-error></div>
+                        </div>
+
+                        <div class="row g-3">
+                            <div class="col-6">
+                                <label class="form-label" for="ob-age">Alder</label>
+                                <input type="number" class="form-control" id="ob-age" data-ob-age min="16" max="120" placeholder="24">
+                            </div>
+                            <div class="col-6">
+                                <label class="form-label" for="ob-occupation">Beskæftigelse</label>
+                                <input type="text" class="form-control" id="ob-occupation" data-ob-occupation maxlength="80" placeholder="Studerende...">
+                            </div>
+                        </div>
+
+                        <div class="roomie-onboarding-field">
+                            <label class="form-label">Køn <span class="text-muted fw-semibold">(valgfrit)</span></label>
+                            <div class="roomie-onboarding-pills" role="radiogroup" aria-label="Køn">
+                                <input type="radio" class="btn-check" name="ob-gender" id="ob-gender-man" value="mand">
+                                <label class="roomie-onboarding-pill" for="ob-gender-man">Mand</label>
+                                <input type="radio" class="btn-check" name="ob-gender" id="ob-gender-woman" value="kvinde">
+                                <label class="roomie-onboarding-pill" for="ob-gender-woman">Kvinde</label>
+                            </div>
+                        </div>
+
+                        <button type="button" class="btn btn-primary-coral rounded-pill fw-bold w-100 py-3" data-ob-next>
+                            Næste trin →
+                        </button>
+                    </div>
+
+                    <!-- Step 2: Din vibe -->
+                    <div class="roomie-onboarding-step" data-ob-step="1">
+                        <div class="roomie-onboarding-field">
+                            <label class="form-label">Mine roomie-vibes</label>
+                            <p class="roomie-onboarding-help">Vælg op til 5 tags, der bedst beskriver dig derhjemme.</p>
+                            <div class="roomie-onboarding-vibes">
+                                <input type="checkbox" class="btn-check" name="ob-interests" id="ob-vibe-social" value="🍻 Socialt anlagt">
+                                <label for="ob-vibe-social">🍻 Socialt anlagt</label>
+                                <input type="checkbox" class="btn-check" name="ob-interests" id="ob-vibe-private" value="🎧 Privatliv">
+                                <label for="ob-vibe-private">🎧 Privatliv</label>
+                                <input type="checkbox" class="btn-check" name="ob-interests" id="ob-vibe-dinner" value="☕ Fællesspisning">
+                                <label for="ob-vibe-dinner">☕ Fællesspisning</label>
+                                <input type="checkbox" class="btn-check" name="ob-interests" id="ob-vibe-cleaning" value="🧹 Rengøringsplan">
+                                <label for="ob-vibe-cleaning">🧹 Rengøringsplan</label>
+                                <input type="checkbox" class="btn-check" name="ob-interests" id="ob-vibe-calm" value="🤫 Roligt hjem">
+                                <label for="ob-vibe-calm">🤫 Roligt hjem</label>
+                                <input type="checkbox" class="btn-check" name="ob-interests" id="ob-vibe-pets" value="🐶 Dyreven">
+                                <label for="ob-vibe-pets">🐶 Dyreven</label>
+                                <input type="checkbox" class="btn-check" name="ob-interests" id="ob-vibe-nonsmoker" value="🚭 Ikke-ryger">
+                                <label for="ob-vibe-nonsmoker">🚭 Ikke-ryger</label>
+                                <input type="checkbox" class="btn-check" name="ob-interests" id="ob-vibe-active" value="🏃 Aktiv hverdag">
+                                <label for="ob-vibe-active">🏃 Aktiv hverdag</label>
+                            </div>
+                        </div>
+
+                        <div class="roomie-onboarding-field">
+                            <div class="d-flex justify-content-between gap-3">
+                                <label class="form-label" for="ob-description">Lidt om mig som roomie</label>
+                                <span class="roomie-onboarding-char-count"><span data-ob-desc-count>0</span>/500</span>
+                            </div>
+                            <textarea class="form-control" id="ob-description" data-ob-description rows="4" maxlength="500" placeholder="Jeg er en stille og rolig type, der elsker at nørde brætspil og bage surdej..."></textarea>
+                        </div>
+
+                        <div class="roomie-onboarding-actions">
+                            <button type="button" class="btn btn-light rounded-pill fw-bold py-3 px-4" data-ob-back>← Tilbage</button>
+                            <button type="submit" class="btn btn-primary-coral rounded-pill fw-bold py-3 flex-grow-1" data-ob-submit>Gem profil &amp; Send besked 🚀</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 </div>

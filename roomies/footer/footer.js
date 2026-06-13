@@ -40,11 +40,8 @@ export function SetupFooter() {
     <div class="row align-items-center">
         <div class="col-12 col-md-4 text-center text-md-start order-2 order-md-1">
           <div class="mb-3 d-flex justify-content-center justify-content-md-start gap-3">
-            <a href="https://www.facebook.com/profile.php?id=61577566727957" target="_blank" aria-label="Følg os på Facebook" class="text-decoration-none footer-social-link footer-social-link-facebook">
+            <a href="https://www.facebook.com/profile.php?id=61590630037356" target="_blank" aria-label="Følg os på Facebook" class="text-decoration-none footer-social-link footer-social-link-facebook">
               <i class="fa-brands fa-facebook fs-4" style="line-height: 1"></i>
-            </a>
-            <a href="https://www.instagram.com/andelsbolig_basen/?hl=da" target="_blank" aria-label="Følg os på Instagram" class="text-decoration-none footer-social-link footer-social-link-instagram">
-              <i class="fa-brands fa-instagram fs-4" style="line-height: 1"></i>
             </a>
           </div>
           <small class="text-muted fw-medium">

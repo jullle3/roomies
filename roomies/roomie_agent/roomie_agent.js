@@ -2,16 +2,12 @@ import {authFetch} from "../auth/auth.js";
 import {areaAutocompleteOptions} from "../config/hardcoded_data.js";
 import {displayErrorMessage, displaySuccessMessage, ensureCurrentUserLoaded, isLoggedIn} from "../utils.js";
 import {showView} from "../views/viewManager.js";
+import {ensureRoomieProfile, hasFilledRoomieProfile} from "../onboarding/roomie_onboarding.js";
 
 const MAX_AGENTS = 5;
 const MAX_AREA_SUGGESTIONS = 4;
 const AGENTS_API_BASE = "/roomies/agents";
 const AREA_LOOKUP = new Map(areaAutocompleteOptions.map(area => [String(area.id), area]));
-
-// Identity fields that signal a genuinely filled-out roomie profile. The search
-// fields (monthly_price_max, areas) are excluded since they belong to the agent.
-const MEANINGFUL_PROFILE_FIELDS = ["profile_photo", "age", "gender", "occupation", "interests", "description"];
-const MIN_FILLED_PROFILE_FIELDS = 3;
 
 let cachedAgents = null;
 let overviewBound = false;
@@ -421,20 +417,6 @@ function renderFormMarkup(mode, agent) {
     `;
 }
 
-function hasFilledRoomieProfile(user) {
-    const profile = user?.roomie_profile;
-    if (!profile || typeof profile !== "object") return false;
-
-    // The profile object always exists with empty defaults, so we judge genuine
-    // effort by how many identity fields the user actually filled in.
-    const filledCount = MEANINGFUL_PROFILE_FIELDS.filter(field => {
-        const value = profile[field];
-        return Array.isArray(value) ? value.length > 0 : value != null && String(value).trim() !== "";
-    }).length;
-
-    return filledCount >= MIN_FILLED_PROFILE_FIELDS;
-}
-
 function showRoomieProfilePromptModal() {
     const modalElement = ensureRoomieProfilePromptModal();
     bootstrap.Modal.getOrCreateInstance(modalElement).show();
@@ -473,22 +455,14 @@ function ensureRoomieProfilePromptModal() {
     `;
     document.body.appendChild(modal);
 
-    modal.querySelector("[data-roomie-profile-prompt-go]")?.addEventListener("click", async () => {
+    modal.querySelector("[data-roomie-profile-prompt-go]")?.addEventListener("click", () => {
+        // Wait for the inform popup to fully close, then open the onboarding modal
+        // so the two Bootstrap modals don't fight over the backdrop.
+        modal.addEventListener("hidden.bs.modal", () => ensureRoomieProfile("agent"), {once: true});
         bootstrap.Modal.getOrCreateInstance(modal).hide();
-        await showView("profile");
-        scrollToRoomieProfileSection();
     });
 
     return modal;
-}
-
-function scrollToRoomieProfileSection() {
-    const scrollToForm = () => {
-        document.getElementById("profileHumanForm")?.scrollIntoView({behavior: "auto", block: "start"});
-    };
-    requestAnimationFrame(scrollToForm);
-    setTimeout(scrollToForm, 150);
-    setTimeout(scrollToForm, 500);
 }
 
 function renderAreaSuggestions(query) {

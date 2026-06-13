@@ -10,6 +10,7 @@ import {authFetch} from "../auth/auth.js";
 import {s3Url} from "../config/config.js";
 import {getCachedRooms, mergeRoomsIntoCaches, preloadRooms, removeRoomsFromCaches} from "../rooms/room_cache.js";
 import {displayLoginModal, showView} from "../views/viewManager.js";
+import {ensureRoomieProfile} from "../onboarding/roomie_onboarding.js";
 
 const RENT_ROOM_DRAFT_KEY = "roomies_rent_room_draft";
 // Tracks which user a saved draft belongs to, so one user's draft (and their backend
@@ -18,8 +19,6 @@ const RENT_ROOM_DRAFT_OWNER_KEY = "roomies_rent_room_draft_owner";
 const ADDRESS_AUTOCOMPLETE_URL = "https://api.dataforsyningen.dk/adresser/autocomplete";
 const MAX_IMAGES = 8;
 const MAX_IMAGE_SIZE_BYTES = 12 * 1024 * 1024;
-const PROFILE_MAX_PHOTO_SIZE_BYTES = 3 * 1024 * 1024;
-const PROFILE_SOURCE_MAX_PHOTO_SIZE_BYTES = 12 * 1024 * 1024;
 const IMAGE_OPTIMIZATION_MAX_EDGE = 1200;
 const IMAGE_OPTIMIZATION_QUALITY = 0.8;
 const ROOM_FIELDS = [
@@ -800,7 +799,11 @@ async function handleRentRoomSubmit(event) {
         return;
     }
 
-    const profilePhoto = await ensureProfilePhotoBeforePublishing();
+    // Nudge users with an empty profile to complete it before publishing. If they
+    // dismiss the modal we abort (the draft is already saved, so nothing is lost).
+    if (!(await ensureRoomieProfile("publish"))) return;
+
+    const profilePhoto = getUserProfilePhoto();
     const listings = buildIndependentListingPayloads(draft, profilePhoto);
 
     const submitButton = form.querySelector('[type="submit"]');
@@ -928,177 +931,9 @@ function hasPendingRoomImageUploads() {
     return [...roomStates.values()].some(state => state.images.length > 0);
 }
 
-async function ensureProfilePhotoBeforePublishing() {
-    const user = await ensureCurrentUserLoaded();
-    const existingPhoto = getUserProfilePhoto(user);
-    if (existingPhoto) return existingPhoto;
-
-    return promptForProfilePhotoUpload();
-}
-
 function getUserProfilePhoto(user = currentUser) {
     const profilePhoto = user?.roomie_profile?.profile_photo;
     return typeof profilePhoto === "string" && profilePhoto.trim() ? profilePhoto.trim() : null;
-}
-
-function promptForProfilePhotoUpload() {
-    const modalElement = ensureProfilePhotoInterceptModal();
-    const fileInput = modalElement.querySelector("[data-rent-room-profile-photo-input]");
-    const uploadButton = modalElement.querySelector("[data-rent-room-profile-photo-upload]");
-    const skipButton = modalElement.querySelector("[data-rent-room-profile-photo-skip]");
-    const preview = modalElement.querySelector("[data-rent-room-profile-photo-preview]");
-    const error = modalElement.querySelector("[data-rent-room-profile-photo-error]");
-    const modal = bootstrap.Modal.getOrCreateInstance(modalElement);
-
-    return new Promise(resolve => {
-        let settled = false;
-        const cleanup = () => {
-            fileInput.value = "";
-            fileInput.removeEventListener("change", handleFileChange);
-            uploadButton.removeEventListener("click", openPicker);
-            skipButton.removeEventListener("click", skipUpload);
-            modalElement.removeEventListener("hidden.bs.modal", handleHidden);
-        };
-
-        const finish = profilePhoto => {
-            if (settled) return;
-            settled = true;
-            cleanup();
-            modal.hide();
-            resolve(profilePhoto || null);
-        };
-
-        const handleHidden = () => finish(null);
-
-        const setBusy = isBusy => {
-            uploadButton.disabled = isBusy;
-            skipButton.disabled = isBusy;
-            uploadButton.innerHTML = isBusy
-                ? '<span class="spinner-border spinner-border-sm me-2" aria-hidden="true"></span>Uploader...'
-                : '<i class="fa-solid fa-camera me-2"></i>Upload profilbillede';
-        };
-
-        const showError = message => {
-            error.textContent = message;
-            error.classList.toggle("d-none", !message);
-        };
-
-        const openPicker = () => fileInput.click();
-        const skipUpload = () => finish(null);
-
-        const handleFileChange = async event => {
-            const file = event.target.files?.[0];
-            if (!file) return;
-
-            if (!file.type.startsWith("image/")) {
-                showError("Vælg et billede i PNG, JPG eller WebP.");
-                fileInput.value = "";
-                return;
-            }
-
-            if (file.size > PROFILE_SOURCE_MAX_PHOTO_SIZE_BYTES) {
-                showError("Profilbilledet må højst være 12 MB før optimering.");
-                fileInput.value = "";
-                return;
-            }
-
-            const previewUrl = URL.createObjectURL(file);
-            preview.src = previewUrl;
-            preview.classList.remove("d-none");
-            showError("");
-            setBusy(true);
-
-            try {
-                const optimizedFile = await optimizeImageForUpload(file);
-                if (optimizedFile.size > PROFILE_MAX_PHOTO_SIZE_BYTES) {
-                    throw new Error("Profilbilledet er stadig for stort efter optimering. Vælg et mindre billede.");
-                }
-
-                const profilePhoto = await uploadProfilePhoto(optimizedFile);
-                URL.revokeObjectURL(previewUrl);
-                finish(profilePhoto);
-            } catch (error) {
-                console.error("Kunne ikke uploade profilbillede:", error);
-                showError(error.message || "Kunne ikke uploade profilbilledet.");
-                setBusy(false);
-            }
-        };
-
-        preview.removeAttribute("src");
-        preview.classList.add("d-none");
-        showError("");
-        setBusy(false);
-        uploadButton.addEventListener("click", openPicker);
-        skipButton.addEventListener("click", skipUpload);
-        fileInput.addEventListener("change", handleFileChange);
-        modalElement.addEventListener("hidden.bs.modal", handleHidden);
-        modal.show();
-    });
-}
-
-function ensureProfilePhotoInterceptModal() {
-    const existingModal = document.getElementById("rentRoomProfilePhotoModal");
-    if (existingModal) return existingModal;
-
-    const modal = document.createElement("div");
-    modal.className = "modal fade rent-room-profile-photo-modal";
-    modal.id = "rentRoomProfilePhotoModal";
-    modal.tabIndex = -1;
-    modal.setAttribute("aria-labelledby", "rentRoomProfilePhotoModalLabel");
-    modal.setAttribute("aria-hidden", "true");
-    modal.innerHTML = `
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content border-0 shadow-lg">
-                <div class="modal-body p-4 p-md-5 text-center">
-                    <div class="rent-room-profile-photo-icon mx-auto mb-3">
-                        <i class="fa-solid fa-camera-retro"></i>
-                        <img data-rent-room-profile-photo-preview alt="Valgt profilbillede" class="d-none">
-                    </div>
-                    <h2 class="h4 fw-bold mb-3" id="rentRoomProfilePhotoModalLabel">Annoncen er næsten klar! 🎉</h2>
-                    <p class="text-muted mb-4">
-                        Boligsøgende vil gerne se, hvem de skal bo med. Annoncer med profilbillede får 3x flere henvendelser.
-                    </p>
-                    <div class="alert alert-danger d-none text-start" data-rent-room-profile-photo-error></div>
-                    <input type="file" class="d-none" accept="image/png,image/jpeg,image/webp" data-rent-room-profile-photo-input>
-                    <div class="d-grid gap-2">
-                        <button class="btn btn-primary-coral rounded-pill py-3 fw-bold" type="button" data-rent-room-profile-photo-upload>
-                            <i class="fa-solid fa-camera me-2"></i>Upload profilbillede
-                        </button>
-                        <button class="btn btn-light rounded-pill py-3 fw-bold" type="button" data-rent-room-profile-photo-skip>
-                            Spring over og udgiv annonce
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    `;
-    document.body.appendChild(modal);
-    return modal;
-}
-
-async function uploadProfilePhoto(file) {
-    const formData = new FormData();
-    formData.append("file", file);
-
-    const response = await authFetch("/roomies/user/profile-photo", {
-        method: "POST",
-        body: formData
-    });
-
-    const body = await response.json().catch(() => ({}));
-    if (!response.ok) {
-        throw new Error(body.detail || body.message || "Kunne ikke uploade profilbilledet.");
-    }
-
-    const profilePhoto = body.profile_photo || body.name || null;
-    if (profilePhoto && currentUser) {
-        currentUser.roomie_profile = {
-            ...(currentUser.roomie_profile || {}),
-            profile_photo: profilePhoto
-        };
-    }
-
-    return profilePhoto;
 }
 
 function saveDraft(form) {

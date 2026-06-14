@@ -1,5 +1,6 @@
 - Mangler backend logik for søge agent matches? Hvad skal vi matche på?
 - Seo optimer alt
+-  Roomie Pseo https://g.co/gemini/share/b615acc3e146
 
 - Roomie Reddit og FB Opslag - https://gemini.google.com/gem/c9297fa0daa6/f6fccd4db7de4739?hl=da
 

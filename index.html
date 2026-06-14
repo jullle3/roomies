@@ -240,9 +240,9 @@
                         <div class="action-hub-card p-3 p-md-4">
                             <ul class="nav nav-pills nav-fill mb-4 gap-2" id="heroTab" role="tablist">
                                 <li class="nav-item" role="presentation">
-                                    <button class="nav-link" id="search-tab" data-bs-toggle="tab" data-bs-target="#search" type="button" role="tab" aria-selected="false">
+                                    <a class="nav-link" id="search-tab" href="/ledige-vaerelser" data-view="soeg_vaerelse" role="tab">
                                         <i class="fa-solid fa-magnifying-glass me-2"></i>Søg værelse
-                                    </button>
+                                    </a>
                                 </li>
                                 <li class="nav-item" role="presentation">
                                     <button class="nav-link active" id="sell-tab" data-bs-toggle="tab" data-bs-target="#sell" type="button" role="tab" aria-selected="true">
@@ -252,32 +252,6 @@
                             </ul>
 
                             <div class="tab-content" id="heroTabContent">
-                                <!-- Seeker Tab -->
-                                <div class="tab-pane fade" id="search" role="tabpanel">
-                                    <!-- Search is paused during launch while listings are sparse.
-                                    <div class="landing-room-search-field">
-                                        <div class="input-group input-group-lg search-input-group rounded-pill overflow-hidden p-1">
-                                        <span class="input-group-text bg-transparent border-0 ps-3 text-muted">
-                                            <i class="fa-solid fa-location-dot"></i>
-                                        </span>
-                                            <input id="landing-room-search-location" type="text" class="form-control border-0 px-2" autocomplete="off" placeholder="Hvor vil du bo?">
-                                            <button class="btn btn-primary-coral rounded-pill px-4 px-md-5 fw-bold" onclick="openRoomSearch()">
-                                                Søg
-                                            </button>
-                                        </div>
-                                        <div id="landing-room-search-suggestions" class="landing-room-search-suggestions" role="listbox" aria-label="Område-forslag"></div>
-                                    </div>
-                                    -->
-                                    <div class="d-flex flex-column flex-md-row align-items-center justify-content-between bg-white rounded-pill p-2 border border-light">
-                                        <div class="text-center mb-3 mb-md-0 ps-3 py-2">
-                                            <h6 class="fw-bold mb-1">Få besked før andre</h6>
-                                            <span class="small text-muted">Opret en gratis SøgeAgent, så holder vi øje med nye værelser for dig.</span>
-                                        </div>
-                                        <a href="/boligovervaagning" data-view="agent" class="btn btn-primary-coral rounded-pill px-4 px-md-5 py-3 fw-bold shadow-sm flex-shrink-0 text-nowrap">
-                                            Opret SøgeAgent
-                                        </a>
-                                    </div>
-                                </div>
                                 <!-- Provider Tab -->
                                 <div class="tab-pane fade show active" id="sell" role="tabpanel">
                                     <div class="d-flex flex-column flex-md-row align-items-center justify-content-between bg-white rounded-pill p-2 border border-light">

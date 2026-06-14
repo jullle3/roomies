@@ -28,6 +28,12 @@ import {
     stopGlobalConversationUnreadPolling
 } from "../conversations/conversations.js";
 
+// The room id when the user is currently on a room detail view, else null. Used to
+// tag login-code requests so the magic link can return the user to that room.
+function currentRoomIdForLogin() {
+    return getCurrentView() === 'room_detail' ? getCurrentViewParams().get('id') : null;
+}
+
 function getApiErrorMessage(detail, fallbackMessage = "Der opstod en fejl. Prøv igen.") {
     if (typeof detail === "string") return detail;
 
@@ -181,6 +187,11 @@ export function setupLoginView() {
             const user_email = document.getElementById('modal-login-email').value
             const payload = { email : user_email };
 
+            // If logging in from a room, pass its id so the magic link can return
+            // the user straight back to that room after one-click login.
+            const roomId = currentRoomIdForLogin();
+            if (roomId) payload.room_id = roomId;
+
             try {
                 const response = await authFetch('/roomies/login/request-code', {
                     method: 'POST',
@@ -282,10 +293,11 @@ export function setupLoginView() {
 
             try {
                 // 3. Call the API again
+                const roomId = currentRoomIdForLogin();
                 const response = await authFetch('/roomies/login/request-code', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ email: email })
+                    body: JSON.stringify(roomId ? { email: email, room_id: roomId } : { email: email })
                 });
 
                 if (response.ok) {

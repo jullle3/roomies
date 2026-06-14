@@ -416,7 +416,14 @@ function initiateGoogleLogin() {
     const state = encodeURIComponent(returnUrl);
 
     if (!getPostOnboardingContext()) {
-        rememberPostOnboardingContext({returnUrl});
+        // Persist the view AND its params (e.g. the room id) so we can restore the
+        // exact page after the full-page Google redirect — in-memory viewAfterLogin
+        // is wiped by the reload, and returnUrl alone isn't used to rebuild the view.
+        rememberPostOnboardingContext({
+            view: getCurrentView(),
+            params: getCurrentViewParams(),
+            returnUrl,
+        });
     }
 
     // Redirect the user

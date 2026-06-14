@@ -164,7 +164,6 @@ export function hideSuccessMessage() {
  * @property {string} email - User's email address
  * @property {string} full_name - User's full name
  * @property {boolean} email_notifications - Whether email notifications are enabled
- * @property {boolean} sms_notifications - Whether SMS notifications are enabled
  * @property {string} iss - Issuer (e.g., "https://roomies.dk")
  * @property {number} exp - Expiration timestamp
  * @property {number} iat - Issued at timestamp
@@ -763,22 +762,16 @@ export function openMissingEmailModal() {
     // 1. Prepare Modal Text
     $('#missingContactSubmit').text('Gem oplysninger');
 
-    // 2. Pre-fill phone if available
-    if (currentUser && currentUser.phone_number) {
-        $('#contact-phone').val(currentUser.phone_number);
-    }
-
-    // 3. Show Modal
+    // 2. Show Modal
     const modalEl = document.getElementById('missingContactInfoModal');
     const modal = bootstrap.Modal.getOrCreateInstance(modalEl);
     modal.show();
 
-    // 4. Handle Form Submit
+    // 3. Handle Form Submit
     $('#contactInfoForm').off('submit').on('submit', async function(ev) {
         ev.preventDefault();
 
         const email = $('#contact-email').val();
-        const phone = $('#contact-phone').val();
 
         if (!email) {
             displayErrorMessage("Email er påkrævet");
@@ -789,7 +782,7 @@ export function openMissingEmailModal() {
             const updateRes = await authFetch('/roomies/user/contact-info', {
                 method: 'PATCH',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ email, phone })
+                body: JSON.stringify({ email })
             });
 
             if (updateRes.ok) {
@@ -798,7 +791,6 @@ export function openMissingEmailModal() {
                 // Update global currentUser
                 if (currentUser) {
                     currentUser.email = email;
-                    currentUser.phone_number = phone;
                 }
 
                 // FJERNER BÅDE DEN GLOBALE OG LOKALE ADVARSEL OMGÅENDE

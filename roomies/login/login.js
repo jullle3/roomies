@@ -28,17 +28,6 @@ import {
     stopGlobalConversationUnreadPolling
 } from "../conversations/conversations.js";
 
-function normalizeRegistrationPhoneNumber(rawPhoneNumber) {
-    const phoneNumber = rawPhoneNumber.trim().replace(/\D/g, "");
-    if (!phoneNumber) return {phoneNumber: ""};
-
-    if (!/^\d{8}$/.test(phoneNumber)) {
-        return {error: "Skriv kun de 8 cifre efter +45."};
-    }
-
-    return {phoneNumber};
-}
-
 function getApiErrorMessage(detail, fallbackMessage = "Der opstod en fejl. Prøv igen.") {
     if (typeof detail === "string") return detail;
 
@@ -331,13 +320,6 @@ export function setupLoginView() {
     // Register modal Submit
     const registerForm = document.getElementById('modalRegisterForm');
     if (registerForm) {
-        const phoneInput = document.getElementById('modal-register-phone');
-        if (phoneInput) {
-            phoneInput.addEventListener('input', () => {
-                phoneInput.value = phoneInput.value.replace(/\D/g, '').slice(0, 8);
-            });
-        }
-
         registerForm.addEventListener('submit', async (event) => {
             event.preventDefault();
             if (!registerForm.reportValidity()) return;
@@ -346,18 +328,6 @@ export function setupLoginView() {
                 email : document.getElementById('modal-register-email').value,
                 full_name : document.getElementById('modal-register-fullname').value,
             };
-
-            if (phoneInput && phoneInput.value.trim()) {
-                const normalizedPhone = normalizeRegistrationPhoneNumber(phoneInput.value);
-                if (normalizedPhone.error) {
-                    displayErrorMessage(normalizedPhone.error);
-                    phoneInput.focus();
-                    return;
-                }
-
-                phoneInput.value = normalizedPhone.phoneNumber;
-                userData.phone_number = normalizedPhone.phoneNumber;
-            }
 
             const response = await authFetch('/roomies/user', {
                 method: 'POST',

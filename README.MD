@@ -1,9 +1,3 @@
-- The login and create user modals arent centered on mobile, they are more to the left.
-- We need a very shareable button "Del værelse" in the vaerelse view. The purpose of this is that i hope users will share their rooms and i will gain visitors through this.
-- "Se alle" på vaerelse view is blue and shown on two lines on mobile, style it better according to styleguide and force it on one line.
-
-Ovenstående 3 er måske lavet, test. 
-- 
 - Mangler backend logik for søge agent matches? Hvad skal vi matche på?
 - Seo optimer alt
 

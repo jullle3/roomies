@@ -40,7 +40,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cropperjs@1.6.2/dist/cropper.min.css">
 
     <!--    Custom Merged css files -->
-    <link rel="stylesheet" href="roomies/mergedStyles.css?roomies_version=1003">
+    <link rel="stylesheet" href="roomies/mergedStyles.css?roomies_version=1004">
     <style>
         .nav-auth-btn:active,
         .nav-auth-btn:focus,
@@ -59,7 +59,7 @@
             color: #ffffff !important;
         }
     </style>
-    <script defer type="module" src="roomies/mergedJS.js?roomies_version=1003"></script>
+    <script defer type="module" src="roomies/mergedJS.js?roomies_version=1004"></script>
 
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18047412076"></script>
@@ -1271,23 +1271,29 @@
                         </div>
                     </div>
                     <div class="col-lg-6">
-                        <div class="rent-room-preview-card">
-                            <div class="rent-room-preview-image">
-                                <img src="/pics/room_default1.webp" alt="Eksempel på et lyst værelse klar til udlejning" loading="eager" decoding="async">
-                                <span class="rent-room-preview-badge">Eksempel på annonce</span>
-                            </div>
-                            <div class="p-4">
-                                <p class="rent-room-preview-eyebrow mb-2">
-                                    Sådan kan din annonce se ud
-                                </p>
-                                <div class="d-flex justify-content-between gap-3 mb-3">
-                                    <div>
-                                        <h2 class="h5 fw-bold mb-1">Roomie søges i København</h2>
-                                        <p class="text-muted small mb-0">15 m² · møbleret · hyggeligt hjem</p>
-                                    </div>
-                                    <strong class="text-primary-coral text-nowrap">5.200 kr.</strong>
+                        <div class="rent-room-preview">
+                            <article class="card room-card rent-room-preview-card">
+                                <div class="room-thumb-wrapper">
+                                    <img class="room-photo" src="/pics/room_default1.webp" alt="Eksempel på et lyst værelse klar til udlejning" loading="eager" decoding="async">
+                                    <span class="rent-room-preview-badge">Eksempel på annonce</span>
+                                    <img class="avatar-overlap" src="/pics/avatar11.webp" alt="" loading="lazy">
                                 </div>
-                            </div>
+                                <div class="card-body p-4 pt-4 mt-2 d-flex flex-column">
+                                    <h2 class="h5 fw-bold mb-2">Roomie søges i København</h2>
+                                    <p class="text-muted small mb-3">
+                                        <i class="fa-solid fa-location-dot me-1"></i>2200 København N
+                                    </p>
+                                    <div class="d-flex align-items-end justify-content-between gap-3 mb-3">
+                                        <strong class="room-search-price">5.200 <span>kr./md</span></strong>
+                                        <span class="text-muted fw-bold">15 m²</span>
+                                    </div>
+                                    <div class="room-search-facts d-flex flex-wrap gap-3 mt-auto pt-3 border-top">
+                                        <span><i class="fa-regular fa-calendar me-1"></i>Ledig nu</span>
+                                        <span><i class="fa-solid fa-couch me-1"></i>Møbleret</span>
+                                        <span><i class="fa-solid fa-paw me-1"></i>Kæledyr</span>
+                                    </div>
+                                </div>
+                            </article>
                         </div>
                     </div>
                 </div>

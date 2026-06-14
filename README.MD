@@ -33,3 +33,5 @@ reklamer der reelt gavner målgruppen
 - Få reklamer på roomies siden
 ‘andelsbolig basen, den nemmeste vej til en andelsbolig’
 - Implementer også denne smarte router løsning i andelsboligbasen? og academy
+- Mit id verificering af brugere på roomiedanmark, 49kr per. One time payment
+

@@ -573,7 +573,10 @@ async function shareRoom(roomId, title) {
 
     if (navigator.share) {
         try {
-            await navigator.share({title: shareTitle, text: `${shareTitle} 🏠`, url});
+            // Include the URL in `text` too: many share targets (and the sheet's
+            // own "Copy" action) keep only `text` and drop the `url` field, which
+            // otherwise loses the link to the room.
+            await navigator.share({title: shareTitle, text: `${shareTitle} 🏠\n${url}`, url});
             return;
         } catch (error) {
             if (error?.name === "AbortError") return;
@@ -812,7 +815,7 @@ function getRoomiePreferences(room) {
 
     const genderText = gender === "female" ? "Søger kvindelig roomie 👩"
         : gender === "male" ? "Søger mandlig roomie 👨"
-            : "Alle køn er velkomne 🌈";
+            : "Alle køn er velkomne";
     const genderIcon = gender === "female" ? "fa-solid fa-venus"
         : gender === "male" ? "fa-solid fa-mars"
             : "fa-solid fa-venus-mars";

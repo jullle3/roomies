@@ -2,7 +2,8 @@ import {authFetch} from "../auth/auth.js";
 import {s3Url} from "../config/config.js";
 import {currentUser, setCurrentUser, ensureCurrentUserLoaded, displayErrorMessage, displaySuccessMessage} from "../utils.js";
 
-const MAX_PHOTO_SIZE_BYTES = 3 * 1024 * 1024;
+// Generous ceiling so large phone photos go through — the server compresses anyway.
+const MAX_PHOTO_SIZE_BYTES = 12 * 1024 * 1024;
 const INTEREST_LIMIT = 5;
 
 // Identity fields that signal a genuinely filled-out roomie profile. Search
@@ -20,7 +21,7 @@ const ONBOARDING_CONTEXTS = {
     },
     publish: {
         heading: "Gør din annonce personlig 🏡",
-        subtext: "Boligsøgende vil gerne vide, hvem de skal bo med. En udfyldt vært giver flere henvendelser.",
+        subtext: "Boligsøgende vil gerne vide, hvem de skal bo med. En udfyldt profil får flere henvendelser.",
         cta: "Gem profil & Udgiv annonce 🎉"
     },
     agent: {
@@ -112,7 +113,7 @@ function openRoomieOnboarding(contextKey, user) {
                 return;
             }
             if (file.size > MAX_PHOTO_SIZE_BYTES) {
-                showPhotoError("Profilbilledet må højst være 3 MB.");
+                showPhotoError("Profilbilledet må højst være 12 MB.");
                 els.photoInput.value = "";
                 return;
             }

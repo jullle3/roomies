@@ -4,7 +4,8 @@ import {displayErrorMessage, displaySuccessMessage, decodeJwt, currentUser, setC
 import {showView} from "../views/viewManager.js";
 import {getCachedMyRooms, preloadMyRooms} from "../rooms/room_cache.js";
 
-const PROFILE_MAX_PHOTO_SIZE_BYTES = 3 * 1024 * 1024;
+// Generous ceiling so large phone photos go through — the server compresses anyway.
+const PROFILE_MAX_PHOTO_SIZE_BYTES = 12 * 1024 * 1024;
 const PROFILE_INTEREST_LIMIT = 5;
 let profilePhotoName = null;
 let pendingProfilePhotoFile = null;
@@ -273,7 +274,7 @@ async function handleProfilePhotoSelected(event) {
     }
 
     if (file.size > PROFILE_MAX_PHOTO_SIZE_BYTES) {
-        displayErrorMessage('Profilbilledet må højst være 3 MB.');
+        displayErrorMessage('Profilbilledet må højst være 12 MB.');
         event.target.value = '';
         return;
     }

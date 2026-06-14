@@ -11,7 +11,7 @@ export const BLOG_POSTS = [
         author: "Julian Køster",
         category: "Mission",
         heroIcon: "fa-solid fa-hand-holding-heart",
-        intro: "Hvis du har ledt efter et værelse eller en roomie i Danmark for nylig, kender du allerede den hårde virkelighed: markedet er brutalt, stressende og ekstremt konkurrencepræget. Men det, der gør det absolut uacceptabelt, er ikke kun manglen på boliger – det er den systematiske udnyttelse af mennesker, der bare leder efter et sted at sove. Derfor har jeg bygget roomiedanmark. En 100% gratis platform.",
+        intro: "Hvis du har ledt efter et værelse eller en roomie i Danmark for nylig, kender du allerede den hårde virkelighed: markedet er brutalt, stressende og ekstremt konkurrencepræget. Men det, der gør det absolut uacceptabelt, er ikke kun manglen på boliger – det er den systematiske udnyttelse af mennesker, der bare leder efter et sted at sove. Derfor har jeg bygget Roomie Danmark. En 100% gratis platform.",
         sections: [
             {
                 title: "Den grådige standardmodel",
@@ -26,7 +26,7 @@ export const BLOG_POSTS = [
                 body: [
                     "Det var præcis den frustration, der fik mig til at bygge roomiedanmark.",
                     "Som softwareudvikler ved jeg, hvad det kræver at bygge et sikkert, lynhurtigt og pålideligt system. Og jeg ved med sikkerhed, at det ikke kræver, at man afpresser sine brugere for at holde serverne kørende.",
-                    "roomies er en helt ny platform til at finde roomies og udleje værelser, og den er 100% gratis."
+                    "Roomie Danmark er en helt ny platform til at finde roomies og udleje værelser, og den er 100% gratis."
                 ],
                 bullets: [
                     "<strong>Ingen skjulte gebyrer:</strong> Hvad du ser, er hvad du får.",
@@ -43,31 +43,31 @@ export const BLOG_POSTS = [
                 callout: {
                     icon: "fa-solid fa-users",
                     title: "Lad os fikse markedet sammen",
-                    text: "Opret dig i dag og bliv en del af løsningen. Det koster ingenting, og det kommer det heller aldrig til.",
+                    text: "Kig forbi de ledige værelser eller læg dit eget op. Det er gratis at skrive til alle – og det forbliver gratis.",
                     cta: {
-                        href: "/opret",
-                        view: "signup",
-                        label: "Opret gratis profil",
-                        helper: "Det tager under 1 minut."
+                        href: "/ledige-vaerelser",
+                        view: "soeg_vaerelse",
+                        label: "Se ledige værelser",
+                        helper: "Gratis at skrive til alle."
                     }
                 }
             }
         ],
         finalCta: {
             eyebrow: "Klar til at finde din nye roomie?",
-            title: "Start din boligsøgning uden betalingsmur.",
-            text: "Opret en profil, find ledige værelser eller lej dit eget værelse ud – helt gratis.",
+            title: "Start din boligsøgning.",
+            text: "Se de ledige værelser, skriv direkte til andre roomies, eller læg dit eget værelse op – helt gratis.",
             primary: {
-                href: "/opret",
-                view: "signup",
-                icon: "fa-regular fa-user",
-                label: "Opret gratis profil"
-            },
-            secondary: {
                 href: "/ledige-vaerelser",
-                view: "room_list",
+                view: "soeg_vaerelse",
                 icon: "fa-solid fa-magnifying-glass",
                 label: "Se ledige værelser"
+            },
+            secondary: {
+                href: "/udlej-vaerelse",
+                view: "udlej_vaerelse",
+                icon: "fa-solid fa-house-user",
+                label: "Udlej værelse"
             }
         }
     }
@@ -319,19 +319,19 @@ function renderCalloutCta(cta) {
 function renderFinalCta(post) {
     const cta = post.finalCta || {
         eyebrow: "Klar til at finde din nye roomie?",
-        title: "Start din boligsøgning uden betalingsmur.",
-        text: "Opret en profil, find ledige værelser eller lej dit eget værelse ud – helt gratis.",
+        title: "Start din boligsøgning.",
+        text: "Se de ledige værelser, skriv direkte til andre roomies, eller læg dit eget værelse op – helt gratis.",
         primary: {
-            href: "/opret",
-            view: "signup",
-            icon: "fa-regular fa-user",
-            label: "Opret gratis profil"
-        },
-        secondary: {
             href: "/ledige-vaerelser",
-            view: "room_list",
+            view: "soeg_vaerelse",
             icon: "fa-solid fa-magnifying-glass",
             label: "Se ledige værelser"
+        },
+        secondary: {
+            href: "/udlej-vaerelse",
+            view: "udlej_vaerelse",
+            icon: "fa-solid fa-house-user",
+            label: "Udlej værelse"
         }
     };
 

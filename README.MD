@@ -1,5 +1,6 @@
 - Mangler backend logik for søge agent matches? Hvad skal vi matche på?
 - Seo optimer alt
+- Cloudflare worker
 -  Roomie Pseo https://g.co/gemini/share/b615acc3e146
 
 - Roomie Reddit og FB Opslag - https://gemini.google.com/gem/c9297fa0daa6/f6fccd4db7de4739?hl=da
@@ -29,4 +30,5 @@ reklamer der reelt gavner målgruppen
 ‘andelsbolig basen, den nemmeste vej til en andelsbolig’
 - Implementer også denne smarte router løsning i andelsboligbasen? og academy
 - Mit id verificering af brugere på roomiedanmark, 49kr per. One time payment
+- Lav Facebook gruppe til roomies for de forskellige byer? måske, bare det ikke kræver meget arbejde og slet ingen drift
 

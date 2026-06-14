@@ -287,6 +287,13 @@ function setupRoomContactControls(container) {
             return;
         }
 
+        const shareButton = event.target.closest("[data-share-room]");
+        if (shareButton) {
+            event.preventDefault();
+            shareRoom(shareButton.dataset.shareId, shareButton.dataset.shareTitle);
+            return;
+        }
+
         const contactButton = event.target.closest("[data-contact-owner]");
         if (!contactButton) return;
 
@@ -545,6 +552,43 @@ function renderRoomActionButtonInner(room) {
     return `<i class="fa-regular fa-message me-2"></i>${label}`;
 }
 
+// Highly shareable secondary action. Lets a roomie pass the listing on, which is
+// our cheapest growth channel — every share is a potential new visitor.
+function renderShareRoomButton(room) {
+    return `
+        <button class="room-detail-share-btn rounded-pill w-100 fw-bold d-inline-flex align-items-center justify-content-center gap-2" type="button"
+                data-share-room data-share-id="${escapeHtml(room.id)}" data-share-title="${escapeHtml(room.title)}">
+            <i class="fa-solid fa-share-nodes"></i><span>Del værelse</span>
+        </button>
+    `;
+}
+
+// Native share sheet on supporting devices (mostly mobile), clipboard copy as the
+// desktop fallback. A user-cancelled share sheet is silent, not an error.
+async function shareRoom(roomId, title) {
+    if (!roomId) return;
+
+    const url = `${window.location.origin}/vaerelse?id=${encodeURIComponent(roomId)}`;
+    const shareTitle = title || "Ledigt værelse på RoomieDanmark";
+
+    if (navigator.share) {
+        try {
+            await navigator.share({title: shareTitle, text: `${shareTitle} 🏠`, url});
+            return;
+        } catch (error) {
+            if (error?.name === "AbortError") return;
+            // Any other share failure falls through to the copy fallback.
+        }
+    }
+
+    try {
+        await navigator.clipboard.writeText(url);
+        displaySuccessMessage("Link kopieret – del det med dine venner 🔗");
+    } catch (error) {
+        displayErrorMessage("Kunne ikke dele lige nu. Kopiér linket fra adresselinjen.");
+    }
+}
+
 function renderInlineContactCta(room) {
     const buttonAttrs = room.isOwner ? "data-owner-edit-room" : (room.available === false || room.visible === false ? "disabled" : `data-contact-owner data-owner-id="${escapeHtml(room.ownerId)}" data-room-id="${escapeHtml(room.id)}"`);
 
@@ -571,7 +615,7 @@ function renderSimilarRoomsSection(rooms) {
                     <h2 class="mb-1">Lignende værelser</h2>
                     <p class="text-muted mb-0">Andre muligheder, der kunne passe til dig.</p>
                 </div>
-                <a href="/ledige-vaerelser" data-view="soeg_vaerelse" class="btn btn-link text-decoration-none fw-bold p-0">Se alle</a>
+                <a href="/ledige-vaerelser" data-view="soeg_vaerelse" class="room-detail-see-all">Se alle <i class="fa-solid fa-arrow-right"></i></a>
             </div>
             <div class="room-detail-similar-grid">
                 ${rooms.map(renderSimilarRoomCard).join("")}
@@ -636,6 +680,7 @@ function renderContactCard(room) {
             <button class="btn btn-primary-coral rounded-pill w-100 py-3 fw-bold d-inline-flex align-items-center justify-content-center" type="button" ${buttonAttrs}>
                 ${renderRoomActionButtonInner(room)}
             </button>
+            ${renderShareRoomButton(room)}
             <p class="room-detail-created small text-muted text-center mb-0 mt-3">${formatCreatedDate(room.created)}</p>
         </div>
     `;

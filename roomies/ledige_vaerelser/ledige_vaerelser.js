@@ -90,7 +90,7 @@ function renderRoomSearchResults({animate = false} = {}) {
 
     const cachedRooms = getCachedRooms();
     if (cachedRooms === null) {
-        results.innerHTML = "";
+        results.innerHTML = renderRoomSearchLoadingState();
         empty.classList.add("d-none");
         renderRoomSearchLoadMore(loadMore, 0, 0);
         count.textContent = "Indlæser værelser...";
@@ -117,6 +117,17 @@ function renderRoomSearchResults({animate = false} = {}) {
         void results.offsetWidth;
         results.classList.add("room-search-results-animate");
     }
+}
+
+function renderRoomSearchLoadingState() {
+    return `
+        <div class="col-12">
+            <div class="p-4 p-md-5 bg-light rounded-4 text-center">
+                <i class="fa-solid fa-circle-notch fa-spin text-primary-coral mb-3"></i>
+                <p class="fw-bold text-muted mb-0">Indlæser værelser...</p>
+            </div>
+        </div>
+    `;
 }
 
 function getRoomCountLabel(total) {

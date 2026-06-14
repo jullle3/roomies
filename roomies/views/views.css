@@ -199,6 +199,10 @@
 
 #loginModal .login-modal-dialog {
     width: min(100% - 2rem, 460px);
+    /* Below Bootstrap's 576px breakpoint .modal-dialog uses fixed side margins,
+       so a fixed width sits left. Force horizontal centering at every width. */
+    margin-left: auto;
+    margin-right: auto;
 }
 
 #loginModal .login-modal-content {
@@ -598,6 +602,10 @@
 
 #registerModal .register-modal-dialog {
     width: min(100% - 2rem, 480px);
+    /* Force horizontal centering below Bootstrap's 576px breakpoint, where a
+       fixed width otherwise sits left against the default side margin. */
+    margin-left: auto;
+    margin-right: auto;
 }
 
 #registerModal .register-modal-content {

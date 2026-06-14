@@ -109,7 +109,11 @@ document.addEventListener('DOMContentLoaded', async () => {
         await requireDevAccessGate();
 
         // 1. Initial Configuration
-        await loadLottiePlayerWhenNeeded();
+        // Lottie only powers the success/error toast animations (hidden until a
+        // toast fires) and a few below-the-fold empty states — never first paint.
+        // Load it in the background so its chunk fetch stays off the critical
+        // render path and the landing appears as fast as possible.
+        loadLottiePlayerWhenNeeded();
         updateStripeConfig();
         insertSearchComponents();
 

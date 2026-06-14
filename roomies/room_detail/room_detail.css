@@ -759,6 +759,49 @@
     opacity: 1;
 }
 
+/* Secondary "Del værelse" share action — coral-tinted but lighter than the
+   primary contact CTA so it invites sharing without competing for the click. */
+.room-detail-share-btn {
+    margin-top: 0.6rem;
+    padding: 0.75rem 1.25rem;
+    border: 1px solid rgba(255, 107, 107, 0.3);
+    background: rgba(255, 107, 107, 0.08);
+    color: var(--color-primary);
+    transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.room-detail-share-btn:hover {
+    background: rgba(255, 107, 107, 0.14);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-soft);
+}
+
+.room-detail-share-btn i {
+    font-size: 0.95em;
+}
+
+/* "Se alle" link in the "Lignende værelser" header — coral, single line. */
+.room-detail-see-all {
+    flex-shrink: 0;
+    white-space: nowrap;
+    color: var(--color-primary);
+    font-weight: 700;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    transition: gap 0.2s ease, color 0.2s ease;
+}
+
+.room-detail-see-all:hover {
+    color: var(--color-primary-hover);
+    gap: 0.6rem;
+}
+
+.room-detail-see-all i {
+    font-size: 0.8em;
+}
+
 /* Owner avatar shown inside the "Kontakt {navn}" button */
 .room-detail-contact-avatar {
     width: 26px;

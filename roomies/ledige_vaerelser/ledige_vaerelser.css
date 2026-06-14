@@ -690,12 +690,32 @@
 
 @media (max-width: 767.98px) {
     .room-search-header {
-        padding-top: 112px;
-        padding-bottom: 72px;
+        padding-top: 108px;
+        padding-bottom: 60px;
     }
 
     .room-search-header h1 {
-        font-size: 2.1rem;
+        font-size: 1.95rem;
+        margin-bottom: 1rem !important;
+    }
+
+    .room-search-header p {
+        font-size: 1rem !important;
+    }
+
+    /* More breathing room between the stacked hero info on phones */
+    .room-search-trust-row {
+        gap: 0.7rem 0.9rem !important;
+        margin-top: 1.75rem !important;
+    }
+
+    .room-search-trust-row span {
+        font-size: 0.8rem;
+    }
+
+    .room-search-hero-visual {
+        width: min(100%, 330px);
+        margin-top: 2rem;
     }
 
     .room-search-toolbar {

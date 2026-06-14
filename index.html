@@ -38,7 +38,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
     <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
     <!--    Custom Merged css files -->
-    <link rel="stylesheet" href="roomies/mergedStyles.css?roomies_version=986">
+    <link rel="stylesheet" href="roomies/mergedStyles.css?roomies_version=995">
     <style>
         .nav-auth-btn:active,
         .nav-auth-btn:focus,
@@ -57,7 +57,7 @@
             color: #ffffff !important;
         }
     </style>
-    <script defer type="module" src="roomies/mergedJS.js?roomies_version=986"></script>
+    <script defer type="module" src="roomies/mergedJS.js?roomies_version=995"></script>
 
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18047412076"></script>
@@ -994,6 +994,14 @@
                                 </div>
 
                                 <div class="room-search-filter-block">
+                                    <label class="form-label" for="room-search-max-deposit">Maks indskud</label>
+                                    <div class="input-group">
+                                        <input id="room-search-max-deposit" name="max_deposit" type="number" min="0" step="1000" inputmode="numeric" class="form-control" placeholder="Fx 30.000" aria-label="Maksimalt indskud (depositum + forudbetalt husleje)">
+                                        <span class="input-group-text">kr.</span>
+                                    </div>
+                                </div>
+
+                                <div class="room-search-filter-block">
                                     <label class="form-label" for="room-search-sort">Sortér</label>
                                     <select id="room-search-sort" class="form-select" name="sort">
                                         <option value="newest">Nyeste først</option>
@@ -1009,6 +1017,18 @@
                                     <input class="btn-check" id="room-filter-registration" name="registration_allowed" type="checkbox" autocomplete="off">
                                     <label class="btn btn-outline-secondary rounded-pill px-3" for="room-filter-registration">
                                         <i class="fa-solid fa-address-card me-2"></i>CPR muligt
+                                    </label>
+                                    <input class="btn-check" id="room-filter-pets" name="pets_allowed" type="checkbox" autocomplete="off">
+                                    <label class="btn btn-outline-secondary rounded-pill px-3" for="room-filter-pets">
+                                        <i class="fa-solid fa-paw me-2"></i>Dyr tilladt
+                                    </label>
+                                    <input class="btn-check" id="room-filter-washing" name="washing_machine" type="checkbox" autocomplete="off">
+                                    <label class="btn btn-outline-secondary rounded-pill px-3" for="room-filter-washing">
+                                        <i class="fa-solid fa-soap me-2"></i>Vaskemaskine
+                                    </label>
+                                    <input class="btn-check" id="room-filter-dishwasher" name="dishwasher" type="checkbox" autocomplete="off">
+                                    <label class="btn btn-outline-secondary rounded-pill px-3" for="room-filter-dishwasher">
+                                        <i class="fa-solid fa-utensils me-2"></i>Opvaskemaskine
                                     </label>
                                 </div>
                             </div>
@@ -1327,13 +1347,6 @@
                                         </label>
                                     </div>
                                     <div class="col-md-6">
-                                        <input class="facility-check-input" type="checkbox" id="rent_room_registration" name="registration_allowed">
-                                        <label class="facility-card rent-room-toggle-card" for="rent_room_registration">
-                                            <i class="fa-solid fa-address-card"></i>
-                                            <span class="facility-text">CPR-adresse er mulig</span>
-                                        </label>
-                                    </div>
-                                    <div class="col-md-6">
                                         <input class="facility-check-input" type="checkbox" id="rent_room_washing_machine" name="washing_machine">
                                         <label class="facility-card rent-room-toggle-card" for="rent_room_washing_machine">
                                             <i class="fa-solid fa-soap"></i>
@@ -1345,6 +1358,13 @@
                                         <label class="facility-card rent-room-toggle-card" for="rent_room_dishwasher">
                                             <i class="fa-solid fa-sink"></i>
                                             <span class="facility-text">Opvaskemaskine</span>
+                                        </label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input class="facility-check-input" type="checkbox" id="rent_room_registration" name="registration_allowed">
+                                        <label class="facility-card rent-room-toggle-card" for="rent_room_registration">
+                                            <i class="fa-solid fa-address-card"></i>
+                                            <span class="facility-text">CPR-adresse er mulig</span>
                                         </label>
                                     </div>
                                     <div class="col-md-6" id="rent-room-aconto-wrapper">
@@ -2611,6 +2631,12 @@
                 <div class="roomie-profile-state roomie-profile-error d-none" data-rp-error>
                     <i class="fa-regular fa-face-frown"></i>
                     <p>Kunne ikke hente profilen. Prøv igen.</p>
+                </div>
+
+                <div class="roomie-profile-state d-none" data-rp-login>
+                    <i class="fa-solid fa-lock"></i>
+                    <p>Log ind for at se roomie-profiler.</p>
+                    <button type="button" class="btn btn-primary-coral rounded-pill fw-bold px-4 py-2" data-rp-login-btn>Log ind</button>
                 </div>
 
                 <div class="roomie-profile-content d-none" data-rp-content>

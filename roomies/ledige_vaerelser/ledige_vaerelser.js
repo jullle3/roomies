@@ -174,6 +174,7 @@ function getFilteredRooms(cachedRooms) {
     const location = getNormalizedText(data.get("location"));
     const selectedAreaId = document.getElementById("room-search-location")?.dataset.areaId || "";
     const maxRent = Number(data.get("max_rent")) || Infinity;
+    const maxDeposit = Number(data.get("max_deposit")) || Infinity;
     const availableBefore = parseAvailableBefore(data.get("available_before"));
 
     const rooms = cachedRooms
@@ -194,9 +195,13 @@ function getFilteredRooms(cachedRooms) {
 
         return locationMatches
             && room.rent <= maxRent
+            && room.upfront <= maxDeposit
             && availableInTime
             && (!data.has("furnished") || room.furnished)
-            && (!data.has("registration_allowed") || room.registrationAllowed);
+            && (!data.has("registration_allowed") || room.registrationAllowed)
+            && (!data.has("pets_allowed") || room.petsAllowed)
+            && (!data.has("washing_machine") || room.washingMachine)
+            && (!data.has("dishwasher") || room.dishwasher);
         });
 
     const currentUserId = decodeJwt()?.sub || "";
@@ -235,6 +240,10 @@ function normalizeRoomListing(room) {
         furnished: Boolean(room.furnished),
         registrationAllowed: Boolean(room.cpr_registration_allowed),
         petsAllowed: Boolean(room.pets_allowed),
+        washingMachine: Boolean(room.washing_machine),
+        dishwasher: Boolean(room.dishwasher),
+        // "Indskud" = depositum + forudbetalt husleje (the upfront sum)
+        upfront: Number(room.deposit ?? 0) + Number(room.prepaid_rent ?? 0),
         roommates: Number(room.current_roomies ?? room.rooms ?? 0),
         image: getRoomImage(room),
         avatar: getRoomAvatar(room),

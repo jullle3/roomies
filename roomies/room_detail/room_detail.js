@@ -112,7 +112,6 @@ function renderRoomDetailHtml(room) {
                         </div>
 
                         <div class="room-detail-heading">
-                            <span class="room-detail-eyebrow"><i class="fa-solid fa-house-user"></i> Ledigt værelse</span>
                             <h1>${escapeHtml(room.title)}</h1>
                             <p><i class="fa-solid fa-location-dot"></i>${escapeHtml(room.fullAddress)}</p>
                         </div>
@@ -126,12 +125,13 @@ function renderRoomDetailHtml(room) {
                             <p>${escapeHtml(room.description || "Udlejer har endnu ikke skrevet en længere beskrivelse.")}</p>
                         </div>
 
+                        ${room.householdFeatures.length ? `
                         <div class="room-detail-section">
                             <h2>Hverdagen i hjemmet</h2>
                             <div class="room-detail-feature-grid">
                                 ${room.householdFeatures.map(renderHouseholdFeature).join("")}
                             </div>
-                        </div>
+                        </div>` : ""}
 
                         ${renderRoomiePreferencesSection(room)}
 
@@ -667,26 +667,31 @@ function renderHouseholdFeature(feature) {
 }
 
 function getHouseholdFeatures(room) {
-    const alwaysShownFeatures = [
+    // Tristate fields: show the positive (highlighted) when true, the negative
+    // (muted) when the host explicitly said false, and omit the row entirely when
+    // unknown (null/unset) so scraped/blank listings never claim a false "no".
+    const tristateFeatures = [
         {
             icon: "fa-solid fa-couch",
             label: "Møbleret",
-            text: room.furnished ? "Værelset er møbleret" : "Ikke møbleret",
-            active: room.furnished === true
+            value: room.furnished,
+            text: room.furnished ? "Værelset er møbleret" : "Ikke møbleret"
         },
         {
             icon: "fa-solid fa-address-card",
             label: "CPR",
-            text: room.cpr_registration_allowed ? "CPR-registrering muligt" : "CPR ikke angivet som muligt",
-            active: room.cpr_registration_allowed === true
+            value: room.cpr_registration_allowed,
+            text: room.cpr_registration_allowed ? "CPR-registrering muligt" : "CPR ikke muligt"
         },
         {
             icon: "fa-solid fa-paw",
             label: "Kæledyr",
-            text: room.pets_allowed ? "Kæledyr er velkomne" : "Kæledyr ikke tilladt",
-            active: room.pets_allowed === true
+            value: room.pets_allowed,
+            text: room.pets_allowed ? "Kæledyr er velkomne" : "Kæledyr ikke tilladt"
         }
-    ];
+    ]
+        .filter(feature => feature.value === true || feature.value === false)
+        .map(feature => ({...feature, active: feature.value === true}));
 
     const positiveOnlyFeatures = [
         {
@@ -721,7 +726,7 @@ function getHouseholdFeatures(room) {
         }
     ].filter(feature => feature.active);
 
-    return [...alwaysShownFeatures, ...positiveOnlyFeatures];
+    return [...tristateFeatures, ...positiveOnlyFeatures];
 }
 
 // "Hvem leder vi efter" — the host's roomie preferences, rendered with the same
@@ -981,30 +986,29 @@ function renderTotalPriceBlock(room) {
     `;
 }
 
-// One-time move-in capital shown as a single price line. Tapping it expands the
-// breakdown so the total is the primary signal, the math is one click away.
-// Hidden when there is nothing up-front to pay (e.g. many scraped ads have no
-// deposit/prepaid data), where the total would just equal the monthly rent.
+// One-time "indskud" (deposit + prepaid rent) shown as a single price line — the
+// same concept the search filter uses, so the two never disagree. Tapping it
+// expands the breakdown. Hidden when there is no up-front capital (e.g. many
+// scraped ads lack deposit/prepaid data).
 function renderMoveInPriceLine(room) {
     const deposit = Number(room.deposit) || 0;
     const prepaidRent = Number(room.prepaidRent) || 0;
     const price = Number(room.price) || 0;
     if (!deposit && !prepaidRent) return "";
 
-    const total = deposit + prepaidRent + price;
+    const total = deposit + prepaidRent;
     const depositHint = describeDepositMonths(deposit, price);
     const prepaidHint = describePrepaidMonths(prepaidRent, price);
 
     return `
         <details class="room-detail-movein">
             <summary>
-                <span>Indflytningspris<i class="fa-solid fa-chevron-down"></i></span>
+                <span>Indskud<i class="fa-solid fa-chevron-down"></i></span>
                 <b>${formatNumber(total)} kr.</b>
             </summary>
             <div class="room-detail-movein-breakdown">
                 ${deposit ? `<p><span>Depositum${depositHint ? `<small>${depositHint}</small>` : ""}</span><b>${formatMoneyOrDash(deposit)}</b></p>` : ""}
                 ${prepaidRent ? `<p><span>Forudbetalt leje${prepaidHint ? `<small>${prepaidHint}</small>` : ""}</span><b>${formatMoneyOrDash(prepaidRent)}</b></p>` : ""}
-                ${price ? `<p><span>Første måneds husleje</span><b>${formatMoneyOrDash(price)}</b></p>` : ""}
             </div>
         </details>
     `;

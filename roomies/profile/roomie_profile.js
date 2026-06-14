@@ -1,5 +1,7 @@
 import {authFetch} from "../auth/auth.js";
 import {s3Url} from "../config/config.js";
+import {isLoggedIn} from "../utils.js";
+import {displayLoginModal, getCurrentView, getCurrentViewParams} from "../views/viewManager.js";
 
 // Public roomie profiles (every user), loaded lazily the first time someone opens a
 // profile and cached for the session. Small dataset, so one fetch covers everyone
@@ -11,7 +13,11 @@ function loadRoomieProfiles() {
     if (!roomieProfilesPromise) {
         roomieProfilesPromise = authFetch('/roomies/users/profile')
             .then(async (response) => {
-                if (!response.ok) throw new Error('Kunne ikke hente profiler');
+                if (!response.ok) {
+                    const error = new Error('Kunne ikke hente profiler');
+                    error.code = response.status;
+                    throw error;
+                }
                 const profiles = await response.json();
                 profiles.forEach(profile => roomieProfileCache.set(profile.id, profile));
                 return roomieProfileCache;
@@ -35,6 +41,16 @@ export async function openRoomieProfileModal(userId) {
     if (!modalEl || !userId) return;
 
     const modal = window.bootstrap.Modal.getOrCreateInstance(modalEl);
+
+    // Public profiles require an authenticated request, so prompt login rather than
+    // showing a generic "couldn't load" error to logged-out users.
+    if (!isLoggedIn()) {
+        setRoomieProfileModalState(modalEl, 'login');
+        bindRoomieProfileLogin(modalEl, modal);
+        modal.show();
+        return;
+    }
+
     setRoomieProfileModalState(modalEl, 'loading');
     modal.show();
 
@@ -42,14 +58,31 @@ export async function openRoomieProfileModal(userId) {
         await loadRoomieProfiles();
         renderRoomieProfileCard(modalEl, roomieProfileCache.get(userId) || null);
     } catch (error) {
-        setRoomieProfileModalState(modalEl, 'error');
+        // A session that expired mid-use lands here as a 401/403 — show login too.
+        if (error?.code === 401 || error?.code === 403) {
+            setRoomieProfileModalState(modalEl, 'login');
+            bindRoomieProfileLogin(modalEl, modal);
+        } else {
+            setRoomieProfileModalState(modalEl, 'error');
+        }
     }
 }
 
 function setRoomieProfileModalState(modalEl, state) {
     modalEl.querySelector('[data-rp-loading]')?.classList.toggle('d-none', state !== 'loading');
     modalEl.querySelector('[data-rp-error]')?.classList.toggle('d-none', state !== 'error');
+    modalEl.querySelector('[data-rp-login]')?.classList.toggle('d-none', state !== 'login');
     modalEl.querySelector('[data-rp-content]')?.classList.toggle('d-none', state !== 'content');
+}
+
+function bindRoomieProfileLogin(modalEl, modal) {
+    const button = modalEl.querySelector('[data-rp-login-btn]');
+    if (!button || button.dataset.bound === '1') return;
+    button.dataset.bound = '1';
+    button.addEventListener('click', () => {
+        modal.hide();
+        displayLoginModal(getCurrentView(), getCurrentViewParams());
+    });
 }
 
 function renderRoomieProfileCard(modalEl, profile) {
@@ -80,18 +113,39 @@ function renderRoomieProfileCard(modalEl, profile) {
             .map(tag => `<span class="roomie-profile-vibe">${escapeHtml(tag)}</span>`)
             .join('');
     }
-    vibesSection?.classList.toggle('d-none', interests.length === 0);
+    const hasVibes = interests.length > 0;
+    vibesSection?.classList.toggle('d-none', !hasVibes);
 
     const descSection = modalEl.querySelector('[data-rp-desc-section]');
     const desc = modalEl.querySelector('[data-rp-desc]');
     if (desc) desc.textContent = safeProfile.description || '';
-    descSection?.classList.toggle('d-none', !safeProfile.description);
+    const hasDescription = Boolean(safeProfile.description);
+    descSection?.classList.toggle('d-none', !hasDescription);
 
-    const hasAnyDetails = Boolean(
-        safeProfile.profile_photo || safeProfile.age || safeProfile.occupation
-        || safeProfile.gender || interests.length || safeProfile.description
-    );
-    modalEl.querySelector('[data-rp-empty]')?.classList.toggle('d-none', hasAnyDetails);
+    // Without vibes or a description the body would be bare, so show a warm,
+    // contact-encouraging message instead of empty space. The wording adapts to
+    // how much the roomie has filled in (a complete blank reads differently than
+    // a half-filled profile).
+    const emptyEl = modalEl.querySelector('[data-rp-empty]');
+    const isSparse = !hasVibes && !hasDescription;
+    emptyEl?.classList.toggle('d-none', !isSparse);
+    if (emptyEl && isSparse) {
+        const firstName = getFirstName(safeProfile.full_name);
+        const hasIntro = Boolean(
+            safeProfile.profile_photo || safeProfile.age || safeProfile.gender || safeProfile.occupation
+        );
+        const message = hasIntro
+            ? `${firstName} har ikke skrevet så meget om sig selv endnu — skriv og sig hej 👋`
+            : `${firstName} har ikke udfyldt sin profil endnu 🙈`;
+        const messageEl = emptyEl.querySelector('p') || emptyEl;
+        messageEl.textContent = message;
+    }
+}
+
+function getFirstName(fullName) {
+    const name = String(fullName || '').trim();
+    if (!name) return 'Denne roomie';
+    return name.split(/\s+/)[0];
 }
 
 function capitalizeFirst(value) {

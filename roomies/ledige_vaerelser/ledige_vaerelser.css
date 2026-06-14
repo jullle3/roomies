@@ -724,6 +724,23 @@
         transform: translateY(-24px);
     }
 
+    /* Center the wide filter panel under the toolbar instead of letting Popper
+       anchor it to the button's edge (which pushed it off to one side). The
+       toolbar's transform is the containing block, so we override Popper's inline
+       position to center horizontally. */
+    .room-search-simple-row > .dropdown {
+        position: static;
+    }
+
+    .room-search-filter-menu {
+        top: 100% !important;
+        right: auto !important;
+        bottom: auto !important;
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+        margin-top: 0.5rem !important;
+    }
+
     /* Stack: location + filter button on row 1, price slider full width on row 2 */
     .room-search-simple-row {
         flex-wrap: wrap;

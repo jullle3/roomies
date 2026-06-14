@@ -312,19 +312,6 @@
     margin: 2rem 0 1.5rem;
 }
 
-.room-detail-eyebrow {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    margin-bottom: 0.85rem;
-    padding: 0.5rem 0.8rem;
-    border-radius: var(--radius-pill);
-    background: rgba(255, 107, 107, 0.1);
-    color: var(--color-primary);
-    font-size: 0.76rem;
-    font-weight: 800;
-}
-
 .room-detail-heading h1 {
     max-width: 760px;
     margin-bottom: 0.75rem;

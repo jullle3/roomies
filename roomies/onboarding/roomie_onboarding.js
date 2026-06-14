@@ -1,6 +1,7 @@
 import {authFetch} from "../auth/auth.js";
 import {s3Url} from "../config/config.js";
 import {currentUser, setCurrentUser, ensureCurrentUserLoaded, displayErrorMessage, displaySuccessMessage} from "../utils.js";
+import {cropAvatarFile, isAvatarCropperAvailable} from "../components/avatar_cropper.js";
 
 // Generous ceiling so large phone photos go through — the server compresses anyway.
 const MAX_PHOTO_SIZE_BYTES = 12 * 1024 * 1024;
@@ -119,13 +120,26 @@ function openRoomieOnboarding(contextKey, user) {
             }
 
             showPhotoError("");
+
+            // Let the user crop/zoom so their face is in focus. When the library
+            // isn't available we upload the original; an explicit cancel aborts.
+            let finalFile = file;
+            if (isAvatarCropperAvailable()) {
+                const cropped = await cropAvatarFile(file);
+                if (!cropped) {
+                    els.photoInput.value = "";
+                    return;
+                }
+                finalFile = cropped;
+            }
+
             const reader = new FileReader();
             reader.onload = () => showPhotoPreview(els, String(reader.result || ""));
-            reader.readAsDataURL(file);
+            reader.readAsDataURL(finalFile);
 
             setPhotoBusy(true);
             try {
-                profilePhotoName = await uploadProfilePhoto(file);
+                profilePhotoName = await uploadProfilePhoto(finalFile);
                 setPhotoState(els, profilePhotoName);
             } catch (error) {
                 console.error("Kunne ikke uploade profilbillede:", error);

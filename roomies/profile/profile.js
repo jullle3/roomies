@@ -3,6 +3,7 @@ import {s3Url} from "../config/config.js";
 import {displayErrorMessage, displaySuccessMessage, decodeJwt, currentUser, setCurrentUser} from "../utils.js";
 import {showView} from "../views/viewManager.js";
 import {getCachedMyRooms, preloadMyRooms} from "../rooms/room_cache.js";
+import {cropAvatarFile, isAvatarCropperAvailable} from "../components/avatar_cropper.js";
 
 // Generous ceiling so large phone photos go through — the server compresses anyway.
 const PROFILE_MAX_PHOTO_SIZE_BYTES = 12 * 1024 * 1024;
@@ -279,15 +280,27 @@ async function handleProfilePhotoSelected(event) {
         return;
     }
 
+    // Let the user crop/zoom so their face is in focus. When the library isn't
+    // available we upload the original; an explicit cancel aborts the change.
+    let finalFile = file;
+    if (isAvatarCropperAvailable()) {
+        const cropped = await cropAvatarFile(file);
+        if (!cropped) {
+            event.target.value = '';
+            return;
+        }
+        finalFile = cropped;
+    }
+
     const previousPhotoName = profilePhotoName;
-    pendingProfilePhotoFile = file;
+    pendingProfilePhotoFile = finalFile;
 
     // Show an instant local preview while the upload runs
     const reader = new FileReader();
     reader.onload = () => {
         updateProfilePhotoPreview(String(reader.result || ''));
     };
-    reader.readAsDataURL(file);
+    reader.readAsDataURL(finalFile);
 
     // Persist immediately so the photo is saved without needing the "Gem" button
     try {

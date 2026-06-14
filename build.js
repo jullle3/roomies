@@ -72,6 +72,7 @@ const cssFiles = [
     'udlej_vaerelse/udlej_vaerelse.css',
     'roomie_agent/roomie_agent.css',
     'onboarding/roomie_onboarding.css',
+    'components/avatar_cropper.css',
     'toast/toast.css',
 ].map(rel => path.join(SRC_DIR, rel));
 

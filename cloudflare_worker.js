@@ -98,8 +98,8 @@ export default {
 
             try {
                 // 1. Get the ENTIRE dataset from KV Cache
-                if (env.SEO_CACHE) {
-                    allRoomsData = await env.SEO_CACHE.get(CACHE_KEY, { type: "json" });
+                if (env.ROOMIE_ROOM_CACHE) {
+                    allRoomsData = await env.ROOMIE_ROOM_CACHE.get(CACHE_KEY, { type: "json" });
                 }
 
                 // 2. Cache MISS: Fetch ALL data from backend and save it
@@ -111,8 +111,8 @@ export default {
                         allRoomsData = await apiRes.json();
 
                         // Save the entire payload to KV in the background
-                        if (env.SEO_CACHE) {
-                            env.SEO_CACHE.put(CACHE_KEY, JSON.stringify(allRoomsData), { expirationTtl: CACHE_TTL })
+                        if (env.ROOMIE_ROOM_CACHE) {
+                            env.ROOMIE_ROOM_CACHE.put(CACHE_KEY, JSON.stringify(allRoomsData), { expirationTtl: CACHE_TTL })
                                 .catch(err => console.error("Failed to save bulk data to KV", err));
                         }
                     }

@@ -520,15 +520,15 @@ function optimizeSEOMetadata(view) {
 
     if (view === 'faq') {
         updateMetaTags(
-            'Spørgsmål og svar | roomies',
-            'Få svar på spørgsmål om at finde værelse, udleje et værelse, skrive med roomies og bruge roomies gratis.',
+            'Spørgsmål og svar om værelser og roomies',
+            'Få svar på spørgsmål om at finde værelse til leje, udleje et værelse, skrive med roomies og bruge Roomie Danmark gratis.',
             `${baseUrl}/spoergsmaal-om-roomies`
         );
     }
     else if (view === 'soeg_vaerelse') {
         updateMetaTags(
-            'Søg værelse og find din næste roomie | roomies',
-            'Find ledige værelser i København, Aarhus og resten af Danmark. Filtrér efter pris, indflytning og den hverdag, du gerne vil være en del af.',
+            'Værelse til leje – ledige værelser i hele Danmark',
+            'Find ledige værelser til leje i København, Aarhus, Odense og Aalborg. Filtrér efter pris og indflytning – og skriv gratis til din nye roomie uden betalingsmur.',
             `${baseUrl}/ledige-vaerelser`
         );
     }
@@ -537,21 +537,21 @@ function optimizeSEOMetadata(view) {
     }
     else if (view === 'udlej_vaerelse') {
         updateMetaTags(
-            'Udlej værelse gratis | Find en roomie med roomies',
-            'Udlej dit værelse gratis på roomies. Opret en annonce, find en tryg roomie, og få kontakt med unge på boligjagt uden skjulte gebyrer.',
+            'Udlej værelse gratis – lej dit værelse ud',
+            'Udlej dit værelse gratis hos Roomie Danmark. Opret en annonce og lej dit værelse ud til en tryg roomie blandt studerende og unge på boligjagt – uden skjulte gebyrer.',
             `${baseUrl}/udlej-vaerelse`
         );
     }
     else if (view === 'terms_and_conditions') {
         updateMetaTags(
-            'Vilkår og betingelser | roomies',
+            'Vilkår og betingelser',
             'Læs vilkår for brug af roomies på roomiedanmark.dk, herunder profiler, værelsesannoncer, beskeder, SøgeAgent og persondata.',
             `${baseUrl}/vilkaar`
         );
     }
     else if (view === 'conversations') {
         updateMetaTags(
-            'Beskeder | roomies',
+            'Beskeder',
             'Se og svar på dine samtaler med roomies om værelser, fællesskab og næste hjem.',
             `${baseUrl}/beskeder`
         );
@@ -565,7 +565,7 @@ function optimizeSEOMetadata(view) {
     }
     else if (view === 'profile') {
         updateMetaTags(
-            'Profil | roomies',
+            'Profil | Roomie Danmark',
             'Udfyld din roomie-profil med billede, interesser og ønsker, så andre kan lære dig bedre at kende.',
             `${baseUrl}/profil`
         );
@@ -574,15 +574,15 @@ function optimizeSEOMetadata(view) {
         const post = getBlogPostBySlug(currentViewParams.get('slug'));
         if (post) {
             updateMetaTags(
-                `${post.title} | roomies`,
+                `${post.title} | Roomie Danmark`,
                 post.excerpt,
                 `${baseUrl}${getBlogPostUrl(post)}`
             );
             setStructuredData(getBlogPostStructuredData(post, baseUrl));
         } else {
             updateMetaTags(
-                'Blog | roomies',
-                'Læs historier, tips og erfaringer om roomies, ledige værelser og et mere fair boligmarked uden betalingsmure.',
+                'Blog om værelser, studiebolig og roomies | Roomie Danmark',
+                'Læs tips og erfaringer om at finde værelse til leje, studiebolig og en god roomie – og om et mere fair boligmarked uden betalingsmure.',
                 `${baseUrl}/blog`
             );
             setStructuredData(getBlogStructuredData(baseUrl));
@@ -590,8 +590,8 @@ function optimizeSEOMetadata(view) {
     }
     else {
         updateMetaTags(
-            'roomies | Find værelse eller roomie i Danmark',
-            'Find dit næste værelse eller en ny roomie i Danmark. Opret annonce, skriv beskeder og brug SøgeAgent helt gratis.',
+            'Værelse til leje & studiebolig i hele Danmark | Roomie Danmark',
+            'Find ledige værelser, studieboliger og din næste roomie i København, Aarhus, Odense og Aalborg. Skriv gratis til alle – ingen betalingsmur.',
             baseUrl
         );
     }

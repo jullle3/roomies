@@ -1,47 +1,47 @@
-const BACKEND_API_URL = "https://api2.andelsboligbasen.dk/advertisement?page=0&size=10000";
+const BACKEND_API_URL = "https://api2.andelsboligbasen.dk/roomies/rooms/all";
 const IMAGE_BUCKET_URL = "https://images.andelsboligbasen.dk";
 const DEFAULT_IMAGE = "https://roomiedanmark.dk/pics/opengraph3.webp";
 const BASE_URL = "https://roomiedanmark.dk";
 const CACHE_TTL = 21600; // 6 hours in seconds
-const CACHE_KEY = "ALL_ADVERTISEMENTS";
+const CACHE_KEY = "ALL_ROOMS";
 
 // --- STATIC SEO MAP (Replicating viewManager.js metadata) ---
 const STATIC_SEO_ROUTES = {
     '/spoergsmaal-om-roomies': {
-        title: 'Spørgsmål og svar | roomies',
-        desc: 'Få svar på spørgsmål om at finde værelse, udleje et værelse, skrive med roomies og bruge roomies gratis.'
+        title: 'Spørgsmål og svar om værelser og roomies',
+        desc: 'Få svar på spørgsmål om at finde værelse til leje, udleje et værelse, skrive med roomies og bruge Roomie Danmark gratis.'
     },
     '/ledige-vaerelser': {
-        title: 'Søg værelse og find din næste roomie | roomies',
-        desc: 'Find ledige værelser i København, Aarhus og resten af Danmark. Filtrér efter pris, indflytning og den hverdag, du gerne vil være en del af.'
+        title: 'Værelse til leje – ledige værelser i hele Danmark',
+        desc: 'Find ledige værelser til leje i København, Aarhus, Odense og Aalborg. Filtrér efter pris og indflytning – og skriv gratis til din nye roomie uden betalingsmur.'
     },
     '/vaerelse': {
-        title: 'Ledigt værelse | roomies',
-        desc: 'Se detaljer om et ledigt værelse på roomies, herunder husleje, størrelse, beliggenhed og hverdagen i hjemmet.'
+        title: 'Værelse til leje | roomies',
+        desc: 'Se et ledigt værelse til leje: husleje, størrelse, beliggenhed og hverdagen i hjemmet. Skriv gratis til din kommende roomie – ingen betalingsmur.'
     },
     '/udlej-vaerelse': {
-        title: 'Udlej værelse gratis | Find en roomie med roomies',
-        desc: 'Udlej dit værelse gratis på roomies. Opret en annonce, find en tryg roomie, og få kontakt med unge på boligjagt uden skjulte gebyrer.'
+        title: 'Udlej værelse gratis – lej dit værelse ud',
+        desc: 'Udlej dit værelse gratis hos Roomie Danmark. Opret en annonce og lej dit værelse ud til en tryg roomie blandt studerende og unge på boligjagt – uden skjulte gebyrer.'
     },
     '/boligovervaagning': {
         title: 'SøgeAgent | Få besked om nye værelser',
         desc: 'Opret en gratis SøgeAgent og få besked, når et værelse matcher dit budget og dine områder.'
     },
     '/vilkaar': {
-        title: 'Vilkår og betingelser | roomies',
+        title: 'Vilkår og betingelser',
         desc: 'Læs vilkår for brug af roomies på roomiedanmark.dk, herunder profiler, værelsesannoncer, beskeder, SøgeAgent og persondata.'
     },
     '/beskeder': {
-        title: 'Beskeder | roomies',
+        title: 'Beskeder',
         desc: 'Se og svar på dine samtaler med roomies om værelser, fællesskab og næste hjem.'
     },
     '/profil': {
-        title: 'Profil | roomies',
+        title: 'Profil | Roomie Danmark',
         desc: 'Udfyld din roomie-profil med billede, interesser og ønsker, så andre kan lære dig bedre at kende.'
     },
     '/blog': {
-        title: 'Blog | roomies',
-        desc: 'Læs historier, tips og erfaringer om roomies, ledige værelser og et mere fair boligmarked uden betalingsmure.',
+        title: 'Blog om værelser, studiebolig og roomies | Roomie Danmark',
+        desc: 'Læs tips og erfaringer om at finde værelse til leje, studiebolig og en god roomie – og om et mere fair boligmarked uden betalingsmure.',
         jsonLd: {
             "@context": "https://schema.org",
             "@type": "Blog",
@@ -50,7 +50,7 @@ const STATIC_SEO_ROUTES = {
         }
     },
     '/blog?slug=hvorfor-det-er-gratis-at-finde-en-roomie': {
-        title: 'Hvorfor det ikke skal koste 400 kr. om måneden at finde en roomie i Danmark | roomies',
+        title: 'Hvorfor det ikke skal koste 400 kr. om måneden at finde en roomie i Danmark | Roomie Danmark',
         desc: 'Det danske lejemarked er brutalt, og boligportaler udnytter boligsøgende med tårnhøje betalingsmure. Her er grunden til, at roomies er gratis.',
         jsonLd: {
             "@context": "https://schema.org",
@@ -75,8 +75,8 @@ const STATIC_SEO_ROUTES = {
         }
     },
     '/': {
-        title: 'roomies | Find værelse eller roomie i Danmark',
-        desc: 'Find dit næste værelse eller en ny roomie i Danmark. Opret annonce, skriv beskeder og brug SøgeAgent helt gratis.'
+        title: 'Værelse til leje & studiebolig i hele Danmark | Roomie Danmark',
+        desc: 'Find ledige værelser, studieboliger og din næste roomie i København, Aarhus, Odense og Aalborg. Skriv gratis til alle – ingen betalingsmur.'
     }
 };
 
@@ -91,59 +91,64 @@ export default {
             return response;
         }
 
-        // 1. DYNAMISK RUTE: /detaljer?id=...
-        if (url.pathname === '/detaljer' && url.searchParams.has('id')) {
-            const housingId = url.searchParams.get('id');
-            let allHousingData = null;
+        // 1. DYNAMISK RUTE: /vaerelse?id=... (per-værelse SEO metadata)
+        if (url.pathname === '/vaerelse' && url.searchParams.has('id')) {
+            const roomId = url.searchParams.get('id');
+            let allRoomsData = null;
 
             try {
                 // 1. Get the ENTIRE dataset from KV Cache
                 if (env.SEO_CACHE) {
-                    allHousingData = await env.SEO_CACHE.get(CACHE_KEY, { type: "json" });
+                    allRoomsData = await env.SEO_CACHE.get(CACHE_KEY, { type: "json" });
                 }
 
                 // 2. Cache MISS: Fetch ALL data from backend and save it
-                if (!allHousingData) {
+                if (!allRoomsData) {
                     console.log("Cache MISS for Bulk Data. Fetching from backend...");
                     const apiRes = await fetch(BACKEND_API_URL);
 
                     if (apiRes.ok) {
-                        allHousingData = await apiRes.json();
+                        allRoomsData = await apiRes.json();
 
                         // Save the entire payload to KV in the background
                         if (env.SEO_CACHE) {
-                            env.SEO_CACHE.put(CACHE_KEY, JSON.stringify(allHousingData), { expirationTtl: CACHE_TTL })
+                            env.SEO_CACHE.put(CACHE_KEY, JSON.stringify(allRoomsData), { expirationTtl: CACHE_TTL })
                                 .catch(err => console.error("Failed to save bulk data to KV", err));
                         }
                     }
                 }
 
-                // 3. Find the specific housing item
-                if (allHousingData) {
-                    const adsArray = Array.isArray(allHousingData) ? allHousingData : (allHousingData.objects || []);
-                    const housing = adsArray.find(ad => ad._id === housingId);
+                // 3. Find the specific room
+                if (allRoomsData) {
+                    const roomsArray = Array.isArray(allRoomsData)
+                        ? allRoomsData
+                        : (allRoomsData.rooms || allRoomsData.objects || []);
+                    const room = roomsArray.find(r => (r._id || r.id) === roomId);
 
-                    if (housing) {
+                    if (room) {
                         const formatNumber = (num) => new Intl.NumberFormat('da-DK').format(num || 0);
 
-                        const streetStr = `${housing.street_name || ''} ${housing.house_number || ''}`.trim();
-
-                        // 1. Byg en stærk lokationsstreng for keywords (f.eks. "8361 Hasselager" eller "Aarhus")
+                        // 1. Lokationsstreng for keywords (f.eks. "2200 København N" eller "Aarhus")
                         let locationStr = "";
-                        if (housing.postal_number && housing.city) {
-                            locationStr = `${housing.postal_number} ${housing.city}`;
-                        } else if (housing.city || housing.postal_name) {
-                            locationStr = housing.city || housing.postal_name;
+                        if (room.postal_number && (room.postal_name || room.city)) {
+                            locationStr = `${room.postal_number} ${room.postal_name || room.city}`;
+                        } else if (room.postal_name || room.city) {
+                            locationStr = room.postal_name || room.city;
                         }
 
-                        // 2. Brug eksakte match fra Keyword Planner analyse
-                        const isSwap = housing.exchange_only;
-                        const actionKeyword = isSwap ? "Bytte andelsbolig" : "Andelsbolig til salg";
+                        // 2. Total månedlig husleje (husleje + aconto). Backend udregner
+                        // total_monthly_price; fald tilbage til at summere lokalt.
+                        const totalPrice = Number(
+                            room.total_monthly_price ??
+                            (Number(room.monthly_price ?? room.price ?? 0) + Number(room.acconto_monthly_price ?? 0))
+                        );
+                        const size = Number(room.square_meters ?? 0);
 
-                        // 3. Byg SEO Titlen. Output f.eks.: "Andelsbolig til salg i 8361 Hasselager - Skovhøj 165"
-                        let seoTitle = `${actionKeyword}`;
+                        // 3. SEO-titel med eksakt keyword "Værelse til leje" + geo + pris.
+                        // F.eks.: "Værelse til leje i 2200 København N – 5.500 kr./md."
+                        let seoTitle = "Værelse til leje";
                         if (locationStr) seoTitle += ` i ${locationStr}`;
-                        if (streetStr) seoTitle += ` - ${streetStr}`;
+                        if (totalPrice) seoTitle += ` – ${formatNumber(totalPrice)} kr./md.`;
 
                         // Google klipper titler ved ~60-65 tegn.
                         if (seoTitle.length < 45) {
@@ -152,22 +157,18 @@ export default {
                             seoTitle = seoTitle.substring(0, 62) + '...';
                         }
 
-                        // 4. Optimeret Meta Description med fokus på CTR
-                        let seoDesc = `${actionKeyword} på ${housing.square_meters} m² med ${housing.rooms} værelser`;
-                        if (locationStr) seoDesc += ` beliggende i ${locationStr}. `;
-                        else seoDesc += `. `;
+                        // 4. Meta description med fokus på CTR + roomies' gratis-vinkel.
+                        let seoDesc = "Ledigt værelse til leje";
+                        if (locationStr) seoDesc += ` i ${locationStr}`;
+                        if (size) seoDesc += ` på ${size} m²`;
+                        if (totalPrice) seoDesc += ` til ${formatNumber(totalPrice)} kr./md.`;
+                        seoDesc += ". Skriv gratis til din kommende roomie – ingen betalingsmur.";
 
-                        if (housing.price) seoDesc += `Pris: ${formatNumber(housing.price)} kr. `;
-                        if (housing.monthly_fee) seoDesc += `Boligafgift: ${formatNumber(housing.monthly_fee)} kr./md. `;
-                        if (housing.description) {
-                            seoDesc += housing.description.substring(0, 80).trim().replace(/\n/g, ' ') + '...';
-                        }
+                        const firstImage = room.images && room.images.length > 0 ? room.images[0] : null;
+                        const imageName = typeof firstImage === 'string' ? firstImage : firstImage?.name;
+                        const seoImage = imageName ? `${IMAGE_BUCKET_URL}/${imageName}` : DEFAULT_IMAGE;
 
-                        const seoImage = housing.images && housing.images.length > 0
-                            ? `${IMAGE_BUCKET_URL}/${housing.images[0].name}`
-                            : DEFAULT_IMAGE;
-
-                        const canonicalUrl = `${BASE_URL}/detaljer?id=${housingId}`;
+                        const canonicalUrl = `${BASE_URL}/vaerelse?id=${roomId}`;
 
                         const jsonLd = {
                             "@context": "https://schema.org",
@@ -176,18 +177,19 @@ export default {
                             "description": seoDesc,
                             "url": canonicalUrl,
                             "image": seoImage,
-                            "datePosted": housing.created ? new Date(housing.created * 1000).toISOString() : undefined,
+                            "datePosted": room.created ? new Date(room.created * 1000).toISOString() : undefined,
                             "offers": {
                                 "@type": "Offer",
-                                "price": housing.price || 0,
+                                "price": totalPrice || 0,
                                 "priceCurrency": "DKK",
-                                "availability": "https://schema.org/InStock"
+                                "availability": room.available === false
+                                    ? "https://schema.org/OutOfStock"
+                                    : "https://schema.org/InStock"
                             },
                             "address": {
                                 "@type": "PostalAddress",
-                                "streetAddress": streetStr,
-                                "addressLocality": housing.city || housing.postal_name,
-                                "postalCode": housing.postal_number?.toString(),
+                                "addressLocality": room.postal_name || room.city,
+                                "postalCode": room.postal_number?.toString(),
                                 "addressCountry": "DK"
                             }
                         };
@@ -219,7 +221,7 @@ export default {
         const routeKey = blogSlug ? `/blog?slug=${blogSlug}` : url.pathname;
         let routeData = STATIC_SEO_ROUTES[routeKey];
 
-        // Hvis der anmodes om en route, der ikke ligger under STATIC_SEO_ROUTES og ikke er /detaljer,
+        // Hvis der anmodes om en route, der ikke ligger under STATIC_SEO_ROUTES og ikke er /vaerelse,
         // (f.eks. ukendte paths der sendes til index.html via dine fallback regler), så brug default '/'.
         if (!routeData && url.pathname === '/') {
             routeData = STATIC_SEO_ROUTES['/'];

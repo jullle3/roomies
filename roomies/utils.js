@@ -1,7 +1,7 @@
 import {updateStripePaymentElements} from "./login/login.js";
 import {authFetch} from "./auth/auth.js";
 import {displayLoginModal} from "./views/viewManager.js";
-import {environment, stripe_buy_button_id, stripe_buy_button_publishable_key} from "./config/config.js";
+import {environment} from "./config/config.js";
 
 export let currentUser = null;
 let currentUserLoadPromise = null;

@@ -16,7 +16,7 @@ const STATIC_SEO_ROUTES = {
         desc: 'Find ledige værelser til leje i København, Aarhus, Odense og Aalborg. Filtrér efter pris og indflytning – og skriv gratis til din nye roomie uden betalingsmur.'
     },
     '/vaerelse': {
-        title: 'Værelse til leje | roomies',
+        title: 'Værelse til leje | Roomie Danmark',
         desc: 'Se et ledigt værelse til leje: husleje, størrelse, beliggenhed og hverdagen i hjemmet. Skriv gratis til din kommende roomie – ingen betalingsmur.'
     },
     '/udlej-vaerelse': {
@@ -65,7 +65,7 @@ const STATIC_SEO_ROUTES = {
             },
             "publisher": {
                 "@type": "Organization",
-                "name": "roomies",
+                "name": "Roomie Danmark",
                 "logo": {
                     "@type": "ImageObject",
                     "url": `${BASE_URL}/favicon/android-chrome-192x192.webp`
@@ -152,7 +152,7 @@ export default {
 
                         // Google klipper titler ved ~60-65 tegn.
                         if (seoTitle.length < 45) {
-                            seoTitle += ` | roomies`;
+                            seoTitle += ` | Roomie Danmark`;
                         } else if (seoTitle.length > 65) {
                             seoTitle = seoTitle.substring(0, 62) + '...';
                         }

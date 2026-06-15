@@ -1,8 +1,5 @@
+- Verificer google oauth, afventer https://console.cloud.google.com/auth/verification?project=roomiedanmark
 - Roomie Reddit og FB Opslag - https://gemini.google.com/gem/c9297fa0daa6/f6fccd4db7de4739?hl=da
-- Verificer google oauth
-  Kan først når vi er live i prod, med /vilkaar side
-  https://console.cloud.google.com/auth/branding;showIssues=null?project=roomiedanmark
- 
 -  Roomie Pseo https://g.co/gemini/share/b615acc3e146
 1. The PSEO Scalable Core Formula (The "Variables")
    Programmatic SEO relies on scale. Instead of targeting single phrases, you target databases of modifiers combined with a root intent. In Denmark, housing search behavior is deeply localized down to neighborhoods (bydele) and educational hubs.

@@ -6,7 +6,6 @@ import {cropAvatarFile, isAvatarCropperAvailable} from "../components/avatar_cro
 // Generous ceiling so large phone photos go through — the server compresses anyway.
 const MAX_PHOTO_SIZE_BYTES = 12 * 1024 * 1024;
 const INTEREST_LIMIT = 5;
-const OCCUPATION_LIMIT = 5;
 
 // Identity fields that signal a genuinely filled-out roomie profile. Search
 // fields (budget, areas) are excluded since they belong to the SøgeAgent.
@@ -174,14 +173,7 @@ function openRoomieOnboarding(contextKey, user) {
             }
         };
 
-        const onOccupationChange = event => {
-            const selected = els.occupationInputs.filter(input => input.checked);
-            if (selected.length > OCCUPATION_LIMIT) {
-                event.target.checked = false;
-                displayErrorMessage(`Vælg højst ${OCCUPATION_LIMIT} typer beskæftigelse.`);
-            }
-            updateOccupationLabel(els);
-        };
+        const onOccupationChange = () => updateOccupationLabel(els);
 
         const onSubmit = async event => {
             event.preventDefault();

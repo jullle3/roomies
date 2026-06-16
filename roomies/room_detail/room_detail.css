@@ -354,6 +354,13 @@
     line-height: 1.8;
 }
 
+/* Preserve line breaks the host typed in the description, while still collapsing
+   runs of spaces and wrapping long words. */
+.room-detail-description {
+    white-space: pre-line;
+    overflow-wrap: anywhere;
+}
+
 .room-detail-feature-grid {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));

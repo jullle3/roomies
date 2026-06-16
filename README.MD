@@ -1,9 +1,5 @@
-- lave dropdown til beskæftigelse field, opdater også backend
-Create a dropdown for the "Beskæftigelse" roomie profile field. Make sure to also update backend at     [code.py](../andelsbolig-backend/andelsbolig/a_roomies/code.py) , just make the field accept list of strings
-
-
 - Lav FB post der forklarer konceptet og pin det
-
+- Post på egen FB om konceptet, post kl 19 på en vilkårlig dag. 1 gruppe per dag evt?
 - Roomie Reddit og FB Opslag - https://gemini.google.com/gem/c9297fa0daa6/f6fccd4db7de4739?hl=da
 - Verificer google oauth, afventer https://console.cloud.google.com/auth/verification?project=roomiedanmark
 

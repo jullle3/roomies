@@ -122,7 +122,7 @@ function renderRoomDetailHtml(room) {
 
                         <div class="room-detail-section">
                             <h2>Om værelset</h2>
-                            <p>${escapeHtml(room.description || "Udlejer har endnu ikke skrevet en længere beskrivelse.")}</p>
+                            <p class="room-detail-description">${escapeHtml(room.description || "Udlejer har endnu ikke skrevet en længere beskrivelse.")}</p>
                         </div>
 
                         ${room.householdFeatures.length ? `

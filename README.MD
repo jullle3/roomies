@@ -8,7 +8,7 @@
 
 - Hav endnu en del værelse knap på vaerelse view under den nederste (på mobile) Kontakt firstname knap
 
- 
+- Cacher jeg content korrekt? Mine rules er jo på andelsboligbasen.dk 
 - 
 - Verificer google oauth, afventer https://console.cloud.google.com/auth/verification?project=roomiedanmark
 - Roomie Reddit og FB Opslag - https://gemini.google.com/gem/c9297fa0daa6/f6fccd4db7de4739?hl=da

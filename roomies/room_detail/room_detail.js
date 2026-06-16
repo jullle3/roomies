@@ -1016,7 +1016,7 @@ function renderTotalPriceBlock(room) {
 
     if (aconto <= 0 || rent <= 0) {
         return `
-            <span>Husleje inkl. forbrug</span>
+            <span>Husleje</span>
             <strong>${formatNumber(total)} kr./md</strong>
         `;
     }

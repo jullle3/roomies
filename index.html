@@ -40,7 +40,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cropperjs@1.6.2/dist/cropper.min.css">
 
     <!--    Custom Merged css files -->
-    <link rel="stylesheet" href="roomies/mergedStyles.css?roomies_version=1011">
+    <link rel="stylesheet" href="roomies/mergedStyles.css?roomies_version=1015">
     <style>
         .nav-auth-btn:active,
         .nav-auth-btn:focus,
@@ -59,7 +59,7 @@
             color: #ffffff !important;
         }
     </style>
-    <script defer type="module" src="roomies/mergedJS.js?roomies_version=1011"></script>
+    <script defer type="module" src="roomies/mergedJS.js?roomies_version=1015"></script>
 
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18047412076"></script>
@@ -1453,7 +1453,7 @@
                                             </select>
                                         </div>
                                         <div class="col-md-4">
-                                            <label class="form-label" data-label-for="monthly_rent">Husleje inkl. forbrug</label>
+                                            <label class="form-label" data-label-for="monthly_rent">Husleje</label>
                                             <div class="input-group">
                                                 <input class="form-control" data-room-field="monthly_rent" type="number" inputmode="numeric" min="0" required placeholder="fx 5200">
                                                 <span class="input-group-text">kr.</span>
@@ -1691,7 +1691,20 @@
                                         </div>
                                         <div class="col-md-6">
                                             <label class="form-label" for="profile-occupation">Beskæftigelse</label>
-                                            <input type="text" class="form-control" id="profile-occupation" name="occupation" maxlength="80" placeholder="Studerende, arbejder fuldtid...">
+                                            <div class="dropdown roomie-multiselect">
+                                                <button class="form-select text-start roomie-multiselect-toggle" type="button" id="profile-occupation" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+                                                    <span class="roomie-multiselect-label is-placeholder" data-occupation-label>Vælg beskæftigelse</span>
+                                                </button>
+                                                <div class="dropdown-menu w-100 roomie-multiselect-menu">
+                                                    <label class="roomie-multiselect-item"><input type="checkbox" class="form-check-input" name="occupation" value="Studerende"><span>Studerende</span></label>
+                                                    <label class="roomie-multiselect-item"><input type="checkbox" class="form-check-input" name="occupation" value="Fuldtidsarbejde"><span>Fuldtidsarbejde</span></label>
+                                                    <label class="roomie-multiselect-item"><input type="checkbox" class="form-check-input" name="occupation" value="Deltidsarbejde"><span>Deltidsarbejde</span></label>
+                                                    <label class="roomie-multiselect-item"><input type="checkbox" class="form-check-input" name="occupation" value="Selvstændig"><span>Selvstændig</span></label>
+                                                    <label class="roomie-multiselect-item"><input type="checkbox" class="form-check-input" name="occupation" value="Praktikant / lærling"><span>Praktikant / lærling</span></label>
+                                                    <label class="roomie-multiselect-item"><input type="checkbox" class="form-check-input" name="occupation" value="Jobsøgende"><span>Jobsøgende</span></label>
+                                                    <label class="roomie-multiselect-item"><input type="checkbox" class="form-check-input" name="occupation" value="Andet"><span>Andet</span></label>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
 
@@ -2513,7 +2526,20 @@
                             </div>
                             <div class="col-6">
                                 <label class="form-label" for="ob-occupation">Beskæftigelse</label>
-                                <input type="text" class="form-control" id="ob-occupation" data-ob-occupation maxlength="80" placeholder="Studerende...">
+                                <div class="dropdown roomie-multiselect">
+                                    <button class="form-select text-start roomie-multiselect-toggle" type="button" id="ob-occupation" data-ob-occupation data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+                                        <span class="roomie-multiselect-label is-placeholder" data-ob-occupation-label>Vælg beskæftigelse</span>
+                                    </button>
+                                    <div class="dropdown-menu w-100 roomie-multiselect-menu">
+                                        <label class="roomie-multiselect-item"><input type="checkbox" class="form-check-input" name="ob-occupation" value="Studerende"><span>Studerende</span></label>
+                                        <label class="roomie-multiselect-item"><input type="checkbox" class="form-check-input" name="ob-occupation" value="Fuldtidsarbejde"><span>Fuldtidsarbejde</span></label>
+                                        <label class="roomie-multiselect-item"><input type="checkbox" class="form-check-input" name="ob-occupation" value="Deltidsarbejde"><span>Deltidsarbejde</span></label>
+                                        <label class="roomie-multiselect-item"><input type="checkbox" class="form-check-input" name="ob-occupation" value="Selvstændig"><span>Selvstændig</span></label>
+                                        <label class="roomie-multiselect-item"><input type="checkbox" class="form-check-input" name="ob-occupation" value="Praktikant / lærling"><span>Praktikant / lærling</span></label>
+                                        <label class="roomie-multiselect-item"><input type="checkbox" class="form-check-input" name="ob-occupation" value="Jobsøgende"><span>Jobsøgende</span></label>
+                                        <label class="roomie-multiselect-item"><input type="checkbox" class="form-check-input" name="ob-occupation" value="Andet"><span>Andet</span></label>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 

@@ -596,14 +596,17 @@ function renderInlineContactCta(room) {
     const buttonAttrs = room.isOwner ? "data-owner-edit-room" : (room.available === false || room.visible === false ? "disabled" : `data-contact-owner data-owner-id="${escapeHtml(room.ownerId)}" data-room-id="${escapeHtml(room.id)}"`);
 
     return `
-        <div class="room-detail-inline-cta">
-            <div>
-                <strong>${room.isOwner ? "Vil du rette noget?" : "Er værelset noget for dig?"}</strong>
-                <span>${room.isOwner ? "Opdater tekst, pris, billeder eller ledighed." : "Send en besked og hør mere om hjemmet."}</span>
+        <div class="room-detail-inline-cta-wrap">
+            <div class="room-detail-inline-cta">
+                <div>
+                    <strong>${room.isOwner ? "Vil du rette noget?" : "Er værelset noget for dig?"}</strong>
+                    <span>${room.isOwner ? "Opdater tekst, pris, billeder eller ledighed." : "Send en besked og hør mere om hjemmet."}</span>
+                </div>
+                <button class="btn btn-primary-coral rounded-pill px-4 py-3 fw-bold d-inline-flex align-items-center justify-content-center" type="button" ${buttonAttrs}>
+                    ${renderRoomActionButtonInner(room)}
+                </button>
             </div>
-            <button class="btn btn-primary-coral rounded-pill px-4 py-3 fw-bold d-inline-flex align-items-center justify-content-center" type="button" ${buttonAttrs}>
-                ${renderRoomActionButtonInner(room)}
-            </button>
+            ${renderShareRoomButton(room)}
         </div>
     `;
 }

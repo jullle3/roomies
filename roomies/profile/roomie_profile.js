@@ -95,8 +95,9 @@ function renderRoomieProfileCard(modalEl, profile) {
     const avatar = modalEl.querySelector('[data-rp-avatar]');
     if (avatar) avatar.innerHTML = renderProfileAvatar(safeProfile, 'roomie-profile-avatar-img');
 
+    // First name only — not everyone wants their full name shown publicly.
     const nameEl = modalEl.querySelector('[data-rp-name]');
-    if (nameEl) nameEl.textContent = safeProfile.full_name || 'Roomie';
+    if (nameEl) nameEl.textContent = String(safeProfile.full_name || '').trim().split(/\s+/)[0] || 'Roomie';
 
     const metaParts = [
         safeProfile.age ? `${safeProfile.age} år` : null,

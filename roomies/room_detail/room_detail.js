@@ -649,7 +649,8 @@ function renderSimilarRoomCard(room) {
 function renderHostStrip(room) {
     if (room.isOwner || !room.ownerId) return "";
 
-    const name = room.host || "Udlejer";
+    // Show only the first name — not everyone wants their full name public here.
+    const name = getFirstName(room.host) || "Udlejer";
     const avatar = room.avatar
         ? `<img src="${room.avatar}" alt="" loading="lazy">`
         : `<span class="room-detail-host-avatar-fallback"><i class="fa-solid fa-user"></i></span>`;

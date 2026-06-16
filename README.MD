@@ -1,3 +1,7 @@
+- Hav endnu en del  værelse knap på vaerelse view under den nederste (på mobile) Kontakt firstname knap
+- lave dropdown til beskæftigelse field, opdater også backend
+
+
 - Lav FB post der forklarer konceptet og pin det
 
 - I Create view. Skift ‘husleje inkl acconto’ til bare husleje

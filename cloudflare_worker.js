@@ -5,6 +5,21 @@ const BASE_URL = "https://roomiedanmark.dk";
 const CACHE_TTL = 21600; // 6 hours in seconds
 const CACHE_KEY = "ALL_ROOMS";
 
+// Social link-preview images (OG/Twitter) must be JPEG: Apple/iMessage does not
+// render WebP previews, and Facebook needs accurate dimensions to show the card on
+// the first scrape. We force JPEG at a fixed 1200x630 (1.91:1) social-card size via
+// Cloudflare Image Transformations.
+// Transformations run per zone with Sources = "This zone only", so an image can only
+// be transformed via the zone that hosts it:
+//   - room photos live on images.andelsboligbasen.dk -> transform via andelsboligbasen.dk
+//   - the default OG image lives on roomiedanmark.dk  -> transform via BASE_URL
+const ANDELSBOLIG_ZONE = "https://andelsboligbasen.dk";
+const SOCIAL_IMAGE_WIDTH = 1200;
+const SOCIAL_IMAGE_HEIGHT = 630;
+const toSocialImage = (srcUrl, zoneHost = ANDELSBOLIG_ZONE) =>
+    `${zoneHost}/cdn-cgi/image/format=jpeg,width=${SOCIAL_IMAGE_WIDTH},height=${SOCIAL_IMAGE_HEIGHT},fit=cover/${srcUrl}`;
+const DEFAULT_SOCIAL_IMAGE = toSocialImage(DEFAULT_IMAGE, BASE_URL);
+
 // --- STATIC SEO MAP (Replicating viewManager.js metadata) ---
 const STATIC_SEO_ROUTES = {
     '/spoergsmaal-om-roomies': {
@@ -166,7 +181,11 @@ export default {
 
                         const firstImage = room.images && room.images.length > 0 ? room.images[0] : null;
                         const imageName = typeof firstImage === 'string' ? firstImage : firstImage?.name;
-                        const seoImage = imageName ? `${IMAGE_BUCKET_URL}/${imageName}` : DEFAULT_IMAGE;
+                        // Room photos live on the andelsboligbasen.dk zone; the default lives on
+                        // roomiedanmark.dk. Each is transformed via its own zone -> always JPEG.
+                        const seoImage = imageName
+                            ? toSocialImage(`${IMAGE_BUCKET_URL}/${imageName}`)
+                            : DEFAULT_SOCIAL_IMAGE;
 
                         const canonicalUrl = `${BASE_URL}/vaerelse?id=${roomId}`;
 
@@ -201,6 +220,8 @@ export default {
                             .on('meta[property="og:title"]', new AttributeHandler('content', seoTitle))
                             .on('meta[property="og:description"]', new AttributeHandler('content', seoDesc))
                             .on('meta[property="og:image"]', new AttributeHandler('content', seoImage))
+                            .on('meta[property="og:image:width"]', new AttributeHandler('content', String(SOCIAL_IMAGE_WIDTH)))
+                            .on('meta[property="og:image:height"]', new AttributeHandler('content', String(SOCIAL_IMAGE_HEIGHT)))
                             .on('meta[property="og:url"]', new AttributeHandler('content', canonicalUrl))
                             .on('meta[property="og:locale"]', new AttributeHandler('content', 'da_DK'))
                             .on('meta[name="twitter:title"]', new AttributeHandler('content', seoTitle))
@@ -237,12 +258,14 @@ export default {
                 .on('meta[name="description"]', new AttributeHandler('content', routeData.desc))
                 .on('meta[property="og:title"]', new AttributeHandler('content', routeData.title))
                 .on('meta[property="og:description"]', new AttributeHandler('content', routeData.desc))
-                .on('meta[property="og:image"]', new AttributeHandler('content', DEFAULT_IMAGE))
+                .on('meta[property="og:image"]', new AttributeHandler('content', DEFAULT_SOCIAL_IMAGE))
+                .on('meta[property="og:image:width"]', new AttributeHandler('content', String(SOCIAL_IMAGE_WIDTH)))
+                .on('meta[property="og:image:height"]', new AttributeHandler('content', String(SOCIAL_IMAGE_HEIGHT)))
                 .on('meta[property="og:url"]', new AttributeHandler('content', canonicalUrl))
                 .on('meta[property="og:locale"]', new AttributeHandler('content', 'da_DK'))
                 .on('meta[name="twitter:title"]', new AttributeHandler('content', routeData.title))
                 .on('meta[name="twitter:description"]', new AttributeHandler('content', routeData.desc))
-                .on('meta[name="twitter:image"]', new AttributeHandler('content', DEFAULT_IMAGE))
+                .on('meta[name="twitter:image"]', new AttributeHandler('content', DEFAULT_SOCIAL_IMAGE))
                 .transform(response);
         }
 

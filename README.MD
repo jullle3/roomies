@@ -1,3 +1,15 @@
+- Lav FB post der forklarer konceptet og pin det
+
+- I Create view. Skift ‘husleje inkl acconto’ til bare husleje
+
+- Størrelse på værelse Hint skal være 7 kvm
+
+- Skal jeg lave dropdown til beskæftigelse field?
+
+- Hav endnu en del værelse knap på vaerelse view under den nederste (på mobile) Kontakt firstname knap
+
+ 
+- 
 - Verificer google oauth, afventer https://console.cloud.google.com/auth/verification?project=roomiedanmark
 - Roomie Reddit og FB Opslag - https://gemini.google.com/gem/c9297fa0daa6/f6fccd4db7de4739?hl=da
 

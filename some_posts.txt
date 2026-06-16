@@ -7,10 +7,10 @@ Jeg hedder Julian, og jeg har bygget RoomieDanmark.dk for at gøre boligjagten m
 Til daglig er jeg Technical Team Lead og driver andelsboligbasen.dk, så jeg har brugt min erfaring til at kode en sikker og moderne platform. Lige nu betaler jeg selv for al udvikling og serverdrift af egen lomme, fordi jeg vil bevise, at markedet kan gøres bedre. Forhåbentlig kan jeg ude i fremtiden få et par relevante annoncører ombord til at dække driften – men for dig som bruger koster det ikke noget.
 
 På roomiedanmark.dk kan du gratis:
-- Søge efter ledige værelser og matchende "roomie-vibes" (f.eks. 🤫 Roligt hjem eller 🍻 Socialt).
-- Oprette din annonce på 2 minutter, hvis du mangler en roomie.
-- Skrive sammen med andre helt uden dyre betalingsmure.
-- Oprette en gratis SøgeAgent og få besked, når et nyt værelse matcher dig.
+✅ Søge efter ledige værelser og matchende "roomie-vibes" (f.eks. 🤫 Roligt hjem eller 🍻 Socialt).
+✅ Oprette din annonce på 2 minutter, hvis du mangler en roomie.
+✅ Skrive sammen med andre helt uden dyre betalingsmure.
+✅ Oprette en gratis SøgeAgent og få besked, når et nyt værelse matcher dig.
 
 Siden er helt ny, så jeg prøver ikke at bilde nogen ind, at der allerede ligger tusindvis af annoncer derinde. Målet er at få de første roomies og værelser ind nu, så vi sammen kan bygge et mere fair sted.
 

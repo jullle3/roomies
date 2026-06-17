@@ -2,13 +2,15 @@ Hej alle 👋
 
 Jeg kan se, at mange herinde enten søger værelse eller mangler en roomie til deres værelse, så jeg håber, det er okay, at jeg deler noget, jeg har bygget til netop dét.
 
-Jeg hedder Julian, og jeg har bygget RoomieDanmark.dk . Jeg blev ærligt talt træt af, at man på boligportaler ofte skal betale 3-400 kr. om måneden bare for at få lov til at skrive en besked til udlejer. Derfor har jeg lavet et 100% gratis alternativ.
+Jeg hedder Julian, og jeg har bygget RoomieDanmark.dk. Jeg blev ærligt talt træt af de to eneste muligheder, man har som boligsøgende: Enten skal man betale 3-400 kr. om måneden på boligportalerne bare for at få lov til at skrive en besked til udlejer. Eller også skal man kæmpe med uoverskuelige Facebook-grupper, hvor det perfekte værelse forsvinder i feedet efter 10 minutter, fordi Facebook ikke er bygget til boligsøgning.
+
+Derfor har jeg lavet et 100% gratis og overskueligt alternativ.
 
 Til daglig er jeg Technical Team Lead og driver andelsboligbasen.dk, så jeg har brugt min erfaring til at kode en sikker og moderne platform. Lige nu betaler jeg selv for al udvikling og serverdrift af egen lomme, fordi jeg vil bevise, at markedet kan gøres bedre. Forhåbentlig kan jeg ude i fremtiden få et par relevante annoncører ombord til at dække driften – men for dig som bruger koster det absolut ingenting.
 
 På roomiedanmark.dk kan du gratis:
 ✅ Oprette din annonce på 2 minutter, hvis du mangler en roomie.
-✅ Søge efter ledige værelser
+✅ Søge efter ledige værelser med rigtige filtre (så du slipper for det kaotiske feed).
 ✅ Skrive sammen med andre helt uden dyre betalingsmure.
 ✅ Oprette en SøgeAgent og få besked, når et nyt værelse matcher dig.
 

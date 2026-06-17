@@ -1,5 +1,6 @@
 - Lav FB post der forklarer konceptet og pin det
 Se some_posts.txt
+Til fb ‘en hjemmeside skræddersyet til jeres behov’
 
 Grupper at skrive i
 https://www.facebook.com/groups/LejeboligerAarhus/

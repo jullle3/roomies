@@ -16,12 +16,7 @@ https://www.facebook.com/groups/boliger.koebenhavn
 
 
 # Marketing strategy / GoLivet
-- Lav eksempel bolig opslag så folk kan se hvor flot det ser ud. 
-- Reklamer via good guy metoden på FB grupper via privat profil
-Jeg har lavet det her til jer, det er 100% gratis og finansieret af mig til at starte med. Håber på at kunne indhente lidt fortjenste via målrettede
-reklamer der reelt gavner målgruppen
 - Efterfølgende opsæt evt FB scraber og så reklamer på reddit m.m.
-- deploy Cloudflare worker
 
 # Future
 - Reklamer? Se ad-placement-ideas.md

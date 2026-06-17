@@ -1,6 +1,5 @@
-- Lav FB post der forklarer konceptet og pin det
-Se some_posts.txt
-Til fb ‘en hjemmeside skræddersyet til jeres behov’
+- Post fra egen FB profil om konceptet, post kl 19 på en vilkårlig dag. 1 gruppe per dag evt?
+  Se some_posts.txt
 
 Grupper at skrive i
 https://www.facebook.com/groups/LejeboligerAarhus/
@@ -12,7 +11,6 @@ https://www.facebook.com/groups/LedigeLejlighederKBH
 https://www.facebook.com/groups/boliger.koebenhavn
 
 
-- Post på egen FB om konceptet, post kl 19 på en vilkårlig dag. 1 gruppe per dag evt?
 - Roomie Reddit og FB Opslag - https://gemini.google.com/gem/c9297fa0daa6/f6fccd4db7de4739?hl=da
 - Verificer google oauth, afventer https://console.cloud.google.com/auth/verification?project=roomiedanmark
 

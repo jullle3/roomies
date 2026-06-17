@@ -1,23 +1,23 @@
 Hej alle 👋
 
-Jeg kan se, at mange herinde enten søger værelse eller mangler en roomie, så jeg håber, det er okay, at jeg deler noget, jeg har bygget til netop dét.
+Jeg kan se, at mange herinde enten søger værelse eller mangler en roomie til deres værelse, så jeg håber, det er okay, at jeg deler noget, jeg har bygget til netop dét.
 
-Jeg hedder Julian, og jeg har bygget RoomieDanmark.dk for at gøre boligjagten mere fair, mere personlig og mere overskuelig. Jeg blev ærligt talt træt af, at man på boligportaler ofte skal betale 3-400 kr. om måneden bare for at få lov til at skrive en besked til udlejer. Derfor har jeg lavet et 100% gratis alternativ.
+Jeg hedder Julian, og jeg har bygget RoomieDanmark.dk . Jeg blev ærligt talt træt af, at man på boligportaler ofte skal betale 3-400 kr. om måneden bare for at få lov til at skrive en besked til udlejer. Derfor har jeg lavet et 100% gratis alternativ.
 
-Til daglig er jeg Technical Team Lead og driver andelsboligbasen.dk, så jeg har brugt min erfaring til at kode en sikker og moderne platform. Lige nu betaler jeg selv for al udvikling og serverdrift af egen lomme, fordi jeg vil bevise, at markedet kan gøres bedre. Forhåbentlig kan jeg ude i fremtiden få et par relevante annoncører ombord til at dække driften – men for dig som bruger koster det ikke noget.
+Til daglig er jeg Technical Team Lead og driver andelsboligbasen.dk, så jeg har brugt min erfaring til at kode en sikker og moderne platform. Lige nu betaler jeg selv for al udvikling og serverdrift af egen lomme, fordi jeg vil bevise, at markedet kan gøres bedre. Forhåbentlig kan jeg ude i fremtiden få et par relevante annoncører ombord til at dække driften – men for dig som bruger koster det absolut ingenting.
 
 På roomiedanmark.dk kan du gratis:
-✅ Søge efter ledige værelser og matchende "roomie-vibes" (f.eks. 🤫 Roligt hjem eller 🍻 Socialt).
 ✅ Oprette din annonce på 2 minutter, hvis du mangler en roomie.
+✅ Søge efter ledige værelser
 ✅ Skrive sammen med andre helt uden dyre betalingsmure.
-✅ Oprette en gratis SøgeAgent og få besked, når et nyt værelse matcher dig.
+✅ Oprette en SøgeAgent og få besked, når et nyt værelse matcher dig.
 
-Siden er helt ny, så jeg prøver ikke at bilde nogen ind, at der allerede ligger tusindvis af annoncer derinde. Målet er at få de første roomies og værelser ind nu, så vi sammen kan bygge et mere fair sted.
+Siden er helt ny, så jeg prøver ikke at bilde nogen ind, at der allerede ligger tusindvis af annoncer derinde. Målet er at få de første roomies og værelser ind nu, så vi sammen kan bygge en mere fair boligmarked.
 
 Hvis du har et ledigt værelse og vil hjælpe med at kickstarte et mere fair boligmarked, tager det 2 minutter at oprette en annonce. Og hvis du søger bolig lige nu, så opret en gratis SøgeAgent, så bygger vi udbuddet op til jer de kommende uger!
 👉 RoomieDanmark.dk
 
-Feedback er mega velkommen! Jeg læser det hele selv og bruger det til at gøre siden endnu skarpere 🙏
+Feedback er mega velkommen! Jeg læser det hele og bruger det til at gøre siden endnu skarpere 🙏
 
 
 

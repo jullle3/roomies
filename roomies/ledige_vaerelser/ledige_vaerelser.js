@@ -211,7 +211,6 @@ function getFilteredRooms(cachedRooms) {
             && room.upfront <= maxDeposit
             && availableInTime
             && (!data.has("furnished") || room.furnished)
-            && (!data.has("registration_allowed") || room.registrationAllowed)
             && (!data.has("pets_allowed") || room.petsAllowed)
             && (!data.has("washing_machine") || room.washingMachine)
             && (!data.has("dishwasher") || room.dishwasher);
@@ -251,7 +250,6 @@ function normalizeRoomListing(room) {
         size: Number(room.square_meters ?? 0),
         availableFrom: room.available_from ?? null,
         furnished: Boolean(room.furnished),
-        registrationAllowed: Boolean(room.cpr_registration_allowed),
         petsAllowed: Boolean(room.pets_allowed),
         washingMachine: Boolean(room.washing_machine),
         dishwasher: Boolean(room.dishwasher),
@@ -322,7 +320,6 @@ function renderRoomCard(room) {
         size: room.size,
         availableFrom: room.availableFrom,
         furnished: room.furnished,
-        cprAllowed: room.registrationAllowed,
         petsAllowed: room.petsAllowed,
         avatar: room.avatar,
         host: room.host,

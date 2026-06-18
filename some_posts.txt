@@ -1,3 +1,6 @@
+Flet ind? "‘Jeg har bygget et gratis alternativ til de dyre lejebolig sider’
+
+
 Hej alle 👋
 
 Jeg kan se, at mange herinde enten søger værelse eller mangler en roomie til deres værelse, så jeg håber, det er okay, at jeg deler noget, jeg har bygget til netop dét.
@@ -6,7 +9,7 @@ Jeg hedder Julian, og jeg har bygget RoomieDanmark.dk. Jeg blev ærligt talt tr�
 
 Derfor har jeg lavet et 100% gratis og overskueligt alternativ.
 
-Til daglig er jeg Technical Team Lead og driver andelsboligbasen.dk, så jeg har brugt min erfaring til at kode en sikker og moderne platform. Lige nu betaler jeg selv for al udvikling og serverdrift af egen lomme, fordi jeg vil bevise, at markedet kan gøres bedre. Forhåbentlig kan jeg ude i fremtiden få et par relevante annoncører ombord til at dække driften – men for dig som bruger koster det absolut ingenting.
+Til daglig er jeg Technical Team Lead og driver Andelsbolig Basen, så jeg har brugt min erfaring til at kode en sikker og moderne platform. Lige nu betaler jeg selv for al udvikling og serverdrift af egen lomme, fordi jeg vil bevise, at markedet kan gøres bedre. Forhåbentlig kan jeg ude i fremtiden få et par relevante annoncører ombord til at dække driften – men for dig som bruger koster det absolut ingenting.
 
 På roomiedanmark.dk kan du gratis:
 ✅ Oprette din annonce på 2 minutter, hvis du mangler en roomie.

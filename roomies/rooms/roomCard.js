@@ -3,7 +3,7 @@
 // into the model shape below, so the HTML lives in exactly one place.
 //
 // model: { id, title, image, location, price, size, availableFrom,
-//          furnished, cprAllowed, petsAllowed, avatar, host, isOwn }
+//          furnished, petsAllowed, avatar, host, isOwn }
 
 const EXAMPLE_ROOM_IMAGE = "/pics/room_default1.webp";
 
@@ -49,7 +49,6 @@ function buildFactChips(model) {
 
     const candidates = [];
     if (model.furnished) candidates.push(facilityChip("fa-solid fa-couch", "Møbleret"));
-    if (model.cprAllowed) candidates.push(facilityChip("fa-solid fa-address-card", "CPR muligt"));
     if (model.petsAllowed) candidates.push(facilityChip("fa-solid fa-paw", "Kæledyr"));
 
     return chips.concat(candidates).slice(0, MAX_FACT_CHIPS);

@@ -730,12 +730,6 @@ function getHouseholdFeatures(room) {
             text: room.furnished ? "Værelset er møbleret" : "Ikke møbleret"
         },
         {
-            icon: "fa-solid fa-address-card",
-            label: "CPR",
-            value: room.cpr_registration_allowed,
-            text: room.cpr_registration_allowed ? "CPR-registrering muligt" : "CPR ikke muligt"
-        },
-        {
             icon: "fa-solid fa-paw",
             label: "Kæledyr",
             value: room.pets_allowed,

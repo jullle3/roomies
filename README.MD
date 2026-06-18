@@ -1,7 +1,6 @@
-- Skal jeg lave en reklamevideo eller billede der kort viser konceptet, hvad er bedst?  Roomies
- 
 - Post fra egen FB profil om konceptet, post kl 19 på en vilkårlig dag. 1 gruppe per dag evt?
   Se some_posts.txt
+vælg medium size gruppe først
 
 Grupper at skrive i
 https://www.facebook.com/groups/LejeboligerAarhus/

@@ -191,7 +191,6 @@ function getFilteredRooms(cachedRooms) {
 
     const rooms = cachedRooms
         .filter(room => room?.visible !== false)
-        .filter(room => room?.available !== false)
         .map(normalizeRoomListing)
         .filter(room => {
         const searchableLocation = getNormalizedText(`${room.postal} ${room.area}`);
@@ -248,6 +247,7 @@ function normalizeRoomListing(room) {
         area: area || room.address || postal || "",
         rent: Number(room.monthly_price ?? room.price ?? 0),
         size: Number(room.square_meters ?? 0),
+        available: room.available !== false,
         availableFrom: room.available_from ?? null,
         furnished: Boolean(room.furnished),
         petsAllowed: Boolean(room.pets_allowed),
@@ -318,6 +318,7 @@ function renderRoomCard(room) {
         location: room.postal,
         price: room.rent,
         size: room.size,
+        available: room.available,
         availableFrom: room.availableFrom,
         furnished: room.furnished,
         petsAllowed: room.petsAllowed,

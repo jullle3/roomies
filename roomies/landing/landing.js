@@ -157,6 +157,7 @@ function renderLandingRoomCard(room) {
         location: formatLandingRoomArea(room),
         price: Number(room.monthly_price ?? room.price ?? 0),
         size: Number(room.square_meters ?? 0),
+        available: room.available !== false,
         availableFrom: room.available_from ?? null,
         furnished: Boolean(room.furnished),
         petsAllowed: Boolean(room.pets_allowed),

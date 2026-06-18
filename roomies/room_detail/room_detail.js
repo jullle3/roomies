@@ -787,7 +787,7 @@ function renderRoomiePreferencesSection(room) {
         <div class="room-detail-section">
             <h2>Hvem leder vi efter 🕵️</h2>
             <div class="room-detail-feature-grid">
-                <div class="room-detail-feature ${prefs.genderSpecified ? "is-active" : "is-muted"}">
+                <div class="room-detail-feature ${prefs.genderActive ? "is-active" : "is-muted"}">
                     <i class="${prefs.gender.icon}"></i>
                     <div>
                         <strong>Køn</strong>
@@ -825,7 +825,9 @@ function getRoomiePreferences(room) {
 
     return {
         hasAny: Boolean(gender || ageMin || ageMax),
-        genderSpecified: Boolean(gender),
+        // If the preferences section is visible, an open gender preference is
+        // still useful and welcoming information, not an unknown/missing value.
+        genderActive: true,
         ageSpecified: Boolean(ageMin || ageMax),
         gender: {text: genderText, icon: genderIcon},
         age: {text: ageText, icon: "fa-solid fa-cake-candles"}

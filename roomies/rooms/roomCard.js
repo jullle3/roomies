@@ -2,7 +2,7 @@
 // and the landing "Nye værelser" section. Each caller normalizes its own data
 // into the model shape below, so the HTML lives in exactly one place.
 //
-// model: { id, title, image, location, price, size, availableFrom,
+// model: { id, title, image, location, price, size, available, availableFrom,
 //          furnished, petsAllowed, avatar, host, isOwn }
 
 const EXAMPLE_ROOM_IMAGE = "/pics/room_default1.webp";
@@ -19,6 +19,7 @@ export function renderRoomCard(model) {
                 <a class="room-card-detail-link" href="${detailUrl}" data-room-detail-id="${escapeAttribute(model.id)}" aria-label="Se detaljer for ${escapeHtml(model.title)}"></a>
                 <div class="room-thumb-wrapper">
                     <img class="room-photo" src="${model.image || EXAMPLE_ROOM_IMAGE}" alt="${escapeHtml(model.title)}" loading="lazy">
+                    ${model.available === false ? `<span class="room-card-status-badge room-card-status-rented badge rounded-pill shadow-sm"><i class="fa-solid fa-handshake me-1"></i>Udlejet</span>` : ""}
                     ${model.isOwn ? `<span class="room-search-own badge rounded-pill shadow-sm"><i class="fa-solid fa-user-check me-1"></i>Din annonce</span>` : ""}
                     ${model.avatar ? `<img class="avatar-overlap" src="${model.avatar}" alt="${escapeHtml(model.host)}" loading="lazy">` : ""}
                 </div>
@@ -44,7 +45,9 @@ export function renderRoomCard(model) {
 // Availability always comes first; the rest fill remaining slots by priority.
 function buildFactChips(model) {
     const chips = [
-        `<span><i class="fa-regular fa-calendar me-1"></i>Ledig ${formatAvailableDate(model.availableFrom)}</span>`
+        model.available === false
+            ? `<span><i class="fa-solid fa-handshake me-1"></i>Udlejet</span>`
+            : `<span><i class="fa-regular fa-calendar me-1"></i>Ledig ${formatAvailableDate(model.availableFrom)}</span>`
     ];
 
     const candidates = [];

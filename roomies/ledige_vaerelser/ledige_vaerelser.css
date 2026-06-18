@@ -597,6 +597,22 @@
     font-weight: 600;
 }
 
+.room-card-status-badge {
+    position: absolute;
+    z-index: 2;
+    left: 1rem;
+    top: 1rem;
+    padding: 0.65rem 0.85rem;
+    font-weight: 800;
+}
+
+.room-card-status-rented {
+    background: rgba(31, 41, 55, 0.88) !important;
+    color: #fff !important;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+
 .room-search-price {
     color: var(--color-primary);
     font-size: 1.45rem;

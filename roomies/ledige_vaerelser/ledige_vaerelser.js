@@ -476,7 +476,7 @@ function setupRoomSearchSliders() {
         range: {min: 5, max: 30},
         step: 1,
         isOpenEnd: value => value <= 5,
-        openLabel: "30 m²+",
+        openLabel: "5 m2+",
         formatValue: value => `${formatNumber(value)} m2`
     });
 }

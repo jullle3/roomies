@@ -185,6 +185,7 @@ function getFilteredRooms(cachedRooms) {
     const location = getNormalizedText(data.get("location"));
     const selectedAreaId = document.getElementById("room-search-location")?.dataset.areaId || "";
     const maxRent = Number(data.get("max_rent")) || Infinity;
+    const minSize = Number(data.get("min_size")) || 0;
     const maxDeposit = Number(data.get("max_deposit")) || Infinity;
     const availableBefore = parseAvailableBefore(data.get("available_before"));
 
@@ -206,6 +207,7 @@ function getFilteredRooms(cachedRooms) {
 
         return locationMatches
             && room.rent <= maxRent
+            && room.size >= minSize
             && room.upfront <= maxDeposit
             && availableInTime
             && (!data.has("furnished") || room.furnished)
@@ -334,6 +336,7 @@ function resetRoomSearch() {
     if (locationInput) locationInput.dataset.areaId = "";
     hideRoomAreaSuggestions();
     setRoomSearchSliderValue("room-search-rent-slider", 10000);
+    setRoomSearchSliderValue("room-search-size-slider", 5);
     debouncedRenderRoomListings.cancel();
     renderRoomListings();
 }
@@ -465,6 +468,19 @@ function setupRoomSearchSliders() {
         openLabel: "Alle priser",
         formatValue: value => `${formatNumber(value)} kr.`
     });
+
+    // Minimum room size (m²). Resting at the low end means "no minimum".
+    setupRoomSearchSlider({
+        sliderId: "room-search-size-slider",
+        inputId: "room-search-min-size",
+        outputId: "room-search-size-value",
+        start: 5,
+        range: {min: 5, max: 50},
+        step: 1,
+        isOpenEnd: value => value <= 5,
+        openLabel: "Alle størrelser",
+        formatValue: value => `${formatNumber(value)} m²`
+    });
 }
 
 function setupRoomSearchFilterDropdown() {
@@ -477,7 +493,7 @@ function setupRoomSearchFilterDropdown() {
 }
 
 function refreshRoomSearchSliders() {
-    ["room-search-rent-slider"].forEach(updateNativeSliderFill);
+    ["room-search-rent-slider", "room-search-size-slider"].forEach(updateNativeSliderFill);
 }
 
 function setupRoomSearchSlider(config) {

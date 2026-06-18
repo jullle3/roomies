@@ -292,8 +292,9 @@
 
 /* Max price slider sits inline beside location in the always-visible toolbar.
    Bounded width on desktop so it doesn't stretch the full card. */
-.room-search-rent-inline {
-    flex: 0 0 260px;
+.room-search-rent-inline,
+.room-search-size-inline {
+    flex: 0 0 200px;
     padding: 0 0.25rem;
 }
 
@@ -764,7 +765,8 @@
         order: 2;
     }
 
-    .room-search-rent-inline {
+    .room-search-rent-inline,
+    .room-search-size-inline {
         order: 3;
         flex: 1 1 100%;
         margin-top: 0.5rem;

@@ -1,11 +1,8 @@
-Flet ind? "‘Jeg har bygget et gratis alternativ til de dyre lejebolig sider’
-
-
 Hej alle 👋
 
 Jeg kan se, at mange herinde enten søger værelse eller mangler en roomie til deres værelse, så jeg håber, det er okay, at jeg deler noget, jeg har bygget til netop dét.
 
-Jeg hedder Julian, og jeg har bygget RoomieDanmark.dk. Jeg blev ærligt talt træt af de to eneste muligheder, man har som boligsøgende: Enten skal man betale 3-400 kr. om måneden på boligportalerne bare for at få lov til at skrive en besked til udlejer. Eller også skal man kæmpe med uoverskuelige Facebook-grupper, hvor det perfekte værelse forsvinder i feedet efter 10 minutter, fordi Facebook ikke er bygget til boligsøgning.
+Jeg hedder Julian, og jeg har bygget RoomieDanmark.dk. Jeg blev ærligt talt træt af de to eneste muligheder, man har som boligsøgende: Enten skal man kæmpe med uoverskuelige Facebook-grupper, hvor det perfekte værelse forsvinder i feedet efter 10 minutter. Eller også skal man betale 3-400 kr. om måneden på boligportalerne bare for at få lov til at skrive en besked til sin nye roomie.
 
 Derfor har jeg lavet et 100% gratis og overskueligt alternativ.
 
@@ -19,15 +16,17 @@ På roomiedanmark.dk kan du gratis:
 
 Siden er helt ny, så jeg prøver ikke at bilde nogen ind, at der allerede ligger tusindvis af annoncer derinde. Målet er at få de første roomies og værelser ind nu, så vi sammen kan bygge en mere fair boligmarked.
 
-Hvis du har et ledigt værelse og vil hjælpe med at kickstarte et mere fair boligmarked, tager det 2 minutter at oprette en annonce. Og hvis du søger bolig lige nu, så opret en gratis SøgeAgent, så bygger vi udbuddet op til jer de kommende uger!
-👉 RoomieDanmark.dk
+- Hvis du søger bolig lige nu: Opret en gratis SøgeAgent, så bygger vi udbuddet op til jer de kommende uger!
+- Hvis du mangler en roomie: Det tager 2 minutter at oprette en annonce, og du hjælper med at kickstarte et bedre alternativ.
+
+👉 Find det her: RoomieDanmark.dk
 
 Feedback er mega velkommen! Jeg læser det hele og bruger det til at gøre siden endnu skarpere 🙏
 
 
 
 ----------
-Brug billede "fb_post3.png"
+Brug billede "fb_post2.png"
 Din første kommentar til opslaget:"Direkte link: https://roomiedanmark.dk 🚀
 
 Husk, at det er 100% gratis at oprette annonce og kontakte andre – ingen betalingsmur."

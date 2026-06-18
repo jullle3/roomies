@@ -465,7 +465,7 @@ function setupRoomSearchSliders() {
         range: {min: 2000, max: 10000},
         step: 250,
         isOpenEnd: value => value >= 10000,
-        openLabel: "Alle priser",
+        openLabel: "10.000+",
         formatValue: value => `${formatNumber(value)} kr.`
     });
 
@@ -475,11 +475,11 @@ function setupRoomSearchSliders() {
         inputId: "room-search-min-size",
         outputId: "room-search-size-value",
         start: 5,
-        range: {min: 5, max: 50},
+        range: {min: 5, max: 30},
         step: 1,
         isOpenEnd: value => value <= 5,
-        openLabel: "Alle størrelser",
-        formatValue: value => `${formatNumber(value)} m²`
+        openLabel: "30 m²+",
+        formatValue: value => `${formatNumber(value)} m2`
     });
 }
 

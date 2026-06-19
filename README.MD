@@ -1,6 +1,7 @@
 - Post fra egen FB profil om konceptet, post kl 19 på en vilkårlig dag. 1 gruppe per dag evt?
   Se some_posts.txt
 vælg medium size gruppe først
+Post roomie opslag søndag kl 1900
 
 Grupper at skrive i
 https://www.facebook.com/groups/LejeboligerAarhus/
@@ -11,7 +12,7 @@ https://www.facebook.com/groups/320108652008/
 https://www.facebook.com/groups/LedigeLejlighederKBH
 https://www.facebook.com/groups/boliger.koebenhavn
 
-
+- Roomies, skriv til aviser og nyheds medier https://g.co/gemini/share/a1ffaa90fc9e
 - Roomie Reddit og FB Opslag - https://gemini.google.com/gem/c9297fa0daa6/f6fccd4db7de4739?hl=da
 - Verificer google oauth, afventer https://console.cloud.google.com/auth/verification?project=roomiedanmark
 
@@ -29,3 +30,6 @@ https://www.facebook.com/groups/boliger.koebenhavn
 - Mit id verificering af brugere på roomiedanmark, 49kr per. One time payment
 - Lav Facebook gruppe til roomies for de forskellige byer? måske, bare det ikke kræver meget arbejde og slet ingen drift
 - PSEO
+Roomie PSEO tier
+Udlej værelse [by]
+

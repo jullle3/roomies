@@ -1,7 +1,7 @@
-- Post fra egen FB profil om konceptet, post kl 19 på en vilkårlig dag. 1 gruppe per dag evt?
-  Se some_posts.txt
-vælg medium size gruppe først
 Post roomie opslag søndag kl 1900
+ Skriv i https://www.facebook.com/groups/roomieskobenhavn/
+ og https://www.facebook.com/groups/320108652008/
+
 
 Grupper at skrive i
 https://www.facebook.com/groups/LejeboligerAarhus/

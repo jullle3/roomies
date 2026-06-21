@@ -631,7 +631,7 @@ const postalData = {
     "2750": "Ballerup",
     "2760": "Måløv",
     "2765": "Smørum",
-    "2770": "Kastrup",
+    "2770": "Kastrup / Tårnby",
     "2791": "Dragør",
     "2800": "Kongens Lyngby",
     "2820": "Gentofte",

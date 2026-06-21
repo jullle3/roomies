@@ -9,7 +9,7 @@ import {
 } from "../utils.js";
 import {authFetch} from "../auth/auth.js";
 import {s3Url} from "../config/config.js";
-import {getPreviousView} from "../views/viewManager.js";
+import {displayLoginModal, getPreviousView} from "../views/viewManager.js";
 import {ensureRoomieProfile} from "../onboarding/roomie_onboarding.js";
 import {openRoomieProfileModal} from "../profile/roomie_profile.js";
 
@@ -78,6 +78,7 @@ function normalizeRoomDetail(room, isOwner = false) {
         visible: room.visible !== false,
         isOwner,
         ownerId: room.created_by || "",
+        scrapedRealtorUrl: room.scraped_realtor_url || "",
         host: room.host_name || "",
         avatar: room.profile_photo ? buildS3ImageUrl(room.profile_photo) : "",
         raw: room,
@@ -298,7 +299,21 @@ function setupRoomContactControls(container) {
         if (!contactButton) return;
 
         event.preventDefault();
-        const {ownerId, roomId} = contactButton.dataset;
+        const {ownerId, roomId, scrapedUrl} = contactButton.dataset;
+
+        // Scraped listings have no internal owner — send the user to the original post
+        // in a new tab (keeps roomies open in this tab), but require login first.
+        // We intentionally do NOT auto-redirect after login: a window.open() following
+        // an async login is popup-blocked, so we let the now-logged-in user re-tap,
+        // which is a direct gesture and reliably opens the new tab.
+        if (scrapedUrl) {
+            if (!isLoggedIn()) {
+                displayLoginModal(null, null);
+                return;
+            }
+            window.open(scrapedUrl, "_blank", "noopener,noreferrer");
+            return;
+        }
 
         // Logged-out users get routed through the login flow by the conversations
         // view; only nudge a logged-in user to complete their profile first.
@@ -544,6 +559,11 @@ function renderRoomActionButtonInner(room) {
         return `<i class="fa-regular fa-message me-2"></i>${text}`;
     }
 
+    // Scraped listings have no internal owner to message — link out to the source post.
+    if (room.scrapedRealtorUrl) {
+        return '<i class="fa-solid fa-arrow-up-right-from-square me-2"></i>Se opslag';
+    }
+
     const firstName = getFirstName(room.host);
     const label = firstName ? `Kontakt ${escapeHtml(firstName)}` : "Kontakt udlejer";
     if (room.avatar) {
@@ -593,13 +613,13 @@ async function shareRoom(roomId, title) {
 }
 
 function renderInlineContactCta(room) {
-    const buttonAttrs = room.isOwner ? "data-owner-edit-room" : (room.available === false || room.visible === false ? "disabled" : `data-contact-owner data-owner-id="${escapeHtml(room.ownerId)}" data-room-id="${escapeHtml(room.id)}"`);
+    const buttonAttrs = room.isOwner ? "data-owner-edit-room" : (room.available === false || room.visible === false ? "disabled" : `data-contact-owner data-owner-id="${escapeHtml(room.ownerId)}" data-room-id="${escapeHtml(room.id)}" data-scraped-url="${escapeHtml(room.scrapedRealtorUrl)}"`);
 
     return `
         <div class="room-detail-inline-cta">
             <div>
-                <strong>${room.isOwner ? "Vil du rette noget?" : "Er værelset noget for dig?"}</strong>
-                <span>${room.isOwner ? "Opdater tekst, pris, billeder eller ledighed." : "Send en besked og hør mere om hjemmet."}</span>
+                <strong>${room.isOwner ? "Vil du rette noget?" : room.scrapedRealtorUrl ? "Fundet på et eksternt opslag" : "Er værelset noget for dig?"}</strong>
+                <span>${room.isOwner ? "Opdater tekst, pris, billeder eller ledighed." : room.scrapedRealtorUrl ? "Åbn det originale opslag for at se mere og skrive til udlejeren." : "Send en besked og hør mere om hjemmet."}</span>
             </div>
             <button class="btn btn-primary-coral rounded-pill px-4 py-3 fw-bold d-inline-flex align-items-center justify-content-center" type="button" ${buttonAttrs}>
                 ${renderRoomActionButtonInner(room)}
@@ -647,7 +667,8 @@ function renderSimilarRoomCard(room) {
 // who the owner is. An owner with no filled-out profile resolves to the modal's
 // friendly empty state, so no synchronous profile lookup is needed here.
 function renderHostStrip(room) {
-    if (room.isOwner || !room.ownerId) return "";
+    // Scraped listings have no real roomie profile (created_by is "SYSTEM").
+    if (room.isOwner || !room.ownerId || room.scrapedRealtorUrl) return "";
 
     const name = room.host || "Udlejer";
     const avatar = room.avatar
@@ -667,7 +688,7 @@ function renderHostStrip(room) {
 }
 
 function renderContactCard(room) {
-    const buttonAttrs = room.isOwner ? "data-owner-edit-room" : (room.available === false || room.visible === false ? "disabled" : `data-contact-owner data-owner-id="${escapeHtml(room.ownerId)}" data-room-id="${escapeHtml(room.id)}"`);
+    const buttonAttrs = room.isOwner ? "data-owner-edit-room" : (room.available === false || room.visible === false ? "disabled" : `data-contact-owner data-owner-id="${escapeHtml(room.ownerId)}" data-room-id="${escapeHtml(room.id)}" data-scraped-url="${escapeHtml(room.scrapedRealtorUrl)}"`);
 
     return `
         <div class="room-detail-contact-card">

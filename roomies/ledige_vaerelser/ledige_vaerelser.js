@@ -185,12 +185,12 @@ function getFilteredRooms(cachedRooms) {
     const location = getNormalizedText(data.get("location"));
     const selectedAreaId = document.getElementById("room-search-location")?.dataset.areaId || "";
     const maxRent = Number(data.get("max_rent")) || Infinity;
+    const minSize = Number(data.get("min_size")) || 0;
     const maxDeposit = Number(data.get("max_deposit")) || Infinity;
     const availableBefore = parseAvailableBefore(data.get("available_before"));
 
     const rooms = cachedRooms
         .filter(room => room?.visible !== false)
-        .filter(room => room?.available !== false)
         .map(normalizeRoomListing)
         .filter(room => {
         const searchableLocation = getNormalizedText(`${room.postal} ${room.area}`);
@@ -206,10 +206,10 @@ function getFilteredRooms(cachedRooms) {
 
         return locationMatches
             && room.rent <= maxRent
+            && room.size >= minSize
             && room.upfront <= maxDeposit
             && availableInTime
             && (!data.has("furnished") || room.furnished)
-            && (!data.has("registration_allowed") || room.registrationAllowed)
             && (!data.has("pets_allowed") || room.petsAllowed)
             && (!data.has("washing_machine") || room.washingMachine)
             && (!data.has("dishwasher") || room.dishwasher);
@@ -247,9 +247,9 @@ function normalizeRoomListing(room) {
         area: area || room.address || postal || "",
         rent: Number(room.monthly_price ?? room.price ?? 0),
         size: Number(room.square_meters ?? 0),
+        available: room.available !== false,
         availableFrom: room.available_from ?? null,
         furnished: Boolean(room.furnished),
-        registrationAllowed: Boolean(room.cpr_registration_allowed),
         petsAllowed: Boolean(room.pets_allowed),
         washingMachine: Boolean(room.washing_machine),
         dishwasher: Boolean(room.dishwasher),
@@ -318,9 +318,9 @@ function renderRoomCard(room) {
         location: room.postal,
         price: room.rent,
         size: room.size,
+        available: room.available,
         availableFrom: room.availableFrom,
         furnished: room.furnished,
-        cprAllowed: room.registrationAllowed,
         petsAllowed: room.petsAllowed,
         avatar: room.avatar,
         host: room.host,
@@ -334,6 +334,7 @@ function resetRoomSearch() {
     if (locationInput) locationInput.dataset.areaId = "";
     hideRoomAreaSuggestions();
     setRoomSearchSliderValue("room-search-rent-slider", 10000);
+    setRoomSearchSliderValue("room-search-size-slider", 5);
     debouncedRenderRoomListings.cancel();
     renderRoomListings();
 }
@@ -462,8 +463,21 @@ function setupRoomSearchSliders() {
         range: {min: 2000, max: 10000},
         step: 250,
         isOpenEnd: value => value >= 10000,
-        openLabel: "Alle priser",
+        openLabel: "10.000+",
         formatValue: value => `${formatNumber(value)} kr.`
+    });
+
+    // Minimum room size (m²). Resting at the low end means "no minimum".
+    setupRoomSearchSlider({
+        sliderId: "room-search-size-slider",
+        inputId: "room-search-min-size",
+        outputId: "room-search-size-value",
+        start: 5,
+        range: {min: 5, max: 30},
+        step: 1,
+        isOpenEnd: value => value <= 5,
+        openLabel: "5 m²+",
+        formatValue: value => `${formatNumber(value)} m2`
     });
 }
 
@@ -477,7 +491,7 @@ function setupRoomSearchFilterDropdown() {
 }
 
 function refreshRoomSearchSliders() {
-    ["room-search-rent-slider"].forEach(updateNativeSliderFill);
+    ["room-search-rent-slider", "room-search-size-slider"].forEach(updateNativeSliderFill);
 }
 
 function setupRoomSearchSlider(config) {

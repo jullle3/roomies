@@ -123,7 +123,7 @@ function renderRoomDetailHtml(room) {
 
                         <div class="room-detail-section">
                             <h2>Om værelset</h2>
-                            <p>${escapeHtml(room.description || "Udlejer har endnu ikke skrevet en længere beskrivelse.")}</p>
+                            <p class="room-detail-description">${escapeHtml(room.description || "Udlejer har endnu ikke skrevet en længere beskrivelse.")}</p>
                         </div>
 
                         ${room.householdFeatures.length ? `
@@ -670,7 +670,8 @@ function renderHostStrip(room) {
     // Scraped listings have no real roomie profile (created_by is "SYSTEM").
     if (room.isOwner || !room.ownerId || room.scrapedRealtorUrl) return "";
 
-    const name = room.host || "Udlejer";
+    // Show only the first name — not everyone wants their full name public here.
+    const name = getFirstName(room.host) || "Udlejer";
     const avatar = room.avatar
         ? `<img src="${room.avatar}" alt="" loading="lazy">`
         : `<span class="room-detail-host-avatar-fallback"><i class="fa-solid fa-user"></i></span>`;
@@ -747,12 +748,6 @@ function getHouseholdFeatures(room) {
             text: room.furnished ? "Værelset er møbleret" : "Ikke møbleret"
         },
         {
-            icon: "fa-solid fa-address-card",
-            label: "CPR",
-            value: room.cpr_registration_allowed,
-            text: room.cpr_registration_allowed ? "CPR-registrering muligt" : "CPR ikke muligt"
-        },
-        {
             icon: "fa-solid fa-paw",
             label: "Kæledyr",
             value: room.pets_allowed,
@@ -810,7 +805,7 @@ function renderRoomiePreferencesSection(room) {
         <div class="room-detail-section">
             <h2>Hvem leder vi efter 🕵️</h2>
             <div class="room-detail-feature-grid">
-                <div class="room-detail-feature ${prefs.genderSpecified ? "is-active" : "is-muted"}">
+                <div class="room-detail-feature ${prefs.genderActive ? "is-active" : "is-muted"}">
                     <i class="${prefs.gender.icon}"></i>
                     <div>
                         <strong>Køn</strong>
@@ -848,7 +843,9 @@ function getRoomiePreferences(room) {
 
     return {
         hasAny: Boolean(gender || ageMin || ageMax),
-        genderSpecified: Boolean(gender),
+        // If the preferences section is visible, an open gender preference is
+        // still useful and welcoming information, not an unknown/missing value.
+        genderActive: true,
         ageSpecified: Boolean(ageMin || ageMax),
         gender: {text: genderText, icon: genderIcon},
         age: {text: ageText, icon: "fa-solid fa-cake-candles"}
@@ -1036,7 +1033,7 @@ function renderTotalPriceBlock(room) {
 
     if (aconto <= 0 || rent <= 0) {
         return `
-            <span>Husleje inkl. forbrug</span>
+            <span>Husleje</span>
             <strong>${formatNumber(total)} kr./md</strong>
         `;
     }

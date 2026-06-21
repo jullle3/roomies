@@ -1,2 +1,7 @@
+# Block indexing of dev
+https://dev.roomies-15m.pages.dev/*
+  X-Robots-Tag: noindex, nofollow
+
+# Block indexing of prod cloudflare domain, i want users to access the real one at roomiedanmark.dk (which just points to this one behind the scenes)
 https://roomies-15m.pages.dev/*
   X-Robots-Tag: noindex, nofollow

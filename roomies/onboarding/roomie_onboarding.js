@@ -80,6 +80,7 @@ function openRoomieOnboarding(contextKey, user) {
             els.form.removeEventListener("submit", onSubmit);
             els.description.removeEventListener("input", onDescInput);
             els.interestInputs.forEach(input => input.removeEventListener("change", onInterestChange));
+            els.occupationInputs.forEach(input => input.removeEventListener("change", onOccupationChange));
             modalElement.removeEventListener("hidden.bs.modal", onHidden);
         };
 
@@ -172,6 +173,8 @@ function openRoomieOnboarding(contextKey, user) {
             }
         };
 
+        const onOccupationChange = () => updateOccupationLabel(els);
+
         const onSubmit = async event => {
             event.preventDefault();
             if (!profilePhotoName) {
@@ -200,6 +203,7 @@ function openRoomieOnboarding(contextKey, user) {
         els.form.addEventListener("submit", onSubmit);
         els.description.addEventListener("input", onDescInput);
         els.interestInputs.forEach(input => input.addEventListener("change", onInterestChange));
+        els.occupationInputs.forEach(input => input.addEventListener("change", onOccupationChange));
         modalElement.addEventListener("hidden.bs.modal", onHidden);
 
         modal.show();
@@ -222,11 +226,12 @@ function collectElements(modalElement) {
         back: modalElement.querySelector("[data-ob-back]"),
         submit: modalElement.querySelector("[data-ob-submit]"),
         age: modalElement.querySelector("[data-ob-age]"),
-        occupation: modalElement.querySelector("[data-ob-occupation]"),
+        occupationLabel: modalElement.querySelector("[data-ob-occupation-label]"),
         description: modalElement.querySelector("[data-ob-description]"),
         descCount: modalElement.querySelector("[data-ob-desc-count]"),
         genderInputs: [...modalElement.querySelectorAll("input[name='ob-gender']")],
-        interestInputs: [...modalElement.querySelectorAll("input[name='ob-interests']")]
+        interestInputs: [...modalElement.querySelectorAll("input[name='ob-interests']")],
+        occupationInputs: [...modalElement.querySelectorAll("input[name='ob-occupation']")]
     };
 }
 
@@ -240,7 +245,6 @@ function resetForm(els, user) {
     const profile = user?.roomie_profile && typeof user.roomie_profile === "object" ? user.roomie_profile : {};
 
     if (els.age) els.age.value = profile.age ?? "";
-    if (els.occupation) els.occupation.value = profile.occupation ?? "";
     if (els.description) els.description.value = profile.description ?? "";
 
     els.genderInputs.forEach(input => {
@@ -251,6 +255,13 @@ function resetForm(els, user) {
     els.interestInputs.forEach(input => {
         input.checked = interests.includes(input.value);
     });
+
+    // occupation is a list of strings; tolerate the legacy single-string form too.
+    const occupations = Array.isArray(profile.occupation) ? profile.occupation : (profile.occupation ? [profile.occupation] : []);
+    els.occupationInputs.forEach(input => {
+        input.checked = occupations.includes(input.value);
+    });
+    updateOccupationLabel(els);
 
     updateDescriptionCount(els);
 }
@@ -268,6 +279,15 @@ function updateDescriptionCount(els) {
     if (els.descCount && els.description) {
         els.descCount.textContent = String(els.description.value.length);
     }
+}
+
+// Reflects the selected occupations in the dropdown toggle, or shows the muted
+// placeholder when nothing is chosen.
+function updateOccupationLabel(els) {
+    if (!els.occupationLabel) return;
+    const selected = els.occupationInputs.filter(input => input.checked).map(input => input.value);
+    els.occupationLabel.textContent = selected.length ? selected.join(", ") : "Vælg beskæftigelse";
+    els.occupationLabel.classList.toggle("is-placeholder", selected.length === 0);
 }
 
 function setPhotoState(els, photoName) {
@@ -302,6 +322,7 @@ function setSubmitBusy(els, isBusy, context = null) {
 async function saveRoomieProfile(els, profilePhotoName) {
     const selectedGender = els.genderInputs.find(input => input.checked);
     const interests = els.interestInputs.filter(input => input.checked).map(input => input.value);
+    const occupation = els.occupationInputs.filter(input => input.checked).map(input => input.value);
     // Spread the freshest profile so fields outside this modal (budget, areas,
     // move-in date) are preserved rather than overwritten with null.
     const existing = currentUser?.roomie_profile && typeof currentUser.roomie_profile === "object" ? currentUser.roomie_profile : {};
@@ -311,7 +332,7 @@ async function saveRoomieProfile(els, profilePhotoName) {
         profile_photo: profilePhotoName || null,
         age: parseInteger(els.age?.value),
         gender: selectedGender?.value || null,
-        occupation: String(els.occupation?.value || "").trim() || null,
+        occupation,
         interests,
         description: String(els.description?.value || "").trim() || null
     };

@@ -103,17 +103,30 @@ export async function getRoomById(roomId) {
     const cached = getCachedRoomById(roomId);
     if (cached) return cached;
 
-    if (window.roomFetchPromise) {
-        await window.roomFetchPromise;
-        const cachedAfterPublicFetch = getCachedRoomById(roomId);
-        if (cachedAfterPublicFetch) return cachedAfterPublicFetch;
-        return getRoomByIdFromOwnerCache(roomId);
-    }
-
-    await preloadRooms();
+    // Wait for the in-flight (or a fresh) bulk public fetch, then re-check cache.
+    await (window.roomFetchPromise || preloadRooms());
     const cachedAfterPublicFetch = getCachedRoomById(roomId);
     if (cachedAfterPublicFetch) return cachedAfterPublicFetch;
-    return getRoomByIdFromOwnerCache(roomId);
+
+    const fromOwnerCache = await getRoomByIdFromOwnerCache(roomId);
+    if (fromOwnerCache) return fromOwnerCache;
+
+    // Bulk caches missed — or the bulk fetch failed (transient network/CORS) —
+    // so do a targeted single-room fetch instead of wrongly showing "not found".
+    return fetchSingleRoom(roomId);
+}
+
+async function fetchSingleRoom(roomId) {
+    try {
+        const response = await authFetch(`${MY_ROOMS_ENDPOINT}/${encodeURIComponent(roomId)}`);
+        if (!response.ok) return null;
+
+        const room = await response.json();
+        return room && (room._id || room.id) ? room : null;
+    } catch (error) {
+        console.error("Single room fetch failed", error);
+        return null;
+    }
 }
 
 export async function getRoomByCreatedBy(userId) {

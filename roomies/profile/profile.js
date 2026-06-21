@@ -193,6 +193,10 @@ function setupHumanProfileHandlers() {
         input.addEventListener('change', () => enforceInterestLimit(input));
     });
 
+    form.querySelectorAll('input[name="occupation"]').forEach(input => {
+        input.addEventListener('change', updateOccupationLabel);
+    });
+
     form.addEventListener('submit', handleHumanProfileSubmit);
 }
 
@@ -235,13 +239,14 @@ async function handleHumanProfileSubmit(event) {
 function getHumanProfilePayload() {
     const selectedGender = document.querySelector('input[name="gender"]:checked');
     const selectedInterests = [...document.querySelectorAll('input[name="interests"]:checked')].map(input => input.value);
+    const selectedOccupations = [...document.querySelectorAll('input[name="occupation"]:checked')].map(input => input.value);
     const ageValue = parseInteger(document.getElementById('profile-age')?.value);
 
     return {
         profile_photo: profilePhotoName || null,
         age: ageValue,
         gender: selectedGender?.value || null,
-        occupation: getTrimmedValue('profile-occupation') || null,
+        occupation: selectedOccupations,
         interests: selectedInterests,
         description: getTrimmedValue('profile-description') || null
     };
@@ -262,6 +267,22 @@ function enforceInterestLimit(changedInput) {
 
     changedInput.checked = false;
     displayErrorMessage(`Vælg højst ${PROFILE_INTEREST_LIMIT} roomie-vibes.`);
+}
+
+// Reflects the selected occupations in the dropdown's toggle button, falling back
+// to the muted placeholder when nothing is chosen.
+function updateOccupationLabel() {
+    const label = document.querySelector('[data-occupation-label]');
+    if (!label) return;
+
+    const selected = [...document.querySelectorAll('input[name="occupation"]:checked')].map(input => input.value);
+    label.textContent = selected.length ? selected.join(', ') : 'Vælg beskæftigelse';
+    label.classList.toggle('is-placeholder', selected.length === 0);
+}
+
+function normalizeStringList(value) {
+    if (Array.isArray(value)) return value;
+    return value ? [value] : [];
 }
 
 async function handleProfilePhotoSelected(event) {
@@ -402,12 +423,18 @@ function populateHumanProfileForm(userProfile = {}) {
     updateProfilePhotoPreview(buildProfilePhotoUrl(profilePhotoName));
 
     setInputValue('profile-age', roomieProfile.age);
-    setInputValue('profile-occupation', roomieProfile.occupation);
     setInputValue('profile-description', roomieProfile.description);
 
     document.querySelectorAll('input[name="gender"]').forEach(input => {
         input.checked = input.value === roomieProfile.gender;
     });
+
+    // occupation is a list of strings; tolerate the legacy single-string form too.
+    const occupations = normalizeStringList(roomieProfile.occupation);
+    document.querySelectorAll('input[name="occupation"]').forEach(input => {
+        input.checked = occupations.includes(input.value);
+    });
+    updateOccupationLabel();
 
     const interests = Array.isArray(roomieProfile.interests) ? roomieProfile.interests : [];
     document.querySelectorAll('input[name="interests"]').forEach(input => {

@@ -95,12 +95,16 @@ function renderRoomieProfileCard(modalEl, profile) {
     const avatar = modalEl.querySelector('[data-rp-avatar]');
     if (avatar) avatar.innerHTML = renderProfileAvatar(safeProfile, 'roomie-profile-avatar-img');
 
+    // First name only — not everyone wants their full name shown publicly.
     const nameEl = modalEl.querySelector('[data-rp-name]');
-    if (nameEl) nameEl.textContent = safeProfile.full_name || 'Roomie';
+    if (nameEl) nameEl.textContent = String(safeProfile.full_name || '').trim().split(/\s+/)[0] || 'Roomie';
 
+    const occupations = Array.isArray(safeProfile.occupation)
+        ? safeProfile.occupation
+        : (safeProfile.occupation ? [safeProfile.occupation] : []);
     const metaParts = [
         safeProfile.age ? `${safeProfile.age} år` : null,
-        safeProfile.occupation || null,
+        occupations.length ? occupations.join(', ') : null,
         capitalizeFirst(safeProfile.gender),
     ].filter(Boolean);
     const metaEl = modalEl.querySelector('[data-rp-meta]');
@@ -132,7 +136,7 @@ function renderRoomieProfileCard(modalEl, profile) {
     if (emptyEl && isSparse) {
         const firstName = getFirstName(safeProfile.full_name);
         const hasIntro = Boolean(
-            safeProfile.profile_photo || safeProfile.age || safeProfile.gender || safeProfile.occupation
+            safeProfile.profile_photo || safeProfile.age || safeProfile.gender || occupations.length
         );
         const message = hasIntro
             ? `${firstName} har ikke skrevet så meget om sig selv endnu — skriv og sig hej 👋`

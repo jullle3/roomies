@@ -43,7 +43,7 @@ export const BLOG_POSTS = [
                 callout: {
                     icon: "fa-solid fa-users",
                     title: "Lad os fikse markedet sammen",
-                    text: "Kig forbi de ledige værelser eller læg dit eget op. Det er gratis at skrive til alle – og det forbliver gratis.",
+                    text: "Kig forbi de ledige værelser eller læg dit eget op. Det er gratis at skrive til alle – uden skjulte betalingsmure.",
                     cta: {
                         href: "/ledige-vaerelser",
                         view: "soeg_vaerelse",

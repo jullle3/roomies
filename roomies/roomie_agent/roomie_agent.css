@@ -252,11 +252,16 @@
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem;
-    min-height: 34px;
+}
+
+.roomie-agent-selected-areas:not(:empty) {
     margin-top: 0.85rem;
 }
 
-.roomie-agent-area-empty {
+/* Persistent helper under the area search; stays visible whether or not areas
+   are selected, so users always see how an empty list behaves. */
+.roomie-agent-area-hint {
+    margin: 0.5rem 0 0;
     color: var(--text-muted);
     font-size: 0.88rem;
     font-weight: 600;

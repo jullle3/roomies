@@ -40,7 +40,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cropperjs@1.6.2/dist/cropper.min.css">
 
     <!--    Custom Merged css files -->
-    <link rel="stylesheet" href="roomies/mergedStyles.css?roomies_version=1012">
+    <link rel="stylesheet" href="roomies/mergedStyles.css?roomies_version=1031">
     <style>
         .nav-auth-btn:active,
         .nav-auth-btn:focus,
@@ -59,7 +59,7 @@
             color: #ffffff !important;
         }
     </style>
-    <script defer type="module" src="roomies/mergedJS.js?roomies_version=1012"></script>
+    <script defer type="module" src="roomies/mergedJS.js?roomies_version=1031"></script>
 
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18047412076"></script>
@@ -116,7 +116,7 @@
         <a class="navbar-brand d-flex align-items-center gap-2 hover-lift" href="/" data-view="landing">
             <img src="/favicon/favicon.png" alt="Logo" class="navbar-logo" style="height: 36px; width: 36px; object-fit: contain;">
             <span class="fw-bolder tracking-tight brand-text" style="font-size: 1.4rem;">
-        <span class="text-primary-coral">Roomie</span>Danmark dev
+        <span class="text-primary-coral">Roomie</span>Danmark
     </span>
         </a>
 
@@ -480,6 +480,14 @@
                                 Derfor kombinerer vi gratis kontakt, klare annoncer og et beskedsystem, der hjælper med at holde dialogen samlet og tryg.
                             </p>
 
+                            <a href="/blog?slug=hvorfor-det-er-gratis-at-finde-en-roomie"
+                               data-view="blog"
+                               class="d-inline-flex align-items-center gap-2 text-decoration-none fw-bold mb-5"
+                               style="color: var(--color-primary);">
+                                Læs hele historien
+                                <i class="fa-solid fa-arrow-right"></i>
+                            </a>
+
                             <div class="d-flex flex-column flex-sm-row align-items-start align-items-sm-center gap-4">
                                 <a href="/boligovervaagning" data-view="agent" class="btn btn-primary-coral rounded-pill px-5 py-3 fw-bold shadow-sm hover-lift">
                                     Opret SøgeAgent
@@ -538,8 +546,7 @@
                         </h2>
                         <div id="collapseOneLanding" class="accordion-collapse collapse" data-bs-parent="#faqAccordionLanding">
                             <div class="accordion-body px-4 pb-4 pt-0 text-muted lh-lg">
-                                Ja! ALLE funktioner på siden er fuldstændig gratis, om det gælder at udleje dit værelse eller finde en roomie.
-                            </div>
+                                Ja! 🎉 Det er 100% gratis at bruge alle funktioner. Uanset om du leder efter dit næste hjem eller mangler den perfekte roomie, koster det dig ingenting – og der er absolut ingen skjulte betalingsmure. ✌️                            </div>
                         </div>
                     </div>
 
@@ -948,10 +955,19 @@
                         <div class="room-search-rent-inline">
                             <div class="room-search-slider-label d-flex align-items-center justify-content-between gap-2">
                                 <label class="form-label mb-0" for="room-search-rent-slider">Maks. husleje</label>
-                                <output id="room-search-rent-value" for="room-search-rent-slider">Alle priser</output>
+                                <output id="room-search-rent-value" for="room-search-rent-slider">10.000+</output>
                             </div>
                             <div id="room-search-rent-slider" class="room-search-slider" aria-label="Maksimal månedlig husleje"></div>
                             <input id="room-search-max-rent" name="max_rent" type="hidden" value="">
+                        </div>
+
+                        <div class="room-search-size-inline">
+                            <div class="room-search-slider-label d-flex align-items-center justify-content-between gap-2">
+                                <label class="form-label mb-0" for="room-search-size-slider">Min. størrelse</label>
+                                <output id="room-search-size-value" for="room-search-size-slider">5 m2+</output>
+                            </div>
+                            <div id="room-search-size-slider" class="room-search-slider" aria-label="Minimum værelsesstørrelse i m²"></div>
+                            <input id="room-search-min-size" name="min_size" type="hidden" value="">
                         </div>
 
                         <div class="dropdown">
@@ -989,10 +1005,6 @@
                                     <input class="btn-check" id="room-filter-furnished" name="furnished" type="checkbox" autocomplete="off">
                                     <label class="btn btn-outline-secondary rounded-pill px-3" for="room-filter-furnished">
                                         <i class="fa-solid fa-couch me-2"></i>Møbleret
-                                    </label>
-                                    <input class="btn-check" id="room-filter-registration" name="registration_allowed" type="checkbox" autocomplete="off">
-                                    <label class="btn btn-outline-secondary rounded-pill px-3" for="room-filter-registration">
-                                        <i class="fa-solid fa-address-card me-2"></i>CPR muligt
                                     </label>
                                     <input class="btn-check" id="room-filter-pets" name="pets_allowed" type="checkbox" autocomplete="off">
                                     <label class="btn btn-outline-secondary rounded-pill px-3" for="room-filter-pets">
@@ -1073,6 +1085,20 @@
                     <div id="faqCollapseConcept" class="accordion-collapse collapse" aria-labelledby="faqHeadingConcept" data-bs-parent="#faqAccordion">
                         <div class="accordion-body ps-5 pe-4 pb-4 pt-0 text-secondary lh-lg">
                             Det kan være uoverskueligt og dyrt at finde et værelse eller en roomie i Danmark. Det problem løser vi. <strong>Vores platform samler ledige værelser og boligsøgende ét sted</strong>, og via SøgeAgenten får du besked i samme sekund, et værelse matcher dine ønsker.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item border-0 border-bottom">
+                    <h2 class="accordion-header" id="faqHeadingFreeModel">
+                        <button class="accordion-button collapsed fw-bold py-4 px-4 bg-transparent" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapseFreeModel" aria-expanded="false" aria-controls="faqCollapseFreeModel" style="color: var(--company-dark); font-size: 1.1rem;">
+                            <i class="fa-solid fa-heart-circle-check me-3 text-primary"></i>
+                            Er det gratis at bruge hjemmesiden?
+                        </button>
+                    </h2>
+                    <div id="faqCollapseFreeModel" class="accordion-collapse collapse" aria-labelledby="faqHeadingFreeModel" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body ps-5 pe-4 pb-4 pt-0 text-secondary lh-lg">
+                            Ja! 🎉 Det er 100% gratis at bruge alle funktioner. Uanset om du leder efter dit næste hjem eller mangler den perfekte roomie, koster det dig ingenting – og der er absolut ingen skjulte betalingsmure. ✌️                            <br><br>
                         </div>
                     </div>
                 </div>
@@ -1340,13 +1366,6 @@
                                             <span class="facility-text">Opvaskemaskine</span>
                                         </label>
                                     </div>
-                                    <div class="col-md-6">
-                                        <input class="facility-check-input" type="checkbox" id="rent_room_registration" name="registration_allowed">
-                                        <label class="facility-card rent-room-toggle-card" for="rent_room_registration">
-                                            <i class="fa-solid fa-address-card"></i>
-                                            <span class="facility-text">CPR-adresse er mulig</span>
-                                        </label>
-                                    </div>
                                     <div class="col-md-6" id="rent-room-aconto-wrapper">
                                         <label for="rent_room_aconto_monthly" class="form-label">Aconto pr. måned</label>
                                         <div class="input-group">
@@ -1453,7 +1472,7 @@
                                             </select>
                                         </div>
                                         <div class="col-md-4">
-                                            <label class="form-label" data-label-for="monthly_rent">Husleje inkl. forbrug</label>
+                                            <label class="form-label" data-label-for="monthly_rent">Husleje</label>
                                             <div class="input-group">
                                                 <input class="form-control" data-room-field="monthly_rent" type="number" inputmode="numeric" min="0" required placeholder="fx 5200">
                                                 <span class="input-group-text">kr.</span>
@@ -1493,7 +1512,7 @@
                                         <div class="col-md-6">
                                             <label class="form-label" data-label-for="size">Størrelse</label>
                                             <div class="input-group">
-                                                <input class="form-control" data-room-field="size" type="number" inputmode="numeric" min="1" required placeholder="fx 15">
+                                                <input class="form-control" data-room-field="size" type="number" inputmode="numeric" min="1" required placeholder="fx 8">
                                                 <span class="input-group-text">m²</span>
                                             </div>
                                         </div>
@@ -1691,7 +1710,20 @@
                                         </div>
                                         <div class="col-md-6">
                                             <label class="form-label" for="profile-occupation">Beskæftigelse</label>
-                                            <input type="text" class="form-control" id="profile-occupation" name="occupation" maxlength="80" placeholder="Studerende, arbejder fuldtid...">
+                                            <div class="dropdown roomie-multiselect">
+                                                <button class="form-select text-start roomie-multiselect-toggle" type="button" id="profile-occupation" data-bs-toggle="dropdown" data-bs-auto-close="true" aria-expanded="false">
+                                                    <span class="roomie-multiselect-label is-placeholder" data-occupation-label>Vælg beskæftigelse</span>
+                                                </button>
+                                                <div class="dropdown-menu w-100 roomie-multiselect-menu">
+                                                    <label class="roomie-multiselect-item"><input type="radio" class="form-check-input" name="occupation" value="Studerende"><span>Studerende</span></label>
+                                                    <label class="roomie-multiselect-item"><input type="radio" class="form-check-input" name="occupation" value="Fuldtidsarbejde"><span>Fuldtidsarbejde</span></label>
+                                                    <label class="roomie-multiselect-item"><input type="radio" class="form-check-input" name="occupation" value="Deltidsarbejde"><span>Deltidsarbejde</span></label>
+                                                    <label class="roomie-multiselect-item"><input type="radio" class="form-check-input" name="occupation" value="Selvstændig"><span>Selvstændig</span></label>
+                                                    <label class="roomie-multiselect-item"><input type="radio" class="form-check-input" name="occupation" value="Praktikant / lærling"><span>Praktikant / lærling</span></label>
+                                                    <label class="roomie-multiselect-item"><input type="radio" class="form-check-input" name="occupation" value="Jobsøgende"><span>Jobsøgende</span></label>
+                                                    <label class="roomie-multiselect-item"><input type="radio" class="form-check-input" name="occupation" value="Andet"><span>Andet</span></label>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
 
@@ -2513,7 +2545,20 @@
                             </div>
                             <div class="col-6">
                                 <label class="form-label" for="ob-occupation">Beskæftigelse</label>
-                                <input type="text" class="form-control" id="ob-occupation" data-ob-occupation maxlength="80" placeholder="Studerende...">
+                                <div class="dropdown roomie-multiselect">
+                                    <button class="form-select text-start roomie-multiselect-toggle" type="button" id="ob-occupation" data-ob-occupation data-bs-toggle="dropdown" data-bs-auto-close="true" aria-expanded="false">
+                                        <span class="roomie-multiselect-label is-placeholder" data-ob-occupation-label>Vælg beskæftigelse</span>
+                                    </button>
+                                    <div class="dropdown-menu w-100 roomie-multiselect-menu">
+                                        <label class="roomie-multiselect-item"><input type="radio" class="form-check-input" name="ob-occupation" value="Studerende"><span>Studerende</span></label>
+                                        <label class="roomie-multiselect-item"><input type="radio" class="form-check-input" name="ob-occupation" value="Fuldtidsarbejde"><span>Fuldtidsarbejde</span></label>
+                                        <label class="roomie-multiselect-item"><input type="radio" class="form-check-input" name="ob-occupation" value="Deltidsarbejde"><span>Deltidsarbejde</span></label>
+                                        <label class="roomie-multiselect-item"><input type="radio" class="form-check-input" name="ob-occupation" value="Selvstændig"><span>Selvstændig</span></label>
+                                        <label class="roomie-multiselect-item"><input type="radio" class="form-check-input" name="ob-occupation" value="Praktikant / lærling"><span>Praktikant / lærling</span></label>
+                                        <label class="roomie-multiselect-item"><input type="radio" class="form-check-input" name="ob-occupation" value="Jobsøgende"><span>Jobsøgende</span></label>
+                                        <label class="roomie-multiselect-item"><input type="radio" class="form-check-input" name="ob-occupation" value="Andet"><span>Andet</span></label>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 

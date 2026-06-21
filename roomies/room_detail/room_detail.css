@@ -354,6 +354,13 @@
     line-height: 1.8;
 }
 
+/* Preserve line breaks the host typed in the description, while still collapsing
+   runs of spaces and wrapping long words. */
+.room-detail-description {
+    white-space: pre-line;
+    overflow-wrap: anywhere;
+}
+
 .room-detail-feature-grid {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -596,8 +603,8 @@
     line-height: 1;
 }
 
-/* Expandable "Husleje inkl. forbrug" headline — keeps the big coral total as the
-   primary signal, with husleje + forbrug one tap away (mirrors .room-detail-movein). */
+/* Expandable "Husleje" headline — keeps the big coral total as the
+   primary signal, with husleje one tap away (mirrors .room-detail-movein). */
 .room-detail-total {
     margin-bottom: 1.25rem;
 }
@@ -811,12 +818,32 @@
     border: 2px solid rgba(255, 255, 255, 0.85);
 }
 
+.room-detail-inline-cta-wrap {
+    margin-bottom: 1.5rem;
+}
+
+/* Desktop: share pill shrinks to its label and tucks under the right-aligned
+   contact button, instead of stretching the full row width. */
+@media (min-width: 768px) {
+    .room-detail-inline-cta-wrap {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .room-detail-inline-cta-wrap .room-detail-share-btn {
+        width: auto !important;
+        align-self: flex-end;
+        padding-left: 1.75rem;
+        padding-right: 1.75rem;
+    }
+}
+
 .room-detail-inline-cta {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 1rem;
-    margin-bottom: 1.5rem;
     padding: 1.25rem;
     border: 1px solid rgba(255, 107, 107, 0.22);
     border-radius: var(--radius-xl);

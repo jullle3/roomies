@@ -1,4 +1,6 @@
-
+- Du kunne også som yderligere ting gøre sådan, at brugere kan oprette sig som "søger værelse" - så kan alle dem der har et værelse selv scanne markedet og se hvem de gider mødes med uden at lave et opslag. Det er dog mere en beslutning, om man er interesseret i dét, kan nok få en del creeps til at skrive til unge piger xD
+- Haha, at skrive det gav mig lige en ny ide - du kan også lave sådan et "matching system", med nogle helt basic spørgsmål ala kandidattest, bare for lejligheder. Sådan noget med renlighed, hobbyer og hvad ved jeg. Kunne da være sådan en sjov ting der adskilte dig fra alle andre
+- MitID verificering af brugere?
 
 
 Grupper at skrive i

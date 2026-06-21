@@ -90,8 +90,8 @@ const STATIC_SEO_ROUTES = {
         }
     },
     '/': {
-        title: 'Værelse til leje & studiebolig i hele Danmark | Roomie Danmark',
-        desc: 'Find ledige værelser, studieboliger og din næste roomie i København, Aarhus, Odense og Aalborg. Skriv gratis til alle – ingen betalingsmur.'
+        title: 'Find værelse til leje – eller udlej dit eget | Roomie Danmark',
+        desc: 'Find ledige værelser i København, Aarhus, Odense og Aalborg – eller udlej dit værelse gratis. Skriv gratis til alle roomies, ingen betalingsmur.'
     }
 };
 

@@ -1,8 +1,3 @@
-Post roomie opslag søndag kl 1900
- Skriv i https://www.facebook.com/groups/roomieskobenhavn/
- og https://www.facebook.com/groups/320108652008/
-
-
 Grupper at skrive i
 https://www.facebook.com/groups/LejeboligerAarhus/
 https://www.facebook.com/groups/roomieskobenhavn/
@@ -11,6 +6,11 @@ https://www.facebook.com/groups/minlejeboligaarhus/
 https://www.facebook.com/groups/320108652008/
 https://www.facebook.com/groups/LedigeLejlighederKBH
 https://www.facebook.com/groups/boliger.koebenhavn
+
+grupper DONE
+https://www.facebook.com/groups/roomieskobenhavn/ - done https://www.facebook.com/groups/320108652008/permalink/10165404711827009/
+https://www.facebook.com/groups/320108652008/ - done https://www.facebook.com/groups/roomieskobenhavn/permalink/1519984182837556/
+
 
 - Roomies, skriv til aviser og nyheds medier https://g.co/gemini/share/a1ffaa90fc9e
 - Roomie Reddit og FB Opslag - https://gemini.google.com/gem/c9297fa0daa6/f6fccd4db7de4739?hl=da

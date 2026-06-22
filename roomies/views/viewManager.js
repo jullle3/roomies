@@ -4,7 +4,7 @@ import {
     updateMetaTags
 } from "../utils.js";
 import {basePath} from "../config/config.js";
-import {loadProfileView} from "../profile/profile.js";
+import {loadProfileView, isHumanProfileFormDirty, submitHumanProfile} from "../profile/profile.js";
 import {renderConversations} from "../conversations/conversations.js";
 import {closeNavbarMenu} from "../header/header.js";
 import {renderRoomDetail} from "../room_detail/room_detail.js";
@@ -180,6 +180,13 @@ const landingAnchorTargets = new Set(['#scanner-section']);
 // UPDATE: Added 'updateUrl' parameter (defaults to true) to support PSEO
 export async function showView(view, viewParams = new URLSearchParams(), updateUrl = true, options = {}) {
     viewParams = normalizeParams(viewParams);
+
+    // Warn before leaving the profile editor with unsaved roomie-profile edits.
+    if (!options.bypassLeaveGuard && currentView === 'profile' && view !== 'profile' && isHumanProfileFormDirty()) {
+        promptLeaveProfile({view, viewParams, updateUrl, options});
+        return;
+    }
+
     const requestedHash = normalizeLandingHash(view, options.hash);
     const shouldRestoreScroll = options.restoreScroll === true;
 
@@ -318,6 +325,61 @@ export function displayLoginModal(requestedView, viewParams) {
 
     const loginModal = new bootstrap.Modal(document.getElementById('loginModal'));
     loginModal.show();
+}
+
+// --- Unsaved-changes guard for the profile editor ---------------------------
+// Navigation is intercepted in showView (and popstate) when the roomie-profile
+// form has unsaved edits. The user can save first, leave anyway, or stay.
+let pendingLeaveNav = null;
+let leaveConfirmed = false;
+
+function promptLeaveProfile(nav) {
+    const modalEl = document.getElementById('profileLeaveGuardModal');
+
+    // Fail open with a native confirm so we never trap the user if the modal or
+    // Bootstrap is unavailable.
+    if (!modalEl || !window.bootstrap) {
+        const leave = window.confirm('Du har ændringer i din profil, som ikke er gemt. Vil du forlade siden uden at gemme?');
+        if (leave) {
+            showView(nav.view, nav.viewParams, nav.updateUrl, {...nav.options, bypassLeaveGuard: true});
+        }
+        return;
+    }
+
+    pendingLeaveNav = nav;
+    leaveConfirmed = false;
+    const modal = window.bootstrap.Modal.getOrCreateInstance(modalEl);
+    bindProfileLeaveGuard(modalEl, modal);
+    modal.show();
+}
+
+function bindProfileLeaveGuard(modalEl, modal) {
+    if (modalEl.dataset.bound === '1') return;
+    modalEl.dataset.bound = '1';
+
+    modalEl.querySelector('[data-profile-leave-discard]')?.addEventListener('click', () => {
+        leaveConfirmed = true;
+        modal.hide();
+    });
+
+    modalEl.querySelector('[data-profile-leave-save]')?.addEventListener('click', async () => {
+        // Keep the dialog open if saving fails (e.g. validation) so the user can
+        // still choose to leave without saving.
+        const saved = await submitHumanProfile();
+        if (!saved) return;
+        leaveConfirmed = true;
+        modal.hide();
+    });
+
+    // Navigate only after the modal has fully closed, so its backdrop is removed
+    // before the next view renders. Dismissing (X / "Bliv her" / backdrop) stays.
+    modalEl.addEventListener('hidden.bs.modal', () => {
+        const nav = pendingLeaveNav;
+        pendingLeaveNav = null;
+        if (!leaveConfirmed || !nav) return;
+        leaveConfirmed = false;
+        showView(nav.view, nav.viewParams, nav.updateUrl, {...nav.options, bypassLeaveGuard: true});
+    });
 }
 
 // Load content for a given view
@@ -782,6 +844,25 @@ window.addEventListener('popstate', (event) => {
         return;
     }
 
+    // Guard unsaved profile edits on browser back/forward. The URL already moved,
+    // so re-assert the profile URL to keep the user put until they decide.
+    const popTargetView = (event.state && event.state.view) ? event.state.view : (pathToView(path) || 'landing');
+    if (currentView === 'profile' && popTargetView !== 'profile' && isHumanProfileFormDirty()) {
+        const popTargetParams = new URLSearchParams((event.state && event.state.params) || window.location.search || '');
+        history.pushState(
+            {view: 'profile', params: currentViewParams.toString()},
+            '',
+            buildViewUrl('profile', currentViewParams) || window.location.href
+        );
+        promptLeaveProfile({
+            view: popTargetView,
+            viewParams: popTargetParams,
+            updateUrl: true,
+            options: {restoreScroll: true}
+        });
+        return;
+    }
+
     if (event.state && event.state.view) {
         const params = new URLSearchParams(event.state.params || '');
 
@@ -809,6 +890,16 @@ window.addEventListener('popstate', (event) => {
     }).catch(err => {
         console.error("Error loading view on popstate:", err);
     });
+});
+
+// Native browser warning for hard reloads, tab close, or external navigation,
+// which SPA interception can't catch. Only triggers with unsaved profile edits.
+window.addEventListener('beforeunload', (event) => {
+    if (currentView === 'profile' && isHumanProfileFormDirty()) {
+        event.preventDefault();
+        event.returnValue = '';
+        return '';
+    }
 });
 
 window.showView = showView;

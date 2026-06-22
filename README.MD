@@ -1,37 +1,14 @@
-- Bedre cards, se gemini chat
-- Man skal kunne se folks profil på find roomie view, på samme måde som detail view
-- Hvis man forsøger at forlade profile view og man har indtastet data men ikke trykket "Gem roomie-profil", da vis en advarsel og spørg om de er sikker på de vil forlade det eller om de vil gemme først. Evt hav en gem knap i popup
+- please require users to select minimum 1 of these. Also please ensure that the roomie profile popup is only shown if the roomieprofile of the given logged in user is missing any of the required fields (the ones witth asterix)
 
-- 
-- Der er noget broken når jeg trykker Gem roomie profil, i hvert fald bug med vibe tags, den sender de samme flere gange..
-example response {
-  "detail": [
-  {
-  "type": "too_long",
-  "loc": [
-  "body",
-  "roomie_profile",
-  "interests"
-  ],
-  "msg": "List should have at most 5 items after validation, not 8",
-  "input": [
-  "🍻 Socialt anlagt",
-  "🎧 Privatliv",
-  "☕ Fællesspisning",
-  "🧹 Rengøringsplan",
-  "🍻 Socialt anlagt",
-  "🎧 Privatliv",
-  "☕ Fællesspisning",
-  "🧹 Rengøringsplan"
-  ],
-  "ctx": {
-  "field_type": "List",
-  "max_length": 5,
-  "actual_length": 8
-  }
-  }
-  ]
-  }
+Jeg søger værelse 🔍
+Vis min profil, så udlejere kan finde mig. Email og telefon vises aldrig.
+
+Jeg mangler en roomie 🛋️
+Gør det nemt at finde dit perfekte match.
+
+
+- Bedre cards, se gemini chat
+- Man skal kunne trykke ind på folks profil på find roomie view, på samme måde som detail view
 
 
 - For meget tekst i nyt slide på roomie profile popup

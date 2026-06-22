@@ -40,7 +40,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cropperjs@1.6.2/dist/cropper.min.css">
 
     <!--    Custom Merged css files -->
-    <link rel="stylesheet" href="roomies/mergedStyles.css?roomies_version=1060">
+    <link rel="stylesheet" href="roomies/mergedStyles.css?roomies_version=1061">
     <style>
         .nav-auth-btn:active,
         .nav-auth-btn:focus,
@@ -59,7 +59,7 @@
             color: #ffffff !important;
         }
     </style>
-    <script defer type="module" src="roomies/mergedJS.js?roomies_version=1060"></script>
+    <script defer type="module" src="roomies/mergedJS.js?roomies_version=1061"></script>
 
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18047412076"></script>
@@ -2910,6 +2910,32 @@
                         <h3 class="roomie-profile-label">Lidt om mig</h3>
                         <p class="roomie-profile-desc" data-rp-desc></p>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Unsaved profile changes guard -->
+<div class="modal fade" id="profileLeaveGuardModal" tabindex="-1" aria-labelledby="profileLeaveGuardLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 shadow-lg">
+            <div class="modal-body p-4 p-md-5 text-center">
+                <div class="mb-3"><i class="fa-regular fa-floppy-disk fa-2x text-primary-coral"></i></div>
+                <h2 class="h4 fw-bold mb-2" id="profileLeaveGuardLabel">Gem dine ændringer? 💾</h2>
+                <p class="text-muted mb-4">
+                    Du har ændringer i din roomie-profil, som ikke er gemt endnu. Vil du gemme, før du går videre?
+                </p>
+                <div class="d-grid gap-2">
+                    <button class="btn btn-primary-coral rounded-pill py-3 fw-bold" type="button" data-profile-leave-save>
+                        <i class="fa-regular fa-floppy-disk me-2"></i>Gem og forlad
+                    </button>
+                    <button class="btn btn-light rounded-pill py-3 fw-bold" type="button" data-profile-leave-discard>
+                        Forlad uden at gemme
+                    </button>
+                    <button class="btn btn-link text-muted fw-semibold text-decoration-none" type="button" data-bs-dismiss="modal">
+                        Bliv her
+                    </button>
                 </div>
             </div>
         </div>

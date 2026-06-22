@@ -15,6 +15,21 @@ let pendingProfilePhotoFile = null;
 let currentRoomieProfileSnapshot = {};
 let selectedProfileAreas = [];
 
+// Tracks whether the roomie-profile form has edits the user hasn't saved yet, so
+// navigation can warn before leaving. The photo is excluded because it uploads
+// immediately on selection (see handleProfilePhotoSelected).
+let humanProfileDirty = false;
+
+export function isHumanProfileFormDirty() {
+    return humanProfileDirty === true;
+}
+
+function markHumanProfileDirty(event) {
+    // The photo input auto-saves, so its changes don't count as unsaved edits.
+    if (event && event.target && event.target.id === 'profile-photo-input') return;
+    humanProfileDirty = true;
+}
+
 export function setupProfileView() {
     setupProfileSettingsHandlers();
     setupConversationsShortcut();
@@ -208,6 +223,10 @@ function setupHumanProfileHandlers() {
     bindProfileIntentControls();
     bindProfileAreaPicker();
 
+    // Mark the form dirty on any user edit so we can warn before leaving unsaved.
+    form.addEventListener('input', markHumanProfileDirty);
+    form.addEventListener('change', markHumanProfileDirty);
+
     form.addEventListener('submit', handleHumanProfileSubmit);
 }
 
@@ -276,6 +295,7 @@ function bindProfileAreaPicker() {
         renderSelectedProfileAreas();
         renderProfileAreaSuggestions(input.value);
         refreshProfileSubmitState();
+        markHumanProfileDirty();
     });
 }
 
@@ -321,23 +341,32 @@ function addProfileArea(areaId) {
     renderSelectedProfileAreas();
     renderProfileAreaSuggestions('');
     refreshProfileSubmitState();
+    markHumanProfileDirty();
 }
 
-async function handleHumanProfileSubmit(event) {
+function handleHumanProfileSubmit(event) {
     event.preventDefault();
+    submitHumanProfile();
+}
 
+// Saves the roomie-profile form. Returns true on success (and clears the dirty
+// flag) or false when validation or the request fails. Exported so the leave
+// guard can offer a "Gem og forlad" action.
+export async function submitHumanProfile() {
     const validationError = getProfileValidationError();
     if (validationError) {
         displayErrorMessage(validationError);
-        return;
+        return false;
     }
 
-    const form = event.currentTarget;
-    const submitButton = form.querySelector('[type="submit"]');
+    const form = document.getElementById('profileHumanForm');
+    const submitButton = form?.querySelector('[type="submit"]');
 
-    submitButton.disabled = true;
-    submitButton.dataset.originalText = submitButton.innerHTML;
-    submitButton.innerHTML = '<span class="spinner-border spinner-border-sm me-2" aria-hidden="true"></span>Gemmer...';
+    if (submitButton) {
+        submitButton.disabled = true;
+        submitButton.dataset.originalText = submitButton.innerHTML;
+        submitButton.innerHTML = '<span class="spinner-border spinner-border-sm me-2" aria-hidden="true"></span>Gemmer...';
+    }
 
     try {
         await uploadPendingProfilePhoto();
@@ -356,13 +385,18 @@ async function handleHumanProfileSubmit(event) {
         const updatedUser = await response.json();
         setCurrentUser(updatedUser);
         currentRoomieProfileSnapshot = getRoomieProfile(updatedUser);
+        humanProfileDirty = false;
         displaySuccessMessage('Din roomie-profil er gemt.');
+        return true;
     } catch (error) {
         console.error('Could not save human profile:', error);
         displayErrorMessage(error.message || 'Kunne ikke gemme din roomie-profil.');
+        return false;
     } finally {
-        submitButton.disabled = false;
-        submitButton.innerHTML = submitButton.dataset.originalText || 'Gem roomie-profil';
+        if (submitButton) {
+            submitButton.disabled = false;
+            submitButton.innerHTML = submitButton.dataset.originalText || 'Gem roomie-profil';
+        }
     }
 }
 
@@ -622,6 +656,9 @@ function populateHumanProfileForm(userProfile = {}) {
 
     updateDescriptionCount();
     refreshProfileSubmitState();
+
+    // Freshly loaded data is the saved baseline — no unsaved edits yet.
+    humanProfileDirty = false;
 }
 
 // Greys out the "Gem roomie-profil" button until every required field is valid,

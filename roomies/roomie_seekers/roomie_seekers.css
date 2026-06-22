@@ -296,6 +296,12 @@
     margin-bottom: 1rem;
 }
 
+/* Let the name/meta column shrink so .text-truncate can ellipsis long values
+   instead of pushing the card layout out of shape. */
+.roomie-seeker-identity {
+    min-width: 0;
+}
+
 .roomie-seeker-avatar {
     width: 68px;
     height: 68px;
@@ -352,6 +358,11 @@
     color: var(--color-primary);
 }
 
+/* min-width:0 lets the value shrink inside the flex row so .text-truncate works. */
+.roomie-seeker-match-grid span {
+    min-width: 0;
+}
+
 .roomie-seeker-vibes {
     display: flex;
     flex-wrap: wrap;
@@ -369,10 +380,18 @@
 }
 
 .roomie-seeker-description {
+    margin-bottom: 1.15rem;
     color: var(--text-muted);
     font-size: 0.92rem;
     font-weight: 600;
     line-height: 1.55;
+    /* Clamp to 3 lines so cards in a row keep a uniform height regardless of how
+       much each roomie wrote. */
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 
 .roomie-seekers-empty,

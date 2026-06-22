@@ -205,44 +205,50 @@ function normalizeProfile(raw) {
 
 function renderSeekerCard(profile) {
     const avatar = renderAvatar(profile);
+    const name = profile.firstName || "Roomie";
     const meta = [
         profile.age ? `${profile.age} år` : null,
         profile.occupations.length ? profile.occupations.join(", ") : null,
         capitalizeFirst(profile.gender)
-    ].filter(Boolean).join(" · ");
-    const areas = profile.areaLabels.length ? profile.areaLabels.slice(0, 3).join(", ") : "Åben for flere områder";
-    const budget = profile.monthlyPriceMax ? `Op til ${formatNumber(profile.monthlyPriceMax)} kr./md` : "Budget efter aftale";
+    ].filter(Boolean).join(" · ") || "Boligsøgende roomie";
+    // Friendly, emoji-backed fallbacks so a sparse profile still feels human.
+    const areas = profile.areaLabels.length ? profile.areaLabels.slice(0, 3).join(", ") : "Overalt i Danmark 🇩🇰";
+    const budget = profile.monthlyPriceMax ? `Maks ${formatNumber(profile.monthlyPriceMax)} kr./md` : "Budget efter aftale 🤝";
+    // Max 4 vibe tags keeps the card scannable (design system constraint).
     const vibes = profile.interests.slice(0, 4).map(interest => `<span>${escapeHtml(interest)}</span>`).join("");
-    const description = profile.description || "Har ikke skrevet en beskrivelse endnu, men profilen er klar til at blive kontaktet.";
+    // Warm first-person fallback reads like a real person, not a database row.
+    const description = profile.description
+        ? escapeHtml(profile.description)
+        : "Jeg leder efter et hyggeligt sted at bo og nogle skønne roomies. Skriv endelig til mig! 👋";
 
     return `
         <div class="col-12 col-md-6 col-xl-4">
             <article class="roomie-seeker-card h-100">
                 <div class="roomie-seeker-card-head">
                     ${avatar}
-                    <div>
-                        <h3>${escapeHtml(profile.firstName || "Roomie")}</h3>
-                        <p>${escapeHtml(meta || "Boligsøgende roomie")}</p>
+                    <div class="roomie-seeker-identity">
+                        <h3 class="text-truncate" title="${escapeAttribute(name)}">${escapeHtml(name)}</h3>
+                        <p class="text-truncate" title="${escapeAttribute(meta)}">${escapeHtml(meta)}</p>
                     </div>
                 </div>
 
                 <div class="roomie-seeker-match-grid">
                     <div>
                         <i class="fa-solid fa-location-dot"></i>
-                        <span>${escapeHtml(areas)}</span>
+                        <span class="text-truncate" title="${escapeAttribute(areas)}">${escapeHtml(areas)}</span>
                     </div>
                     <div>
                         <i class="fa-solid fa-wallet"></i>
-                        <span>${escapeHtml(budget)}</span>
+                        <span class="text-truncate" title="${escapeAttribute(budget)}">${escapeHtml(budget)}</span>
                     </div>
                 </div>
 
                 ${vibes ? `<div class="roomie-seeker-vibes">${vibes}</div>` : ""}
 
-                <p class="roomie-seeker-description">${escapeHtml(description)}</p>
+                <p class="roomie-seeker-description">${description}</p>
 
-                <button type="button" class="btn btn-primary-coral rounded-pill fw-bold w-100 py-3 mt-auto" data-contact-seeker="${escapeAttribute(profile.id)}">
-                    <i class="fa-regular fa-message me-2"></i>Skriv til roomie
+                <button type="button" class="btn btn-primary-coral rounded-pill fw-bold w-100 py-3 mt-auto shadow-sm" data-contact-seeker="${escapeAttribute(profile.id)}">
+                    <i class="fa-regular fa-paper-plane me-2"></i>Send besked
                 </button>
             </article>
         </div>

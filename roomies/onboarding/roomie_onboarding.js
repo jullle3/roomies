@@ -222,7 +222,8 @@ function openRoomieOnboarding(contextKey, user) {
         };
         const onAreaDocumentClick = event => {
             if (!els.areaSuggestions || event.target === els.areaSearch || els.areaSuggestions.contains(event.target)) return;
-            els.areaSuggestions.innerHTML = "";
+            // Keep the default area hints visible rather than clearing the list.
+            renderAreaSuggestions(els, "");
         };
 
         const onSubmit = async event => {
@@ -231,6 +232,15 @@ function openRoomieOnboarding(contextKey, user) {
                 currentStep = 0;
                 goToStep(els, 0);
                 showPhotoError("Tilføj et profilbillede for at fortsætte.");
+                return;
+            }
+
+            const seekerError = getSeekerValidationError(els);
+            if (seekerError) {
+                // Seeker fields live on step 1 — jump back so the user sees them.
+                currentStep = 1;
+                goToStep(els, 1);
+                displayErrorMessage(seekerError);
                 return;
             }
 
@@ -379,6 +389,21 @@ function updateOccupationLabel(els) {
 // Seeker-only block: budget + desired areas. Hidden unless the user is seeking.
 function updateSeekerFieldsVisibility(els) {
     els.seekerFields?.classList.toggle("d-none", !els.seekingRoom?.checked);
+}
+
+// When seeking a room, budget + at least one desired area are required so people
+// with rooms can match them. Returns an error string or null.
+function getSeekerValidationError(els) {
+    if (!els.seekingRoom?.checked) return null;
+
+    const priceMax = parseInteger(els.monthlyPriceMax?.value);
+    if (!priceMax || priceMax <= 0) {
+        return "Angiv din maks husleje pr. måned, når du søger værelse.";
+    }
+    if (!selectedAreas.length) {
+        return "Vælg mindst ét ønsket område, når du søger værelse.";
+    }
+    return null;
 }
 
 function renderAreaSuggestions(els, query = "") {

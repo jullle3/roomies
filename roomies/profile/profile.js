@@ -246,7 +246,8 @@ function bindProfileAreaPicker() {
 
     document.addEventListener('click', event => {
         if (event.target === input || suggestions.contains(event.target)) return;
-        suggestions.innerHTML = '';
+        // Keep the default area hints visible rather than clearing the list.
+        renderProfileAreaSuggestions('');
     });
 
     document.getElementById('profile-selected-areas')?.addEventListener('click', event => {
@@ -305,6 +306,12 @@ function addProfileArea(areaId) {
 async function handleHumanProfileSubmit(event) {
     event.preventDefault();
 
+    const seekerError = getProfileSeekerValidationError();
+    if (seekerError) {
+        displayErrorMessage(seekerError);
+        return;
+    }
+
     const form = event.currentTarget;
     const submitButton = form.querySelector('[type="submit"]');
 
@@ -337,6 +344,23 @@ async function handleHumanProfileSubmit(event) {
         submitButton.disabled = false;
         submitButton.innerHTML = submitButton.dataset.originalText || 'Gem roomie-profil';
     }
+}
+
+// When the user is seeking a room, budget + at least one desired area are required
+// so people with rooms can actually match them. Returns an error string or null.
+function getProfileSeekerValidationError() {
+    if (!document.getElementById('profile-seeking-room')?.checked) return null;
+
+    const priceMax = parseInteger(document.getElementById('profile-monthly-price-max')?.value);
+    if (!priceMax || priceMax <= 0) {
+        document.getElementById('profile-monthly-price-max')?.focus();
+        return 'Angiv din maks husleje pr. måned, når du søger værelse.';
+    }
+    if (!selectedProfileAreas.length) {
+        document.getElementById('profile-area-search')?.focus();
+        return 'Vælg mindst ét ønsket område, når du søger værelse.';
+    }
+    return null;
 }
 
 function getHumanProfilePayload() {

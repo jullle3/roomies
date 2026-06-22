@@ -40,7 +40,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cropperjs@1.6.2/dist/cropper.min.css">
 
     <!--    Custom Merged css files -->
-    <link rel="stylesheet" href="roomies/mergedStyles.css?roomies_version=1064">
+    <link rel="stylesheet" href="roomies/mergedStyles.css?roomies_version=1069">
     <style>
         .nav-auth-btn:active,
         .nav-auth-btn:focus,
@@ -59,7 +59,7 @@
             color: #ffffff !important;
         }
     </style>
-    <script defer type="module" src="roomies/mergedJS.js?roomies_version=1064"></script>
+    <script defer type="module" src="roomies/mergedJS.js?roomies_version=1069"></script>
 
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18047412076"></script>
@@ -1116,61 +1116,15 @@
                             </div>
                         </div>
 
-                        <div class="dropdown">
-                            <button class="btn roomie-seekers-filter-toggle" id="roomie-seekers-filter-toggle" type="button" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false" aria-label="Vis flere filtre">
-                                <i class="fa-solid fa-sliders"></i>
-                            </button>
-                            <div class="dropdown-menu dropdown-menu-end roomie-seekers-filter-menu" aria-labelledby="roomie-seekers-filter-toggle">
-                                <div class="roomie-seekers-filter-heading">
-                                    <h2 class="h6 fw-bold mb-1">Match på mennesket</h2>
-                                    <p class="small text-muted mb-0">Brug filtrene som en hjælp, ikke som en hård facitliste.</p>
-                                </div>
-
-                                <div class="roomie-seekers-filter-block">
-                                    <label class="form-label" for="roomie-seekers-occupation">Beskæftigelse</label>
-                                    <select id="roomie-seekers-occupation" class="form-select" name="occupation">
-                                        <option value="">Alle</option>
-                                        <option value="Studerende">Studerende</option>
-                                        <option value="Fuldtidsarbejde">Fuldtidsarbejde</option>
-                                        <option value="Deltidsarbejde">Deltidsarbejde</option>
-                                        <option value="Selvstændig">Selvstændig</option>
-                                        <option value="Praktikant / lærling">Praktikant / lærling</option>
-                                        <option value="Jobsøgende">Jobsøgende</option>
-                                        <option value="Andet">Andet</option>
-                                    </select>
-                                </div>
-
-                                <div class="roomie-seekers-filter-block">
-                                    <label class="form-label" for="roomie-seekers-gender">Køn</label>
-                                    <select id="roomie-seekers-gender" class="form-select" name="gender">
-                                        <option value="">Alle</option>
-                                        <option value="mand">Mand</option>
-                                        <option value="kvinde">Kvinde</option>
-                                    </select>
-                                </div>
-
-                                <div class="roomie-seekers-filter-block">
-                                    <label class="form-label" for="roomie-seekers-query">Søg i profiler</label>
-                                    <input id="roomie-seekers-query" name="q" type="search" class="form-control" placeholder="Fx rolig, veganer, rengøring">
-                                </div>
-
-                                <div class="roomie-seekers-vibe-filter">
-                                    <span class="form-label d-block">Roomie-vibes</span>
-                                    <div class="roomie-seekers-vibe-grid">
-                                        <input class="btn-check" id="seeker-vibe-social" name="interests" type="checkbox" value="🍻 Socialt anlagt">
-                                        <label for="seeker-vibe-social">🍻 Socialt</label>
-                                        <input class="btn-check" id="seeker-vibe-private" name="interests" type="checkbox" value="🎧 Privatliv">
-                                        <label for="seeker-vibe-private">🎧 Privatliv</label>
-                                        <input class="btn-check" id="seeker-vibe-dinner" name="interests" type="checkbox" value="☕ Fællesspisning">
-                                        <label for="seeker-vibe-dinner">☕ Fællesspisning</label>
-                                        <input class="btn-check" id="seeker-vibe-cleaning" name="interests" type="checkbox" value="🧹 Rengøringsplan">
-                                        <label for="seeker-vibe-cleaning">🧹 Rengøring</label>
-                                        <input class="btn-check" id="seeker-vibe-calm" name="interests" type="checkbox" value="🤫 Roligt hjem">
-                                        <label for="seeker-vibe-calm">🤫 Roligt</label>
-                                        <input class="btn-check" id="seeker-vibe-pets" name="interests" type="checkbox" value="🐶 Dyreven">
-                                        <label for="seeker-vibe-pets">🐶 Dyreven</label>
-                                    </div>
-                                </div>
+                        <div class="roomie-seekers-gender-field">
+                            <span class="form-label d-block">Køn</span>
+                            <div class="roomie-seekers-gender-toggle" role="group" aria-label="Filtrér på køn">
+                                <input class="btn-check" type="radio" name="gender" id="seeker-gender-all" value="" checked>
+                                <label for="seeker-gender-all">Alle</label>
+                                <input class="btn-check" type="radio" name="gender" id="seeker-gender-woman" value="kvinde">
+                                <label for="seeker-gender-woman">Kvinde</label>
+                                <input class="btn-check" type="radio" name="gender" id="seeker-gender-man" value="mand">
+                                <label for="seeker-gender-man">Mand</label>
                             </div>
                         </div>
                     </div>
@@ -1195,7 +1149,7 @@
                 <div id="roomie-seekers-empty" class="roomie-seekers-empty text-center d-none">
                     <i class="fa-regular fa-face-smile-beam mb-3"></i>
                     <h2 class="h4 fw-bold">Ingen roomies matcher endnu</h2>
-                    <p class="text-muted mb-4">Prøv at udvide dit område eller justere filtrene. Siden er ny, så de første profiler er stadig på vej ind.</p>
+                    <p class="text-muted mb-4">Prøv at udvide dit område eller justere filtrene.</p>
                     <a href="/profil" data-view="profile" class="btn btn-primary-coral rounded-pill px-4 py-2 fw-bold">
                         Gør din egen profil synlig
                     </a>

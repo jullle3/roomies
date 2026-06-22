@@ -1,9 +1,4 @@
-- Man skal kunne trykke ind på folks profil på find roomie view, på samme måde som detail view
-
-
-- For meget tekst i nyt slide på roomie profile popup
-- Simplify the card shown on "Find Roomie"
-- Use the existing migration framework in C:\Users\Julian\IdeaProjects\andelsbolig-backend\andelsbolig\version to create a small migration which on startup sets the new fields on roomieprofiles, i want defaults so seeking_room = true , renting_room = false , public_profile = true and monthly_price_max none and areas empty list (or none?) updated = now in epoch.
+- Use the existing migration framework in C:\Users\Julian\IdeaProjects\andelsbolig-backend\andelsbolig\version to create a small migration which on startup sets the new fields on roomieprofiles, i want defaults so seeking_room = true , renting_room = false , and monthly_price_max none and areas empty list (or none?) updated = now in epoch. I hope setting these defaults dont break anything?
 
 - Use the seeker info stored on roomie_profile now to also send matching agent emails. Dedupe in case user already has an active agent. 
 

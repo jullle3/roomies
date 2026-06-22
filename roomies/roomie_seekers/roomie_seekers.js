@@ -27,8 +27,19 @@ export function setupRoomieSeekersView() {
         event.preventDefault();
         applyFilters();
     });
-    form.addEventListener("input", debounce(applyFilters, 300));
-    form.addEventListener("change", applyFilters);
+
+    // One handler drives all live filtering. Radios/selects fire both "input" and
+    // "change", so listening to only "input" avoids filtering twice per interaction.
+    // Discrete controls (køn) apply instantly; free-text fields (område, husleje)
+    // debounce so we don't re-filter on every keystroke.
+    const debouncedApply = debounce(applyFilters, 300);
+    form.addEventListener("input", event => {
+        if (event.target.matches('input[type="radio"], input[type="checkbox"]')) {
+            applyFilters();
+        } else {
+            debouncedApply();
+        }
+    });
 
     document.getElementById("roomie-seekers-reset")?.addEventListener("click", () => {
         form.reset();
@@ -41,6 +52,7 @@ export function setupRoomieSeekersView() {
     document.getElementById("roomie-seekers-load-more")?.addEventListener("click", handleLoadMore);
 
     results.addEventListener("click", async event => {
+        // Clicking anywhere on the card (or the explicit CTA) sends a message.
         const contactButton = event.target.closest("[data-contact-seeker]");
         if (!contactButton) return;
 
@@ -144,24 +156,27 @@ function getFilters() {
         areaId: areaInput?.dataset.areaId || "",
         locationText: normalizeText(data.get("location")),
         roomPrice: parseInteger(data.get("room_price")),
-        occupation: String(data.get("occupation") || "").trim(),
-        gender: String(data.get("gender") || "").trim(),
-        query: normalizeText(data.get("q")),
-        interests: data.getAll("interests").map(value => String(value))
+        gender: String(data.get("gender") || "").trim()
     };
 }
 
 function filterProfiles(profiles, filters) {
     return profiles
         .filter(profile => profile.seekingRoom === true)
-        .filter(profile => !filters.areaId || profileMatchesArea(profile, filters.areaId))
-        .filter(profile => !filters.locationText || profile.searchText.includes(filters.locationText))
+        .filter(profile => matchesLocation(profile, filters))
         .filter(profile => filters.roomPrice == null || profile.monthlyPriceMax == null || profile.monthlyPriceMax >= filters.roomPrice)
-        .filter(profile => !filters.occupation || profile.occupations.includes(filters.occupation))
         .filter(profile => !filters.gender || profile.gender === filters.gender)
-        .filter(profile => filters.interests.length === 0 || filters.interests.some(interest => profile.interests.includes(interest)))
-        .filter(profile => !filters.query || profile.searchText.includes(filters.query))
         .sort((a, b) => Number(b.updated || 0) - Number(a.updated || 0));
+}
+
+// A picked area uses range matching; a free-typed string falls back to a substring
+// search. They are mutually exclusive: selecting an area also fills the input's
+// text with the area label, and applying both would require that label to appear
+// in the profile text too — which it never does, so nothing would ever match.
+function matchesLocation(profile, filters) {
+    if (filters.areaId) return profileMatchesArea(profile, filters.areaId);
+    if (filters.locationText) return profile.searchText.includes(filters.locationText);
+    return true;
 }
 
 function normalizeProfile(raw) {
@@ -232,6 +247,7 @@ function renderSeekerCard(profile) {
     return `
         <div class="col-12 col-md-6 col-xl-4">
             <article class="roomie-seeker-card h-100">
+                <button type="button" class="roomie-seeker-card-link" data-contact-seeker="${escapeAttribute(profile.id)}" aria-label="Send besked til ${escapeAttribute(name)}"></button>
                 <div class="roomie-seeker-card-head">
                     ${avatar}
                     <div class="roomie-seeker-identity">
@@ -255,7 +271,7 @@ function renderSeekerCard(profile) {
 
                 <p class="roomie-seeker-description">${description}</p>
 
-                <button type="button" class="btn btn-primary-coral rounded-pill fw-bold w-100 py-3 mt-auto shadow-sm" data-contact-seeker="${escapeAttribute(profile.id)}">
+                <button type="button" class="roomie-seeker-cta btn btn-primary-coral rounded-pill fw-bold w-100 py-3 mt-auto shadow-sm" data-contact-seeker="${escapeAttribute(profile.id)}">
                     <i class="fa-regular fa-paper-plane me-2"></i>Send besked
                 </button>
             </article>

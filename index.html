@@ -40,7 +40,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cropperjs@1.6.2/dist/cropper.min.css">
 
     <!--    Custom Merged css files -->
-    <link rel="stylesheet" href="roomies/mergedStyles.css?roomies_version=1072">
+    <link rel="stylesheet" href="roomies/mergedStyles.css?roomies_version=1074">
     <style>
         .nav-auth-btn:active,
         .nav-auth-btn:focus,
@@ -59,7 +59,7 @@
             color: #ffffff !important;
         }
     </style>
-    <script defer type="module" src="roomies/mergedJS.js?roomies_version=1072"></script>
+    <script defer type="module" src="roomies/mergedJS.js?roomies_version=1074"></script>
 
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18047412076"></script>
@@ -395,6 +395,30 @@
                 <div class="text-center mt-4 pt-3 d-block d-md-none">
                     <a href="/ledige-vaerelser" data-view="soeg_vaerelse" class="btn btn-outline-dark rounded-pill px-5 py-2 fw-bold w-100">
                         Se alle værelser
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- NEW ROOMIES (SEEKERS) SECTION -->
+        <section class="py-5" style="background-color: var(--bg-main);">
+            <div class="container py-4">
+                <div class="d-flex justify-content-between align-items-end mb-4 pb-2">
+                    <div>
+                        <h2 class="fw-bold mb-2">Nye roomies 👋</h2>
+                        <p class="text-muted mb-0">Mød folk, der leder efter et værelse lige nu.</p>
+                    </div>
+                    <a href="/find-roomie" data-view="roomie_seekers" class="btn btn-outline-dark rounded-pill px-4 fw-bold d-none d-md-block">
+                        Se alle
+                    </a>
+                </div>
+
+                <div id="landing-new-roomies" class="row g-4" aria-live="polite" hidden>
+                </div>
+
+                <div class="text-center mt-4 pt-3 d-block d-md-none">
+                    <a href="/find-roomie" data-view="roomie_seekers" class="btn btn-outline-dark rounded-pill px-5 py-2 fw-bold w-100">
+                        Se alle roomies
                     </a>
                 </div>
             </div>
@@ -2192,7 +2216,7 @@
 
                     <h5>1. Generelt</h5>
                     <p>Disse vilkår gælder for brugen af roomies på roomiedanmark.dk. Ved at oprette en bruger, oprette en annonce, skrive beskeder eller på anden måde bruge tjenesten accepterer du vilkårene. Hvis du ikke kan acceptere vilkårene, skal du undlade at bruge tjenesten.</p>
-                    <p>roomies drives under CVR 40606130. Du kan kontakte os på <a href="mailto:support@andelsboligbasen.dk">support@andelsboligbasen.dk</a>.</p>
+                    <p>roomies drives under CVR 40606130. Du kan kontakte os på <a href="mailto:support@roomiedanmark.dk">support@roomiedanmark.dk</a>.</p>
 
                     <h5>2. Hvad roomies er</h5>
                     <p>roomies er en platform, hvor personer, der leder efter et værelse, en roomie eller et bofællesskab, kan møde personer, der udlejer værelser. Tjenesten hjælper med profiler, værelsesannoncer, beskeder og SøgeAgent, men roomies er ikke part i aftaler, lejekontrakter eller betalinger mellem brugere.</p>
@@ -2240,7 +2264,7 @@
                         <li>Ret til dataportabilitet</li>
                         <li>Ret til at gøre indsigelse mod behandlingen</li>
                     </ul>
-                    <p>Du kan kontakte os på <a href="mailto:support@andelsboligbasen.dk">support@andelsboligbasen.dk</a>, hvis du ønsker indsigt, rettelse, sletning eller har spørgsmål til vores behandling af persondata.</p>
+                    <p>Du kan kontakte os på <a href="mailto:support@roomiedanmark.dk">support@roomiedanmark.dk</a>, hvis du ønsker indsigt, rettelse, sletning eller har spørgsmål til vores behandling af persondata.</p>
 
                     <h5>10. Opbevaring og sletning</h5>
                     <p>Vi opbevarer dine oplysninger, så længe de er nødvendige for at levere tjenesten, overholde lovgivning, håndtere sikkerhed eller dokumentere relevante forhold. Du kan anmode om at få din bruger og dine oplysninger slettet, medmindre vi har en saglig eller lovmæssig grund til at opbevare dem længere.</p>
@@ -2257,7 +2281,7 @@
 
                     <h5>14. Kontakt</h5>
                     <p>Ved spørgsmål til vilkår, persondata eller privatliv kan du kontakte os på:</p>
-                    <p><strong>Email:</strong> support@andelsboligbasen.dk</p>
+                    <p><strong>Email:</strong> support@roomiedanmark.dk</p>
                     <p><strong>CVR:</strong> 40606130</p>
                 </div>
             </div>
@@ -3014,14 +3038,14 @@
                 </div>
 
                 <div class="d-grid gap-2 col-lg-10 mx-auto mb-4">
-                    <a href="mailto:support@andelsboligbasen.dk" class="btn btn-primary-coral btn-lg rounded-pill py-3 fw-bold shadow-sm">
+                    <a href="mailto:support@roomiedanmark.dk" class="btn btn-primary-coral btn-lg rounded-pill py-3 fw-bold shadow-sm">
                         <i class="fa-regular fa-envelope me-2"></i>Send mail direkte
                     </a>
                 </div>
 
                 <div class="feedback-modal-footer">
                     <p class="small mb-1">Eller skriv til:</p>
-                    <p class="fw-bold mb-2">support@andelsboligbasen.dk</p>
+                    <p class="fw-bold mb-2">support@roomiedanmark.dk</p>
                     <small>CVR 40606130</small>
                 </div>
 

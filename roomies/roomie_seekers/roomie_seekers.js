@@ -211,8 +211,16 @@ function renderSeekerCard(profile) {
         profile.occupations.length ? profile.occupations.join(", ") : null,
         capitalizeFirst(profile.gender)
     ].filter(Boolean).join(" · ") || "Boligsøgende roomie";
-    // Friendly, emoji-backed fallbacks so a sparse profile still feels human.
-    const areas = profile.areaLabels.length ? profile.areaLabels.slice(0, 3).join(", ") : "Overalt i Danmark 🇩🇰";
+    // Show at most 1 area + a "+ X andre" counter so the row never overflows the
+    // card; the full list lives in the hover tooltip (title) for the curious. No
+    // areas means the user hasn't decided yet, so we omit the row entirely.
+    const hasAreas = profile.areaLabels.length > 0;
+    const areasTooltip = hasAreas ? profile.areaLabels.join(", ") : "";
+    const areasDisplay = !hasAreas
+        ? ""
+        : profile.areaLabels.length === 1
+            ? profile.areaLabels[0]
+            : `${profile.areaLabels[0]} + ${profile.areaLabels.length - 1} andre`;
     const budget = profile.monthlyPriceMax ? `Maks ${formatNumber(profile.monthlyPriceMax)} kr./md` : "Budget efter aftale 🤝";
     // Max 4 vibe tags keeps the card scannable (design system constraint).
     const vibes = profile.interests.slice(0, 4).map(interest => `<span>${escapeHtml(interest)}</span>`).join("");
@@ -233,10 +241,10 @@ function renderSeekerCard(profile) {
                 </div>
 
                 <div class="roomie-seeker-match-grid">
-                    <div>
+                    ${hasAreas ? `<div>
                         <i class="fa-solid fa-location-dot"></i>
-                        <span class="text-truncate" title="${escapeAttribute(areas)}">${escapeHtml(areas)}</span>
-                    </div>
+                        <span class="text-truncate" title="${escapeAttribute(areasTooltip)}">${escapeHtml(areasDisplay)}</span>
+                    </div>` : ""}
                     <div>
                         <i class="fa-solid fa-wallet"></i>
                         <span class="text-truncate" title="${escapeAttribute(budget)}">${escapeHtml(budget)}</span>

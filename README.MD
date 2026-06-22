@@ -1,4 +1,4 @@
-- Bedre cards, se gemini chat
+- Man skal kunne trykke ind på folks profil på find roomie view, på samme måde som detail view
 
 
 - For meget tekst i nyt slide på roomie profile popup

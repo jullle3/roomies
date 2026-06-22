@@ -96,6 +96,7 @@ function openRoomieOnboarding(contextKey, user) {
             els.description.removeEventListener("input", onDescInput);
             els.occupationInputs.forEach(input => input.removeEventListener("change", onOccupationChange));
             els.seekingRoom?.removeEventListener("change", onSeekingToggle);
+            els.rentingRoom?.removeEventListener("change", onRentingToggle);
             els.areaSearch?.removeEventListener("input", onAreaInput);
             els.areaSearch?.removeEventListener("focus", onAreaInput);
             els.areaSearch?.removeEventListener("keydown", onAreaKeydown);
@@ -177,10 +178,27 @@ function openRoomieOnboarding(contextKey, user) {
         const lastStep = els.steps.length - 1;
 
         const onNext = () => {
-            // The photo lives on step 0, so only gate leaving that step on it.
-            if (currentStep === 0 && !profilePhotoName) {
-                showPhotoError("Tilføj et profilbillede for at fortsætte.");
-                return;
+            // Validate the step the user is leaving so problems surface immediately
+            // instead of on the final step, where they'd have to navigate back.
+            if (currentStep === 0) {
+                // The photo lives on step 0, so gate leaving it on the photo first.
+                if (!profilePhotoName) {
+                    showPhotoError("Tilføj et profilbillede for at fortsætte.");
+                    return;
+                }
+                const identityError = getIdentityValidationError(els);
+                if (identityError) {
+                    displayErrorMessage(identityError);
+                    return;
+                }
+            }
+            // Seeker fields live on step 1.
+            if (currentStep === 1) {
+                const seekerError = getSeekerValidationError(els);
+                if (seekerError) {
+                    displayErrorMessage(seekerError);
+                    return;
+                }
             }
             currentStep = Math.min(currentStep + 1, lastStep);
             goToStep(els, currentStep);
@@ -195,9 +213,18 @@ function openRoomieOnboarding(contextKey, user) {
 
         const onOccupationChange = () => updateOccupationLabel(els);
 
-        // The "Hvad leder du efter?" block only matters to room seekers, so reveal
-        // it when they tick "Jeg søger værelse" and hide it otherwise.
-        const onSeekingToggle = () => updateSeekerFieldsVisibility(els);
+        // The two roles are mutually exclusive — ticking one clears the other.
+        // Both unchecked is valid (user wants to stay anonymous). The "Hvad leder
+        // du efter?" block only matters to room seekers, so reveal it when they
+        // tick "Jeg søger værelse" and hide it otherwise.
+        const onSeekingToggle = () => {
+            if (els.seekingRoom?.checked && els.rentingRoom) els.rentingRoom.checked = false;
+            updateSeekerFieldsVisibility(els);
+        };
+        const onRentingToggle = () => {
+            if (els.rentingRoom?.checked && els.seekingRoom) els.seekingRoom.checked = false;
+            updateSeekerFieldsVisibility(els);
+        };
 
         const onAreaInput = () => renderAreaSuggestions(els, els.areaSearch.value);
         const onAreaKeydown = event => {
@@ -228,10 +255,20 @@ function openRoomieOnboarding(contextKey, user) {
 
         const onSubmit = async event => {
             event.preventDefault();
+            // Re-validate every step's requirements and jump back to the first one
+            // that fails, so nothing slips through even if a user edits via Back.
             if (!profilePhotoName) {
                 currentStep = 0;
                 goToStep(els, 0);
                 showPhotoError("Tilføj et profilbillede for at fortsætte.");
+                return;
+            }
+
+            const identityError = getIdentityValidationError(els);
+            if (identityError) {
+                currentStep = 0;
+                goToStep(els, 0);
+                displayErrorMessage(identityError);
                 return;
             }
 
@@ -241,6 +278,13 @@ function openRoomieOnboarding(contextKey, user) {
                 currentStep = 1;
                 goToStep(els, 1);
                 displayErrorMessage(seekerError);
+                return;
+            }
+
+            const descriptionError = getDescriptionValidationError(els);
+            if (descriptionError) {
+                displayErrorMessage(descriptionError);
+                els.description?.focus();
                 return;
             }
 
@@ -265,6 +309,7 @@ function openRoomieOnboarding(contextKey, user) {
         els.description.addEventListener("input", onDescInput);
         els.occupationInputs.forEach(input => input.addEventListener("change", onOccupationChange));
         els.seekingRoom?.addEventListener("change", onSeekingToggle);
+        els.rentingRoom?.addEventListener("change", onRentingToggle);
         els.areaSearch?.addEventListener("input", onAreaInput);
         els.areaSearch?.addEventListener("focus", onAreaInput);
         els.areaSearch?.addEventListener("keydown", onAreaKeydown);
@@ -298,7 +343,6 @@ function collectElements(modalElement) {
         descCount: modalElement.querySelector("[data-ob-desc-count]"),
         seekingRoom: modalElement.querySelector("[data-ob-seeking-room]"),
         rentingRoom: modalElement.querySelector("[data-ob-renting-room]"),
-        publicProfile: modalElement.querySelector("[data-ob-public-profile]"),
         seekerFields: modalElement.querySelector("[data-ob-seeker-fields]"),
         monthlyPriceMax: modalElement.querySelector("[data-ob-monthly-price-max]"),
         areaSearch: modalElement.querySelector("[data-ob-area-search]"),
@@ -348,9 +392,6 @@ function resetForm(els, user, context = {}) {
             ? profile.renting_room
             : context.defaults?.renting_room === true;
     }
-    if (els.publicProfile) {
-        els.publicProfile.checked = profile.public_profile !== false;
-    }
 
     if (els.monthlyPriceMax) els.monthlyPriceMax.value = profile.monthly_price_max ?? "";
     selectedAreas = normalizeAreaIds(profile.areas);
@@ -389,6 +430,28 @@ function updateOccupationLabel(els) {
 // Seeker-only block: budget + desired areas. Hidden unless the user is seeking.
 function updateSeekerFieldsVisibility(els) {
     els.seekerFields?.classList.toggle("d-none", !els.seekingRoom?.checked);
+}
+
+// Step 0 identity essentials: age + gender are required so listers know who
+// they're talking to. Returns an error string or null.
+function getIdentityValidationError(els) {
+    const age = parseInteger(els.age?.value);
+    if (!age || age <= 0) {
+        els.age?.focus();
+        return "Angiv din alder.";
+    }
+    if (!els.genderInputs.some(input => input.checked)) {
+        return "Vælg dit køn.";
+    }
+    return null;
+}
+
+// Step 2: a short "om mig" makes the profile feel real. Returns an error or null.
+function getDescriptionValidationError(els) {
+    if (!els.description?.value.trim()) {
+        return "Skriv lidt om dig selv som roomie.";
+    }
+    return null;
 }
 
 // When seeking a room, budget + at least one desired area are required so people
@@ -522,7 +585,6 @@ async function saveRoomieProfile(els, profilePhotoName) {
         description: String(els.description?.value || "").trim() || null,
         seeking_room: els.seekingRoom?.checked || false,
         renting_room: els.rentingRoom?.checked || false,
-        public_profile: els.publicProfile?.checked !== false,
         monthly_price_max: parseInteger(els.monthlyPriceMax?.value),
         areas: selectedAreas.length ? selectedAreas.map(Number).filter(Number.isFinite) : null
     };

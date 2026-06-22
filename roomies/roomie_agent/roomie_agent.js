@@ -208,6 +208,11 @@ async function handleAgentFormSubmit(form) {
         return;
     }
 
+    if (!payload.criteria.areas || payload.criteria.areas.length === 0) {
+        displayErrorMessage("Vælg mindst ét område, hvor du gerne vil bo.");
+        return;
+    }
+
     submitButton.disabled = true;
     submitButton.dataset.originalText = submitButton.innerHTML;
     submitButton.innerHTML = '<span class="spinner-border spinner-border-sm me-2" aria-hidden="true"></span>Gemmer...';
@@ -403,7 +408,6 @@ function renderFormMarkup(mode, agent) {
                         <div class="roomie-agent-form-block">
                             <label for="roomie-agent-area-search" class="form-label">Hvor vil du bo?</label>
                             <input id="roomie-agent-area-search" type="search" class="form-control" autocomplete="off" placeholder="Søg efter postnummer eller område">
-                            <p class="roomie-agent-area-hint">Alle områder er valgt, hvis du ikke tilføjer noget.</p>
                             <div id="roomie-agent-selected-areas" class="roomie-agent-selected-areas"></div>
                             <div id="roomie-agent-area-suggestions" class="roomie-agent-area-suggestions"></div>
                         </div>

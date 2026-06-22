@@ -40,7 +40,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cropperjs@1.6.2/dist/cropper.min.css">
 
     <!--    Custom Merged css files -->
-    <link rel="stylesheet" href="roomies/mergedStyles.css?roomies_version=1054">
+    <link rel="stylesheet" href="roomies/mergedStyles.css?roomies_version=1059">
     <style>
         .nav-auth-btn:active,
         .nav-auth-btn:focus,
@@ -59,7 +59,7 @@
             color: #ffffff !important;
         }
     </style>
-    <script defer type="module" src="roomies/mergedJS.js?roomies_version=1054"></script>
+    <script defer type="module" src="roomies/mergedJS.js?roomies_version=1059"></script>
 
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18047412076"></script>
@@ -1872,7 +1872,7 @@
                                     </div>
 
                                     <div>
-                                        <label class="form-label">Køn <span class="text-muted fw-semibold">(valgfrit)</span></label>
+                                        <label class="form-label">Køn</label>
                                         <div class="profile-pill-group" role="radiogroup" aria-label="Køn">
                                             <input type="radio" class="btn-check" name="gender" id="profile-gender-man" value="mand">
                                             <label class="profile-pill-option" for="profile-gender-man">Mand</label>
@@ -1883,31 +1883,22 @@
 
                                     <div class="profile-role-card">
                                         <div>
-                                            <span class="profile-role-eyebrow">Synlighed og intent</span>
-                                            <h6>Hvad bruger du RoomieDanmark til?</h6>
-                                            <p>Din profil er som udgangspunkt synlig, så andre kan finde et godt match. Du kan altid slå det fra.</p>
+                                            <h6>Din profil på RoomieDanmark 👋</h6>
                                         </div>
 
                                         <div class="profile-role-options">
                                             <label class="profile-switch-card" for="profile-seeking-room">
                                                 <input type="checkbox" id="profile-seeking-room">
                                                 <span>
-                                                    <strong>Jeg søger værelse</strong>
-                                                    <small>Vis mig på Find roomie, så udlejere kan kontakte mig.</small>
+                                                    <strong>Jeg søger værelse 🔍</strong>
+                                                    <small>Vis min profil, så udlejere kan finde mig. Email og telefon vises aldrig.</small>
                                                 </span>
                                             </label>
                                             <label class="profile-switch-card" for="profile-renting-room">
                                                 <input type="checkbox" id="profile-renting-room">
                                                 <span>
-                                                    <strong>Jeg udlejer / har et værelse</strong>
-                                                    <small>Gør det tydeligt, at du leder efter den rette roomie.</small>
-                                                </span>
-                                            </label>
-                                            <label class="profile-switch-card profile-switch-card-muted" for="profile-public-profile">
-                                                <input type="checkbox" id="profile-public-profile">
-                                                <span>
-                                                    <strong>Synlig</strong>
-                                                    <small>Synlig profil så folk med værelse kan finde dig. Email og telefon vises aldrig.</small>
+                                                    <strong>Jeg mangler en roomie 🛋️</strong>
+                                                    <small>Gør det nemt at finde dit perfekte match.</small>
                                                 </span>
                                             </label>
                                         </div>
@@ -1915,8 +1906,8 @@
 
                                     <div id="profile-seeker-fields" class="profile-seeker-fields d-none">
                                         <div class="profile-seeker-fields-head">
-                                            <h6>Hvad leder du efter?</h6>
-                                            <p>De her felter hjælper folk med ledige værelser med at finde dig.</p>
+                                            <h6>Hvad leder du efter? 🏡</h6>
+                                            <p>Hjælp os med at matche dig med de rigtige værelser.</p>
                                         </div>
 
                                         <div class="row g-3">
@@ -2764,7 +2755,7 @@
                         </div>
 
                         <div class="roomie-onboarding-field">
-                            <label class="form-label">Køn <span class="text-muted fw-semibold">(valgfrit)</span></label>
+                            <label class="form-label">Køn</label>
                             <div class="roomie-onboarding-pills" role="radiogroup" aria-label="Køn">
                                 <input type="radio" class="btn-check" name="ob-gender" id="ob-gender-man" value="mand">
                                 <label class="roomie-onboarding-pill" for="ob-gender-man">Mand</label>
@@ -2782,27 +2773,20 @@
                     <div class="roomie-onboarding-step" data-ob-step="1">
                         <div class="roomie-onboarding-field">
                             <label class="form-label">Hvad bruger du RoomieDanmark til?</label>
-                            <p class="roomie-onboarding-help">Du kan vælge begge dele. Din profil er som udgangspunkt synlig, så gode matches kan finde dig.</p>
+                            <p class="roomie-onboarding-help">Vælg det, der passer på dig (valgfrit).</p>
                             <div class="roomie-onboarding-intent-grid">
                                 <label class="roomie-onboarding-intent" for="ob-seeking-room">
                                     <input type="checkbox" id="ob-seeking-room" data-ob-seeking-room>
                                     <span>
-                                        <strong>Jeg søger værelse</strong>
-                                        <small>Vis mig for folk med ledige værelser.</small>
+                                        <strong>Jeg søger værelse 🔍</strong>
+                                        <small>Vis min profil, så udlejere kan finde mig. Email og telefon vises aldrig.</small>
                                     </span>
                                 </label>
                                 <label class="roomie-onboarding-intent" for="ob-renting-room">
                                     <input type="checkbox" id="ob-renting-room" data-ob-renting-room>
                                     <span>
-                                        <strong>Jeg udlejer værelse</strong>
-                                        <small>Jeg leder efter en ny roomie.</small>
-                                    </span>
-                                </label>
-                                <label class="roomie-onboarding-intent roomie-onboarding-intent-muted" for="ob-public-profile">
-                                    <input type="checkbox" id="ob-public-profile" data-ob-public-profile>
-                                    <span>
-                                        <strong>Synlig på Find roomie</strong>
-                                        <small>Email og telefon vises aldrig offentligt.</small>
+                                        <strong>Jeg mangler en roomie 🛋️</strong>
+                                        <small>Gør det nemt at finde dit perfekte match.</small>
                                     </span>
                                 </label>
                             </div>

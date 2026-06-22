@@ -153,7 +153,7 @@ function getFilters() {
 
 function filterProfiles(profiles, filters) {
     return profiles
-        .filter(profile => profile.publicProfile !== false && profile.seekingRoom === true)
+        .filter(profile => profile.seekingRoom === true)
         .filter(profile => !filters.areaId || profileMatchesArea(profile, filters.areaId))
         .filter(profile => !filters.locationText || profile.searchText.includes(filters.locationText))
         .filter(profile => filters.roomPrice == null || profile.monthlyPriceMax == null || profile.monthlyPriceMax >= filters.roomPrice)
@@ -187,7 +187,6 @@ function normalizeProfile(raw) {
         description: String(profile.description || "").trim(),
         seekingRoom: profile.seeking_room === true,
         rentingRoom: profile.renting_room === true,
-        publicProfile: profile.public_profile !== false,
         monthlyPriceMax: parseInteger(profile.monthly_price_max),
         areas,
         areaLabels,

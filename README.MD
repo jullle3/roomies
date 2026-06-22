@@ -1,3 +1,7 @@
+- Bedre cards, se gemini chat
+- Man skal kunne se folks profil på find roomie view, på samme måde som detail view
+
+- 
 - Der er noget broken når jeg trykker Gem roomie profil, i hvert fald bug med vibe tags, den sender de samme flere gange..
 example response {
   "detail": [

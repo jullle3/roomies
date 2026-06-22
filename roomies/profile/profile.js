@@ -205,10 +205,18 @@ function setupHumanProfileHandlers() {
 
 function bindProfileIntentControls() {
     const seekingInput = document.getElementById('profile-seeking-room');
-    const publicInput = document.getElementById('profile-public-profile');
+    const rentingInput = document.getElementById('profile-renting-room');
 
-    seekingInput?.addEventListener('change', updateProfileSeekerFieldsVisibility);
-    publicInput?.addEventListener('change', updateProfileSeekerFieldsVisibility);
+    // The two roles are mutually exclusive — ticking one clears the other. Both
+    // staying unchecked is valid (user wants to stay anonymous).
+    seekingInput?.addEventListener('change', () => {
+        if (seekingInput.checked && rentingInput) rentingInput.checked = false;
+        updateProfileSeekerFieldsVisibility();
+    });
+    rentingInput?.addEventListener('change', () => {
+        if (rentingInput.checked && seekingInput) seekingInput.checked = false;
+        updateProfileSeekerFieldsVisibility();
+    });
     updateProfileSeekerFieldsVisibility();
 }
 
@@ -306,9 +314,9 @@ function addProfileArea(areaId) {
 async function handleHumanProfileSubmit(event) {
     event.preventDefault();
 
-    const seekerError = getProfileSeekerValidationError();
-    if (seekerError) {
-        displayErrorMessage(seekerError);
+    const validationError = getProfileValidationError();
+    if (validationError) {
+        displayErrorMessage(validationError);
         return;
     }
 
@@ -346,6 +354,25 @@ async function handleHumanProfileSubmit(event) {
     }
 }
 
+// Full roomie-profile validation. Age, gender and an "om mig" description are
+// always required; budget + desired areas are additionally required when seeking.
+// Returns the first error string found, or null when everything checks out.
+function getProfileValidationError() {
+    const age = parseInteger(document.getElementById('profile-age')?.value);
+    if (!age || age <= 0) {
+        document.getElementById('profile-age')?.focus();
+        return 'Angiv din alder.';
+    }
+    if (!document.querySelector('#profileHumanForm input[name="gender"]:checked')) {
+        return 'Vælg dit køn.';
+    }
+    if (!document.getElementById('profile-description')?.value.trim()) {
+        document.getElementById('profile-description')?.focus();
+        return 'Skriv lidt om dig selv som roomie.';
+    }
+    return getProfileSeekerValidationError();
+}
+
 // When the user is seeking a room, budget + at least one desired area are required
 // so people with rooms can actually match them. Returns an error string or null.
 function getProfileSeekerValidationError() {
@@ -371,7 +398,6 @@ function getHumanProfilePayload() {
     const ageValue = parseInteger(document.getElementById('profile-age')?.value);
     const seekingRoom = document.getElementById('profile-seeking-room')?.checked || false;
     const rentingRoom = document.getElementById('profile-renting-room')?.checked || false;
-    const publicProfile = document.getElementById('profile-public-profile')?.checked !== false;
 
     return {
         ...currentRoomieProfileSnapshot,
@@ -383,7 +409,6 @@ function getHumanProfilePayload() {
         description: getTrimmedValue('profile-description') || null,
         seeking_room: seekingRoom,
         renting_room: rentingRoom,
-        public_profile: publicProfile,
         monthly_price_max: parseInteger(document.getElementById('profile-monthly-price-max')?.value),
         areas: selectedProfileAreas.length ? selectedProfileAreas.map(Number).filter(Number.isFinite) : null
     };
@@ -559,7 +584,6 @@ function populateHumanProfileForm(userProfile = {}) {
 
     setCheckboxValue('profile-seeking-room', roomieProfile.seeking_room === true);
     setCheckboxValue('profile-renting-room', roomieProfile.renting_room === true);
-    setCheckboxValue('profile-public-profile', roomieProfile.public_profile !== false);
 
     selectedProfileAreas = normalizeAreaIds(roomieProfile.areas);
     renderSelectedProfileAreas();

@@ -40,7 +40,7 @@ export function loadRoomieProfiles() {
 }
 
 // Full raw profile list, fetched once and shared. Callers do their own display
-// filtering (e.g. the directory keeps only public_profile + seeking_room).
+// filtering (e.g. the directory keeps only seeking_room profiles).
 export async function getAllRoomieProfiles() {
     await loadRoomieProfiles();
     return roomieProfilesList;

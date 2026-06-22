@@ -13,11 +13,6 @@ const AREA_LOOKUP = new Map(areaAutocompleteOptions.map(area => [String(area.id)
 // every time the modal opens via resetForm.
 let selectedAreas = [];
 
-// Identity fields that signal a genuinely filled-out roomie profile. Search
-// fields (budget, areas) are excluded since they belong to the SøgeAgent.
-const MEANINGFUL_PROFILE_FIELDS = ["profile_photo", "age", "gender", "occupation", "interests", "description"];
-const MIN_FILLED_PROFILE_FIELDS = 3;
-
 // One modal, three happy paths. JS swaps heading/subtext/CTA per context so the
 // markup (built once in index.html) stays DRY.
 const ONBOARDING_CONTEXTS = {
@@ -41,21 +36,33 @@ const ONBOARDING_CONTEXTS = {
     }
 };
 
+// A profile counts as filled only when every required (asterisk) field is present,
+// mirroring the form validation: age, gender, description and exactly one intent
+// are always required; budget + at least one desired area are required on top when
+// seeking. The modal is shown whenever any of these is missing.
 export function hasFilledRoomieProfile(user) {
     const profile = user?.roomie_profile;
     if (!profile || typeof profile !== "object") return false;
 
-    const filledCount = MEANINGFUL_PROFILE_FIELDS.filter(field => {
-        const value = profile[field];
-        return Array.isArray(value) ? value.length > 0 : value != null && String(value).trim() !== "";
-    }).length;
+    const hasValue = value => Array.isArray(value)
+        ? value.length > 0
+        : value != null && String(value).trim() !== "";
+    const hasPositiveNumber = value => Number.isFinite(Number(value)) && Number(value) > 0;
 
-    // Profiles predating the seeking/renting step have their identity fields filled
-    // but no intent chosen. Require an explicit intent so those existing users get
-    // the modal once to fill the new directory fields; completing it always sets one.
-    const hasIntent = profile.seeking_room === true || profile.renting_room === true;
+    if (!hasPositiveNumber(profile.age)) return false;
+    if (!hasValue(profile.gender)) return false;
+    if (!hasValue(profile.description)) return false;
 
-    return filledCount >= MIN_FILLED_PROFILE_FIELDS && hasIntent;
+    const seeking = profile.seeking_room === true;
+    const renting = profile.renting_room === true;
+    if (!seeking && !renting) return false;
+
+    if (seeking) {
+        if (!hasPositiveNumber(profile.monthly_price_max)) return false;
+        if (!hasValue(profile.areas)) return false;
+    }
+
+    return true;
 }
 
 // Resolves true if the caller may proceed (profile already complete, or the user
@@ -239,9 +246,9 @@ function openRoomieOnboarding(contextKey, user) {
         const onIdentityInput = () => refreshButtons();
 
         // The two roles are mutually exclusive — ticking one clears the other.
-        // Both unchecked is valid (user wants to stay anonymous). The "Hvad leder
-        // du efter?" block only matters to room seekers, so reveal it when they
-        // tick "Jeg søger værelse" and hide it otherwise.
+        // Exactly one must be chosen (enforced by getSeekerValidationError). The
+        // "Hvad leder du efter?" block only matters to room seekers, so reveal it
+        // when they tick "Jeg søger værelse" and hide it otherwise.
         const onSeekingToggle = () => {
             if (els.seekingRoom?.checked && els.rentingRoom) els.rentingRoom.checked = false;
             updateSeekerFieldsVisibility(els);
@@ -487,9 +494,13 @@ function getDescriptionValidationError(els) {
     return null;
 }
 
-// When seeking a room, budget + at least one desired area are required so people
-// with rooms can match them. Returns an error string or null.
+// One intent (søger værelse / mangler en roomie) is required. When seeking a room,
+// budget + at least one desired area are required too so people with rooms can
+// match them. Returns an error string or null.
 function getSeekerValidationError(els) {
+    if (!els.seekingRoom?.checked && !els.rentingRoom?.checked) {
+        return "Vælg om du søger værelse eller mangler en roomie.";
+    }
     if (!els.seekingRoom?.checked) return null;
 
     const priceMax = parseInteger(els.monthlyPriceMax?.value);

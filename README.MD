@@ -1,14 +1,4 @@
-- please require users to select minimum 1 of these. Also please ensure that the roomie profile popup is only shown if the roomieprofile of the given logged in user is missing any of the required fields (the ones witth asterix)
-
-Jeg søger værelse 🔍
-Vis min profil, så udlejere kan finde mig. Email og telefon vises aldrig.
-
-Jeg mangler en roomie 🛋️
-Gør det nemt at finde dit perfekte match.
-
-
 - Bedre cards, se gemini chat
-- Man skal kunne trykke ind på folks profil på find roomie view, på samme måde som detail view
 
 
 - For meget tekst i nyt slide på roomie profile popup

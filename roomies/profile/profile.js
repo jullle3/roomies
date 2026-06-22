@@ -400,8 +400,9 @@ export async function submitHumanProfile() {
     }
 }
 
-// Full roomie-profile validation. Age, gender and an "om mig" description are
-// always required; budget + desired areas are additionally required when seeking.
+// Full roomie-profile validation. Age, gender, an "om mig" description and an
+// explicit intent (søger værelse / mangler en roomie) are always required; budget
+// + desired areas are additionally required when seeking.
 // Returns the first error string found, or null when everything checks out.
 function getProfileValidationError() {
     const age = parseInteger(document.getElementById('profile-age')?.value);
@@ -415,6 +416,11 @@ function getProfileValidationError() {
     if (!document.getElementById('profile-description')?.value.trim()) {
         document.getElementById('profile-description')?.focus();
         return 'Skriv lidt om dig selv som roomie.';
+    }
+    const seeking = document.getElementById('profile-seeking-room')?.checked;
+    const renting = document.getElementById('profile-renting-room')?.checked;
+    if (!seeking && !renting) {
+        return 'Vælg om du søger værelse eller mangler en roomie.';
     }
     return getProfileSeekerValidationError();
 }

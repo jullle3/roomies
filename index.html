@@ -40,7 +40,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cropperjs@1.6.2/dist/cropper.min.css">
 
     <!--    Custom Merged css files -->
-    <link rel="stylesheet" href="roomies/mergedStyles.css?roomies_version=1032">
+    <link rel="stylesheet" href="roomies/mergedStyles.css?roomies_version=1041">
     <style>
         .nav-auth-btn:active,
         .nav-auth-btn:focus,
@@ -59,7 +59,7 @@
             color: #ffffff !important;
         }
     </style>
-    <script defer type="module" src="roomies/mergedJS.js?roomies_version=1032"></script>
+    <script defer type="module" src="roomies/mergedJS.js?roomies_version=1041"></script>
 
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18047412076"></script>
@@ -144,6 +144,12 @@
                 <li class="nav-item">
                     <a class="nav-link custom-nav-link" href="/udlej-vaerelse" data-view="udlej_vaerelse">
                         <i class="fa-regular fa-square-plus nav-icon"></i> Udlej værelse
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link custom-nav-link" href="/find-roomie" data-view="roomie_seekers">
+                        <i class="fa-regular fa-address-card nav-icon"></i> Find roomie
                     </a>
                 </li>
 
@@ -1061,6 +1067,147 @@
 
 
 
+    <div id="roomie_seekers" class="view">
+        <section class="roomie-seekers-hero">
+            <div class="container">
+                <div class="row align-items-end g-4">
+                    <div class="col-lg-7">
+                        <span class="roomie-seekers-eyebrow">
+                            <i class="fa-regular fa-address-card"></i> Find roomie
+                        </span>
+                        <h1 class="display-5 fw-bolder mb-3">Find en roomie, der matcher dit hjem</h1>
+                        <p class="text-muted fs-5 mb-0">
+                            Gennemse boligsøgende roomies, se deres vibe, budget og ønskede områder, og skriv til dem hvis dit værelse føles som et godt match.
+                        </p>
+                    </div>
+                    <div class="col-lg-5">
+                        <div class="roomie-seekers-hero-card">
+                            <div class="roomie-seekers-hero-avatars" aria-hidden="true">
+                                <img src="/pics/community-young-woman-1.webp" alt="">
+                                <img src="/pics/community-young-man-1.webp" alt="">
+                                <img src="/pics/avatar11.webp" alt="">
+                            </div>
+                            <strong>Udlej uden at drukne i beskeder</strong>
+                            <span>Find de mennesker, der allerede leder efter et hjem som dit.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="roomie-seekers-content">
+            <div class="container">
+                <form id="roomie-seekers-filter-form" class="roomie-seekers-toolbar" role="search">
+                    <div class="roomie-seekers-main-row">
+                        <label class="visually-hidden" for="roomie-seekers-location">Område</label>
+                        <div class="roomie-seekers-location-field">
+                            <div class="input-group input-group-lg roomie-seekers-main-input">
+                                <span class="input-group-text"><i class="fa-solid fa-location-dot"></i></span>
+                                <input id="roomie-seekers-location" class="form-control" name="location" type="search" placeholder="Hvor ligger dit værelse?" autocomplete="off" aria-autocomplete="list" aria-controls="roomie-seekers-area-suggestions">
+                            </div>
+                            <div id="roomie-seekers-area-suggestions" class="roomie-seekers-area-suggestions" role="listbox" aria-label="Område-forslag"></div>
+                        </div>
+
+                        <div class="roomie-seekers-price-field">
+                            <label class="form-label" for="roomie-seekers-room-price">Husleje på dit værelse</label>
+                            <div class="input-group">
+                                <input id="roomie-seekers-room-price" name="room_price" type="number" min="0" step="100" inputmode="numeric" class="form-control" placeholder="Fx 5.500">
+                                <span class="input-group-text">kr.</span>
+                            </div>
+                        </div>
+
+                        <div class="dropdown">
+                            <button class="btn roomie-seekers-filter-toggle" id="roomie-seekers-filter-toggle" type="button" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false" aria-label="Vis flere filtre">
+                                <i class="fa-solid fa-sliders"></i>
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-end roomie-seekers-filter-menu" aria-labelledby="roomie-seekers-filter-toggle">
+                                <div class="roomie-seekers-filter-heading">
+                                    <h2 class="h6 fw-bold mb-1">Match på mennesket</h2>
+                                    <p class="small text-muted mb-0">Brug filtrene som en hjælp, ikke som en hård facitliste.</p>
+                                </div>
+
+                                <div class="roomie-seekers-filter-block">
+                                    <label class="form-label" for="roomie-seekers-move-in">Kan flytte ind fra</label>
+                                    <input id="roomie-seekers-move-in" name="move_in_from" type="date" class="form-control">
+                                </div>
+
+                                <div class="roomie-seekers-filter-block">
+                                    <label class="form-label" for="roomie-seekers-occupation">Beskæftigelse</label>
+                                    <select id="roomie-seekers-occupation" class="form-select" name="occupation">
+                                        <option value="">Alle</option>
+                                        <option value="Studerende">Studerende</option>
+                                        <option value="Fuldtidsarbejde">Fuldtidsarbejde</option>
+                                        <option value="Deltidsarbejde">Deltidsarbejde</option>
+                                        <option value="Selvstændig">Selvstændig</option>
+                                        <option value="Praktikant / lærling">Praktikant / lærling</option>
+                                        <option value="Jobsøgende">Jobsøgende</option>
+                                        <option value="Andet">Andet</option>
+                                    </select>
+                                </div>
+
+                                <div class="roomie-seekers-filter-block">
+                                    <label class="form-label" for="roomie-seekers-gender">Køn</label>
+                                    <select id="roomie-seekers-gender" class="form-select" name="gender">
+                                        <option value="">Alle</option>
+                                        <option value="mand">Mand</option>
+                                        <option value="kvinde">Kvinde</option>
+                                        <option value="andet">Andet</option>
+                                        <option value="ønsker ikke at oplyse">Ønsker ikke at oplyse</option>
+                                    </select>
+                                </div>
+
+                                <div class="roomie-seekers-filter-block">
+                                    <label class="form-label" for="roomie-seekers-query">Søg i profiler</label>
+                                    <input id="roomie-seekers-query" name="q" type="search" class="form-control" placeholder="Fx rolig, veganer, rengøring">
+                                </div>
+
+                                <div class="roomie-seekers-vibe-filter">
+                                    <span class="form-label d-block">Roomie-vibes</span>
+                                    <div class="roomie-seekers-vibe-grid">
+                                        <input class="btn-check" id="seeker-vibe-social" name="interests" type="checkbox" value="🍻 Socialt anlagt">
+                                        <label for="seeker-vibe-social">🍻 Socialt</label>
+                                        <input class="btn-check" id="seeker-vibe-private" name="interests" type="checkbox" value="🎧 Privatliv">
+                                        <label for="seeker-vibe-private">🎧 Privatliv</label>
+                                        <input class="btn-check" id="seeker-vibe-dinner" name="interests" type="checkbox" value="☕ Fællesspisning">
+                                        <label for="seeker-vibe-dinner">☕ Fællesspisning</label>
+                                        <input class="btn-check" id="seeker-vibe-cleaning" name="interests" type="checkbox" value="🧹 Rengøringsplan">
+                                        <label for="seeker-vibe-cleaning">🧹 Rengøring</label>
+                                        <input class="btn-check" id="seeker-vibe-calm" name="interests" type="checkbox" value="🤫 Roligt hjem">
+                                        <label for="seeker-vibe-calm">🤫 Roligt</label>
+                                        <input class="btn-check" id="seeker-vibe-pets" name="interests" type="checkbox" value="🐶 Dyreven">
+                                        <label for="seeker-vibe-pets">🐶 Dyreven</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+                <div class="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-4">
+                    <div>
+                        <h2 class="h4 fw-bold mb-1">Boligsøgende roomies <span aria-hidden="true">✨</span></h2>
+                        <p id="roomie-seekers-count" class="text-muted mb-0" aria-live="polite"></p>
+                    </div>
+                    <button id="roomie-seekers-reset" class="btn btn-link text-decoration-none fw-bold p-0" type="button">
+                        Nulstil filtre
+                    </button>
+                </div>
+
+                <div id="roomie-seekers-results" class="row g-4"></div>
+
+                <div id="roomie-seekers-empty" class="roomie-seekers-empty text-center d-none">
+                    <i class="fa-regular fa-face-smile-beam mb-3"></i>
+                    <h2 class="h4 fw-bold">Ingen roomies matcher endnu</h2>
+                    <p class="text-muted mb-4">Prøv at udvide dit område eller justere filtrene. Siden er ny, så de første profiler er stadig på vej ind.</p>
+                    <a href="/profil" data-view="profile" class="btn btn-primary-coral rounded-pill px-4 py-2 fw-bold">
+                        Gør din egen profil synlig
+                    </a>
+                </div>
+            </div>
+        </section>
+    </div>
+
+
     <div id="faq" class="view faq-view">
 
         <div class="container faq-container">
@@ -1734,6 +1881,71 @@
                                             <label class="profile-pill-option" for="profile-gender-man">Mand</label>
                                             <input type="radio" class="btn-check" name="gender" id="profile-gender-woman" value="kvinde">
                                             <label class="profile-pill-option" for="profile-gender-woman">Kvinde</label>
+                                            <input type="radio" class="btn-check" name="gender" id="profile-gender-other" value="andet">
+                                            <label class="profile-pill-option" for="profile-gender-other">Andet</label>
+                                            <input type="radio" class="btn-check" name="gender" id="profile-gender-private" value="ønsker ikke at oplyse">
+                                            <label class="profile-pill-option" for="profile-gender-private">Ønsker ikke at oplyse</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="profile-role-card">
+                                        <div>
+                                            <span class="profile-role-eyebrow">Synlighed og intent</span>
+                                            <h6>Hvad bruger du RoomieDanmark til?</h6>
+                                            <p>Din profil er som udgangspunkt synlig, så andre kan finde et godt match. Du kan altid slå det fra.</p>
+                                        </div>
+
+                                        <div class="profile-role-options">
+                                            <label class="profile-switch-card" for="profile-seeking-room">
+                                                <input type="checkbox" id="profile-seeking-room">
+                                                <span>
+                                                    <strong>Jeg søger værelse</strong>
+                                                    <small>Vis mig på Find roomie, så udlejere kan kontakte mig.</small>
+                                                </span>
+                                            </label>
+                                            <label class="profile-switch-card" for="profile-renting-room">
+                                                <input type="checkbox" id="profile-renting-room">
+                                                <span>
+                                                    <strong>Jeg udlejer / har et værelse</strong>
+                                                    <small>Gør det tydeligt, at du leder efter den rette roomie.</small>
+                                                </span>
+                                            </label>
+                                            <label class="profile-switch-card profile-switch-card-muted" for="profile-public-profile">
+                                                <input type="checkbox" id="profile-public-profile">
+                                                <span>
+                                                    <strong>Synlig</strong>
+                                                    <small>Synlig profil så folk med værelse kan finde dig. Email og telefon vises aldrig.</small>
+                                                </span>
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <div id="profile-seeker-fields" class="profile-seeker-fields d-none">
+                                        <div class="profile-seeker-fields-head">
+                                            <h6>Hvad leder du efter?</h6>
+                                            <p>De her felter hjælper folk med ledige værelser med at finde dig.</p>
+                                        </div>
+
+                                        <div class="row g-3">
+                                            <div class="col-md-6">
+                                                <label class="form-label" for="profile-monthly-price-max">Maks husleje pr. måned</label>
+                                                <div class="input-group">
+                                                    <input id="profile-monthly-price-max" class="form-control" type="number" min="0" step="100" inputmode="numeric" placeholder="6000">
+                                                    <span class="input-group-text">kr.</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label class="form-label" for="profile-move-in-from">Kan flytte ind fra</label>
+                                                <input id="profile-move-in-from" class="form-control" type="date">
+                                            </div>
+                                        </div>
+
+                                        <div>
+                                            <label class="form-label" for="profile-area-search">Ønskede områder</label>
+                                            <input id="profile-area-search" type="search" class="form-control" autocomplete="off" placeholder="Søg efter postnummer eller område">
+                                            <p class="profile-area-hint">Alle områder er valgt, hvis du ikke vælger noget.</p>
+                                            <div id="profile-selected-areas" class="profile-selected-areas"></div>
+                                            <div id="profile-area-suggestions" class="profile-area-suggestions"></div>
                                         </div>
                                     </div>
 
@@ -2569,6 +2781,38 @@
                                 <label class="roomie-onboarding-pill" for="ob-gender-man">Mand</label>
                                 <input type="radio" class="btn-check" name="ob-gender" id="ob-gender-woman" value="kvinde">
                                 <label class="roomie-onboarding-pill" for="ob-gender-woman">Kvinde</label>
+                                <input type="radio" class="btn-check" name="ob-gender" id="ob-gender-other" value="andet">
+                                <label class="roomie-onboarding-pill" for="ob-gender-other">Andet</label>
+                                <input type="radio" class="btn-check" name="ob-gender" id="ob-gender-private" value="ønsker ikke at oplyse">
+                                <label class="roomie-onboarding-pill" for="ob-gender-private">Ønsker ikke at oplyse</label>
+                            </div>
+                        </div>
+
+                        <div class="roomie-onboarding-field">
+                            <label class="form-label">Hvad bruger du RoomieDanmark til?</label>
+                            <p class="roomie-onboarding-help">Du kan vælge begge dele. Din profil er som udgangspunkt synlig, så gode matches kan finde dig.</p>
+                            <div class="roomie-onboarding-intent-grid">
+                                <label class="roomie-onboarding-intent" for="ob-seeking-room">
+                                    <input type="checkbox" id="ob-seeking-room" data-ob-seeking-room>
+                                    <span>
+                                        <strong>Jeg søger værelse</strong>
+                                        <small>Vis mig for folk med ledige værelser.</small>
+                                    </span>
+                                </label>
+                                <label class="roomie-onboarding-intent" for="ob-renting-room">
+                                    <input type="checkbox" id="ob-renting-room" data-ob-renting-room>
+                                    <span>
+                                        <strong>Jeg udlejer værelse</strong>
+                                        <small>Jeg leder efter en ny roomie.</small>
+                                    </span>
+                                </label>
+                                <label class="roomie-onboarding-intent roomie-onboarding-intent-muted" for="ob-public-profile">
+                                    <input type="checkbox" id="ob-public-profile" data-ob-public-profile>
+                                    <span>
+                                        <strong>Synlig på Find roomie</strong>
+                                        <small>Email og telefon vises aldrig offentligt.</small>
+                                    </span>
+                                </label>
                             </div>
                         </div>
 

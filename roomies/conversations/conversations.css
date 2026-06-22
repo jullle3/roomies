@@ -524,15 +524,51 @@
     .conversation-listing-link {
         width: 100%;
         justify-content: center;
+        min-height: 38px;
     }
 
-    .conversation-reply .d-flex {
-        flex-direction: column;
-        align-items: stretch !important;
+    /* Compact chat header on phones: smaller avatar, title and padding so the
+       info stays but stops eating the screen. */
+    .conversation-thread-header {
+        gap: 0.6rem !important;
+        padding: 0.5rem 0.85rem;
+    }
+
+    .conversation-active-person {
+        gap: 0.6rem;
+    }
+
+    .chat-person-avatar {
+        width: 44px;
+        height: 44px;
+    }
+
+    .chat-person-avatar--fallback {
+        font-size: 18px;
+    }
+
+    #conversation-active-title {
+        font-size: 1.02rem;
+    }
+
+    #conversation-active-subtitle {
+        font-size: 0.78rem;
+    }
+
+    /* Keep the composer on a single row (input + Send together) and shrink it. */
+    .conversation-reply {
+        padding: 0.6rem;
+    }
+
+    .conversation-reply textarea {
+        min-height: 46px;
+        padding: 0.55rem 1rem;
+        border-radius: var(--radius-pill) !important;
     }
 
     .conversation-reply .btn {
-        width: 100%;
+        min-height: 46px;
+        padding: 0.55rem 1.1rem !important;
     }
 
     .conversation-message-bubble {

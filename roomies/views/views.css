@@ -1,3 +1,11 @@
+/* Required-field marker: a small coral asterisk after a label, used across the
+   roomie onboarding popup and the profile form to flag mandatory fields. */
+.field-required {
+    color: var(--color-primary);
+    font-weight: 700;
+    margin-left: 2px;
+}
+
 /* View transition animations */
 .view {
     margin: 0 auto;

@@ -190,11 +190,19 @@ function setupHumanProfileHandlers() {
     const description = document.getElementById('profile-description');
     if (description) {
         description.addEventListener('input', updateDescriptionCount);
+        description.addEventListener('input', refreshProfileSubmitState);
         updateDescriptionCount();
     }
 
     form.querySelectorAll('input[name="occupation"]').forEach(input => {
         input.addEventListener('change', updateOccupationLabel);
+    });
+
+    // Required fields gate the submit button live, so re-check on every edit.
+    document.getElementById('profile-age')?.addEventListener('input', refreshProfileSubmitState);
+    document.getElementById('profile-monthly-price-max')?.addEventListener('input', refreshProfileSubmitState);
+    form.querySelectorAll('input[name="gender"]').forEach(input => {
+        input.addEventListener('change', refreshProfileSubmitState);
     });
 
     bindProfileIntentControls();
@@ -212,10 +220,12 @@ function bindProfileIntentControls() {
     seekingInput?.addEventListener('change', () => {
         if (seekingInput.checked && rentingInput) rentingInput.checked = false;
         updateProfileSeekerFieldsVisibility();
+        refreshProfileSubmitState();
     });
     rentingInput?.addEventListener('change', () => {
         if (rentingInput.checked && seekingInput) seekingInput.checked = false;
         updateProfileSeekerFieldsVisibility();
+        refreshProfileSubmitState();
     });
     updateProfileSeekerFieldsVisibility();
 }
@@ -265,6 +275,7 @@ function bindProfileAreaPicker() {
         selectedProfileAreas = selectedProfileAreas.filter(id => id !== remove.dataset.profileAreaRemove);
         renderSelectedProfileAreas();
         renderProfileAreaSuggestions(input.value);
+        refreshProfileSubmitState();
     });
 }
 
@@ -309,6 +320,7 @@ function addProfileArea(areaId) {
     if (input) input.value = '';
     renderSelectedProfileAreas();
     renderProfileAreaSuggestions('');
+    refreshProfileSubmitState();
 }
 
 async function handleHumanProfileSubmit(event) {
@@ -609,6 +621,14 @@ function populateHumanProfileForm(userProfile = {}) {
     });
 
     updateDescriptionCount();
+    refreshProfileSubmitState();
+}
+
+// Greys out the "Gem roomie-profil" button until every required field is valid,
+// mirroring the live feedback in the onboarding popup.
+function refreshProfileSubmitState() {
+    const submitButton = document.querySelector('#profileHumanForm [type="submit"]');
+    if (submitButton) submitButton.disabled = Boolean(getProfileValidationError());
 }
 
 function getRoomieProfile(userProfile = {}) {

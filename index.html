@@ -40,7 +40,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cropperjs@1.6.2/dist/cropper.min.css">
 
     <!--    Custom Merged css files -->
-    <link rel="stylesheet" href="roomies/mergedStyles.css?roomies_version=1059">
+    <link rel="stylesheet" href="roomies/mergedStyles.css?roomies_version=1060">
     <style>
         .nav-auth-btn:active,
         .nav-auth-btn:focus,
@@ -59,7 +59,7 @@
             color: #ffffff !important;
         }
     </style>
-    <script defer type="module" src="roomies/mergedJS.js?roomies_version=1059"></script>
+    <script defer type="module" src="roomies/mergedJS.js?roomies_version=1060"></script>
 
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18047412076"></script>
@@ -1849,7 +1849,7 @@
 
                                     <div class="row g-3">
                                         <div class="col-md-6">
-                                            <label class="form-label" for="profile-age">Alder</label>
+                                            <label class="form-label" for="profile-age">Alder<span class="field-required" aria-hidden="true">*</span></label>
                                             <input type="number" class="form-control" id="profile-age" name="age" min="1" max="120" placeholder="24">
                                         </div>
                                         <div class="col-md-6">
@@ -1872,7 +1872,7 @@
                                     </div>
 
                                     <div>
-                                        <label class="form-label">Køn</label>
+                                        <label class="form-label">Køn<span class="field-required" aria-hidden="true">*</span></label>
                                         <div class="profile-pill-group" role="radiogroup" aria-label="Køn">
                                             <input type="radio" class="btn-check" name="gender" id="profile-gender-man" value="mand">
                                             <label class="profile-pill-option" for="profile-gender-man">Mand</label>
@@ -1912,7 +1912,7 @@
 
                                         <div class="row g-3">
                                             <div class="col-12">
-                                                <label class="form-label" for="profile-monthly-price-max">Maks husleje pr. måned</label>
+                                                <label class="form-label" for="profile-monthly-price-max">Maks husleje pr. måned<span class="field-required" aria-hidden="true">*</span></label>
                                                 <div class="input-group">
                                                     <input id="profile-monthly-price-max" class="form-control" type="number" min="0" step="100" inputmode="numeric" placeholder="6000">
                                                     <span class="input-group-text">kr.</span>
@@ -1921,7 +1921,7 @@
                                         </div>
 
                                         <div>
-                                            <label class="form-label" for="profile-area-search">Ønskede områder</label>
+                                            <label class="form-label" for="profile-area-search">Ønskede områder<span class="field-required" aria-hidden="true">*</span></label>
                                             <input id="profile-area-search" type="search" class="form-control" autocomplete="off" placeholder="Søg efter postnummer eller område">
                                             <div id="profile-selected-areas" class="profile-selected-areas"></div>
                                             <div id="profile-area-suggestions" class="profile-area-suggestions"></div>
@@ -1953,7 +1953,7 @@
 
                                     <div>
                                         <div class="d-flex justify-content-between gap-3">
-                                            <label class="form-label" for="profile-description">Lidt om mig som roomie</label>
+                                            <label class="form-label" for="profile-description">Lidt om mig som roomie<span class="field-required" aria-hidden="true">*</span></label>
                                             <span class="profile-char-count"><span id="profile-description-count">0</span>/500</span>
                                         </div>
                                         <textarea class="form-control" id="profile-description" name="description" rows="5" maxlength="500" placeholder="Fortæl lidt om din hverdag, hvad du laver i din fritid, og hvad du sætter pris på i et godt hjem."></textarea>
@@ -2732,7 +2732,7 @@
 
                         <div class="row g-3">
                             <div class="col-6">
-                                <label class="form-label" for="ob-age">Alder</label>
+                                <label class="form-label" for="ob-age">Alder<span class="field-required" aria-hidden="true">*</span></label>
                                 <input type="number" class="form-control" id="ob-age" data-ob-age min="1" max="120" placeholder="24">
                             </div>
                             <div class="col-6">
@@ -2755,7 +2755,7 @@
                         </div>
 
                         <div class="roomie-onboarding-field">
-                            <label class="form-label">Køn</label>
+                            <label class="form-label">Køn<span class="field-required" aria-hidden="true">*</span></label>
                             <div class="roomie-onboarding-pills" role="radiogroup" aria-label="Køn">
                                 <input type="radio" class="btn-check" name="ob-gender" id="ob-gender-man" value="mand">
                                 <label class="roomie-onboarding-pill" for="ob-gender-man">Mand</label>
@@ -2773,7 +2773,6 @@
                     <div class="roomie-onboarding-step" data-ob-step="1">
                         <div class="roomie-onboarding-field">
                             <label class="form-label">Hvad bruger du RoomieDanmark til?</label>
-                            <p class="roomie-onboarding-help">Vælg det, der passer på dig (valgfrit).</p>
                             <div class="roomie-onboarding-intent-grid">
                                 <label class="roomie-onboarding-intent" for="ob-seeking-room">
                                     <input type="checkbox" id="ob-seeking-room" data-ob-seeking-room>
@@ -2800,7 +2799,7 @@
 
                             <div class="row g-3">
                                 <div class="col-12">
-                                    <label class="form-label" for="ob-monthly-price-max">Maks husleje pr. måned</label>
+                                    <label class="form-label" for="ob-monthly-price-max">Maks husleje pr. måned<span class="field-required" aria-hidden="true">*</span></label>
                                     <div class="input-group">
                                         <input id="ob-monthly-price-max" data-ob-monthly-price-max class="form-control" type="number" min="0" step="100" inputmode="numeric" placeholder="6000">
                                         <span class="input-group-text">kr.</span>
@@ -2809,7 +2808,7 @@
                             </div>
 
                             <div>
-                                <label class="form-label" for="ob-area-search">Ønskede områder</label>
+                                <label class="form-label" for="ob-area-search">Ønskede områder<span class="field-required" aria-hidden="true">*</span></label>
                                 <input id="ob-area-search" data-ob-area-search type="search" class="form-control" autocomplete="off" placeholder="Søg efter postnummer eller område">
                                 <div class="profile-selected-areas" data-ob-selected-areas></div>
                                 <div class="profile-area-suggestions" data-ob-area-suggestions></div>
@@ -2849,7 +2848,7 @@
 
                         <div class="roomie-onboarding-field">
                             <div class="d-flex justify-content-between gap-3">
-                                <label class="form-label" for="ob-description">Lidt om mig som roomie</label>
+                                <label class="form-label" for="ob-description">Lidt om mig som roomie<span class="field-required" aria-hidden="true">*</span></label>
                                 <span class="roomie-onboarding-char-count"><span data-ob-desc-count>0</span>/500</span>
                             </div>
                             <textarea class="form-control" id="ob-description" data-ob-description rows="4" maxlength="500" placeholder="Jeg er en stille og rolig type, der elsker at nørde brætspil og bage surdej..."></textarea>

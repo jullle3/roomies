@@ -1,5 +1,6 @@
 - Bedre cards, se gemini chat
 - Man skal kunne se folks profil på find roomie view, på samme måde som detail view
+- Hvis man forsøger at forlade profile view og man har indtastet data men ikke trykket "Gem roomie-profil", da vis en advarsel og spørg om de er sikker på de vil forlade det eller om de vil gemme først. Evt hav en gem knap i popup
 
 - 
 - Der er noget broken når jeg trykker Gem roomie profil, i hvert fald bug med vibe tags, den sender de samme flere gange..

@@ -95,6 +95,9 @@ function openRoomieOnboarding(contextKey, user) {
             els.form.removeEventListener("submit", onSubmit);
             els.description.removeEventListener("input", onDescInput);
             els.occupationInputs.forEach(input => input.removeEventListener("change", onOccupationChange));
+            els.age?.removeEventListener("input", onIdentityInput);
+            els.genderInputs.forEach(input => input.removeEventListener("change", onIdentityInput));
+            els.monthlyPriceMax?.removeEventListener("input", onIdentityInput);
             els.seekingRoom?.removeEventListener("change", onSeekingToggle);
             els.rentingRoom?.removeEventListener("change", onRentingToggle);
             els.areaSearch?.removeEventListener("input", onAreaInput);
@@ -122,9 +125,25 @@ function openRoomieOnboarding(contextKey, user) {
             els.photoError.classList.toggle("d-none", !message);
         };
 
+        let photoBusy = false;
+
+        // Greys out each step's "Næste"/submit button until that step's required
+        // fields are valid, so the user gets immediate, non-blocking feedback.
+        const refreshButtons = () => {
+            const stepButton = step => els.nextButtons.find(
+                button => Number(button.closest("[data-ob-step]")?.dataset.obStep) === step
+            );
+            const step0Button = stepButton(0);
+            const step1Button = stepButton(1);
+            if (step0Button) step0Button.disabled = photoBusy || Boolean(!profilePhotoName || getIdentityValidationError(els));
+            if (step1Button) step1Button.disabled = Boolean(getSeekerValidationError(els));
+            if (els.submit) els.submit.disabled = Boolean(getDescriptionValidationError(els));
+        };
+
         const setPhotoBusy = isBusy => {
-            els.nextButtons.forEach(button => { button.disabled = isBusy || !profilePhotoName; });
+            photoBusy = isBusy;
             els.photoTrigger.classList.toggle("is-busy", isBusy);
+            refreshButtons();
         };
 
         const onPhotoChange = async event => {
@@ -209,9 +228,15 @@ function openRoomieOnboarding(contextKey, user) {
             goToStep(els, currentStep);
         };
 
-        const onDescInput = () => updateDescriptionCount(els);
+        const onDescInput = () => {
+            updateDescriptionCount(els);
+            refreshButtons();
+        };
 
         const onOccupationChange = () => updateOccupationLabel(els);
+
+        // Age + gender (step 0) and budget (step 1) all gate their step's button.
+        const onIdentityInput = () => refreshButtons();
 
         // The two roles are mutually exclusive — ticking one clears the other.
         // Both unchecked is valid (user wants to stay anonymous). The "Hvad leder
@@ -220,10 +245,12 @@ function openRoomieOnboarding(contextKey, user) {
         const onSeekingToggle = () => {
             if (els.seekingRoom?.checked && els.rentingRoom) els.rentingRoom.checked = false;
             updateSeekerFieldsVisibility(els);
+            refreshButtons();
         };
         const onRentingToggle = () => {
             if (els.rentingRoom?.checked && els.seekingRoom) els.seekingRoom.checked = false;
             updateSeekerFieldsVisibility(els);
+            refreshButtons();
         };
 
         const onAreaInput = () => renderAreaSuggestions(els, els.areaSearch.value);
@@ -233,12 +260,14 @@ function openRoomieOnboarding(contextKey, user) {
             if (!firstOption) return;
             event.preventDefault();
             addArea(els, firstOption.dataset.obAreaOption);
+            refreshButtons();
         };
         const onAreaSuggestionsMousedown = event => {
             const option = event.target.closest("[data-ob-area-option]");
             if (!option) return;
             event.preventDefault();
             addArea(els, option.dataset.obAreaOption);
+            refreshButtons();
         };
         const onSelectedAreasClick = event => {
             const remove = event.target.closest("[data-ob-area-remove]");
@@ -246,6 +275,7 @@ function openRoomieOnboarding(contextKey, user) {
             selectedAreas = selectedAreas.filter(id => id !== remove.dataset.obAreaRemove);
             renderSelectedAreas(els);
             renderAreaSuggestions(els, els.areaSearch.value);
+            refreshButtons();
         };
         const onAreaDocumentClick = event => {
             if (!els.areaSuggestions || event.target === els.areaSearch || els.areaSuggestions.contains(event.target)) return;
@@ -308,6 +338,9 @@ function openRoomieOnboarding(contextKey, user) {
         els.form.addEventListener("submit", onSubmit);
         els.description.addEventListener("input", onDescInput);
         els.occupationInputs.forEach(input => input.addEventListener("change", onOccupationChange));
+        els.age?.addEventListener("input", onIdentityInput);
+        els.genderInputs.forEach(input => input.addEventListener("change", onIdentityInput));
+        els.monthlyPriceMax?.addEventListener("input", onIdentityInput);
         els.seekingRoom?.addEventListener("change", onSeekingToggle);
         els.rentingRoom?.addEventListener("change", onRentingToggle);
         els.areaSearch?.addEventListener("input", onAreaInput);
@@ -318,6 +351,7 @@ function openRoomieOnboarding(contextKey, user) {
         document.addEventListener("click", onAreaDocumentClick);
         modalElement.addEventListener("hidden.bs.modal", onHidden);
 
+        refreshButtons();
         modal.show();
     });
 }
@@ -437,7 +471,6 @@ function updateSeekerFieldsVisibility(els) {
 function getIdentityValidationError(els) {
     const age = parseInteger(els.age?.value);
     if (!age || age <= 0) {
-        els.age?.focus();
         return "Angiv din alder.";
     }
     if (!els.genderInputs.some(input => input.checked)) {

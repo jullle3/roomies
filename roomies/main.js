@@ -18,6 +18,7 @@ import {
     initDynamicScrapedCount,
     initDynamicUserCount,
     loadLandingNewRooms,
+    loadLandingNewRoomies,
     loadScannerHighlightedListings,
     setupLandingRoomSearchAutocomplete
 } from "./landing/landing.js";
@@ -188,6 +189,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     // 7. Post-Load Logic (non-critical — errors here must not block the UI)
     try {
         await loadLandingNewRooms();
+        await loadLandingNewRoomies();
 
         // Temporarily disabled — not needed right now, keep for future use.
         // const advertisementData = await fetchAdvertisementData();

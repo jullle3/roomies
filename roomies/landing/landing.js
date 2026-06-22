@@ -4,11 +4,14 @@ import {renderRoomCard as renderSharedRoomCard} from "../rooms/roomCard.js";
 import {areaAutocompleteOptions} from "../config/hardcoded_data.js";
 import {displayErrorMessage} from "../utils.js";
 import {preloadRooms} from "../rooms/room_cache.js";
+import {getAllRoomieProfiles} from "../profile/roomie_profile.js";
+import {contactSeeker, normalizeProfile, renderSeekerCard} from "../roomie_seekers/roomie_seekers.js";
 
 const LANDING_AREA_SUGGESTION_LIMIT = 5;
 
 let scannerHighlightedUnavailableClickHandlerReady = false;
 let landingRoomSearchBound = false;
+let landingSeekerContactBound = false;
 
 export function setupLandingRoomSearchAutocomplete() {
     if (landingRoomSearchBound) return;
@@ -185,6 +188,75 @@ function getLandingRoomImage(room) {
 function formatLandingRoomArea(room) {
     const postal = [room.postal_number, room.postal_name || room.city].filter(Boolean).join(" ");
     return postal || room.address || "Område ikke angivet";
+}
+
+// Frontpage teaser for the "Find roomie" directory: the 3 newest people looking
+// for a room. Reuses the directory's exact card + "Send besked" behaviour so the
+// teaser stays in sync with the real section.
+export async function loadLandingNewRoomies() {
+    const container = document.getElementById("landing-new-roomies");
+    if (!container) return;
+
+    bindLandingSeekerContact(container);
+    container.hidden = false;
+    container.innerHTML = renderLandingRoomiesLoadingState();
+
+    try {
+        const profiles = await getAllRoomieProfiles();
+        const newestSeekers = (Array.isArray(profiles) ? profiles : [])
+            .map(normalizeProfile)
+            .filter(profile => profile.id && profile.seekingRoom === true)
+            .sort((a, b) => Number(b.updated || 0) - Number(a.updated || 0))
+            .slice(0, 3);
+
+        container.innerHTML = newestSeekers.length
+            ? newestSeekers.map(renderSeekerCard).join("")
+            : renderLandingRoomiesEmptyState();
+    } catch (error) {
+        console.error("Failed to render landing roomies", error);
+        container.innerHTML = renderLandingRoomiesEmptyState();
+    }
+}
+
+// The card click + CTA carry data-contact-seeker; mirror the directory by routing
+// it to "Send besked". Bound once on the teaser container.
+function bindLandingSeekerContact(container) {
+    if (landingSeekerContactBound) return;
+    landingSeekerContactBound = true;
+
+    container.addEventListener("click", async event => {
+        const contactButton = event.target.closest("[data-contact-seeker]");
+        if (!contactButton) return;
+
+        event.preventDefault();
+        await contactSeeker(contactButton.dataset.contactSeeker);
+    });
+}
+
+function renderLandingRoomiesLoadingState() {
+    return `
+        <div class="col-12">
+            <div class="p-4 p-md-5 bg-light rounded-4 text-center">
+                <i class="fa-solid fa-circle-notch fa-spin text-primary-coral mb-3"></i>
+                <p class="fw-bold text-muted mb-0">Indlæser nye roomies...</p>
+            </div>
+        </div>
+    `;
+}
+
+function renderLandingRoomiesEmptyState() {
+    return `
+        <div class="col-12">
+            <div class="p-4 p-md-5 bg-light rounded-4 text-center border">
+                <i class="fa-regular fa-face-smile text-primary-coral fs-2 mb-3"></i>
+                <h3 class="h5 fw-bold mb-2">Ingen roomies endnu</h3>
+                <p class="text-muted mb-4">Vær den første, der laver en profil, så folk med værelser kan finde dig.</p>
+                <a href="/profil" data-view="profile" class="btn btn-primary-coral rounded-pill px-4 py-2 fw-bold">
+                    Lav din profil
+                </a>
+            </div>
+        </div>
+    `;
 }
 
 

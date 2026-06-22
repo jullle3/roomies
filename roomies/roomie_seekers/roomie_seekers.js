@@ -179,7 +179,7 @@ function matchesLocation(profile, filters) {
     return true;
 }
 
-function normalizeProfile(raw) {
+export function normalizeProfile(raw) {
     const nested = raw?.roomie_profile && typeof raw.roomie_profile === "object" ? raw.roomie_profile : {};
     const profile = {...nested, ...raw};
     const id = String(raw?.id || raw?._id || raw?.user_id || profile.id || profile._id || "");
@@ -218,7 +218,7 @@ function normalizeProfile(raw) {
     };
 }
 
-function renderSeekerCard(profile) {
+export function renderSeekerCard(profile) {
     const avatar = renderAvatar(profile);
     const name = profile.firstName || "Roomie";
     const meta = [
@@ -292,7 +292,7 @@ function renderAvatar(profile) {
     `;
 }
 
-async function contactSeeker(userId) {
+export async function contactSeeker(userId) {
     if (!userId) return;
 
     if (isLoggedIn() && !(await ensureRoomieProfile("contact"))) {

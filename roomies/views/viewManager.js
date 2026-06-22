@@ -20,11 +20,13 @@ import {
     renderSearchAgentEdit,
     renderSearchAgentOverview
 } from "../roomie_agent/roomie_agent.js";
+import {renderRoomieSeekersView} from "../roomie_seekers/roomie_seekers.js";
 
 // Setup click events for all views
 const views = {
     landing: document.getElementById('landing'),
     soeg_vaerelse: document.getElementById('soeg_vaerelse'),
+    roomie_seekers: document.getElementById('roomie_seekers'),
     room_detail: document.getElementById('room_detail'),
     udlej_vaerelse: document.getElementById('udlej_vaerelse'),
     profile: document.getElementById('profile'),
@@ -47,6 +49,7 @@ const appRoot = document.getElementById('root');
 const routeToView = {
     '/': 'landing',
     '/ledige-vaerelser': 'soeg_vaerelse',
+    '/find-roomie': 'roomie_seekers',
     '/vaerelse': 'room_detail',
     '/udlej-vaerelse': 'udlej_vaerelse',
     '/boligovervaagning': 'agent',
@@ -329,6 +332,13 @@ async function loadViewData(view, viewParams) {
             await module.refreshRentRoomFormFromOwnerRooms({preferLocalDraft: true});
             break;
         }
+        case "roomie_seekers":
+            // Don't await: the view should paint immediately with its own loading
+            // spinner instead of blocking navigation on the network fetch. The
+            // renderer sets the spinner synchronously and handles its own success/
+            // error states once the (shared, cached) profile fetch resolves.
+            renderRoomieSeekersView();
+            break;
         case "profile":
             await loadProfileView();
             break;
@@ -336,6 +346,7 @@ async function loadViewData(view, viewParams) {
             await renderConversations(viewParams.get("besked_id") || viewParams.get("id"), {
                 draftReceiverId: viewParams.get("modtager"),
                 draftRoomId: viewParams.get("room"),
+                draftSource: viewParams.get("source"),
             });
             break;
         case "agent":
@@ -534,6 +545,13 @@ function optimizeSEOMetadata(view) {
     }
     else if (view === 'room_detail') {
         // The room detail renderer updates metadata once the cached room is loaded.
+    }
+    else if (view === 'roomie_seekers') {
+        updateMetaTags(
+            'Find roomie | Gennemse boligsøgende profiler',
+            'Find boligsøgende roomies, se deres budget, ønskede områder og roomie-vibes, og skriv gratis til dem hvis dit værelse matcher.',
+            `${baseUrl}/find-roomie`
+        );
     }
     else if (view === 'udlej_vaerelse') {
         updateMetaTags(

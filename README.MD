@@ -28,8 +28,12 @@ example response {
   ]
   }
 
-- Remove the "Kan flytte ind fra" field, no need on roomie profile
+
+- For meget tekst i nyt slide på roomie profile popup
 - Simplify the card shown on "Find Roomie"
+- Use the existing migration framework in C:\Users\Julian\IdeaProjects\andelsbolig-backend\andelsbolig\version to create a small migration which on startup sets the new fields on roomieprofiles, i want defaults so seeking_room = true , renting_room = false , public_profile = true and monthly_price_max none and areas empty list (or none?) updated = now in epoch.
+
+- Use the seeker info stored on roomie_profile now to also send matching agent emails. Dedupe in case user already has an active agent. 
 
 - Jeg skal have CTA'er til at oprette søgeagent hvis brugeren ikke allerede har en
 - Du kunne også som yderligere ting gøre sådan, at brugere kan oprette sig som "søger værelse" - så kan alle dem der har et værelse selv scanne markedet og se hvem de gider mødes med uden at lave et opslag. Det er dog mere en beslutning, om man er interesseret i dét, kan nok få en del creeps til at skrive til unge piger xD

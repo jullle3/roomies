@@ -253,6 +253,59 @@
     color: #fff;
 }
 
+.roomie-onboarding-intent-grid {
+    display: grid;
+    gap: 0.65rem;
+}
+
+.roomie-onboarding-intent {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 0.8rem;
+    align-items: center;
+    padding: 0.85rem;
+    border: 1px solid #eef0f3;
+    border-radius: 18px;
+    background: #fff;
+    cursor: pointer;
+    transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.roomie-onboarding-intent:hover {
+    transform: translateY(-2px);
+    border-color: rgba(255, 107, 107, 0.34);
+    box-shadow: var(--shadow-soft);
+}
+
+.roomie-onboarding-intent input {
+    width: 1.25rem;
+    height: 1.25rem;
+    accent-color: var(--color-primary);
+    cursor: pointer;
+}
+
+.roomie-onboarding-intent strong,
+.roomie-onboarding-intent small {
+    display: block;
+}
+
+.roomie-onboarding-intent strong {
+    color: var(--text-main);
+    font-weight: 900;
+}
+
+.roomie-onboarding-intent small {
+    margin-top: 0.15rem;
+    color: var(--text-muted);
+    font-size: 0.78rem;
+    font-weight: 600;
+    line-height: 1.35;
+}
+
+.roomie-onboarding-intent-muted {
+    background: rgba(253, 251, 247, 0.95);
+}
+
 .roomie-onboarding-char-count {
     color: var(--text-muted);
     font-size: 0.8rem;

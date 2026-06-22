@@ -28,6 +28,24 @@ body {
         left: 20px;
         right: 20px;
     }
+
+    .floating-nav .navbar-nav.ms-auto {
+        min-width: 0;
+        padding-left: 1.35rem;
+    }
+
+    .floating-nav .navbar-nav.ms-auto .nav-item.dropdown {
+        flex: 0 0 180px;
+        width: 180px !important;
+        max-width: 180px;
+        min-width: 0;
+    }
+
+    .nav-auth-btn {
+        box-sizing: border-box;
+        width: 100%;
+        max-width: 100%;
+    }
 }
 
 /* Mobile: Kant-til-kant med afrundet bund */
@@ -39,15 +57,30 @@ body {
         left: 0;
         right: 0;
     }
+
+    .nav-auth-btn {
+        max-width: none;
+        width: 100%;
+    }
+
+    .floating-nav .navbar-nav.ms-auto .nav-item.dropdown {
+        width: 100% !important;
+        max-width: none;
+    }
 }
 
 /* Custom Nav Links */
 .custom-nav-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
     color: var(--text-muted);
     font-weight: 600;
     font-size: 0.95rem;
     padding: 0.6rem 1.2rem !important;
     border-radius: var(--radius-pill);
+    white-space: nowrap;
     transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -60,7 +93,8 @@ body {
 
 .custom-nav-link .nav-icon {
     opacity: 0.6;
-    margin-right: 6px;
+    flex: 0 0 auto;
+    margin-right: 0;
     transition: opacity 0.2s ease, color 0.2s ease;
 }
 
@@ -75,9 +109,26 @@ body {
     background-color: var(--text-main);
     color: #ffffff !important;
     border: none;
+    box-sizing: border-box;
+    min-width: 0;
+    overflow: hidden;
     padding-left: 1.5rem;
     padding-right: 1.5rem;
     box-shadow: 0 4px 10px rgba(31, 41, 55, 0.12);
+    white-space: nowrap;
+}
+
+#navbar-name-text {
+    display: block;
+    min-width: 0;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.nav-auth-btn .fa-chevron-down {
+    flex: 0 0 auto;
 }
 
 .nav-auth-btn:hover {
@@ -190,6 +241,28 @@ body {
 
 .text-primary-coral {
     color: var(--color-primary) !important;
+}
+
+@media (min-width: 992px) and (max-width: 1120px) {
+    .floating-nav {
+        max-width: calc(100vw - 24px);
+    }
+
+    .custom-nav-link {
+        padding-left: 0.85rem !important;
+        padding-right: 0.85rem !important;
+        font-size: 0.9rem;
+    }
+
+    .nav-auth-btn {
+        max-width: 100%;
+    }
+
+    .floating-nav .navbar-nav.ms-auto .nav-item.dropdown {
+        flex-basis: 164px;
+        width: 164px !important;
+        max-width: 180px;
+    }
 }
 
 /* =========================================

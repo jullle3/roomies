@@ -40,7 +40,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cropperjs@1.6.2/dist/cropper.min.css">
 
     <!--    Custom Merged css files -->
-    <link rel="stylesheet" href="roomies/mergedStyles.css?roomies_version=1041">
+    <link rel="stylesheet" href="roomies/mergedStyles.css?roomies_version=1052">
     <style>
         .nav-auth-btn:active,
         .nav-auth-btn:focus,
@@ -59,7 +59,7 @@
             color: #ffffff !important;
         }
     </style>
-    <script defer type="module" src="roomies/mergedJS.js?roomies_version=1041"></script>
+    <script defer type="module" src="roomies/mergedJS.js?roomies_version=1052"></script>
 
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18047412076"></script>
@@ -1127,11 +1127,6 @@
                                 </div>
 
                                 <div class="roomie-seekers-filter-block">
-                                    <label class="form-label" for="roomie-seekers-move-in">Kan flytte ind fra</label>
-                                    <input id="roomie-seekers-move-in" name="move_in_from" type="date" class="form-control">
-                                </div>
-
-                                <div class="roomie-seekers-filter-block">
                                     <label class="form-label" for="roomie-seekers-occupation">Beskæftigelse</label>
                                     <select id="roomie-seekers-occupation" class="form-select" name="occupation">
                                         <option value="">Alle</option>
@@ -1151,8 +1146,6 @@
                                         <option value="">Alle</option>
                                         <option value="mand">Mand</option>
                                         <option value="kvinde">Kvinde</option>
-                                        <option value="andet">Andet</option>
-                                        <option value="ønsker ikke at oplyse">Ønsker ikke at oplyse</option>
                                     </select>
                                 </div>
 
@@ -1194,6 +1187,10 @@
                 </div>
 
                 <div id="roomie-seekers-results" class="row g-4"></div>
+
+                <div class="room-search-load-more-wrap">
+                    <button id="roomie-seekers-load-more" class="room-search-load-more d-none" type="button"></button>
+                </div>
 
                 <div id="roomie-seekers-empty" class="roomie-seekers-empty text-center d-none">
                     <i class="fa-regular fa-face-smile-beam mb-3"></i>
@@ -1881,10 +1878,6 @@
                                             <label class="profile-pill-option" for="profile-gender-man">Mand</label>
                                             <input type="radio" class="btn-check" name="gender" id="profile-gender-woman" value="kvinde">
                                             <label class="profile-pill-option" for="profile-gender-woman">Kvinde</label>
-                                            <input type="radio" class="btn-check" name="gender" id="profile-gender-other" value="andet">
-                                            <label class="profile-pill-option" for="profile-gender-other">Andet</label>
-                                            <input type="radio" class="btn-check" name="gender" id="profile-gender-private" value="ønsker ikke at oplyse">
-                                            <label class="profile-pill-option" for="profile-gender-private">Ønsker ikke at oplyse</label>
                                         </div>
                                     </div>
 
@@ -1927,16 +1920,12 @@
                                         </div>
 
                                         <div class="row g-3">
-                                            <div class="col-md-6">
+                                            <div class="col-12">
                                                 <label class="form-label" for="profile-monthly-price-max">Maks husleje pr. måned</label>
                                                 <div class="input-group">
                                                     <input id="profile-monthly-price-max" class="form-control" type="number" min="0" step="100" inputmode="numeric" placeholder="6000">
                                                     <span class="input-group-text">kr.</span>
                                                 </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <label class="form-label" for="profile-move-in-from">Kan flytte ind fra</label>
-                                                <input id="profile-move-in-from" class="form-control" type="date">
                                             </div>
                                         </div>
 
@@ -1951,7 +1940,7 @@
 
                                     <div>
                                         <label class="form-label">Mine roomie-vibes</label>
-                                        <p class="text-muted small mb-3">Vælg 3-5 tags, der bedst beskriver dig derhjemme.</p>
+                                        <p class="text-muted small mb-3">Vælg de tags, der bedst beskriver dig derhjemme.</p>
                                         <div class="profile-vibe-grid">
                                             <input type="checkbox" class="btn-check" name="interests" id="profile-vibe-social" value="🍻 Socialt anlagt">
                                             <label for="profile-vibe-social">🍻 Socialt anlagt</label>
@@ -2727,6 +2716,7 @@
                 <div class="roomie-onboarding-progress" aria-hidden="true">
                     <span class="is-active" data-ob-dot="0"></span>
                     <span data-ob-dot="1"></span>
+                    <span data-ob-dot="2"></span>
                 </div>
 
                 <header class="roomie-onboarding-head">
@@ -2781,13 +2771,16 @@
                                 <label class="roomie-onboarding-pill" for="ob-gender-man">Mand</label>
                                 <input type="radio" class="btn-check" name="ob-gender" id="ob-gender-woman" value="kvinde">
                                 <label class="roomie-onboarding-pill" for="ob-gender-woman">Kvinde</label>
-                                <input type="radio" class="btn-check" name="ob-gender" id="ob-gender-other" value="andet">
-                                <label class="roomie-onboarding-pill" for="ob-gender-other">Andet</label>
-                                <input type="radio" class="btn-check" name="ob-gender" id="ob-gender-private" value="ønsker ikke at oplyse">
-                                <label class="roomie-onboarding-pill" for="ob-gender-private">Ønsker ikke at oplyse</label>
                             </div>
                         </div>
 
+                        <button type="button" class="btn btn-primary-coral rounded-pill fw-bold w-100 py-3" data-ob-next>
+                            Næste trin →
+                        </button>
+                    </div>
+
+                    <!-- Step 2: Hvad bruger du RoomieDanmark til? -->
+                    <div class="roomie-onboarding-step" data-ob-step="1">
                         <div class="roomie-onboarding-field">
                             <label class="form-label">Hvad bruger du RoomieDanmark til?</label>
                             <p class="roomie-onboarding-help">Du kan vælge begge dele. Din profil er som udgangspunkt synlig, så gode matches kan finde dig.</p>
@@ -2816,16 +2809,42 @@
                             </div>
                         </div>
 
-                        <button type="button" class="btn btn-primary-coral rounded-pill fw-bold w-100 py-3" data-ob-next>
-                            Næste trin →
-                        </button>
+                        <div class="roomie-onboarding-field profile-seeker-fields d-none" data-ob-seeker-fields>
+                            <div class="profile-seeker-fields-head">
+                                <h6>Hvad leder du efter?</h6>
+                                <p>De her felter hjælper folk med ledige værelser med at finde dig.</p>
+                            </div>
+
+                            <div class="row g-3">
+                                <div class="col-12">
+                                    <label class="form-label" for="ob-monthly-price-max">Maks husleje pr. måned</label>
+                                    <div class="input-group">
+                                        <input id="ob-monthly-price-max" data-ob-monthly-price-max class="form-control" type="number" min="0" step="100" inputmode="numeric" placeholder="6000">
+                                        <span class="input-group-text">kr.</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="form-label" for="ob-area-search">Ønskede områder</label>
+                                <input id="ob-area-search" data-ob-area-search type="search" class="form-control" autocomplete="off" placeholder="Søg efter postnummer eller område">
+                                <p class="profile-area-hint">Alle områder er valgt, hvis du ikke vælger noget.</p>
+                                <div class="profile-selected-areas" data-ob-selected-areas></div>
+                                <div class="profile-area-suggestions" data-ob-area-suggestions></div>
+                            </div>
+                        </div>
+
+                        <div class="roomie-onboarding-actions">
+                            <button type="button" class="btn btn-light rounded-pill fw-bold py-3 px-4" data-ob-back>← Tilbage</button>
+                            <button type="button" class="btn btn-primary-coral rounded-pill fw-bold py-3 flex-grow-1" data-ob-next>Næste trin →</button>
+                        </div>
                     </div>
 
-                    <!-- Step 2: Din vibe -->
-                    <div class="roomie-onboarding-step" data-ob-step="1">
+                    <!-- Step 3: Din vibe -->
+                    <div class="roomie-onboarding-step" data-ob-step="2">
                         <div class="roomie-onboarding-field">
                             <label class="form-label">Mine roomie-vibes</label>
-                            <p class="roomie-onboarding-help">Vælg op til 5 tags, der bedst beskriver dig derhjemme.</p>
+                            <p class="roomie-onboarding-help">Vælg de tags, der bedst beskriver dig derhjemme.</p>
                             <div class="roomie-onboarding-vibes">
                                 <input type="checkbox" class="btn-check" name="ob-interests" id="ob-vibe-social" value="🍻 Socialt anlagt">
                                 <label for="ob-vibe-social">🍻 Socialt anlagt</label>

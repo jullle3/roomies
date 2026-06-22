@@ -2,10 +2,16 @@ import {authFetch} from "../auth/auth.js";
 import {s3Url} from "../config/config.js";
 import {currentUser, setCurrentUser, ensureCurrentUserLoaded, displayErrorMessage, displaySuccessMessage} from "../utils.js";
 import {cropAvatarFile, isAvatarCropperAvailable} from "../components/avatar_cropper.js";
+import {areaAutocompleteOptions} from "../config/hardcoded_data.js";
 
 // Generous ceiling so large phone photos go through — the server compresses anyway.
 const MAX_PHOTO_SIZE_BYTES = 12 * 1024 * 1024;
-const INTEREST_LIMIT = 5;
+const AREA_SUGGESTION_LIMIT = 4;
+const AREA_LOOKUP = new Map(areaAutocompleteOptions.map(area => [String(area.id), area]));
+
+// Desired areas chosen in the (seeker-only) "Hvad leder du efter?" block. Reset
+// every time the modal opens via resetForm.
+let selectedAreas = [];
 
 // Identity fields that signal a genuinely filled-out roomie profile. Search
 // fields (budget, areas) are excluded since they belong to the SøgeAgent.
@@ -18,17 +24,20 @@ const ONBOARDING_CONTEXTS = {
     contact: {
         heading: "Sæt ansigt på beskeden 👋",
         subtext: "Udlejere svarer langt oftere, når de kan se hvem de skriver med. Det tager under et minut.",
-        cta: "Gem profil & Send besked 🚀"
+        cta: "Gem profil & Send besked 🚀",
+        defaults: {seeking_room: true, renting_room: false}
     },
     publish: {
         heading: "Gør din annonce personlig 🏡",
         subtext: "Boligsøgende vil gerne vide, hvem de skal bo med. En udfyldt profil får flere henvendelser.",
-        cta: "Gem profil & Udgiv annonce 🎉"
+        cta: "Gem profil & Udgiv annonce 🎉",
+        defaults: {seeking_room: false, renting_room: true}
     },
     agent: {
         heading: "Gør din profil klar 🕵️‍♀️",
         subtext: "Når et værelse matcher, kan du skrive med det samme – og en udfyldt profil giver dig hurtigere svar.",
-        cta: "Gem profil & Opret SøgeAgent 🔔"
+        cta: "Gem profil & Opret SøgeAgent 🔔",
+        defaults: {seeking_room: true, renting_room: false}
     }
 };
 
@@ -41,7 +50,12 @@ export function hasFilledRoomieProfile(user) {
         return Array.isArray(value) ? value.length > 0 : value != null && String(value).trim() !== "";
     }).length;
 
-    return filledCount >= MIN_FILLED_PROFILE_FIELDS;
+    // Profiles predating the seeking/renting step have their identity fields filled
+    // but no intent chosen. Require an explicit intent so those existing users get
+    // the modal once to fill the new directory fields; completing it always sets one.
+    const hasIntent = profile.seeking_room === true || profile.renting_room === true;
+
+    return filledCount >= MIN_FILLED_PROFILE_FIELDS && hasIntent;
 }
 
 // Resolves true if the caller may proceed (profile already complete, or the user
@@ -65,9 +79,10 @@ function openRoomieOnboarding(contextKey, user) {
     let profilePhotoName = getExistingPhoto(user);
     let settled = false;
     let success = false;
+    let currentStep = 0;
 
     applyContext(els, context);
-    resetForm(els, user);
+    resetForm(els, user, context);
     setPhotoState(els, profilePhotoName);
     goToStep(els, 0);
 
@@ -75,12 +90,18 @@ function openRoomieOnboarding(contextKey, user) {
         const cleanup = () => {
             els.photoTrigger.removeEventListener("click", openPicker);
             els.photoInput.removeEventListener("change", onPhotoChange);
-            els.next.removeEventListener("click", onNext);
-            els.back.removeEventListener("click", onBack);
+            els.nextButtons.forEach(button => button.removeEventListener("click", onNext));
+            els.backButtons.forEach(button => button.removeEventListener("click", onBack));
             els.form.removeEventListener("submit", onSubmit);
             els.description.removeEventListener("input", onDescInput);
-            els.interestInputs.forEach(input => input.removeEventListener("change", onInterestChange));
             els.occupationInputs.forEach(input => input.removeEventListener("change", onOccupationChange));
+            els.seekingRoom?.removeEventListener("change", onSeekingToggle);
+            els.areaSearch?.removeEventListener("input", onAreaInput);
+            els.areaSearch?.removeEventListener("focus", onAreaInput);
+            els.areaSearch?.removeEventListener("keydown", onAreaKeydown);
+            els.areaSuggestions?.removeEventListener("mousedown", onAreaSuggestionsMousedown);
+            els.selectedAreas?.removeEventListener("click", onSelectedAreasClick);
+            document.removeEventListener("click", onAreaDocumentClick);
             modalElement.removeEventListener("hidden.bs.modal", onHidden);
         };
 
@@ -101,7 +122,7 @@ function openRoomieOnboarding(contextKey, user) {
         };
 
         const setPhotoBusy = isBusy => {
-            els.next.disabled = isBusy || !profilePhotoName;
+            els.nextButtons.forEach(button => { button.disabled = isBusy || !profilePhotoName; });
             els.photoTrigger.classList.toggle("is-busy", isBusy);
         };
 
@@ -153,31 +174,61 @@ function openRoomieOnboarding(contextKey, user) {
             }
         };
 
+        const lastStep = els.steps.length - 1;
+
         const onNext = () => {
-            if (!profilePhotoName) {
+            // The photo lives on step 0, so only gate leaving that step on it.
+            if (currentStep === 0 && !profilePhotoName) {
                 showPhotoError("Tilføj et profilbillede for at fortsætte.");
                 return;
             }
-            goToStep(els, 1);
+            currentStep = Math.min(currentStep + 1, lastStep);
+            goToStep(els, currentStep);
         };
 
-        const onBack = () => goToStep(els, 0);
+        const onBack = () => {
+            currentStep = Math.max(currentStep - 1, 0);
+            goToStep(els, currentStep);
+        };
 
         const onDescInput = () => updateDescriptionCount(els);
 
-        const onInterestChange = event => {
-            const selected = els.interestInputs.filter(input => input.checked);
-            if (selected.length > INTEREST_LIMIT) {
-                event.target.checked = false;
-                displayErrorMessage(`Vælg højst ${INTEREST_LIMIT} roomie-vibes.`);
-            }
-        };
-
         const onOccupationChange = () => updateOccupationLabel(els);
+
+        // The "Hvad leder du efter?" block only matters to room seekers, so reveal
+        // it when they tick "Jeg søger værelse" and hide it otherwise.
+        const onSeekingToggle = () => updateSeekerFieldsVisibility(els);
+
+        const onAreaInput = () => renderAreaSuggestions(els, els.areaSearch.value);
+        const onAreaKeydown = event => {
+            if (event.key !== "Enter") return;
+            const firstOption = els.areaSuggestions.querySelector("[data-ob-area-option]");
+            if (!firstOption) return;
+            event.preventDefault();
+            addArea(els, firstOption.dataset.obAreaOption);
+        };
+        const onAreaSuggestionsMousedown = event => {
+            const option = event.target.closest("[data-ob-area-option]");
+            if (!option) return;
+            event.preventDefault();
+            addArea(els, option.dataset.obAreaOption);
+        };
+        const onSelectedAreasClick = event => {
+            const remove = event.target.closest("[data-ob-area-remove]");
+            if (!remove) return;
+            selectedAreas = selectedAreas.filter(id => id !== remove.dataset.obAreaRemove);
+            renderSelectedAreas(els);
+            renderAreaSuggestions(els, els.areaSearch.value);
+        };
+        const onAreaDocumentClick = event => {
+            if (!els.areaSuggestions || event.target === els.areaSearch || els.areaSuggestions.contains(event.target)) return;
+            els.areaSuggestions.innerHTML = "";
+        };
 
         const onSubmit = async event => {
             event.preventDefault();
             if (!profilePhotoName) {
+                currentStep = 0;
                 goToStep(els, 0);
                 showPhotoError("Tilføj et profilbillede for at fortsætte.");
                 return;
@@ -198,12 +249,18 @@ function openRoomieOnboarding(contextKey, user) {
 
         els.photoTrigger.addEventListener("click", openPicker);
         els.photoInput.addEventListener("change", onPhotoChange);
-        els.next.addEventListener("click", onNext);
-        els.back.addEventListener("click", onBack);
+        els.nextButtons.forEach(button => button.addEventListener("click", onNext));
+        els.backButtons.forEach(button => button.addEventListener("click", onBack));
         els.form.addEventListener("submit", onSubmit);
         els.description.addEventListener("input", onDescInput);
-        els.interestInputs.forEach(input => input.addEventListener("change", onInterestChange));
         els.occupationInputs.forEach(input => input.addEventListener("change", onOccupationChange));
+        els.seekingRoom?.addEventListener("change", onSeekingToggle);
+        els.areaSearch?.addEventListener("input", onAreaInput);
+        els.areaSearch?.addEventListener("focus", onAreaInput);
+        els.areaSearch?.addEventListener("keydown", onAreaKeydown);
+        els.areaSuggestions?.addEventListener("mousedown", onAreaSuggestionsMousedown);
+        els.selectedAreas?.addEventListener("click", onSelectedAreasClick);
+        document.addEventListener("click", onAreaDocumentClick);
         modalElement.addEventListener("hidden.bs.modal", onHidden);
 
         modal.show();
@@ -222,13 +279,21 @@ function collectElements(modalElement) {
         photoPreview: modalElement.querySelector("[data-ob-photo-preview]"),
         photoPlaceholder: modalElement.querySelector("[data-ob-photo-placeholder]"),
         photoError: modalElement.querySelector("[data-ob-photo-error]"),
-        next: modalElement.querySelector("[data-ob-next]"),
-        back: modalElement.querySelector("[data-ob-back]"),
+        nextButtons: [...modalElement.querySelectorAll("[data-ob-next]")],
+        backButtons: [...modalElement.querySelectorAll("[data-ob-back]")],
         submit: modalElement.querySelector("[data-ob-submit]"),
         age: modalElement.querySelector("[data-ob-age]"),
         occupationLabel: modalElement.querySelector("[data-ob-occupation-label]"),
         description: modalElement.querySelector("[data-ob-description]"),
         descCount: modalElement.querySelector("[data-ob-desc-count]"),
+        seekingRoom: modalElement.querySelector("[data-ob-seeking-room]"),
+        rentingRoom: modalElement.querySelector("[data-ob-renting-room]"),
+        publicProfile: modalElement.querySelector("[data-ob-public-profile]"),
+        seekerFields: modalElement.querySelector("[data-ob-seeker-fields]"),
+        monthlyPriceMax: modalElement.querySelector("[data-ob-monthly-price-max]"),
+        areaSearch: modalElement.querySelector("[data-ob-area-search]"),
+        areaSuggestions: modalElement.querySelector("[data-ob-area-suggestions]"),
+        selectedAreas: modalElement.querySelector("[data-ob-selected-areas]"),
         genderInputs: [...modalElement.querySelectorAll("input[name='ob-gender']")],
         interestInputs: [...modalElement.querySelectorAll("input[name='ob-interests']")],
         occupationInputs: [...modalElement.querySelectorAll("input[name='ob-occupation']")]
@@ -241,7 +306,7 @@ function applyContext(els, context) {
     if (els.submit) els.submit.textContent = context.cta;
 }
 
-function resetForm(els, user) {
+function resetForm(els, user, context = {}) {
     const profile = user?.roomie_profile && typeof user.roomie_profile === "object" ? user.roomie_profile : {};
 
     if (els.age) els.age.value = profile.age ?? "";
@@ -262,6 +327,27 @@ function resetForm(els, user) {
         input.checked = occupations.includes(input.value);
     });
     updateOccupationLabel(els);
+
+    if (els.seekingRoom) {
+        els.seekingRoom.checked = typeof profile.seeking_room === "boolean"
+            ? profile.seeking_room
+            : context.defaults?.seeking_room === true;
+    }
+    if (els.rentingRoom) {
+        els.rentingRoom.checked = typeof profile.renting_room === "boolean"
+            ? profile.renting_room
+            : context.defaults?.renting_room === true;
+    }
+    if (els.publicProfile) {
+        els.publicProfile.checked = profile.public_profile !== false;
+    }
+
+    if (els.monthlyPriceMax) els.monthlyPriceMax.value = profile.monthly_price_max ?? "";
+    selectedAreas = normalizeAreaIds(profile.areas);
+    if (els.areaSearch) els.areaSearch.value = "";
+    renderSelectedAreas(els);
+    renderAreaSuggestions(els, "");
+    updateSeekerFieldsVisibility(els);
 
     updateDescriptionCount(els);
 }
@@ -290,9 +376,83 @@ function updateOccupationLabel(els) {
     els.occupationLabel.classList.toggle("is-placeholder", selected.length === 0);
 }
 
+// Seeker-only block: budget + desired areas. Hidden unless the user is seeking.
+function updateSeekerFieldsVisibility(els) {
+    els.seekerFields?.classList.toggle("d-none", !els.seekingRoom?.checked);
+}
+
+function renderAreaSuggestions(els, query = "") {
+    const container = els.areaSuggestions;
+    if (!container) return;
+
+    const normalizedQuery = normalizeText(query);
+    const suggestions = areaAutocompleteOptions
+        .filter(area => !selectedAreas.includes(String(area.id)))
+        .filter(area => !normalizedQuery || area.searchText.includes(normalizedQuery))
+        .slice(0, AREA_SUGGESTION_LIMIT);
+
+    container.innerHTML = suggestions.map(area => `
+        <button type="button" data-ob-area-option="${escapeAttribute(area.id)}">
+            <i class="${escapeAttribute(area.icon || 'fa-solid fa-location-dot')}"></i>
+            <span>${escapeHtml(area.label)}</span>
+        </button>
+    `).join("");
+}
+
+function renderSelectedAreas(els) {
+    const container = els.selectedAreas;
+    if (!container) return;
+
+    container.innerHTML = selectedAreas.map(id => `
+        <span class="profile-area-pill">
+            ${escapeHtml(formatAreaLabel(id))}
+            <button type="button" data-ob-area-remove="${escapeAttribute(id)}" aria-label="Fjern ${escapeAttribute(formatAreaLabel(id))}">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </span>
+    `).join("");
+}
+
+function addArea(els, areaId) {
+    const id = String(areaId || "");
+    if (!AREA_LOOKUP.has(id) || selectedAreas.includes(id)) return;
+
+    selectedAreas.push(id);
+    if (els.areaSearch) els.areaSearch.value = "";
+    renderSelectedAreas(els);
+    renderAreaSuggestions(els, "");
+}
+
+function normalizeAreaIds(value) {
+    if (!Array.isArray(value)) return [];
+    return value.map(id => String(id)).filter(id => AREA_LOOKUP.has(id));
+}
+
+function formatAreaLabel(areaId) {
+    return AREA_LOOKUP.get(String(areaId))?.label || String(areaId);
+}
+
+function normalizeText(value) {
+    return String(value || "")
+        .trim()
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[̀-ͯ]/g, "");
+}
+
+function escapeHtml(value) {
+    const element = document.createElement("div");
+    element.textContent = String(value || "");
+    return element.innerHTML;
+}
+
+function escapeAttribute(value) {
+    return escapeHtml(value).replace(/"/g, "&quot;");
+}
+
 function setPhotoState(els, photoName) {
     showPhotoPreview(els, buildPhotoUrl(photoName));
-    els.next.disabled = !photoName;
+    els.nextButtons.forEach(button => { button.disabled = !photoName; });
 }
 
 function showPhotoPreview(els, src) {
@@ -334,7 +494,12 @@ async function saveRoomieProfile(els, profilePhotoName) {
         gender: selectedGender?.value || null,
         occupation,
         interests,
-        description: String(els.description?.value || "").trim() || null
+        description: String(els.description?.value || "").trim() || null,
+        seeking_room: els.seekingRoom?.checked || false,
+        renting_room: els.rentingRoom?.checked || false,
+        public_profile: els.publicProfile?.checked !== false,
+        monthly_price_max: parseInteger(els.monthlyPriceMax?.value),
+        areas: selectedAreas.length ? selectedAreas.map(Number).filter(Number.isFinite) : null
     };
 
     const response = await authFetch("/roomies/user", {

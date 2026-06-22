@@ -1,0 +1,493 @@
+#roomie_seekers {
+    min-height: 100vh;
+    background:
+        radial-gradient(circle at 12% 8%, rgba(255, 107, 107, 0.09), transparent 30%),
+        var(--bg-main);
+}
+
+.roomie-seekers-hero {
+    padding: 128px 0 54px;
+}
+
+.roomie-seekers-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    padding: 0.5rem 0.9rem;
+    border-radius: var(--radius-pill);
+    background: rgba(255, 107, 107, 0.1);
+    color: var(--color-primary);
+    font-size: 0.78rem;
+    font-weight: 900;
+}
+
+.roomie-seekers-hero h1 {
+    max-width: 720px;
+    color: var(--text-main);
+    font-family: var(--font-heading);
+    letter-spacing: -0.5px;
+}
+
+.roomie-seekers-hero p {
+    max-width: 680px;
+    font-weight: 600;
+    line-height: 1.6;
+}
+
+.roomie-seekers-hero-card {
+    margin-left: auto;
+    max-width: 390px;
+    padding: 1.25rem;
+    border: 1px solid rgba(255, 255, 255, 0.72);
+    border-radius: var(--radius-xl);
+    background: rgba(255, 255, 255, 0.88);
+    box-shadow: var(--shadow-soft);
+    backdrop-filter: blur(12px);
+}
+
+.roomie-seekers-hero-card strong,
+.roomie-seekers-hero-card span {
+    display: block;
+}
+
+.roomie-seekers-hero-card strong {
+    margin-top: 1rem;
+    color: var(--text-main);
+    font-family: var(--font-heading);
+    font-size: 1.1rem;
+    font-weight: 900;
+}
+
+.roomie-seekers-hero-card span {
+    margin-top: 0.25rem;
+    color: var(--text-muted);
+    font-weight: 600;
+}
+
+.roomie-seekers-hero-avatars {
+    display: flex;
+    align-items: center;
+}
+
+.roomie-seekers-hero-avatars img {
+    width: 64px;
+    height: 64px;
+    border: 4px solid #fff;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: var(--shadow-soft);
+}
+
+.roomie-seekers-hero-avatars img + img {
+    margin-left: -14px;
+}
+
+.roomie-seekers-content {
+    padding: 0 0 84px;
+}
+
+.roomie-seekers-toolbar {
+    position: relative;
+    z-index: 3;
+    margin: 0 0 2rem;
+    padding: 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.72);
+    border-radius: 28px;
+    background: rgba(255, 255, 255, 0.92);
+    box-shadow: var(--shadow-soft);
+    backdrop-filter: blur(14px);
+}
+
+.roomie-seekers-main-row {
+    display: grid;
+    grid-template-columns: minmax(260px, 1fr) minmax(220px, 0.55fr) auto;
+    gap: 1rem;
+    align-items: end;
+}
+
+.roomie-seekers-location-field {
+    position: relative;
+    min-width: 0;
+}
+
+.roomie-seekers-main-input,
+.roomie-seekers-price-field .input-group {
+    min-height: 56px;
+    border: 1px solid #e5e7eb;
+    border-radius: 18px;
+    background: #fff;
+    overflow: hidden;
+}
+
+.roomie-seekers-main-input .input-group-text,
+.roomie-seekers-main-input .form-control,
+.roomie-seekers-price-field .input-group-text,
+.roomie-seekers-price-field .form-control {
+    border: 0;
+    background: transparent;
+    box-shadow: none;
+}
+
+.roomie-seekers-main-input .input-group-text {
+    color: var(--color-primary);
+}
+
+.roomie-seekers-price-field .form-label,
+.roomie-seekers-filter-menu .form-label {
+    margin-bottom: 0.45rem;
+    color: var(--text-main);
+    font-size: 0.82rem;
+    font-weight: 900;
+}
+
+.roomie-seekers-filter-toggle {
+    display: grid;
+    place-items: center;
+    width: 58px;
+    height: 58px;
+    border: 1px solid rgba(255, 107, 107, 0.22);
+    border-radius: 50%;
+    background: rgba(255, 107, 107, 0.12);
+    color: var(--color-primary);
+    font-size: 1.1rem;
+}
+
+.roomie-seekers-filter-toggle:hover,
+.roomie-seekers-filter-toggle:focus {
+    background: rgba(255, 107, 107, 0.18);
+    color: var(--color-primary-hover);
+}
+
+.roomie-seekers-filter-menu {
+    width: min(92vw, 390px);
+    padding: 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.75);
+    border-radius: var(--radius-xl);
+    background: rgba(255, 255, 255, 0.98);
+    box-shadow: var(--shadow-hover);
+}
+
+.roomie-seekers-filter-heading {
+    margin-bottom: 1rem;
+    padding-bottom: 0.85rem;
+    border-bottom: 1px solid rgba(107, 114, 128, 0.14);
+}
+
+.roomie-seekers-filter-block {
+    margin-bottom: 1rem;
+}
+
+.roomie-seekers-filter-menu .form-control,
+.roomie-seekers-filter-menu .form-select {
+    min-height: 48px;
+    border: 1px solid #e5e7eb;
+    border-radius: 15px;
+    background-color: #fff;
+}
+
+.roomie-seekers-vibe-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.roomie-seekers-vibe-grid label {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 38px;
+    padding: 0.5rem 0.75rem;
+    border: 1px solid #eef0f3;
+    border-radius: var(--radius-pill);
+    background: #fff;
+    color: var(--text-muted);
+    font-size: 0.82rem;
+    font-weight: 800;
+    cursor: pointer;
+}
+
+.roomie-seekers-vibe-grid .btn-check:checked + label {
+    border-color: var(--color-primary);
+    background: rgba(255, 107, 107, 0.1);
+    color: var(--text-main);
+}
+
+.roomie-seekers-area-suggestions {
+    position: absolute;
+    top: calc(100% + 0.5rem);
+    left: 0;
+    z-index: 20;
+    display: none;
+    width: max(100%, min(78vw, 420px));
+    max-height: 280px;
+    overflow-y: auto;
+    padding: 0.5rem;
+    border: 1px solid rgba(255, 107, 107, 0.16);
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.98);
+    box-shadow: var(--shadow-hover);
+}
+
+.roomie-seekers-area-suggestions.is-open {
+    display: grid;
+    gap: 0.35rem;
+}
+
+.roomie-seekers-area-option {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    width: 100%;
+    min-width: 0;
+    min-height: 42px;
+    padding: 0.55rem 0.7rem;
+    border: 0;
+    border-radius: 14px;
+    background: transparent;
+    color: var(--text-main);
+    font-size: 0.88rem;
+    font-weight: 800;
+    text-align: left;
+}
+
+.roomie-seekers-area-option:hover {
+    background: rgba(255, 107, 107, 0.08);
+}
+
+.roomie-seekers-area-option i {
+    display: grid;
+    place-items: center;
+    width: 30px;
+    height: 30px;
+    flex: 0 0 30px;
+    border-radius: 50%;
+    background: rgba(255, 107, 107, 0.1);
+    color: var(--color-primary);
+}
+
+.roomie-seekers-area-option span {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.roomie-seeker-card {
+    display: flex;
+    flex-direction: column;
+    padding: 1.15rem;
+    border: 1px solid rgba(255, 255, 255, 0.72);
+    border-radius: var(--radius-xl);
+    background: rgba(255, 255, 255, 0.96);
+    box-shadow: var(--shadow-soft);
+    transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.2s ease;
+}
+
+.roomie-seeker-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-hover);
+}
+
+.roomie-seeker-card-head {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    margin-bottom: 1rem;
+}
+
+.roomie-seeker-avatar {
+    width: 68px;
+    height: 68px;
+    flex: 0 0 68px;
+    border: 4px solid #fff;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: var(--shadow-soft);
+}
+
+.roomie-seeker-avatar-fallback {
+    display: grid;
+    place-items: center;
+    background: rgba(255, 107, 107, 0.12);
+    color: var(--color-primary);
+    font-size: 1.35rem;
+}
+
+.roomie-seeker-card h3 {
+    margin: 0;
+    color: var(--text-main);
+    font-family: var(--font-heading);
+    font-size: 1.2rem;
+    font-weight: 900;
+}
+
+.roomie-seeker-card-head p {
+    margin: 0.15rem 0 0;
+    color: var(--text-muted);
+    font-size: 0.86rem;
+    font-weight: 700;
+}
+
+.roomie-seeker-match-grid {
+    display: grid;
+    gap: 0.55rem;
+    margin-bottom: 1rem;
+}
+
+.roomie-seeker-match-grid div {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    min-height: 38px;
+    padding: 0.55rem 0.65rem;
+    border-radius: 14px;
+    background: var(--bg-main);
+    color: var(--text-main);
+    font-size: 0.84rem;
+    font-weight: 800;
+}
+
+.roomie-seeker-match-grid i {
+    color: var(--color-primary);
+}
+
+.roomie-seeker-vibes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    margin-bottom: 1rem;
+}
+
+.roomie-seeker-vibes span {
+    padding: 0.42rem 0.65rem;
+    border-radius: var(--radius-pill);
+    background: #f3f4f6;
+    color: var(--text-main);
+    font-size: 0.78rem;
+    font-weight: 800;
+}
+
+.roomie-seeker-description {
+    color: var(--text-muted);
+    font-size: 0.92rem;
+    font-weight: 600;
+    line-height: 1.55;
+}
+
+.roomie-seekers-empty,
+.roomie-seekers-state-card {
+    padding: clamp(2rem, 6vw, 3rem);
+    border: 1px solid rgba(255, 255, 255, 0.72);
+    border-radius: var(--radius-xl);
+    background: rgba(255, 255, 255, 0.94);
+    box-shadow: var(--shadow-soft);
+}
+
+.roomie-seekers-empty i {
+    color: var(--color-primary);
+    font-size: 2rem;
+}
+
+.roomie-seekers-state-card {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.8rem;
+    color: var(--text-main);
+}
+
+.roomie-seekers-state-card-error {
+    flex-direction: column;
+    color: #b91c1c;
+}
+
+.roomie-seekers-state-card-error span {
+    color: var(--text-muted);
+}
+
+@media (max-width: 991.98px) {
+    .roomie-seekers-hero {
+        padding-top: 108px;
+    }
+
+    .roomie-seekers-hero-card {
+        max-width: none;
+        margin-left: 0;
+    }
+
+    .roomie-seekers-main-row {
+        grid-template-columns: 1fr;
+        align-items: stretch;
+    }
+
+    .roomie-seekers-filter-toggle {
+        width: 100%;
+        height: 54px;
+        border-radius: var(--radius-pill);
+    }
+
+    .roomie-seekers-area-suggestions {
+        width: 100%;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .roomie-seekers-hero {
+        padding-top: 94px;
+        padding-bottom: 38px;
+        text-align: center;
+    }
+
+    .roomie-seekers-hero p {
+        font-size: 1rem !important;
+    }
+
+    .roomie-seekers-toolbar {
+        border-radius: 22px;
+        padding: 0.8rem;
+    }
+
+    .roomie-seekers-filter-menu {
+        width: calc(100vw - 2rem);
+    }
+
+    .roomie-seeker-card {
+        padding: 1rem;
+    }
+
+    .roomie-seeker-card-head {
+        align-items: flex-start;
+    }
+}
+
+/* Subtle "results updated" cue — replays each time a filter/search changes the
+   set, so the instant client-side update doesn't feel like nothing happened.
+   Cards rise in with a short stagger for a polished, sequential reveal. */
+@keyframes roomie-seekers-card-in {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.roomie-seekers-results-animate > * {
+    /* Smooth decelerating glide (easeOutQuint) rather than an abrupt snap. */
+    animation: roomie-seekers-card-in 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+    will-change: opacity, transform;
+}
+
+.roomie-seekers-results-animate > *:nth-child(1) { animation-delay: 0.02s; }
+.roomie-seekers-results-animate > *:nth-child(2) { animation-delay: 0.06s; }
+.roomie-seekers-results-animate > *:nth-child(3) { animation-delay: 0.10s; }
+.roomie-seekers-results-animate > *:nth-child(4) { animation-delay: 0.14s; }
+.roomie-seekers-results-animate > *:nth-child(5) { animation-delay: 0.18s; }
+.roomie-seekers-results-animate > *:nth-child(6) { animation-delay: 0.22s; }
+.roomie-seekers-results-animate > *:nth-child(7) { animation-delay: 0.26s; }
+.roomie-seekers-results-animate > *:nth-child(8) { animation-delay: 0.30s; }
+/* Cap the tail so large result sets don't drip in for too long. */
+.roomie-seekers-results-animate > *:nth-child(n+9) { animation-delay: 0.34s; }
+
+@media (prefers-reduced-motion: reduce) {
+    .roomie-seekers-results-animate > * {
+        animation: none;
+    }
+}

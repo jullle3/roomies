@@ -3,13 +3,16 @@ import {s3Url} from "../config/config.js";
 import {isLoggedIn} from "../utils.js";
 import {displayLoginModal, getCurrentView, getCurrentViewParams} from "../views/viewManager.js";
 
-// Public roomie profiles (every user), loaded lazily the first time someone opens a
-// profile and cached for the session. Small dataset, so one fetch covers everyone
-// the user might inspect — across the inbox and the room detail view alike.
+// Public roomie profiles (every user), loaded lazily the first time anything needs
+// them and cached for the session. Small dataset, so one fetch covers every consumer
+// that shares the /roomies/users/profile endpoint: the inbox, the room detail view,
+// and the Find-roomie directory alike. The raw list is kept alongside the by-id map
+// so the directory can iterate while the modal/conversations look up by id.
 const roomieProfileCache = new Map();
+let roomieProfilesList = [];
 let roomieProfilesPromise = null;
 
-function loadRoomieProfiles() {
+export function loadRoomieProfiles() {
     if (!roomieProfilesPromise) {
         roomieProfilesPromise = authFetch('/roomies/users/profile')
             .then(async (response) => {
@@ -18,9 +21,14 @@ function loadRoomieProfiles() {
                     error.code = response.status;
                     throw error;
                 }
-                const profiles = await response.json();
-                profiles.forEach(profile => roomieProfileCache.set(profile.id, profile));
-                return roomieProfileCache;
+                const body = await response.json();
+                const profiles = Array.isArray(body) ? body : (Array.isArray(body?.items) ? body.items : []);
+                roomieProfilesList = profiles;
+                profiles.forEach(profile => {
+                    const id = getProfileId(profile);
+                    if (id) roomieProfileCache.set(id, profile);
+                });
+                return roomieProfilesList;
             })
             .catch((error) => {
                 // Allow a later retry instead of caching the failure.
@@ -29,6 +37,19 @@ function loadRoomieProfiles() {
             });
     }
     return roomieProfilesPromise;
+}
+
+// Full raw profile list, fetched once and shared. Callers do their own display
+// filtering (e.g. the directory keeps only public_profile + seeking_room).
+export async function getAllRoomieProfiles() {
+    await loadRoomieProfiles();
+    return roomieProfilesList;
+}
+
+export async function getPublicRoomieProfileById(userId) {
+    if (!userId) return null;
+    await loadRoomieProfiles();
+    return roomieProfileCache.get(String(userId)) || null;
 }
 
 /**
@@ -73,6 +94,10 @@ function setRoomieProfileModalState(modalEl, state) {
     modalEl.querySelector('[data-rp-error]')?.classList.toggle('d-none', state !== 'error');
     modalEl.querySelector('[data-rp-login]')?.classList.toggle('d-none', state !== 'login');
     modalEl.querySelector('[data-rp-content]')?.classList.toggle('d-none', state !== 'content');
+}
+
+function getProfileId(profile) {
+    return String(profile?.id || profile?._id || profile?.user_id || '');
 }
 
 function bindRoomieProfileLogin(modalEl, modal) {

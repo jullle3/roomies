@@ -4,12 +4,16 @@ import {displayErrorMessage, displaySuccessMessage, decodeJwt, currentUser, setC
 import {showView} from "../views/viewManager.js";
 import {getCachedMyRooms, preloadMyRooms} from "../rooms/room_cache.js";
 import {cropAvatarFile, isAvatarCropperAvailable} from "../components/avatar_cropper.js";
+import {areaAutocompleteOptions} from "../config/hardcoded_data.js";
 
 // Generous ceiling so large phone photos go through — the server compresses anyway.
 const PROFILE_MAX_PHOTO_SIZE_BYTES = 12 * 1024 * 1024;
-const PROFILE_INTEREST_LIMIT = 5;
+const PROFILE_AREA_SUGGESTION_LIMIT = 4;
+const PROFILE_AREA_LOOKUP = new Map(areaAutocompleteOptions.map(area => [String(area.id), area]));
 let profilePhotoName = null;
 let pendingProfilePhotoFile = null;
+let currentRoomieProfileSnapshot = {};
+let selectedProfileAreas = [];
 
 export function setupProfileView() {
     setupProfileSettingsHandlers();
@@ -189,15 +193,113 @@ function setupHumanProfileHandlers() {
         updateDescriptionCount();
     }
 
-    form.querySelectorAll('input[name="interests"]').forEach(input => {
-        input.addEventListener('change', () => enforceInterestLimit(input));
-    });
-
     form.querySelectorAll('input[name="occupation"]').forEach(input => {
         input.addEventListener('change', updateOccupationLabel);
     });
 
+    bindProfileIntentControls();
+    bindProfileAreaPicker();
+
     form.addEventListener('submit', handleHumanProfileSubmit);
+}
+
+function bindProfileIntentControls() {
+    const seekingInput = document.getElementById('profile-seeking-room');
+    const publicInput = document.getElementById('profile-public-profile');
+
+    seekingInput?.addEventListener('change', updateProfileSeekerFieldsVisibility);
+    publicInput?.addEventListener('change', updateProfileSeekerFieldsVisibility);
+    updateProfileSeekerFieldsVisibility();
+}
+
+function updateProfileSeekerFieldsVisibility() {
+    const seekingInput = document.getElementById('profile-seeking-room');
+    const fields = document.getElementById('profile-seeker-fields');
+    fields?.classList.toggle('d-none', !seekingInput?.checked);
+}
+
+function bindProfileAreaPicker() {
+    const input = document.getElementById('profile-area-search');
+    const suggestions = document.getElementById('profile-area-suggestions');
+    if (!input || !suggestions || input.dataset.bound === '1') return;
+
+    input.dataset.bound = '1';
+
+    input.addEventListener('input', () => renderProfileAreaSuggestions(input.value));
+    input.addEventListener('focus', () => renderProfileAreaSuggestions(input.value));
+    input.addEventListener('keydown', event => {
+        if (event.key !== 'Enter') return;
+        const firstOption = suggestions.querySelector('[data-profile-area-option]');
+        if (!firstOption) return;
+
+        event.preventDefault();
+        addProfileArea(firstOption.dataset.profileAreaOption);
+    });
+
+    suggestions.addEventListener('mousedown', event => {
+        const option = event.target.closest('[data-profile-area-option]');
+        if (!option) return;
+
+        event.preventDefault();
+        addProfileArea(option.dataset.profileAreaOption);
+    });
+
+    document.addEventListener('click', event => {
+        if (event.target === input || suggestions.contains(event.target)) return;
+        suggestions.innerHTML = '';
+    });
+
+    document.getElementById('profile-selected-areas')?.addEventListener('click', event => {
+        const remove = event.target.closest('[data-profile-area-remove]');
+        if (!remove) return;
+
+        selectedProfileAreas = selectedProfileAreas.filter(id => id !== remove.dataset.profileAreaRemove);
+        renderSelectedProfileAreas();
+        renderProfileAreaSuggestions(input.value);
+    });
+}
+
+function renderProfileAreaSuggestions(query = '') {
+    const container = document.getElementById('profile-area-suggestions');
+    if (!container) return;
+
+    const normalizedQuery = normalizeText(query);
+    const suggestions = areaAutocompleteOptions
+        .filter(area => !selectedProfileAreas.includes(String(area.id)))
+        .filter(area => !normalizedQuery || area.searchText.includes(normalizedQuery))
+        .slice(0, PROFILE_AREA_SUGGESTION_LIMIT);
+
+    container.innerHTML = suggestions.map(area => `
+        <button type="button" data-profile-area-option="${escapeAttribute(area.id)}">
+            <i class="${escapeAttribute(area.icon || 'fa-solid fa-location-dot')}"></i>
+            <span>${escapeHtml(area.label)}</span>
+        </button>
+    `).join('');
+}
+
+function renderSelectedProfileAreas() {
+    const container = document.getElementById('profile-selected-areas');
+    if (!container) return;
+
+    container.innerHTML = selectedProfileAreas.map(id => `
+        <span class="profile-area-pill">
+            ${escapeHtml(formatAreaLabel(id))}
+            <button type="button" data-profile-area-remove="${escapeAttribute(id)}" aria-label="Fjern ${escapeAttribute(formatAreaLabel(id))}">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </span>
+    `).join('');
+}
+
+function addProfileArea(areaId) {
+    const id = String(areaId || '');
+    if (!PROFILE_AREA_LOOKUP.has(id) || selectedProfileAreas.includes(id)) return;
+
+    selectedProfileAreas.push(id);
+    const input = document.getElementById('profile-area-search');
+    if (input) input.value = '';
+    renderSelectedProfileAreas();
+    renderProfileAreaSuggestions('');
 }
 
 async function handleHumanProfileSubmit(event) {
@@ -226,6 +328,7 @@ async function handleHumanProfileSubmit(event) {
 
         const updatedUser = await response.json();
         setCurrentUser(updatedUser);
+        currentRoomieProfileSnapshot = getRoomieProfile(updatedUser);
         displaySuccessMessage('Din roomie-profil er gemt.');
     } catch (error) {
         console.error('Could not save human profile:', error);
@@ -237,18 +340,28 @@ async function handleHumanProfileSubmit(event) {
 }
 
 function getHumanProfilePayload() {
-    const selectedGender = document.querySelector('input[name="gender"]:checked');
-    const selectedInterests = [...document.querySelectorAll('input[name="interests"]:checked')].map(input => input.value);
-    const selectedOccupations = [...document.querySelectorAll('input[name="occupation"]:checked')].map(input => input.value);
+    const form = document.getElementById('profileHumanForm');
+    const selectedGender = form.querySelector('input[name="gender"]:checked');
+    const selectedInterests = [...form.querySelectorAll('input[name="interests"]:checked')].map(input => input.value);
+    const selectedOccupations = [...form.querySelectorAll('input[name="occupation"]:checked')].map(input => input.value);
     const ageValue = parseInteger(document.getElementById('profile-age')?.value);
+    const seekingRoom = document.getElementById('profile-seeking-room')?.checked || false;
+    const rentingRoom = document.getElementById('profile-renting-room')?.checked || false;
+    const publicProfile = document.getElementById('profile-public-profile')?.checked !== false;
 
     return {
+        ...currentRoomieProfileSnapshot,
         profile_photo: profilePhotoName || null,
         age: ageValue,
         gender: selectedGender?.value || null,
         occupation: selectedOccupations,
         interests: selectedInterests,
-        description: getTrimmedValue('profile-description') || null
+        description: getTrimmedValue('profile-description') || null,
+        seeking_room: seekingRoom,
+        renting_room: rentingRoom,
+        public_profile: publicProfile,
+        monthly_price_max: parseInteger(document.getElementById('profile-monthly-price-max')?.value),
+        areas: selectedProfileAreas.length ? selectedProfileAreas.map(Number).filter(Number.isFinite) : null
     };
 }
 
@@ -261,21 +374,14 @@ function parseInteger(value) {
     return Number.isFinite(parsed) ? parsed : null;
 }
 
-function enforceInterestLimit(changedInput) {
-    const selected = [...document.querySelectorAll('input[name="interests"]:checked')];
-    if (selected.length <= PROFILE_INTEREST_LIMIT) return;
-
-    changedInput.checked = false;
-    displayErrorMessage(`Vælg højst ${PROFILE_INTEREST_LIMIT} roomie-vibes.`);
-}
-
 // Reflects the selected occupations in the dropdown's toggle button, falling back
 // to the muted placeholder when nothing is chosen.
 function updateOccupationLabel() {
-    const label = document.querySelector('[data-occupation-label]');
+    const form = document.getElementById('profileHumanForm');
+    const label = form?.querySelector('[data-occupation-label]');
     if (!label) return;
 
-    const selected = [...document.querySelectorAll('input[name="occupation"]:checked')].map(input => input.value);
+    const selected = [...form.querySelectorAll('input[name="occupation"]:checked')].map(input => input.value);
     label.textContent = selected.length ? selected.join(', ') : 'Vælg beskæftigelse';
     label.classList.toggle('is-placeholder', selected.length === 0);
 }
@@ -417,6 +523,7 @@ function updateProfileUI(userProfile) {
 
 function populateHumanProfileForm(userProfile = {}) {
     const roomieProfile = getRoomieProfile(userProfile);
+    currentRoomieProfileSnapshot = {...roomieProfile};
 
     profilePhotoName = roomieProfile.profile_photo || null;
     pendingProfilePhotoFile = null;
@@ -424,20 +531,32 @@ function populateHumanProfileForm(userProfile = {}) {
 
     setInputValue('profile-age', roomieProfile.age);
     setInputValue('profile-description', roomieProfile.description);
+    setInputValue('profile-monthly-price-max', roomieProfile.monthly_price_max);
 
-    document.querySelectorAll('input[name="gender"]').forEach(input => {
+    setCheckboxValue('profile-seeking-room', roomieProfile.seeking_room === true);
+    setCheckboxValue('profile-renting-room', roomieProfile.renting_room === true);
+    setCheckboxValue('profile-public-profile', roomieProfile.public_profile !== false);
+
+    selectedProfileAreas = normalizeAreaIds(roomieProfile.areas);
+    renderSelectedProfileAreas();
+    renderProfileAreaSuggestions('');
+    updateProfileSeekerFieldsVisibility();
+
+    const form = document.getElementById('profileHumanForm');
+
+    form?.querySelectorAll('input[name="gender"]').forEach(input => {
         input.checked = input.value === roomieProfile.gender;
     });
 
     // occupation is a list of strings; tolerate the legacy single-string form too.
     const occupations = normalizeStringList(roomieProfile.occupation);
-    document.querySelectorAll('input[name="occupation"]').forEach(input => {
+    form?.querySelectorAll('input[name="occupation"]').forEach(input => {
         input.checked = occupations.includes(input.value);
     });
     updateOccupationLabel();
 
     const interests = Array.isArray(roomieProfile.interests) ? roomieProfile.interests : [];
-    document.querySelectorAll('input[name="interests"]').forEach(input => {
+    form?.querySelectorAll('input[name="interests"]').forEach(input => {
         input.checked = interests.includes(input.value);
     });
 
@@ -453,6 +572,34 @@ function getRoomieProfile(userProfile = {}) {
 function setInputValue(id, value) {
     const input = document.getElementById(id);
     if (input) input.value = value ?? '';
+}
+
+function getFirstName(fullName) {
+    return String(fullName || '').trim().split(/\s+/)[0] || '';
+}
+
+function setCheckboxValue(id, value) {
+    const input = document.getElementById(id);
+    if (input) input.checked = Boolean(value);
+}
+
+function normalizeAreaIds(value) {
+    if (!Array.isArray(value)) return [];
+    return value
+        .map(id => String(id))
+        .filter(id => PROFILE_AREA_LOOKUP.has(id));
+}
+
+function formatAreaLabel(areaId) {
+    return PROFILE_AREA_LOOKUP.get(String(areaId))?.label || String(areaId);
+}
+
+function normalizeText(value) {
+    return String(value || '')
+        .trim()
+        .toLowerCase()
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '');
 }
 
 function escapeHtml(value) {
@@ -472,7 +619,7 @@ export function populateProfileView(){
 
     if (payloadObj) {
         const navName = document.getElementById('navbar-name-text');
-        if (navName) navName.textContent = payloadObj.full_name;
+        if (navName) navName.textContent = getFirstName(payloadObj.full_name) || 'Min profil';
 
         document.getElementById('fullName-profile').value = payloadObj.full_name;
         document.getElementById('email-profile').value = payloadObj.email;

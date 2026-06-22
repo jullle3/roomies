@@ -68,6 +68,7 @@ const cssFiles = [
     'blog/blog.css',
     'landing/landing.css',
     'ledige_vaerelser/ledige_vaerelser.css',
+    'roomie_seekers/roomie_seekers.css',
     'room_detail/room_detail.css',
     'udlej_vaerelse/udlej_vaerelse.css',
     'roomie_agent/roomie_agent.css',

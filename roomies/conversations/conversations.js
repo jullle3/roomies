@@ -2,7 +2,8 @@ import {authFetch} from "../auth/auth.js";
 import {basePath, s3Url} from "../config/config.js";
 import {decodeJwt, displayErrorMessage, displaySuccessMessage, isLoggedIn} from "../utils.js";
 import {getRoomById, getRoomByCreatedBy} from "../rooms/room_cache.js";
-import {openRoomieProfileModal} from "../profile/roomie_profile.js";
+import {getPublicRoomieProfileById, openRoomieProfileModal} from "../profile/roomie_profile.js";
+import {ensureRoomieProfile} from "../onboarding/roomie_onboarding.js";
 
 let conversations = [];
 let activeConversationId = null;
@@ -90,17 +91,20 @@ export async function renderConversations(targetConversationId = null, options =
         // a local draft so they can write the first message (which creates it server-side).
         const draftReceiverId = options.draftReceiverId || null;
         if (draftReceiverId && draftReceiverId !== getCurrentUserId()) {
-            const existing = conversations.find(conversation =>
-                (conversation.participant_ids || []).includes(draftReceiverId));
-            if (existing) {
-                targetConversationId = existing._id;
-            } else {
-                const draft = await buildDraftConversation(draftReceiverId, options.draftRoomId);
-                conversations.unshift(draft);
-                activeConversationId = draft._id;
-                activeConversationWasExplicitlySelected = true;
-                if (isMobileConversationLayout()) {
-                    mobileConversationMode = 'thread';
+            const canContact = await ensureRoomieProfile("contact");
+            if (canContact) {
+                const existing = conversations.find(conversation =>
+                    (conversation.participant_ids || []).includes(draftReceiverId));
+                if (existing) {
+                    targetConversationId = existing._id;
+                } else {
+                    const draft = await buildDraftConversation(draftReceiverId, options.draftRoomId, options.draftSource);
+                    conversations.unshift(draft);
+                    activeConversationId = draft._id;
+                    activeConversationWasExplicitlySelected = true;
+                    if (isMobileConversationLayout()) {
+                        mobileConversationMode = 'thread';
+                    }
                 }
             }
         }
@@ -698,7 +702,7 @@ function upsertConversation(updatedConversation) {
  * Builds a local-only draft conversation with a target user, used when the inbox is
  * opened from a room's "Kontakt" button before any message has been sent.
  */
-async function buildDraftConversation(receiverId, roomId = null) {
+async function buildDraftConversation(receiverId, roomId = null, source = null) {
     const currentUserId = getCurrentUserId();
     const draft = {
         _id: DRAFT_CONVERSATION_ID,
@@ -716,21 +720,31 @@ async function buildDraftConversation(receiverId, roomId = null) {
     // show who you're writing to before any message exists.
     const ownerRoom = (roomId && await getRoomById(roomId))
         || await getRoomByCreatedBy(receiverId);
+    const receiverProfile = ownerRoom ? null : await getPublicRoomieProfileById(receiverId).catch(() => null);
+    const receiverRoomieProfile = receiverProfile?.roomie_profile && typeof receiverProfile.roomie_profile === 'object'
+        ? receiverProfile.roomie_profile
+        : receiverProfile;
+    const receiverName = receiverProfile?.full_name || receiverProfile?.name || receiverRoomieProfile?.full_name || receiverRoomieProfile?.name || '';
+    const receiverPhoto = receiverRoomieProfile?.profile_photo || receiverProfile?.profile_photo || null;
     if (ownerRoom?.host_name) {
         draft.participant_names[receiverId] = ownerRoom.host_name;
+    } else if (receiverProfile) {
+        draft.participant_names[receiverId] = receiverName;
     }
 
     draft._participantNames = draft.participant_names;
     draft._participantProfiles = {
         [receiverId]: {
-            full_name: ownerRoom?.host_name || '',
-            profile_photo: ownerRoom?.profile_photo || null,
+            full_name: ownerRoom?.host_name || receiverName,
+            profile_photo: ownerRoom?.profile_photo || receiverPhoto,
         },
     };
 
     // Personalized first-message opener, prefilled when the draft thread opens.
-    const ownerFirstName = (ownerRoom?.host_name || '').trim().split(/\s+/)[0];
-    draft._prefillText = buildContactOpener(ownerFirstName);
+    const otherFirstName = (ownerRoom?.host_name || receiverName || '').trim().split(/\s+/)[0];
+    draft._prefillText = source === 'seeker'
+        ? buildSeekerContactOpener(otherFirstName)
+        : buildContactOpener(otherFirstName);
 
     draft._uiContext = await buildConversationContext(draft, currentUserId);
     return draft;
@@ -739,6 +753,11 @@ async function buildDraftConversation(receiverId, roomId = null) {
 function buildContactOpener(firstName) {
     const greeting = firstName ? `Hej ${firstName} 👋` : 'Hej 👋';
     return `${greeting} Jeg så din annonce og er meget interesseret. Kan jeg komme og se værelset?`;
+}
+
+function buildSeekerContactOpener(firstName) {
+    const greeting = firstName ? `Hej ${firstName} 👋` : 'Hej 👋';
+    return `${greeting} Jeg har et værelse, som måske matcher det du søger. Har du lyst til at høre mere?`;
 }
 
 async function enrichConversations(rawConversations) {

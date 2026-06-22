@@ -80,7 +80,7 @@ export function updateNavbar() {
         if (conversationsLink) conversationsLink.style.display = 'block';
         if (logoutLink) logoutLink.style.display = 'block';
         if (loginLink) loginLink.style.display = 'none';
-        setGreetingText(decodedJwt?.full_name || 'Min profil');
+        setGreetingText(getFirstName(decodedJwt?.full_name) || 'Min profil');
     } else {
         if (profileLink) profileLink.style.display = 'none';
         if (conversationsLink) conversationsLink.style.display = 'none';
@@ -92,6 +92,10 @@ export function updateNavbar() {
 
 function loggedIn() {
     return localStorage.getItem('jwt') !== null;
+}
+
+function getFirstName(fullName) {
+    return String(fullName || '').trim().split(/\s+/)[0] || '';
 }
 
 export function renderLandingCarousel(slides) {

@@ -353,7 +353,7 @@ function handleHumanProfileSubmit(event) {
 // flag) or false when validation or the request fails. Exported so the leave
 // guard can offer a "Gem og forlad" action.
 export async function submitHumanProfile() {
-    const validationError = getProfileValidationError();
+    const validationError = getProfileValidationError({focusInvalid: true});
     if (validationError) {
         displayErrorMessage(validationError);
         return false;
@@ -404,17 +404,21 @@ export async function submitHumanProfile() {
 // explicit intent (søger værelse / mangler en roomie) are always required; budget
 // + desired areas are additionally required when seeking.
 // Returns the first error string found, or null when everything checks out.
-function getProfileValidationError() {
+// focusInvalid focuses the first offending field — desirable on submit, but it
+// must stay off when this runs to compute the live submit-button state (e.g. on
+// view load), otherwise opening the profile would steal focus to the empty age
+// field and pop the mobile keyboard.
+function getProfileValidationError({focusInvalid = false} = {}) {
     const age = parseInteger(document.getElementById('profile-age')?.value);
     if (!age || age <= 0) {
-        document.getElementById('profile-age')?.focus();
+        if (focusInvalid) document.getElementById('profile-age')?.focus();
         return 'Angiv din alder.';
     }
     if (!document.querySelector('#profileHumanForm input[name="gender"]:checked')) {
         return 'Vælg dit køn.';
     }
     if (!document.getElementById('profile-description')?.value.trim()) {
-        document.getElementById('profile-description')?.focus();
+        if (focusInvalid) document.getElementById('profile-description')?.focus();
         return 'Skriv lidt om dig selv som roomie.';
     }
     const seeking = document.getElementById('profile-seeking-room')?.checked;
@@ -422,21 +426,21 @@ function getProfileValidationError() {
     if (!seeking && !renting) {
         return 'Vælg om du søger værelse eller mangler en roomie.';
     }
-    return getProfileSeekerValidationError();
+    return getProfileSeekerValidationError({focusInvalid});
 }
 
 // When the user is seeking a room, budget + at least one desired area are required
 // so people with rooms can actually match them. Returns an error string or null.
-function getProfileSeekerValidationError() {
+function getProfileSeekerValidationError({focusInvalid = false} = {}) {
     if (!document.getElementById('profile-seeking-room')?.checked) return null;
 
     const priceMax = parseInteger(document.getElementById('profile-monthly-price-max')?.value);
     if (!priceMax || priceMax <= 0) {
-        document.getElementById('profile-monthly-price-max')?.focus();
+        if (focusInvalid) document.getElementById('profile-monthly-price-max')?.focus();
         return 'Angiv din maks husleje pr. måned, når du søger værelse.';
     }
     if (!selectedProfileAreas.length) {
-        document.getElementById('profile-area-search')?.focus();
+        if (focusInvalid) document.getElementById('profile-area-search')?.focus();
         return 'Vælg mindst ét ønsket område, når du søger værelse.';
     }
     return null;

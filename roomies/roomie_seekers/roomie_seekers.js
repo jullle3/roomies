@@ -3,7 +3,7 @@ import {areaAutocompleteOptions} from "../config/hardcoded_data.js";
 import {isLoggedIn} from "../utils.js";
 import {showView} from "../views/viewManager.js";
 import {ensureRoomieProfile} from "../onboarding/roomie_onboarding.js";
-import {getAllRoomieProfiles} from "../profile/roomie_profile.js";
+import {getAllRoomieProfiles, openRoomieProfileModal} from "../profile/roomie_profile.js";
 
 const AREA_SUGGESTION_LIMIT = 6;
 // Client-side "load more" pagination: all profiles are fetched once, filtered
@@ -51,14 +51,7 @@ export function setupRoomieSeekersView() {
 
     document.getElementById("roomie-seekers-load-more")?.addEventListener("click", handleLoadMore);
 
-    results.addEventListener("click", async event => {
-        // Clicking anywhere on the card (or the explicit CTA) sends a message.
-        const contactButton = event.target.closest("[data-contact-seeker]");
-        if (!contactButton) return;
-
-        event.preventDefault();
-        await contactSeeker(contactButton.dataset.contactSeeker);
-    });
+    results.addEventListener("click", handleSeekerCardClick);
 }
 
 // Exported entry — viewManager calls this each time the view opens. Fetches the
@@ -110,6 +103,7 @@ function renderResults({animate = false} = {}) {
     const shown = Math.min(seekersVisible, seekers.length);
 
     results.innerHTML = seekers.slice(0, shown).map(renderSeekerCard).join("");
+    revealTruncatedSeekerDescriptions(results);
     empty.classList.toggle("d-none", seekers.length > 0);
     count.textContent = getCountLabel(seekers.length);
     renderLoadMore(loadMore, shown, seekers.length);
@@ -248,13 +242,14 @@ export function renderSeekerCard(profile) {
         <div class="col-12 col-md-6 col-xl-4">
             <article class="roomie-seeker-card h-100">
                 <button type="button" class="roomie-seeker-card-link" data-contact-seeker="${escapeAttribute(profile.id)}" aria-label="Send besked til ${escapeAttribute(name)}"></button>
-                <div class="roomie-seeker-card-head">
+                <button type="button" class="roomie-seeker-card-head roomie-seeker-profile-trigger" data-open-seeker-profile="${escapeAttribute(profile.id)}" aria-label="Se ${escapeAttribute(name)}s profil">
                     ${avatar}
                     <div class="roomie-seeker-identity">
                         <h3 class="text-truncate" title="${escapeAttribute(name)}">${escapeHtml(name)}</h3>
                         <p class="text-truncate" title="${escapeAttribute(meta)}">${escapeHtml(meta)}</p>
                     </div>
-                </div>
+                    <span class="roomie-seeker-profile-cue" aria-hidden="true">Se profil<i class="fa-solid fa-chevron-right"></i></span>
+                </button>
 
                 <div class="roomie-seeker-match-grid">
                     ${hasAreas ? `<div>
@@ -269,7 +264,10 @@ export function renderSeekerCard(profile) {
 
                 ${vibes ? `<div class="roomie-seeker-vibes">${vibes}</div>` : ""}
 
-                <p class="roomie-seeker-description">${description}</p>
+                <div class="roomie-seeker-bio">
+                    <p class="roomie-seeker-description">${description}</p>
+                    <button type="button" class="roomie-seeker-readmore" data-open-seeker-profile="${escapeAttribute(profile.id)}" hidden>Læs hele profilen</button>
+                </div>
 
                 <button type="button" class="roomie-seeker-cta btn btn-primary-coral rounded-pill fw-bold w-100 py-3 mt-auto shadow-sm" data-contact-seeker="${escapeAttribute(profile.id)}">
                     <i class="fa-regular fa-paper-plane me-2"></i>Send besked
@@ -303,6 +301,39 @@ export async function contactSeeker(userId) {
         modtager: userId,
         source: "seeker"
     }));
+}
+
+// Single delegated click handler for seeker cards, shared by the directory and the
+// landing teaser. "Open profile" (tapping the person or "Læs hele profilen") wins
+// over the card-wide "Send besked", so the full untruncated profile is reachable.
+export async function handleSeekerCardClick(event) {
+    const profileButton = event.target.closest("[data-open-seeker-profile]");
+    if (profileButton) {
+        event.preventDefault();
+        openRoomieProfileModal(profileButton.dataset.openSeekerProfile);
+        return;
+    }
+
+    const contactButton = event.target.closest("[data-contact-seeker]");
+    if (!contactButton) return;
+
+    event.preventDefault();
+    await contactSeeker(contactButton.dataset.contactSeeker);
+}
+
+// The "Læs hele profilen" link only earns its place when the 3-line description is
+// actually clipped. Detected post-render by comparing the clamped box's visible
+// height to its full content height; call after each render that inserts cards.
+export function revealTruncatedSeekerDescriptions(container) {
+    if (!container) return;
+
+    container.querySelectorAll(".roomie-seeker-bio").forEach(bio => {
+        const description = bio.querySelector(".roomie-seeker-description");
+        const readMore = bio.querySelector(".roomie-seeker-readmore");
+        if (!description || !readMore) return;
+
+        readMore.hidden = description.scrollHeight - description.clientHeight <= 1;
+    });
 }
 
 function setupAreaAutocomplete() {

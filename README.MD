@@ -1,3 +1,5 @@
+- TODO: Cache this endpoint per 5 min
+@router.get("/users/profile")- 
 - Use the seeker info stored on roomie_profile now to also send matching agent emails. Dedupe in case user already has an active agent.
 - Jeg skal have CTA'er til at oprette søgeagent hvis brugeren ikke allerede har en
 - Du kunne også som yderligere ting gøre sådan, at brugere kan oprette sig som "søger værelse" - så kan alle dem der har et værelse selv scanne markedet og se hvem de gider mødes med uden at lave et opslag. Det er dog mere en beslutning, om man er interesseret i dét, kan nok få en del creeps til at skrive til unge piger xD

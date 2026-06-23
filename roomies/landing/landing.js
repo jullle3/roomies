@@ -5,7 +5,7 @@ import {areaAutocompleteOptions} from "../config/hardcoded_data.js";
 import {displayErrorMessage} from "../utils.js";
 import {preloadRooms} from "../rooms/room_cache.js";
 import {getAllRoomieProfiles} from "../profile/roomie_profile.js";
-import {contactSeeker, normalizeProfile, renderSeekerCard} from "../roomie_seekers/roomie_seekers.js";
+import {handleSeekerCardClick, normalizeProfile, renderSeekerCard, revealTruncatedSeekerDescriptions} from "../roomie_seekers/roomie_seekers.js";
 
 const LANDING_AREA_SUGGESTION_LIMIT = 5;
 
@@ -212,25 +212,21 @@ export async function loadLandingNewRoomies() {
         container.innerHTML = newestSeekers.length
             ? newestSeekers.map(renderSeekerCard).join("")
             : renderLandingRoomiesEmptyState();
+        revealTruncatedSeekerDescriptions(container);
     } catch (error) {
         console.error("Failed to render landing roomies", error);
         container.innerHTML = renderLandingRoomiesEmptyState();
     }
 }
 
-// The card click + CTA carry data-contact-seeker; mirror the directory by routing
-// it to "Send besked". Bound once on the teaser container.
+// Reuse the directory's delegated card handler so the teaser behaves identically:
+// tap the person / "Læs hele profilen" opens the profile, the rest sends a message.
+// Bound once on the teaser container.
 function bindLandingSeekerContact(container) {
     if (landingSeekerContactBound) return;
     landingSeekerContactBound = true;
 
-    container.addEventListener("click", async event => {
-        const contactButton = event.target.closest("[data-contact-seeker]");
-        if (!contactButton) return;
-
-        event.preventDefault();
-        await contactSeeker(contactButton.dataset.contactSeeker);
-    });
+    container.addEventListener("click", handleSeekerCardClick);
 }
 
 function renderLandingRoomiesLoadingState() {

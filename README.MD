@@ -1,5 +1,8 @@
+- Den viser ikke husleje + acconto på ledige-vaerelser view, men det gør den på detail. Altid vis inkl acconto. 
 - TODO: Cache this endpoint per 5 min
-@router.get("/users/profile")- 
+@router.get("/users/profile")
+Brainstorm først med claude om det er fornuftigt. 
+
 - Use the seeker info stored on roomie_profile now to also send matching agent emails. Dedupe in case user already has an active agent.
 - Jeg skal have CTA'er til at oprette søgeagent hvis brugeren ikke allerede har en
 - Du kunne også som yderligere ting gøre sådan, at brugere kan oprette sig som "søger værelse" - så kan alle dem der har et værelse selv scanne markedet og se hvem de gider mødes med uden at lave et opslag. Det er dog mere en beslutning, om man er interesseret i dét, kan nok få en del creeps til at skrive til unge piger xD
@@ -25,7 +28,6 @@ https://www.facebook.com/groups/320108652008/ - done https://www.facebook.com/gr
 
 - Roomies, skriv til aviser og nyheds medier https://g.co/gemini/share/a1ffaa90fc9e
 - Roomie Reddit og FB Opslag - https://gemini.google.com/gem/c9297fa0daa6/f6fccd4db7de4739?hl=da
-- Verificer google oauth, afventer https://console.cloud.google.com/auth/verification?project=roomiedanmark
 
 
 # Marketing strategy / GoLivet

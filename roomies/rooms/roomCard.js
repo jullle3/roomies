@@ -5,13 +5,15 @@
 // model: { id, title, image, location, price, size, available, availableFrom,
 //          furnished, petsAllowed, avatar, host, isOwn }
 
+import {roomDetailPath} from "./roomUrl.js";
+
 const EXAMPLE_ROOM_IMAGE = "/pics/room_default1.webp";
 
 // Max number of fact chips shown at the bottom of the card.
 const MAX_FACT_CHIPS = 3;
 
 export function renderRoomCard(model) {
-    const detailUrl = `/vaerelse?id=${encodeURIComponent(model.id)}`;
+    const detailUrl = roomDetailPath(model);
 
     return `
         <div class="col-12 col-md-6 col-xl-4">

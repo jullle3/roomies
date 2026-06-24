@@ -40,7 +40,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cropperjs@1.6.2/dist/cropper.min.css">
 
     <!--    Custom Merged css files -->
-    <link rel="stylesheet" href="roomies/mergedStyles.css?roomies_version=1076">
+    <link rel="stylesheet" href="roomies/mergedStyles.css?roomies_version=1078">
     <style>
         .nav-auth-btn:active,
         .nav-auth-btn:focus,
@@ -59,7 +59,7 @@
             color: #ffffff !important;
         }
     </style>
-    <script defer type="module" src="roomies/mergedJS.js?roomies_version=1076"></script>
+    <script defer type="module" src="roomies/mergedJS.js?roomies_version=1078"></script>
 
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18047412076"></script>
@@ -93,7 +93,12 @@
         window.location.pathname.startsWith('/omraader') ||
         window.location.pathname.startsWith('/alle-boliger') ||
         window.location.pathname.startsWith('/bytte') ||
-        window.location.pathname.startsWith('/tilsalg');
+        window.location.pathname.startsWith('/tilsalg') ||
+        window.location.pathname.startsWith('/studiebolig') ||
+        window.location.pathname.startsWith('/vaerelser') ||
+        window.location.pathname.startsWith('/lejebolig') ||
+        window.location.pathname.startsWith('/find-roomie/') ||
+        window.location.pathname.startsWith('/roomie/');
 
     if (!shouldSkipInitialLoader) {
         // Set a global timeout. If main.js loads faster than 200ms, it will cancel this.

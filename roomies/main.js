@@ -62,7 +62,12 @@ function isStaticSeoPath(pathname) {
     return pathname.includes('/tilsalg/') ||
         pathname.includes('/bytte/') ||
         pathname.includes('/alle-boliger/') ||
-        pathname.includes('/omraader/');
+        pathname.includes('/omraader/') ||
+        pathname.startsWith('/studiebolig') ||
+        pathname.startsWith('/vaerelser') ||
+        pathname.startsWith('/lejebolig') ||
+        pathname.startsWith('/find-roomie/') ||
+        pathname.startsWith('/roomie/');
 }
 
 async function showLandingFallbackOnInitError() {
@@ -156,7 +161,12 @@ document.addEventListener('DOMContentLoaded', async () => {
             url.pathname.startsWith('/tilsalg') ||
             url.pathname.startsWith('/bytte') ||
             url.pathname.startsWith('/omraader') ||
-            url.pathname.startsWith('/alle-boliger')
+            url.pathname.startsWith('/alle-boliger') ||
+            url.pathname.startsWith('/studiebolig') ||
+            url.pathname.startsWith('/vaerelser') ||
+            url.pathname.startsWith('/lejebolig') ||
+            url.pathname.startsWith('/find-roomie/') ||
+            url.pathname.startsWith('/roomie/')
         );
 
         if (isSimpleLanding || isPseoPath) {

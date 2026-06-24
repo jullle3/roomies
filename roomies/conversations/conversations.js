@@ -4,6 +4,7 @@ import {decodeJwt, displayErrorMessage, displaySuccessMessage, isLoggedIn} from 
 import {getRoomById, getRoomByCreatedBy} from "../rooms/room_cache.js";
 import {getPublicRoomieProfileById, openRoomieProfileModal} from "../profile/roomie_profile.js";
 import {ensureRoomieProfile} from "../onboarding/roomie_onboarding.js";
+import {roomDetailPathFromId} from "../rooms/roomUrl.js";
 
 let conversations = [];
 let activeConversationId = null;
@@ -836,7 +837,7 @@ function renderHeaderAction(context, currentUserId) {
 
     const label = context?.isExchange ? 'Se deres værelse' : 'Se værelse';
     return `
-        <a href="/vaerelse?id=${encodeURIComponent(property._id)}"
+        <a href="${roomDetailPathFromId(property._id)}"
            class="btn btn-light rounded-pill fw-bold shadow-sm hover-lift conversation-listing-link">
             <i class="fa-solid fa-arrow-up-right-from-square me-2"></i>${escapeHtml(label)}
         </a>

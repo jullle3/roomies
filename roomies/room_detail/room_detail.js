@@ -12,6 +12,7 @@ import {s3Url} from "../config/config.js";
 import {displayLoginModal, getPreviousView} from "../views/viewManager.js";
 import {ensureRoomieProfile} from "../onboarding/roomie_onboarding.js";
 import {openRoomieProfileModal} from "../profile/roomie_profile.js";
+import {roomDetailPath, roomDetailPathFromId} from "../rooms/roomUrl.js";
 
 export async function renderRoomDetail(roomId) {
     const container = document.getElementById("room-detail-content");
@@ -39,10 +40,11 @@ export async function renderRoomDetail(roomId) {
     setupRoomOwnerControls(container, room, isOwner);
     setupRoomContactControls(container);
     setupRoomBackControl(container);
+    const canonicalPath = roomDetailPath(viewModel);
     updateMetaTags(
         `${viewModel.title} | roomies`,
         viewModel.description || `Ledigt værelse i ${viewModel.area}. Se pris, størrelse og hverdagen i hjemmet.`,
-        `${window.location.origin}/vaerelse?id=${encodeURIComponent(viewModel.id)}`
+        `${window.location.origin}${canonicalPath}`
     );
 }
 
@@ -56,6 +58,7 @@ function normalizeRoomDetail(room, isOwner = false) {
 
     return {
         id: room._id || room.id,
+        slug: room.slug || "",
         title: room.title || "Ledigt værelse",
         description: room.description || "",
         address: address || "Adresse ikke angivet",
@@ -588,7 +591,7 @@ function renderShareRoomButton(room) {
 async function shareRoom(roomId, title) {
     if (!roomId) return;
 
-    const url = `${window.location.origin}/vaerelse?id=${encodeURIComponent(roomId)}`;
+    const url = `${window.location.origin}${roomDetailPathFromId(roomId)}`;
     const shareTitle = title || "Ledigt værelse på RoomieDanmark";
 
     if (navigator.share) {
@@ -648,7 +651,7 @@ function renderSimilarRoomsSection(rooms) {
 }
 
 function renderSimilarRoomCard(room) {
-    const detailUrl = `/vaerelse?id=${encodeURIComponent(room.id)}`;
+    const detailUrl = roomDetailPath(room);
     return `
         <a href="${detailUrl}" class="room-detail-similar-card">
             <img src="${room.image}" alt="${escapeHtml(room.title)}" loading="lazy">
@@ -895,6 +898,7 @@ function normalizeSimilarRoom(room) {
     const postal = [room.postal_number, room.postal_name || room.city].filter(Boolean).join(" ");
     return {
         id: room._id || room.id,
+        slug: room.slug || "",
         title: room.title || "Ledigt værelse",
         postal,
         postalNumber: room.postal_number || null,

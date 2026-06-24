@@ -21,6 +21,7 @@ import {
     renderSearchAgentOverview
 } from "../roomie_agent/roomie_agent.js";
 import {renderRoomieSeekersView} from "../roomie_seekers/roomie_seekers.js";
+import {extractRoomIdFromPath, roomDetailPathFromId} from "../rooms/roomUrl.js";
 
 // Setup click events for all views
 const views = {
@@ -257,11 +258,7 @@ export async function showView(view, viewParams = new URLSearchParams(), updateU
     // --- UPDATED URL LOGIC ---
     // Store relevant params in URL such that users can share them with friends.
     if (updateUrl) {
-        const path = viewToRoute[view] || "/";
-        const param_string = viewParams.toString();
-        const href = param_string
-            ? `${basePath}${path}?${param_string}`
-            : `${basePath}${path}`;
+        let href = buildSpaHref(view, viewParams);
         const hrefWithHash = requestedHash ? `${href}${requestedHash}` : href;
         history.pushState({ view, params: viewParams.toString() }, '', hrefWithHash);
     } else {
@@ -685,9 +682,24 @@ function buildViewUrl(view, params = new URLSearchParams()) {
     if (!view || !viewToRoute[view]) return null;
 
     const safeParams = normalizeParams(params);
-    const path = `${basePath}${viewToRoute[view]}`;
+    return `${window.location.origin}${buildSpaHref(view, safeParams)}`;
+}
+
+function buildSpaHref(view, params = new URLSearchParams()) {
+    const safeParams = normalizeParams(params);
+    if (view === 'room_detail') {
+        const roomId = safeParams.get("id");
+        if (roomId) {
+            const nextParams = new URLSearchParams(safeParams.toString());
+            nextParams.delete("id");
+            const query = nextParams.toString();
+            return `${roomDetailPathFromId(roomId)}${query ? `?${query}` : ''}`;
+        }
+    }
+
+    const path = viewToRoute[view] || "/";
     const query = safeParams.toString();
-    return `${window.location.origin}${path}${query ? `?${query}` : ''}`;
+    return `${basePath}${path}${query ? `?${query}` : ''}`;
 }
 
 function pathToView(pathname) {
@@ -701,7 +713,20 @@ function pathToView(pathname) {
         normalizedPath = normalizedPath.replace(/\/+$/, '');
     }
 
+    if (extractRoomIdFromPath(normalizedPath)) {
+        return 'room_detail';
+    }
+
     return routeToView[normalizedPath] || null;
+}
+
+function paramsFromRoute(url) {
+    const params = new URLSearchParams(url.searchParams);
+    const roomId = extractRoomIdFromPath(url.pathname);
+    if (roomId) {
+        params.set("id", roomId);
+    }
+    return params;
 }
 
 function normalizeLandingHash(view, hash) {
@@ -744,7 +769,7 @@ export async function handleRouting() {
     // Default to landing if view is still unknown
     v = v || 'landing';
 
-    await showView(v, url.searchParams, true, {hash: url.hash});
+    await showView(v, paramsFromRoute(url), true, {hash: url.hash});
 }
 
 // SPA link-interceptor
@@ -762,7 +787,7 @@ document.addEventListener('click', (e) => {
     const url = new URL(a.href, location.origin);
     const view = pathToView(url.pathname);
 
-    showView(view, url.searchParams, true, {hash: url.hash})
+    showView(view, paramsFromRoute(url), true, {hash: url.hash})
 });
 
 
@@ -813,7 +838,12 @@ function isStaticSeoRoute(path) {
     return path.includes('/tilsalg/') ||
         path.includes('/bytte/') ||
         path.includes('/alle-boliger/') ||
-        path.includes('/omraader/');
+        path.includes('/omraader/') ||
+        path.startsWith('/studiebolig') ||
+        path.startsWith('/vaerelser') ||
+        path.startsWith('/lejebolig') ||
+        path.startsWith('/find-roomie/') ||
+        path.startsWith('/roomie/');
 }
 
 // Helper for JSON-LD.
@@ -848,7 +878,9 @@ window.addEventListener('popstate', (event) => {
     // so re-assert the profile URL to keep the user put until they decide.
     const popTargetView = (event.state && event.state.view) ? event.state.view : (pathToView(path) || 'landing');
     if (currentView === 'profile' && popTargetView !== 'profile' && isHumanProfileFormDirty()) {
-        const popTargetParams = new URLSearchParams((event.state && event.state.params) || window.location.search || '');
+        const popTargetParams = event.state && event.state.params
+            ? new URLSearchParams(event.state.params)
+            : paramsFromRoute(new URL(window.location.href));
         history.pushState(
             {view: 'profile', params: currentViewParams.toString()},
             '',
@@ -882,7 +914,7 @@ window.addEventListener('popstate', (event) => {
     }
 
     const view = pathToView(window.location.pathname) || 'landing';
-    const params = new URLSearchParams(window.location.search);
+    const params = paramsFromRoute(new URL(window.location.href));
     showView(view, params, false, {
         hash: window.location.hash,
         restoreScroll: true,

@@ -20,6 +20,34 @@ const toSocialImage = (srcUrl, zoneHost = ANDELSBOLIG_ZONE) =>
     `${zoneHost}/cdn-cgi/image/format=jpeg,width=${SOCIAL_IMAGE_WIDTH},height=${SOCIAL_IMAGE_HEIGHT},fit=cover/${srcUrl}`;
 const DEFAULT_SOCIAL_IMAGE = toSocialImage(DEFAULT_IMAGE, BASE_URL);
 
+function extractRoomIdFromPath(pathname) {
+    const match = String(pathname || "").match(/\/vaerelse\/(?:.*-)?([a-f0-9]{24})\/?$/i);
+    return match ? match[1] : null;
+}
+
+function slugifyRoomText(text) {
+    return String(text || "")
+        .trim()
+        .toLowerCase()
+        .replace(/æ/g, "ae")
+        .replace(/ø/g, "oe")
+        .replace(/å/g, "aa")
+        .replace(/[^a-z0-9]+/g, "-")
+        .replace(/^-+|-+$/g, "")
+        .slice(0, 80)
+        .replace(/-+$/g, "") || "vaerelse";
+}
+
+function roomCanonicalUrl(room, roomId) {
+    const source = [
+        room?.title,
+        room?.postal_name || room?.city,
+        room?.postal_number
+    ].filter(Boolean).join(" ");
+    const slug = room?.slug || slugifyRoomText(source);
+    return `${BASE_URL}/vaerelse/${slug}-${roomId}`;
+}
+
 // --- STATIC SEO MAP (Replicating viewManager.js metadata) ---
 const STATIC_SEO_ROUTES = {
     '/spoergsmaal-om-roomies': {
@@ -106,9 +134,11 @@ export default {
             return response;
         }
 
-        // 1. DYNAMISK RUTE: /vaerelse?id=... (per-værelse SEO metadata)
-        if (url.pathname === '/vaerelse' && url.searchParams.has('id')) {
-            const roomId = url.searchParams.get('id');
+        // 1. DYNAMISK RUTE: /vaerelse/<slug>-<id> og legacy /vaerelse?id=...
+        const pathRoomId = extractRoomIdFromPath(url.pathname);
+        const queryRoomId = url.pathname === '/vaerelse' ? url.searchParams.get('id') : null;
+        const roomId = pathRoomId || queryRoomId;
+        if (roomId) {
             let allRoomsData = null;
 
             try {
@@ -187,7 +217,7 @@ export default {
                             ? toSocialImage(`${IMAGE_BUCKET_URL}/${imageName}`)
                             : DEFAULT_SOCIAL_IMAGE;
 
-                        const canonicalUrl = `${BASE_URL}/vaerelse?id=${roomId}`;
+                        const canonicalUrl = roomCanonicalUrl(room, roomId);
 
                         const jsonLd = {
                             "@context": "https://schema.org",

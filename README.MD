@@ -10,7 +10,7 @@ Brainstorm først med claude om det er fornuftigt.
 - Verificering af brugere, se [verification_badge_implemnetation.md](verification_badge_implemnetation.md)
 - Automatiser ALT på roomies.
 PSEO
-Marketing
+Marketing 
 
 Grupper at skrive i
 https://www.facebook.com/groups/LejeboligerAarhus/

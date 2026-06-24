@@ -7,9 +7,7 @@ Brainstorm først med claude om det er fornuftigt.
 - Use the seeker info stored on roomie_profile now to also send matching agent emails. Dedupe in case user already has an active agent.
 - Jeg skal have CTA'er til at oprette søgeagent hvis brugeren ikke allerede har en
 - Haha, at skrive det gav mig lige en ny ide - du kan også lave sådan et "matching system", med nogle helt basic spørgsmål ala kandidattest, bare for lejligheder. Sådan noget med renlighed, hobbyer og hvad ved jeg. Kunne da være sådan en sjov ting der adskilte dig fra alle andre
-- MitID verificering af brugere?
-Skriv mail til firmaer og bed om billigere integration https://share.gemini.google/iHUBVIea8Pt6
-
+- Verificering af brugere, se [verification_badge_implemnetation.md](verification_badge_implemnetation.md)
 - Automatiser ALT på roomies.
 PSEO
 Marketing

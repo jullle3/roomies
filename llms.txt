@@ -3,8 +3,8 @@
 RoomieDanmark is a Danish platform for finding rooms, roomies, and shared homes without a contact paywall.
 
 Important pages:
-- https://roomiedanmark.dk/vaerelser
-- https://roomiedanmark.dk/studiebolig
-- https://roomiedanmark.dk/find-roomie
-- https://roomiedanmark.dk/udlej-vaerelse
-- https://roomiedanmark.dk/boligovervaagning
+- https://roomiedanmark.dk/vaerelser/
+- https://roomiedanmark.dk/studiebolig/
+- https://roomiedanmark.dk/find-roomie/
+- https://roomiedanmark.dk/udlej-vaerelse/
+- https://roomiedanmark.dk/boligovervaagning/

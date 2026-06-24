@@ -20,7 +20,9 @@ https://www.facebook.com/groups/minlejeboligaarhus/
 https://www.facebook.com/groups/320108652008/
 https://www.facebook.com/groups/LedigeLejlighederKBH
 https://www.facebook.com/groups/boliger.koebenhavn
+Facebook gruppe om københavn, Aarhus, Aalborg
 
+Reddit, DKStartup, København, Aarhus, Aalborg
 grupper DONE
 https://www.facebook.com/groups/roomieskobenhavn/ - done https://www.facebook.com/groups/320108652008/permalink/10165404711827009/
 https://www.facebook.com/groups/320108652008/ - done https://www.facebook.com/groups/roomieskobenhavn/permalink/1519984182837556/

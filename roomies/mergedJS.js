@@ -1089,6 +1089,29 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
   }
 </style>
 
+<section class="border-top pt-5 pb-4 bg-light" style="font-family: 'Lato', sans-serif;" aria-label="Find v\xE6relse i Danmark">
+  <div class="container" style="max-width: 1500px;">
+    <div class="row g-4">
+      <div class="col-6 col-md-3">
+        <h6 class="fw-bold mb-3 text-dark">V\xE6relser</h6>
+        <ul class="list-unstyled d-flex flex-column gap-2 mb-0">
+          <li><a href="/vaerelser/" class="text-decoration-none text-muted footer-pseo-link fw-semibold">V\xE6relser i Danmark</a></li>
+          <li><a href="/vaerelser/koebenhavn/" class="text-decoration-none text-muted footer-pseo-link fw-semibold">V\xE6relser i K\xF8benhavn</a></li>
+          <li><a href="/vaerelser/aarhus/" class="text-decoration-none text-muted footer-pseo-link fw-semibold">V\xE6relser i Aarhus</a></li>
+          <li><a href="/vaerelser/odense/" class="text-decoration-none text-muted footer-pseo-link fw-semibold">V\xE6relser i Odense</a></li>
+          <li><a href="/vaerelser/aalborg/" class="text-decoration-none text-muted footer-pseo-link fw-semibold">V\xE6relser i Aalborg</a></li>
+        </ul>
+      </div>
+      <div class="col-6 col-md-3">
+        <h6 class="fw-bold mb-3 text-dark">Studiebolig</h6>
+        <ul class="list-unstyled d-flex flex-column gap-2 mb-0">
+          <li><a href="/studiebolig/" class="text-decoration-none text-muted footer-pseo-link fw-semibold">Studiebolig i Danmark</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
 <footer class="border-top pt-5 pb-4 bg-light" style="font-family: 'Lato', sans-serif;">
   <div class="container" style="max-width: 1500px;">
     

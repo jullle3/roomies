@@ -7,6 +7,9 @@
 - Roomies PSEO på alle roomie profiler!
 - SEO venlige sluge på rooms?
 
+- Automatiser ALT på roomies.
+PSEO
+Marketing
 
 Grupper at skrive i
 https://www.facebook.com/groups/LejeboligerAarhus/

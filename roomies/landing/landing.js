@@ -158,7 +158,8 @@ function renderLandingRoomCard(room) {
         title: room.title || "Ledigt værelse",
         image: getLandingRoomImage(room),
         location: formatLandingRoomArea(room),
-        price: Number(room.monthly_price ?? room.price ?? 0),
+        // Always show total incl. aconto on cards (matches detail view).
+        price: Number(room.total_monthly_price ?? (Number(room.monthly_price ?? room.price ?? 0) + Number(room.acconto_monthly_price ?? 0))),
         size: Number(room.square_meters ?? 0),
         available: room.available !== false,
         availableFrom: room.available_from ?? null,

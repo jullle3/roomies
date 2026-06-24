@@ -1,7 +1,4 @@
 - Roomies PSEO på alle roomie profiler!
-Sikre at den nye vaerelse/slug-id løsning virker
-
-- Den viser ikke husleje + acconto på ledige-vaerelser view, men det gør den på detail. Altid vis inkl acconto. 
 - TODO: Cache this endpoint per 5 min
 @router.get("/users/profile")
 Brainstorm først med claude om det er fornuftigt. 
@@ -12,7 +9,6 @@ Brainstorm først med claude om det er fornuftigt.
 - Haha, at skrive det gav mig lige en ny ide - du kan også lave sådan et "matching system", med nogle helt basic spørgsmål ala kandidattest, bare for lejligheder. Sådan noget med renlighed, hobbyer og hvad ved jeg. Kunne da være sådan en sjov ting der adskilte dig fra alle andre
 - MitID verificering af brugere?
 Skriv mail til firmaer og bed om billigere integration https://share.gemini.google/iHUBVIea8Pt6
-- SEO venlige sluge på rooms?
 
 - Automatiser ALT på roomies.
 PSEO

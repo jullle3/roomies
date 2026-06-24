@@ -245,7 +245,8 @@ function normalizeRoomListing(room) {
         postalNumber: Number(room.postal_number),
         postal: postal || room.address || "Adresse ikke angivet",
         area: area || room.address || postal || "",
-        rent: Number(room.monthly_price ?? room.price ?? 0),
+        // Always show total incl. aconto on cards (matches detail view).
+        rent: Number(room.total_monthly_price ?? (Number(room.monthly_price ?? room.price ?? 0) + Number(room.acconto_monthly_price ?? 0))),
         size: Number(room.square_meters ?? 0),
         available: room.available !== false,
         availableFrom: room.available_from ?? null,

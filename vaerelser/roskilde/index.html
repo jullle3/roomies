@@ -86,7 +86,7 @@
     .pseo-breadcrumbs a { color:#1F2937; text-decoration:none; font-weight:800; }
     .pseo-hero { padding:52px 0 64px; background:#1F2937; color:#fff; background-size:cover; background-position:center; }
     .pseo-kicker { display:inline-flex; padding:.42rem .78rem; border-radius:999px; background:rgba(255,107,107,.16); color:#FF6B6B; font-weight:900; margin:0 0 1rem; }
-    .pseo-hero h1 { font-family:Poppins,Inter,sans-serif; font-size:clamp(2.2rem, 5vw, 4.4rem); line-height:1.02; max-width:900px; margin:0 0 1rem; text-shadow:0 2px 16px rgba(0,0,0,.45); }
+    .pseo-hero h1 { font-family:Poppins,Inter,sans-serif; color:#fff; font-size:clamp(2.2rem, 5vw, 4.4rem); line-height:1.02; max-width:900px; margin:0 0 1rem; text-shadow:0 2px 16px rgba(0,0,0,.45); }
     .pseo-intro { max-width:780px; font-size:1.08rem; line-height:1.72; color:rgba(255,255,255,.94); text-shadow:0 1px 10px rgba(0,0,0,.4); }
     .pseo-stats, .pseo-tags { display:flex; flex-wrap:wrap; gap:.7rem; margin-top:1.3rem; }
     .pseo-stats span, .pseo-tags span { padding:.55rem .82rem; border-radius:999px; background:#fff; color:#1F2937; font-weight:800; box-shadow:0 10px 25px -12px rgba(0,0,0,.22); }
@@ -115,6 +115,8 @@
     .pseo-cta { display:flex; justify-content:space-between; align-items:center; gap:24px; padding:28px; margin-top:16px; }
     .pseo-table { width:100%; border-collapse:separate; border-spacing:0 8px; }
     .pseo-table td { background:#fff; padding:14px 16px; }
+    .pseo-area-tags { display:flex; flex-wrap:wrap; gap:.6rem; margin-top:1rem; }
+    .pseo-area-tags span { padding:.55rem .9rem; border-radius:999px; background:#F3F4F6; color:#374151; font-weight:600; }
     .pseo-profile-grid { display:grid; grid-template-columns:repeat(3, minmax(0, 1fr)); gap:18px; }
     .pseo-profile-card { position:relative; padding:20px; display:flex; gap:16px; }
     .pseo-profile-card img { width:72px; height:72px; border-radius:50%; object-fit:cover; flex:0 0 72px; }
@@ -146,8 +148,8 @@
 
         <section class="pseo-section">
             <h2>Hvor i Roskilde kan du finde værelse?</h2>
-            <p>Udvalget ændrer sig løbende. Start med de områder, hvor der allerede ligger opslag, og opret en SøgeAgent for resten.</p>
-            <table class="pseo-table"><tbody><tr><td>Trekroner</td><td>Se aktuelle værelser</td></tr><tr><td>Roskilde C</td><td>Se aktuelle værelser</td></tr></tbody></table>
+            <p>Områder i Roskilde hvor der typisk ligger opslag. Udvalget ændrer sig løbende - opret en SøgeAgent og få besked, så snart der kommer nye værelser.</p>
+            <div class="pseo-area-tags"><span>Trekroner</span><span>Roskilde C</span></div>
         </section>
     
 <section class="pseo-section"><h2>Aktuelle værelser i Roskilde</h2><div class="pseo-room-grid">
@@ -155,7 +157,7 @@
                 <a href="/vaerelse/moebleret-vaerelse-klar-til-indflytning-koebenhavn-4030-6a2ddeb0bce75543be28557a/" class="pseo-card-cover" aria-label="Se Møbleret værelse, klar til indflytning"></a>
                 <div class="pseo-card-image">
                     <img src="https://images.andelsboligbasen.dk/10.webp" alt="Møbleret værelse, klar til indflytning" loading="lazy">
-                    <span class="pseo-status active">Ledigt</span>
+                    
                 </div>
                 <div class="pseo-card-body">
                     <h3>Møbleret værelse, klar til indflytning</h3>
@@ -174,14 +176,6 @@
                 <p>Opret en gratis SøgeAgent, så du ikke skal opdatere siden hele dagen.</p>
             </div>
             <a href="/boligovervaagning">Opret SøgeAgent</a>
-        </section>
-    
-
-        <section class="pseo-section">
-            <h2>Samme by, andre søgninger</h2>
-            <div class="pseo-link-grid">
-                <a href="/studiebolig/roskilde/">Studiebolig i Roskilde</a><a href="/lejebolig/roskilde/">Lejebolig i Roskilde</a>
-            </div>
         </section>
     
 

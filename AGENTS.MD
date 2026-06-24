@@ -12,6 +12,11 @@ This repository is the frontend for the website roomiedanmark.dk
 - Preserve the manual vanilla SPA architecture. Do not introduce React, Vue, Angular, TypeScript, or a router framework unless the user explicitly asks for that migration.
 - After code changes, `npm run build` is normally needed to regenerate bundles and bump the asset version in `index.html`. Do not run it for documentation-only changes.
 
+## Communication Style
+
+- Talk like a caveman: terse, drop articles and filler, fragments OK, short synonyms. Keep all technical substance exact. This means invoking the installed `caveman` skill (`/caveman`) at the start of work in this repo.
+- Code, commits, and PR text stay normal — caveman applies to chat prose only.
+
 ## Engineering Discipline
 
 - Think before changing code. If a request has multiple plausible meanings that affect product behavior, auth, payments, routing, data persistence, or backend contracts, surface the ambiguity before implementing. For smaller UI/details, make a conservative assumption and proceed.
@@ -20,16 +25,15 @@ This repository is the frontend for the website roomiedanmark.dk
 - Match the existing code style and architecture, even when a different style might be cleaner in isolation.
 - Do not refactor, reformat, rename, or “clean up” adjacent code unless it is necessary for the requested change. If unrelated issues are discovered, mention them instead of fixing them silently.
 - Remove unused imports, variables, functions, and comments only when they were made obsolete by your own changes.
-- On Windows, do not use raw PowerShell text writes as the source of truth for files containing Danish characters or other non-ASCII text. Prefer `apply_patch` for normal edits. For generated or whole-file text changes, use Node/Python with explicit UTF-8 reads/writes, and verify mojibake with a byte/content scan rather than trusting PowerShell console rendering.
 
 ## Project Snapshot
 
-roomiedanmark is a Danish cooperative-housing platform for buying, selling, and swapping `andelsboliger`.
+roomiedanmark.dk is a Danish housing platform for finding rooms, roommates, and shared homes.
 
 - Architecture: static vanilla JS SPA with route-like static SEO pages.
 - UI stack: HTML5, CSS, Bootstrap 5, jQuery, FontAwesome, Lottie, noUiSlider, Google Maps marker clustering.
 - Hosting: Cloudflare Pages with `_redirects`, `_headers`, and a Cloudflare Worker for SEO metadata rewriting.
-- Backend: FastAPI API hosted separately in the `andelsbolig-backend` repo (a shared backend serving several of the owner's frontend apps). Most of the roomies backend lives in `C:\Users\julia\IdeaProjects\andelsbolig-backend\andelsbolig\a_roomies\code.py`; some pieces are imported from elsewhere in that project. Frontend API routing is centralized through `authFetch(...)`.
+- **Backend: FastAPI API hosted separately in the `andelsbolig-backend` repo (a shared backend serving several of the owner's frontend apps). Most of the roomies backend lives in `C:\Users\julia\IdeaProjects\andelsbolig-backend\andelsbolig\a_roomies\code.py`; some pieces are imported from elsewhere in that project. Frontend API routing is centralized through `authFetch(...)`. Tasks regularly span both repos — when a change needs backend work, make the backend edits in `andelsbolig-backend` too, not just the frontend.**
 - Data loading preference: when practical, load small shared datasets upfront into global, shareable variables. Most frontend datasets are only a few MB, so this reduces repeated network requests and keeps SPA navigation feeling smooth and fast.
 - SPA data architecture: prefer background preloading on init for commonly reused, heavily cached data, then let list/map/detail/create views reuse the same local cache or shared promise where possible. Treat preloaded data as a fast shared cache, not the final source of truth: route-specific views that require correctness should do a targeted fallback fetch when the shared cache misses or fails (for example detail can fall back to a single `/advertisement/{id}` fetch rather than refetching the full list).
 - Build: `build.js` bundles source JS to `roomies/mergedJS.js`, concatenates/minifies CSS to `roomies/mergedStyles.css`, and increments `roomies_version` in `index.html`.

@@ -26,8 +26,8 @@ if (window.location.hostname === 'localhost' || window.location.hostname === '12
     apiUrl = 'https://api2-dev.andelsboligbasen.dk';
     // Direct connection to our backend. Not all requests need to be routed through cloudflare since it takes 50-100ms more
     directApiUrl = 'https://hidden-slice-416812.ew.r.appspot.com';
-    s3Url = 'https://dev-images.andelsboligbasen.dk';
-    //s3Url = 'https://images.andelsboligbasen.dk'; // TODO: Always tmp, if not commented out!
+    // s3Url = 'https://dev-images.andelsboligbasen.dk';
+    s3Url = 'https://images.andelsboligbasen.dk'; // TODO: Always tmp, if not commented out!
     basePath = '';
     google_auth_redirect_url = "https://hidden-slice-416812.ew.r.appspot.com/roomies/login/google/callback"
 } else if (window.location.hostname === 'roomiedanmark.dk') {

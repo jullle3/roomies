@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-06-25T14:30:02.391744+00:00",
+  "generated_at": "2026-06-25T15:45:55.237905+00:00",
   "site_url": "https://roomiedanmark.dk",
-  "rooms_count": 4,
+  "rooms_count": 3,
   "profiles_count": 12,
   "pages": [
     {
@@ -9,12 +9,6 @@
       "url": "https://roomiedanmark.dk/vaerelse/2-moeblerede-vaerelser-i-hellerup-med-eget-koekken-og-karbad-hellerup-2900-6a3445b06add0acacda914bb",
       "file": "/home/runner/work/andelsbolig-backend/andelsbolig-backend/frontend/vaerelse/2-moeblerede-vaerelser-i-hellerup-med-eget-koekken-og-karbad-hellerup-2900-6a3445b06add0acacda914bb/index.html",
       "lastmod": "2026-05-27"
-    },
-    {
-      "path": "/vaerelse/lyst-vaerelse-i-koebenhavn-koebenhavn-k-1112-6a30ff8208bec52f82284fce",
-      "url": "https://roomiedanmark.dk/vaerelse/lyst-vaerelse-i-koebenhavn-koebenhavn-k-1112-6a30ff8208bec52f82284fce",
-      "file": "/home/runner/work/andelsbolig-backend/andelsbolig-backend/frontend/vaerelse/lyst-vaerelse-i-koebenhavn-koebenhavn-k-1112-6a30ff8208bec52f82284fce/index.html",
-      "lastmod": "2026-06-16"
     },
     {
       "path": "/vaerelse/lyst-vaerelse-paa-ydre-noerrbro-koebenhavn-n-2200-6a3832c3a0f3efae6efe140b",
@@ -44,12 +38,6 @@
       "path": "/vaerelser/koebenhavn",
       "url": "https://roomiedanmark.dk/vaerelser/koebenhavn",
       "file": "/home/runner/work/andelsbolig-backend/andelsbolig-backend/frontend/vaerelser/koebenhavn/index.html",
-      "lastmod": "2026-06-21"
-    },
-    {
-      "path": "/vaerelser/koebenhavn/koebenhavn-k",
-      "url": "https://roomiedanmark.dk/vaerelser/koebenhavn/koebenhavn-k",
-      "file": "/home/runner/work/andelsbolig-backend/andelsbolig-backend/frontend/vaerelser/koebenhavn/koebenhavn-k/index.html",
       "lastmod": "2026-06-21"
     },
     {

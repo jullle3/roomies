@@ -1,3 +1,5 @@
+- Roomie verificer brugere med pas/sygesikring/kørekort eller anden gratis/billig måde
+- Skriv samme blog indlæg mange steder om roomiedanmark
 - Roomies PSEO på alle roomie profiler!
 - TODO: Cache this endpoint per 5 min
 @router.get("/users/profile")

@@ -1,9 +1,5 @@
 - Roomie verificer brugere med pas/sygesikring/kørekort eller anden gratis/billig måde
 - Skriv samme blog indlæg mange steder om roomiedanmark
-- Roomies PSEO på alle roomie profiler!
-- TODO: Cache this endpoint per 5 min
-@router.get("/users/profile")
-Brainstorm først med claude om det er fornuftigt. 
 - https://share.gemini.google/aNWUkYVLgmpF Reddit reklame
 
 - Use the seeker info stored on roomie_profile now to also send matching agent emails. Dedupe in case user already has an active agent.
@@ -11,7 +7,6 @@ Brainstorm først med claude om det er fornuftigt.
 - Haha, at skrive det gav mig lige en ny ide - du kan også lave sådan et "matching system", med nogle helt basic spørgsmål ala kandidattest, bare for lejligheder. Sådan noget med renlighed, hobbyer og hvad ved jeg. Kunne da være sådan en sjov ting der adskilte dig fra alle andre
 - Verificering af brugere, se [verification_badge_implemnetation.md](verification_badge_implemnetation.md)
 - Automatiser ALT på roomies.
-PSEO
 Marketing 
 
 Grupper at skrive i

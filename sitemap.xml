@@ -37,6 +37,12 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://roomiedanmark.dk/vaerelse/lyst-vaerelse-i-koebenhavn-koebenhavn-k-1112-6a30ff8208bec52f82284fce/</loc>
+    <lastmod>2026-06-16</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://roomiedanmark.dk/vaerelse/lyst-vaerelse-paa-ydre-noerrbro-koebenhavn-n-2200-6a3832c3a0f3efae6efe140b/</loc>
     <lastmod>2026-06-21</lastmod>
     <changefreq>daily</changefreq>
@@ -65,6 +71,12 @@
     <lastmod>2026-06-21</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://roomiedanmark.dk/vaerelser/koebenhavn/koebenhavn-k/</loc>
+    <lastmod>2026-06-21</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://roomiedanmark.dk/vaerelser/koebenhavn/noerrebro/</loc>

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-25T15:47:46.597942+00:00",
+  "generated_at": "2026-06-26T05:27:30.301934+00:00",
   "site_url": "https://roomiedanmark.dk",
   "rooms_count": 4,
   "profiles_count": 12,
@@ -32,7 +32,7 @@
       "path": "/vaerelser",
       "url": "https://roomiedanmark.dk/vaerelser",
       "file": "/home/runner/work/andelsbolig-backend/andelsbolig-backend/frontend/vaerelser/index.html",
-      "lastmod": "2026-06-25"
+      "lastmod": "2026-06-26"
     },
     {
       "path": "/vaerelser/aalborg",

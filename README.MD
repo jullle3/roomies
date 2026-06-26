@@ -19,14 +19,18 @@ https://www.facebook.com/groups/LedigeLejlighederKBH
 https://www.facebook.com/groups/boliger.koebenhavn
 Facebook gruppe om københavn, Aarhus, Aalborg
 
-Reddit, DKStartup, København, Aarhus, Aalborg
 grupper DONE
 https://www.facebook.com/groups/roomieskobenhavn/ - done https://www.facebook.com/groups/320108652008/permalink/10165404711827009/
 https://www.facebook.com/groups/320108652008/ - done https://www.facebook.com/groups/roomieskobenhavn/permalink/1519984182837556/
 
+Subreddit til reklame
+https://www.reddit.com/r/DanmarkDK/s/c9NvvrqqsL - har spurgt om tilladelse
+https://www.reddit.com/r/NewToDenmark/ - frit at poste
+https://www.reddit.com/r/dkudvikler/ - frit at poste
+https://www.reddit.com/r/copenhagen/ - har spurgt om lov
+https://www.reddit.com/r/dkstartup/ - frit at poste
 
 - Roomies, skriv til aviser og nyheds medier https://g.co/gemini/share/a1ffaa90fc9e
-- Roomie Reddit og FB Opslag - https://gemini.google.com/gem/c9297fa0daa6/f6fccd4db7de4739?hl=da
 
 
 # Marketing strategy / GoLivet
